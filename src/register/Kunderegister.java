@@ -26,13 +26,20 @@ public class Kunderegister
     {
         kunderegister = new HashSet<>();
         
-        Kunde test_1 = new Kunde("Rolf", "Hestman","Trysil 23B","22260906", Calendar.getInstance(),"epost@epost.no","25079139524");
-        Kunde test_2 = new Kunde("Bjørn"," Dæhlie","Trysil 23B","22260906", Calendar.getInstance(),"epost@epost.no","15481236584");
-        Kunde test_3 = new Kunde("Bjørn"," Dæhlie","Trysil 23B","22260906", Calendar.getInstance(),"epost@epost.no","85412366521");
-        Kunde test_4 = new Kunde("Bjørn"," Dæhlie","Trysil 23B","22260906", Calendar.getInstance(),"epost@epost.no","12332214565");
-        Kunde test_5 = new Kunde("Bjørn"," Dæhlie","Trysil 23B","22260906", Calendar.getInstance(),"epost@epost.no","23115465523");
-        Kunde test_6 = new Kunde("Bjørn"," Dæhlie","Trysil 23B","22260906", Calendar.getInstance(),"epost@epost.no","85451133226");
-        Kunde test_7 = new Kunde("Bjørn"," Dæhlie","Trysil 23B","22260906", Calendar.getInstance(),"epost@epost.no","78845132266");
+        Kunde test_1 = new Kunde("Rolf", "Hestman", "Kongleknaggen 18", "22260906", Calendar.getInstance(), "hesterolf@yahoo.no", "08206049937");
+        Kunde test_2 = new Kunde("Bjørn", "Dæhlie", "Trysil 23B", "22260906", Calendar.getInstance(), "epost@epost.no", "12048449997");
+        Kunde test_3 = new Kunde("Marit", "Bjørgen", "Trondheim 23B", "22260906", Calendar.getInstance(), "marit@langrenn.no", "02029449964");
+        Kunde test_4 = new Kunde("Bjørn", "Dæhlie", "Trysil 23B", "22260906", Calendar.getInstance(), "epost@epost.no", "01258449963");
+        Kunde test_5 = new Kunde("Ole-Einar", "Bjørndalen", "Trysil 23B", "22260906", Calendar.getInstance(), "kongen@skiskytter.no", "01258446816");
+        Kunde test_6 = new Kunde("Luke", "Skywalker", "Tatooine", "22260906", Calendar.getInstance(), "luke@cantina.com", "03306849785");
+        Kunde test_7 = new Kunde("Han", "Solo", "Millenium Falcon", "22260906", Calendar.getInstance(), "hansolo@smuggler.org", "03306844899");
+        Kunde test_8 = new Kunde("Darth", "Vader", "Deathstar", "22260906", Calendar.getInstance(), "darkfather@deathstar.gov", "04215348879");
+        Kunde test_9 = new Kunde("Emperor", "Palpatine", "Coruscant", "22260906", Calendar.getInstance(), "palpatine@emperor.gov", "04215338644");
+        Kunde test_10 = new Kunde("Leia", "Organa", "Coruscant", "22260906", Calendar.getInstance(), "alderaan@galacticsenate.gov", "05299049681");
+        Kunde test_11 = new Kunde("Lando", "Calrissian", "Cloud City", "22260906", Calendar.getInstance(), "lando@cloudcity.gov", "05299248072");
+        Kunde test_12 = new Kunde("Tony", "Stark", "Pasadena", "22260906", Calendar.getInstance(), "tony@starkindustries.com", "06049946838");
+        Kunde test_13 = new Kunde("Pepper", "Pots", "Pasadena", "22260906", Calendar.getInstance(), "pepper@starkindustries.com", "06047647884");
+        Kunde test_14 = new Kunde("Bruce", "Wayne", "Gotham City", "22260906", Calendar.getInstance(), "imbatman@waynemanor.net", "07097547933");
         
         kunderegister.add(test_1);
         kunderegister.add(test_2);
@@ -41,6 +48,13 @@ public class Kunderegister
         kunderegister.add(test_5);
         kunderegister.add(test_6);
         kunderegister.add(test_7);
+        kunderegister.add(test_8);
+        kunderegister.add(test_9);
+        kunderegister.add(test_10);
+        kunderegister.add(test_11);
+        kunderegister.add(test_12);
+        kunderegister.add(test_13);
+        kunderegister.add(test_14);
     }
     
     public Kunde leggTil(  Kunde kunde )
