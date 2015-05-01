@@ -54,8 +54,8 @@ public class Kunderegister
         Kunde test_24 = new Kunde("Tony", "Organa", "Coruscant", "22260906", fdato, "alderaan@galacticsenate.gov", "05299049681");
         Kunde test_25 = new Kunde("Tony", "Calrissian", "Cloud City", "22260906", fdato, "lando@cloudcity.gov", "05299248072");
         Kunde test_26 = new Kunde("Pepper", "Calrissian", "Pasadena", "22260906", fdato, "tony@starkindustries.com", "06049946838");
-        Kunde test_27 = new Kunde("Pepper", "Pots", "Pasadena", "22260906", fdato, "pepper@starkindustries.com", "06047647884");
-        Kunde test_28 = new Kunde("Bruce", "Pots", "Gotham City", "22260906", fdato, "imbatman@waynemanor.net", "07097547933");
+        Kunde test_27 = new Kunde("Pepper", "Ås", "Pasadena", "22260906", fdato, "pepper@starkindustries.com", "06047647884");
+        Kunde test_28 = new Kunde("Bruce", "Ødegård", "Gotham City", "22260906", fdato, "imbatman@waynemanor.net", "07097547933");
         
         kunderegister.add(test_1);
         kunderegister.add(test_2);

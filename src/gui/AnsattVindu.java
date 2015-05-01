@@ -202,7 +202,6 @@ public class AnsattVindu extends JFrame
             {
                 
             }
-
         }
     }
 }

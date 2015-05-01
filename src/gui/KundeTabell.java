@@ -68,7 +68,7 @@ public class KundeTabell extends JTable
         
         addMouseListener(new MouseAdapter() {
          @Override
-        public void mousePressed(MouseEvent e) 
+        public void mouseReleased(MouseEvent e) 
         {
             int r = rowAtPoint(e.getPoint());
             if (r >= 0 && r < getRowCount()) 
