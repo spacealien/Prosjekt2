@@ -32,7 +32,7 @@ import register.HovedRegister;
 
 /**
  *
- * @author Odd
+ * @author Odd, Thomas, Marthe
  */
 public class AnsattVindu extends JFrame
 {
@@ -120,16 +120,7 @@ public class AnsattVindu extends JFrame
         //visTabellPanel(register.getKundeliste().alleKunder());
     }
     
-    
-    /*private class Tab extends JPanel
-    {
-    private final JTabbedPane pane;
- 
-    public Tab(final JTabbedPane pane) 
-    {
-    this.pane = pane;
-    add(lukkeknapp);
-    }}*/
+   
     public void lukkFanekort(JPanel panel)
     {
         fanekort.remove(panel);
@@ -224,14 +215,7 @@ public class AnsattVindu extends JFrame
                 tabellModell = new TabellModell(testliste);
                 oppdaterTabell(tabellModell);
             }
-            /*else if (e.getSource() == lukkeknapp)
-            {
-                int i = fanekort.indexOfTabComponent(AnsattVindu.this);
-            if (i != -1) {
-                fanekort.remove(i);
-            }
-                //lukkFanekort();
-            }*/
+            
         }
         
     }
