@@ -48,6 +48,8 @@ public class AnsattVindu extends JFrame
     private final JTextField søkefeltFornavn;
     private final JTextField søkefeltEtternavn;
     private final JButton søkekanpp;
+    private final JButton alleKunder;
+    private final JButton mineKunder;
     private final JToggleButton lukkeknapp;
     
     private HovedRegister register;
@@ -69,11 +71,17 @@ public class AnsattVindu extends JFrame
         bunnContainer = new JPanel();
         søkePanel = new JPanel();
         
+        
+        alleKunder = new JButton("Alle kunder");
+        mineKunder = new JButton("Mine kunder");
+        
         søkefelt = new JTextField(15);
         søkefeltFornavn = new JTextField(25);
         søkefeltEtternavn = new JTextField(25);
         søkekanpp = new JButton("Søk");
         søkekanpp.addActionListener(knappeLytter);
+        alleKunder.addActionListener(knappeLytter);
+        mineKunder.addActionListener(knappeLytter);
         
         
        /* Deler hele JFrame boksen i 3, en container til venstre,
@@ -120,12 +128,12 @@ public class AnsattVindu extends JFrame
 	fanekort.setSelectedIndex(fanekort.getTabCount()-1);
     }
     
-    public void leggTilNyFane( JPanel panel )
+    public void leggTilNyFane( JPanel panel, String tittel )
     {
         JPanel wrapper = new JPanel();
         wrapper.add( panel );
-        fanekort.add(wrapper, ("Ny Kunde" + lukkeknapp));
-        Fanepanel fanepanel = new Fanepanel(fanekort, wrapper, "Ny kunde");
+        fanekort.add(wrapper, (lukkeknapp));
+        Fanepanel fanepanel = new Fanepanel(fanekort, wrapper, tittel);
         fanekort.setTabComponentAt(fanekort.getTabCount() - 1, fanepanel);
         fanekort.setSelectedIndex(fanekort.getTabCount() - 1);
         revalidate();
@@ -140,6 +148,8 @@ public class AnsattVindu extends JFrame
         bunnContainer.setLayout( new BorderLayout() );
         søkePanel.removeAll();
         søkePanel.setLayout( new FlowLayout() );
+        søkePanel.add(alleKunder);
+        søkePanel.add(mineKunder);
         søkePanel.add( new JLabel("ID: "));
         søkePanel.add(søkefelt);
         søkePanel.add(new JLabel("Fornavn: "));
@@ -180,6 +190,16 @@ public class AnsattVindu extends JFrame
                 List<Kunde> testliste = register.finnKundeMedNavn(fornavn,etternavn);
                 tabellModell = new TabellModell(testliste);
                 oppdaterTabell(tabellModell);
+            }
+            else if( e.getSource() == alleKunder )
+            {
+                List<Kunde> kundeliste =  register.getKundeliste().alleKunder();
+                tabellModell = new TabellModell(kundeliste);
+                oppdaterTabell(tabellModell);
+            }
+            else if( e.getSource() == mineKunder )
+            {
+                
             }
 
         }

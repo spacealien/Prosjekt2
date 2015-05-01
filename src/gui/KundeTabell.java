@@ -103,12 +103,12 @@ public class KundeTabell extends JTable
             if( e.getSource() == info )
             {
                 Kunde kunde = vindu.getRegister().finnKundeMedPersonnummer((String)getValueAt(getSelectedRow(), 0));
-                vindu.leggTilNyFane( new KundePanel(kunde) );
+                vindu.leggTilNyFane( new KundePanel(kunde), kunde.getEtternavn() );
             }
             else if( e.getSource() == nyBilforsikring )
             {
                 System.out.println("nyBilforsikring");
-                vindu.leggTilNyFane( new BilforsikringPanel() );
+                vindu.leggTilNyFane( new BilforsikringPanel(), "Bilforsikring" );
             }
             else if( e.getSource() == nyBåtforsikring)
             {
