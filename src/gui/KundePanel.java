@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Odd
+ * @author Odd, Thomas, Marthe
  */
 public class KundePanel extends JPanel implements ActionListener
 {

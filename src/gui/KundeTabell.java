@@ -9,7 +9,7 @@ import javax.swing.JTable;
 
 /**
  *
- * @author Odd
+ * @author Odd, Thomas, Marthe
  */
 public class KundeTabell extends JTable
 {

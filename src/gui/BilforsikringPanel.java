@@ -11,7 +11,7 @@ import javax.swing.*;
 
 /**
  *
- * @author Marthejansonskogen
+ * @author Odd, Thomas, Marthe
  */
 public class BilforsikringPanel extends JPanel implements ActionListener
 {

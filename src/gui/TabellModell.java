@@ -11,7 +11,7 @@ import objekter.Kunde;
 
 /**
  *
- * @author Odd
+ * @author Odd, Thomas, Marthe
  */
 public class TabellModell extends AbstractTableModel
 {
