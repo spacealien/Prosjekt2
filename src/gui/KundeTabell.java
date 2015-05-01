@@ -13,6 +13,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
+import objekter.Kunde;
 
 /**
  *
@@ -29,6 +30,7 @@ public class KundeTabell extends JTable
     private final JMenuItem nyReiseforsikring;
     private final JMenuItem nySkademelding;
     private final AnsattVindu vindu;
+    private TabellModell modell;
     
     
     public KundeTabell( TabellModell modell, AnsattVindu vindu )
@@ -63,7 +65,7 @@ public class KundeTabell extends JTable
         nyForsikring.add(nyHusforsikring);
         nyForsikring.add(nyFritidsboligforsikring);
         nyForsikring.add(nyReiseforsikring);
-
+        
         addMouseListener(new MouseAdapter() {
          @Override
         public void mouseReleased(MouseEvent e) 
@@ -90,7 +92,7 @@ public class KundeTabell extends JTable
                 popup.show(e.getComponent(), e.getX(), e.getY());
             }
         }
-    }); // end of anonym muselytter
+    }); // end of anonym muselytter        
     } // end of konstruktør
     
     private class Lytter implements ActionListener
@@ -98,7 +100,36 @@ public class KundeTabell extends JTable
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            System.out.println("Jeg trykket på en knapp");
+            if( e.getSource() == info )
+            {
+                Kunde kunde = vindu.getRegister().finnKundeMedPersonnummer((String)getValueAt(getSelectedRow(), 0));
+                vindu.leggTilNyFane( new KundePanel(kunde) );
+            }
+            else if( e.getSource() == nyBilforsikring )
+            {
+                System.out.println("nyBilforsikring");
+                vindu.leggTilNyFane( new BilforsikringPanel() );
+            }
+            else if( e.getSource() == nyBåtforsikring)
+            {
+                System.out.println("nyBåtforsikring");
+            }
+            else if( e.getSource() == nyHusforsikring)
+            {
+                System.out.println("nyHusforsikring");
+            }
+            else if( e.getSource() == nyFritidsboligforsikring)
+            {
+                System.out.println("nyFritidsboligforsikring");
+            }
+            else if( e.getSource() == nyReiseforsikring )
+            {
+                System.out.println("nyReiseforsikring");
+            }
+            else if( e.getSource() == nySkademelding )
+            {
+                System.out.println("nySkademelding");
+            }
         }
     }
 }

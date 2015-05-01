@@ -12,19 +12,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import objekter.Kunde;
@@ -48,7 +43,6 @@ public class AnsattVindu extends JFrame
     
     private TabellModell tabellModell;
     private KundeTabell tabell;
-    
     
     private final JTextField søkefelt;
     private final JTextField søkefeltFornavn;
@@ -114,14 +108,12 @@ public class AnsattVindu extends JFrame
         hovedPanel.add(fanekort, gbc);
         
         hovedPanelBunn.setLayout( new BorderLayout());
-        
         lukkeknapp = new JCheckBox();
-        
         tabellModell = new TabellModell(register.getKundeliste().alleKunder());
         visTabellPanel(tabellModell);
     }
     
-
+    
     public void lukkFanekort(JPanel panel)
     {
         fanekort.remove(panel);
@@ -168,6 +160,11 @@ public class AnsattVindu extends JFrame
     public void oppdaterTabell( TabellModell modell )
     {
         tabell.setModel(modell);
+    }
+    
+    public HovedRegister getRegister()
+    {
+        return register;
     }
     
     private class KnappeLytter implements ActionListener
