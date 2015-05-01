@@ -32,7 +32,7 @@ import register.HovedRegister;
 
 /**
  *
- * @author Odd
+ * @author Odd, Thomas, Marthe
  */
 public class AnsattVindu extends JFrame
 {
@@ -183,6 +183,7 @@ public class AnsattVindu extends JFrame
                 tabellModell = new TabellModell(testliste);
                 oppdaterTabell(tabellModell);
             }
+
         }
     }
 }
