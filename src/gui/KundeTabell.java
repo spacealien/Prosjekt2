@@ -49,7 +49,12 @@ public class KundeTabell extends JTable
         nySkademelding = new JMenuItem("Ny Skademelding");
         
         info.addActionListener(menyLytter);
-        
+        nyBilforsikring.addActionListener(menyLytter);
+        nyBåtforsikring.addActionListener(menyLytter);
+        nyHusforsikring.addActionListener(menyLytter);
+        nyFritidsboligforsikring.addActionListener(menyLytter);
+        nyReiseforsikring.addActionListener(menyLytter);
+        nySkademelding.addActionListener(menyLytter);
         
         
         
