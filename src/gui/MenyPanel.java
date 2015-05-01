@@ -74,6 +74,10 @@ public class MenyPanel extends JPanel implements ActionListener
         {
             vindu.leggTilNyFane( new ForsikringsPanel(), "Ny Forsikring" );
         }
+        else if( e.getSource() == finnStatistikk )
+        {
+            vindu.leggTilNyFane( new StatistikkPanel(), "Statistikk" );
+        }
 
     }
 }
