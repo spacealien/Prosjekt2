@@ -6,7 +6,7 @@
 package objekter;
 
 /**
- * @author Marthejansonskogen
+ * @author Odd, Thomas, Marthe
 */
 
 public class Reiseforsikring extends Personligforsikring

@@ -12,7 +12,7 @@ import javax.swing.event.*;
 
 /**
  *
- * @author Marthejansonskogen
+ * @author Odd, Thomas, Marthe
  */
 public class Fanepanel extends JPanel
 {

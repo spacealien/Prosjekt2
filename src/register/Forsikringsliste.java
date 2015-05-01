@@ -15,7 +15,7 @@ import objekter.Kunde;
 
 /**
  *
- * @author Odd
+ * @author Odd, Thomas, Marthe
  * @param <Forsikringer>
  */
 

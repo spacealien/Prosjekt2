@@ -14,7 +14,7 @@ import objekter.Ansatt;
 
 /**
  *
- * @author Odd
+ * @author Odd, Thomas, Marthe
  */
 public class Ansattregister 
 {

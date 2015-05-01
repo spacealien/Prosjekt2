@@ -7,7 +7,7 @@ package objekter;
 
 /**
  *
- * @author Marthejansonskogen
+ * @author Odd, Thomas, Marthe
  */
 public class Fritidsboligforsikring extends Eiendomsforsikring
 {

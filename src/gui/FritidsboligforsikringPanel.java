@@ -11,7 +11,11 @@ import javax.swing.*;
 
 /**
  *
+<<<<<<< HEAD
  * @author Marthejansonskogen
+=======
+ * @author Odd, Thomas, Marthe
+>>>>>>> origin/master
  */
 public class FritidsboligforsikringPanel extends JPanel implements ActionListener
 {

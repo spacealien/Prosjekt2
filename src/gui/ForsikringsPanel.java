@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Odd
+ * @author Odd, Thomas, Marthe
  */
 public class ForsikringsPanel extends JPanel
 {

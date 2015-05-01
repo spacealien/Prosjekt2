@@ -15,7 +15,7 @@ import objekter.Skademelding;
 
 /**
  *
- * @author Odd
+ * @author Odd, Thomas, Marthe
  */
 public class SkademeldingRegister 
 {
