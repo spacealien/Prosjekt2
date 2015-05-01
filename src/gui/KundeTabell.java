@@ -98,7 +98,7 @@ public class KundeTabell extends JTable
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            System.out.println("test");
+            System.out.println("Jeg trykket på en knapp");
         }
     }
 }
