@@ -29,14 +29,14 @@ import objekter.Skademelding;
  */
 public class HovedRegister
 {
-    private Kunderegister kunderegister;
+    private Kunderegister kunderegister = new Kunderegister();
     private Forsikringsliste forsikringsregister = new Forsikringsliste();
     private SkademeldingRegister skademeldingsregister = new SkademeldingRegister();
     private Ansattregister ansattregister = new Ansattregister();
 
     public HovedRegister( )
     {
-        kunderegister = new Kunderegister();
+        
 
     }
     
