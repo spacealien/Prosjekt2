@@ -9,14 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.*;
 
-/**
- *
-<<<<<<< HEAD
- * @author Marthejansonskogen
-=======
- * @author Odd, Thomas, Marthe
->>>>>>> origin/master
- */
+
 public class BatforsikringPanel extends JPanel implements ActionListener
 {
     private final JTextField batRegnr;
