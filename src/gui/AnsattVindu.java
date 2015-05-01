@@ -43,6 +43,10 @@ public class AnsattVindu extends JFrame
     private final JPanel bunnContainer;
     private final JPanel søkePanel;
     
+    private TabellModell tabellModell;
+    private  JTable tabell;
+    
+    
     private final JTextField søkefelt;
     private final JTextField søkefeltFornavn;
     private final JTextField søkefeltEtternavn;
@@ -57,7 +61,7 @@ public class AnsattVindu extends JFrame
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         register = new HovedRegister();
-        Lytter lytter = new Lytter();
+        KnappeLytter knappeLytter = new KnappeLytter();
         mainContainer = getContentPane();
         fanekort =  new JTabbedPane();
         hovedPanelBunn =  new JPanel();
@@ -71,7 +75,12 @@ public class AnsattVindu extends JFrame
         søkefeltFornavn = new JTextField(25);
         søkefeltEtternavn = new JTextField(25);
         søkekanpp = new JButton("Søk");
-        søkekanpp.addActionListener(lytter);
+        søkekanpp.addActionListener(knappeLytter);
+        
+        
+       /* Deler hele JFrame boksen i 3, en container til venstre,
+        en top og en på bunn.
+       */
         
         mainContainer.setLayout( new GridBagLayout() );
         GridBagConstraints gbc = new GridBagConstraints();
@@ -100,10 +109,8 @@ public class AnsattVindu extends JFrame
         gbc.gridy = 0;
         hovedPanel.add(fanekort, gbc);
         
-        hovedPanelBunn.setLayout( new BorderLayout());
-        
-        
-        visTabellPanel(register.getKundeliste().alleKunder());
+        tabellModell = new TabellModell(register.getKundeliste().alleKunder());
+        visTabellPanel(tabellModell);
     }
     
     public void lukkFanekort()
@@ -120,10 +127,10 @@ public class AnsattVindu extends JFrame
         repaint();
     }
     
-    public void visTabellPanel( List<Kunde> list )
+    public void visTabellPanel( TabellModell modell)
     {
-        TabellModell tabellModell = new TabellModell(list);
-        JTable tabell = new JTable(tabellModell);
+        hovedPanelBunn.removeAll();
+        tabell = new JTable(modell);
         tabell.addMouseListener(new MouseAdapter() {
          @Override
         public void mouseReleased(MouseEvent e) 
@@ -152,7 +159,9 @@ public class AnsattVindu extends JFrame
         }
     });
         tabell.setRowHeight(20);
+        bunnContainer.removeAll();
         bunnContainer.setLayout( new BorderLayout() );
+        søkePanel.removeAll();
         søkePanel.setLayout( new FlowLayout() );
         søkePanel.add( new JLabel("ID: "));
         søkePanel.add(søkefelt);
@@ -162,29 +171,38 @@ public class AnsattVindu extends JFrame
         søkePanel.add( søkefeltEtternavn );
         søkePanel.add( søkekanpp);
         bunnContainer.add(søkePanel,BorderLayout.NORTH);
+        tabellContainer.removeAll();
         tabellContainer.setLayout( new BorderLayout());
         tabellContainer.add(tabell.getTableHeader(), BorderLayout.NORTH);
-        tabellContainer.add(tabell, BorderLayout.CENTER);
-        bunnContainer.add( new JScrollPane(tabellContainer));
+        tabellContainer.add(new JScrollPane(tabell), BorderLayout.CENTER);
+        bunnContainer.add( tabellContainer);
+        hovedPanelBunn.setLayout( new BorderLayout() );
         hovedPanelBunn.add( bunnContainer, BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }
     
-    private class Lytter implements ActionListener
+    public void oppdaterTabell( TabellModell modell )
+    {
+        tabell.setModel(modell);
+        revalidate();
+        repaint();
+    }
+    
+    private class KnappeLytter implements ActionListener
     {
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            if( e.getSource() != søkekanpp )
+            if( e.getSource() == søkekanpp )
             {
                 String søkeord = søkefelt.getText();
                 String fornavn = søkefeltFornavn.getText();
                 String etternavn = søkefeltEtternavn.getText();
                 List<Kunde> testliste = register.finnKundeMedNavn(fornavn,etternavn);
-                visTabellPanel(testliste);
-                revalidate();
-                repaint();
+                tabellModell = new TabellModell(testliste);
+                oppdaterTabell(tabellModell);
             }
-        }
-        
+        } 
     }
 }
