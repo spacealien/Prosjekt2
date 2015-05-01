@@ -47,7 +47,7 @@ public class AnsattVindu extends JFrame
     private final JPanel søkePanel;
     
     private TabellModell tabellModell;
-    private  JTable tabell;
+    private KundeTabell tabell;
     
     
     private final JTextField søkefelt;
@@ -117,19 +117,10 @@ public class AnsattVindu extends JFrame
         
         lukkeknapp = new JCheckBox();
         
-        //visTabellPanel(register.getKundeliste().alleKunder());
+        tabellModell = new TabellModell(register.getKundeliste().alleKunder());
+        visTabellPanel(tabellModell);
     }
     
-    
-    /*private class Tab extends JPanel
-    {
-    private final JTabbedPane pane;
- 
-    public Tab(final JTabbedPane pane) 
-    {
-    this.pane = pane;
-    add(lukkeknapp);
-    }}*/
     public void lukkFanekort(JPanel panel)
     {
         fanekort.remove(panel);
@@ -151,35 +142,7 @@ public class AnsattVindu extends JFrame
     public void visTabellPanel( TabellModell modell)
     {
         hovedPanelBunn.removeAll();
-        tabell = new JTable(modell);
-        tabell.addMouseListener(new MouseAdapter() {
-         @Override
-        public void mouseReleased(MouseEvent e) 
-        {
-            int r = tabell.rowAtPoint(e.getPoint());
-            if (r >= 0 && r < tabell.getRowCount()) 
-            {
-                tabell.setRowSelectionInterval(r, r);
-            }
-            else 
-            {
-                tabell.clearSelection();
-            }
-            
-            int rowindex = tabell.getSelectedRow();
-            if (rowindex < 0)
-                return;
-            if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) 
-            {
-                JPopupMenu popup = new JPopupMenu();
-                popup.add( new JMenuItem("Vis Informasjon"));
-                popup.add( new JMenuItem("Ny Forsikring"));
-                popup.add( new JMenuItem("Ny Skademelding"));
-                popup.show(e.getComponent(), e.getX(), e.getY());
-            }
-        }
-    });
-        tabell.setRowHeight(20);
+        tabell = new KundeTabell(modell, this);
         bunnContainer.removeAll();
         bunnContainer.setLayout( new BorderLayout() );
         søkePanel.removeAll();
@@ -199,15 +162,11 @@ public class AnsattVindu extends JFrame
         bunnContainer.add( tabellContainer);
         hovedPanelBunn.setLayout( new BorderLayout() );
         hovedPanelBunn.add( bunnContainer, BorderLayout.CENTER);
-        revalidate();
-        repaint();
     }
     
     public void oppdaterTabell( TabellModell modell )
     {
         tabell.setModel(modell);
-        revalidate();
-        repaint();
     }
     
     private class KnappeLytter implements ActionListener
@@ -224,15 +183,6 @@ public class AnsattVindu extends JFrame
                 tabellModell = new TabellModell(testliste);
                 oppdaterTabell(tabellModell);
             }
-            /*else if (e.getSource() == lukkeknapp)
-            {
-                int i = fanekort.indexOfTabComponent(AnsattVindu.this);
-            if (i != -1) {
-                fanekort.remove(i);
-            }
-                //lukkFanekort();
-            }*/
         }
-        
     }
 }

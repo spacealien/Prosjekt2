@@ -83,6 +83,7 @@ public class KundePanel extends JPanel implements ActionListener
         add(kundeInfo_2 );
     }
     
+    
     @Override
     public void actionPerformed(ActionEvent e) 
     {
