@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -25,6 +26,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import objekter.Kunde;
 import register.HovedRegister;
 
@@ -34,6 +36,7 @@ import register.HovedRegister;
  */
 public class AnsattVindu extends JFrame
 {
+    //private Tab tabben;
     private final Container mainContainer;
     private final JPanel hovedPanel;
     private final JPanel hovedPanelBunn;
@@ -47,6 +50,7 @@ public class AnsattVindu extends JFrame
     private final JTextField søkefeltFornavn;
     private final JTextField søkefeltEtternavn;
     private final JButton søkekanpp;
+    private final JToggleButton lukkeknapp;
     
     private HovedRegister register;
     
@@ -102,20 +106,35 @@ public class AnsattVindu extends JFrame
         
         hovedPanelBunn.setLayout( new BorderLayout());
         
+        lukkeknapp = new JCheckBox();
         
         visTabellPanel(register.getKundeliste().alleKunder());
     }
     
-    public void lukkFanekort()
+    
+    /*private class Tab extends JPanel
     {
-        
+    private final JTabbedPane pane;
+ 
+    public Tab(final JTabbedPane pane) 
+    {
+    this.pane = pane;
+    add(lukkeknapp);
+    }}*/
+    public void lukkFanekort(JPanel panel)
+    {
+        fanekort.remove(panel);
+	fanekort.setSelectedIndex(fanekort.getTabCount()-1);
     }
     
     public void leggTilNyFane( JPanel panel )
     {
         JPanel wrapper = new JPanel();
         wrapper.add( panel );
-        fanekort.add(wrapper,"Ny Kunde");
+        fanekort.add(wrapper, ("Ny Kunde" + lukkeknapp));
+        Fanepanel fanepanel = new Fanepanel(fanekort, wrapper, "Ny kunde");
+        fanekort.setTabComponentAt(fanekort.getTabCount() - 1, fanepanel);
+        fanekort.setSelectedIndex(fanekort.getTabCount() - 1);
         revalidate();
         repaint();
     }
@@ -174,7 +193,7 @@ public class AnsattVindu extends JFrame
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            if( e.getSource() != søkekanpp )
+            if( e.getSource() == søkekanpp )
             {
                 String søkeord = søkefelt.getText();
                 String fornavn = søkefeltFornavn.getText();
@@ -184,6 +203,14 @@ public class AnsattVindu extends JFrame
                 revalidate();
                 repaint();
             }
+            /*else if (e.getSource() == lukkeknapp)
+            {
+                int i = fanekort.indexOfTabComponent(AnsattVindu.this);
+            if (i != -1) {
+                fanekort.remove(i);
+            }
+                //lukkFanekort();
+            }*/
         }
         
     }
