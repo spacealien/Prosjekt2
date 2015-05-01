@@ -8,6 +8,7 @@ package gui;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import objekter.*;
 
 /**
  *
@@ -34,9 +35,11 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
     private final String[] fritidmateriale = {"","Mur", "Tre", "Brannfast", "Laftet tømmer"};
     private final String[] fritidstandard = {"","Normal standard", "Bedre standard", "Høy standard"};
     JComboBox<String> fritidstandardvelger;
+    private final Kunde kunde;
     
-    public FritidsboligforsikringPanel()
+    public FritidsboligforsikringPanel(Kunde k)
     {
+        kunde = k;
         fritidAdresse = new JTextField( 7 );
         fritidKvm = new JTextField(5);
         fritidAr = new JTextField( 4 );

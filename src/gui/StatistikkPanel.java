@@ -55,6 +55,12 @@ public class StatistikkPanel extends JPanel implements ActionListener
     private final JTextField slDatoDag;
     private final JTextField slDatoMnd;
     private final JTextField slDatoAr;
+    private final JButton sokKnapp;
+    private int sok;
+    private int utgift;
+    private int inntekt;
+    private int statistikken;
+    
     
  public StatistikkPanel()
  {
@@ -69,6 +75,8 @@ public class StatistikkPanel extends JPanel implements ActionListener
         slDatoDag = new JTextField(2);
         slDatoMnd = new JTextField(2);
         slDatoAr = new JTextField(4);
+        sokKnapp = new JButton("Søk");
+        sokKnapp.addActionListener(this);
         
         JPanel avansertSokPanel1 = new JPanel();
         JPanel avansertSokPanel2 = new JPanel();
@@ -122,12 +130,14 @@ public class StatistikkPanel extends JPanel implements ActionListener
         {
         if (sokevelger.getSelectedIndex() != 0)
         {
+            sok = sokevelger.getSelectedIndex();
             utgiftsvelger.setEnabled(false);
             inntektsvelger.setEnabled(false);
             statistikkvelger.setEnabled(false);
         }
         else if (sokevelger.getSelectedIndex() == 0)
         {
+            sok = sokevelger.getSelectedIndex();
             utgiftsvelger.setEnabled(true);
             inntektsvelger.setEnabled(true);
             statistikkvelger.setEnabled(true);
@@ -140,12 +150,14 @@ public class StatistikkPanel extends JPanel implements ActionListener
         {
         if (utgiftsvelger.getSelectedIndex() != 0)
         {
+            utgift = utgiftsvelger.getSelectedIndex();
             sokevelger.setEnabled(false);
             inntektsvelger.setEnabled(false);
             statistikkvelger.setEnabled(false);
         }
         else if (utgiftsvelger.getSelectedIndex() == 0)
             {
+            utgift = utgiftsvelger.getSelectedIndex();
             sokevelger.setEnabled(true);
             inntektsvelger.setEnabled(true);
             statistikkvelger.setEnabled(true);
@@ -159,16 +171,18 @@ public class StatistikkPanel extends JPanel implements ActionListener
         {
         if (inntektsvelger.getSelectedIndex() != 0)
         {
+            inntekt = inntektsvelger.getSelectedIndex();
             sokevelger.setEnabled(false);
             utgiftsvelger.setEnabled(false);
             statistikkvelger.setEnabled(false);
         }
         else if (inntektsvelger.getSelectedIndex() == 0)
-                {
-                    sokevelger.setEnabled(true);
+        {
+            inntekt = inntektsvelger.getSelectedIndex();
+            sokevelger.setEnabled(true);
             utgiftsvelger.setEnabled(true);
             statistikkvelger.setEnabled(true);
-                }
+        }
         }});
         
         statistikkvelger.addItemListener(new ItemListener()
@@ -178,12 +192,14 @@ public class StatistikkPanel extends JPanel implements ActionListener
         {
         if (statistikkvelger.getSelectedIndex() != 0)
         {
+            statistikken = statistikkvelger.getSelectedIndex();
             sokevelger.setEnabled(false);
             utgiftsvelger.setEnabled(false);
             inntektsvelger.setEnabled(false);
         }
         else if (statistikkvelger.getSelectedIndex() == 0)
                 {
+                    statistikken = statistikkvelger.getSelectedIndex();
                     sokevelger.setEnabled(true);
                     utgiftsvelger.setEnabled(true);
                     inntektsvelger.setEnabled(true);
@@ -197,6 +213,9 @@ public class StatistikkPanel extends JPanel implements ActionListener
         @Override
     public void actionPerformed(ActionEvent e) 
     {
-        
+        if (e.getSource() == sokKnapp)
+        {
+            
+        }
     }
 }

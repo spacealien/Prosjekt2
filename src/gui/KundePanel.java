@@ -70,7 +70,7 @@ public class KundePanel extends JPanel implements ActionListener
         
         setLayout( new BorderLayout() );
         knappeWrapper.setLayout( new FlowLayout() );
-        JButton vidreKnapp = new JButton("Vidre");
+        JButton vidreKnapp = new JButton("Videre");
         knappeWrapper.add(vidreKnapp);
         add(kundeInfo_1, BorderLayout.CENTER );
         add(knappeWrapper, BorderLayout.SOUTH );

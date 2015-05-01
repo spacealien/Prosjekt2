@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import objekter.*;
+
 /**
  *
 <<<<<<< HEAD
@@ -39,9 +41,11 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     
     String[] kjorelengde = {"", "8000", "12000", "16000", "20000", "25000", "30000", "Ubegrenset"};
     JComboBox<String> kjorelengdevelger;
+    private final Kunde kunde;
     
-    public BilforsikringPanel()
+    public BilforsikringPanel(Kunde k)
     {
+        kunde = k;
         bilRegnr = new JTextField( 7 );
         bilRegAr = new JTextField( 4 );
         bilModell = new JTextField( 10 );

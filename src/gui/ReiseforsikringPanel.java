@@ -8,6 +8,7 @@ package gui;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import objekter.*;
 
 /**
  *
@@ -28,9 +29,11 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
     private final JButton reiseGiTilbud;
     String[] sone = {"", "Norden", "Europa", "Verden"};
     JComboBox<String> sonevelger;
+    private final Kunde kunde;
     
-    public ReiseforsikringPanel()
+    public ReiseforsikringPanel(Kunde k)
     {
+        kunde = k;
         reiseBelop = new JTextField( 7 );
         reiseTilbud = new JTextField( 7 );
         antbarn = new JTextField(2);

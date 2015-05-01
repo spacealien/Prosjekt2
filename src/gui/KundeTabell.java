@@ -108,7 +108,14 @@ public class KundeTabell extends JTable
             else if( e.getSource() == nyBilforsikring )
             {
                 System.out.println("nyBilforsikring");
-                vindu.leggTilNyFane( new BilforsikringPanel(), "Bilforsikring" );
+                Kunde kunde = vindu.getRegister().finnKundeMedPersonnummer((String)getValueAt(getSelectedRow(), 0));
+                vindu.leggTilNyFane( new BilforsikringPanel(kunde), "Bilforsikring" );
+            }
+            else if( e.getSource() == nySkademelding)
+            {
+                Kunde kunde = vindu.getRegister().finnKundeMedPersonnummer((String)getValueAt(getSelectedRow(), 0));
+                vindu.leggTilNyFane(new SkademeldingPanel(kunde), "Skademelding");
+                System.out.println("nySkademelding");
             }
             else if( e.getSource() == nyBåtforsikring)
             {

@@ -8,6 +8,7 @@ package gui;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.*;
+import objekter.*;
 
 
 public class BatforsikringPanel extends JPanel implements ActionListener
@@ -25,9 +26,11 @@ public class BatforsikringPanel extends JPanel implements ActionListener
                         "Speedbåt", "Seilbåt", "Snekke"};
     JComboBox<String> battypevelger;
     private final JButton batGiTilbud;
+    private final Kunde kunde;
     
-    public BatforsikringPanel()
+    public BatforsikringPanel(Kunde k)
     {
+        kunde = k;
         batRegnr = new JTextField( 7 );
         batModell = new JTextField( 7 );
         batTilbud = new JTextField( 7 );

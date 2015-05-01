@@ -8,6 +8,7 @@ package gui;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.*;
+import objekter.*;
 
 /**
  * @author Odd, Thomas, Marthe
@@ -27,9 +28,11 @@ public class HusforsikringPanel extends JPanel implements ActionListener
     private final String[] husstandard = {"","Normal standard", "Bedre standard", "Høy standard"};
     JComboBox<String> husstandardvelger;
     private final JButton husGiTilbud;
+    private final Kunde kunde;
     
-    public HusforsikringPanel()
+    public HusforsikringPanel(Kunde k)
     {
+        kunde = k;
         husAdresse = new JTextField( 7 );
         belopHus = new JTextField( 7 );
         belopHusInnbo = new JTextField( 7 );
