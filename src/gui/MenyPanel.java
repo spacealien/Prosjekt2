@@ -68,11 +68,11 @@ public class MenyPanel extends JPanel implements ActionListener
     {
         if( e.getSource() == nyKunde)
         {
-            vindu.leggTilNyFane( new KundePanel());
+            vindu.leggTilNyFane( new KundePanel(), "Ny kunde");
         }
         else if( e.getSource() == nyForsikring )
         {
-            vindu.leggTilNyFane( new ForsikringsPanel() );
+            vindu.leggTilNyFane( new ForsikringsPanel(), "Ny Forsikring" );
         }
 
     }
