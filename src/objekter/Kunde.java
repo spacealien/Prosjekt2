@@ -8,6 +8,7 @@ package objekter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public class Kunde extends Bruker
     private final boolean totalkunde = false;
     private double årligForsikringsPremie = 0;
     
-    public Kunde(String fnavn, String enavn, String adr, String tlf, Calendar fd,
+    public Kunde(String fnavn, String enavn, String adr, String tlf, Date fd,
                  String email, String persnummer)
     {
         super( fnavn,  enavn,  adr,  tlf,  fd, email, persnummer);              

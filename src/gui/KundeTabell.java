@@ -31,10 +31,10 @@ public class KundeTabell extends JTable
     private final AnsattVindu vindu;
     
     
-    public KundeTabell( TabellModell modell, AnsattVindu vindu )
+    public KundeTabell( TabellModell modell, AnsattVindu v )
     {
         super( modell );
-        this.vindu = vindu;
+        vindu = v;
         setRowHeight(20);
         setAutoCreateRowSorter(true);
         
@@ -49,7 +49,12 @@ public class KundeTabell extends JTable
         nySkademelding = new JMenuItem("Ny Skademelding");
         
         info.addActionListener(menyLytter);
-        
+        nyBilforsikring.addActionListener(menyLytter);
+        nyBåtforsikring.addActionListener(menyLytter);
+        nyHusforsikring.addActionListener(menyLytter);
+        nyFritidsboligforsikring.addActionListener(menyLytter);
+        nyReiseforsikring.addActionListener(menyLytter);
+        nySkademelding.addActionListener(menyLytter);
         
         
         
@@ -61,7 +66,7 @@ public class KundeTabell extends JTable
 
         addMouseListener(new MouseAdapter() {
          @Override
-        public void mouseReleased(MouseEvent e) 
+        public void mousePressed(MouseEvent e) 
         {
             int r = rowAtPoint(e.getPoint());
             if (r >= 0 && r < getRowCount()) 
@@ -93,7 +98,7 @@ public class KundeTabell extends JTable
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            System.out.println("test");
+            System.out.println("Jeg trykket på en knapp");
         }
     }
 }

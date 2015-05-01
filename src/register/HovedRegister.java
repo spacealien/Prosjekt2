@@ -10,7 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import objekter.Ansatt;
@@ -44,7 +44,7 @@ public class HovedRegister
     public Kunde nyKunde( String fnavn, String enavn, String adr, String tlf, String email, String persnummer)
     {
         
-        Calendar fd = Calendar.getInstance();
+        Date fd = new Date();
         // sette fødselsdato fødselsdato.set();
         Kunde nyKunde = new Kunde( fnavn,  enavn,  adr, tlf, fd ,
                                    email, persnummer);
@@ -194,9 +194,9 @@ public class HovedRegister
         //forsikringsregister.leggTil( k, nyForsikring);
     }
     
-    public void nySkademelding( Forsikring forsikring, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )
+    public void nySkademelding( Forsikring forsikring, Date dato, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )
     {
-        Skademelding nySkademedling = new Skademelding( forsikring, skadetype, beskrivelse, takseringsbelop, erstatingsbelop );
+        Skademelding nySkademedling = new Skademelding( forsikring, dato, skadetype, beskrivelse, takseringsbelop, erstatingsbelop );
         skademeldingsregister.leggTil( forsikring, nySkademedling );
     }
     

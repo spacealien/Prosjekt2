@@ -120,6 +120,7 @@ public class AnsattVindu extends JFrame
         tabellModell = new TabellModell(register.getKundeliste().alleKunder());
         visTabellPanel(tabellModell);
     }
+    
 
     public void lukkFanekort(JPanel panel)
     {

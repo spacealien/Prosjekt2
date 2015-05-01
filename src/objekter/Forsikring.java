@@ -5,9 +5,11 @@
  */
 package objekter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
 
 /**
  *
@@ -18,8 +20,8 @@ public abstract class Forsikring
     
     //private final Ansatt ansatt;            Legg til datafelt for ansatt.
     private final Kunde kunde;
-    private final Calendar startdato;
-    private Calendar sluttdato;
+    private final Date startdato;
+    private Date sluttdato;
     private double arligPremie = 0;
     private double totalbelop = 0;
     private String vilkår;
@@ -27,14 +29,41 @@ public abstract class Forsikring
     private static int løpenummer = 1;
     private final List<Integer> skademeldingsnøkkler = new ArrayList<>();
     private boolean aktiv = true;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     
     public Forsikring( Kunde k )
     {
-        startdato = Calendar.getInstance();
+        startdato = new Date();
         forsikringsnummer = "F" + løpenummer++;
         //this.vilkår = vilkår;
         kunde = k;
     }
+
+    public double getTotalbelop() {
+        return totalbelop;
+    }
+
+    public void setTotalbelop(double totalbelop) {
+        this.totalbelop = totalbelop;
+    }
+
+    public static int getLøpenummer() {
+        return løpenummer;
+    }
+
+    public static void setLøpenummer(int løpenummer) {
+        Forsikring.løpenummer = løpenummer;
+    }
+
+    public boolean isAktiv() {
+        return aktiv;
+    }
+
+    public void setAktiv(boolean aktiv) {
+        this.aktiv = aktiv;
+    }
+    
+    
     
     public void setAktiver( boolean ok )
     {
@@ -86,12 +115,29 @@ public abstract class Forsikring
         return skademeldingsnøkkler;
         //return forsikringsnøkkel.toArray(new String[forsikringsnøkkel.size()]);
     }
+    
+    public Date getStartdato()
+    {
+        return startdato;
+    }
+    
+    
+    
+    public Date getSluttdato()
+    {
+        return sluttdato;
+    }
+    
+    public void setSluttdato(Date d)
+    {
+        sluttdato = d;
+    }
      
     
     public String toString()
     {
         String utskrift;
-        utskrift = "\nStartdato:" + startdato.toString() + 
+        utskrift = "\nStartdato:" + sdf.format(startdato) + 
                    //"\nSluttdato: " + sluttdato.toString() +   
                     "\nÅrlig Premie: " + arligPremie + 
                    "\nTotal beløp: " + totalbelop +

@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package objekter;
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  *
  * @author Odd, Thomas, Marthe
@@ -13,10 +14,12 @@ public abstract class Bruker extends Person
 {
     private String epost;
     private final String personnummer;
-    private final Calendar fodtdato;
+    private final Date fodtdato;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+    
 
 
-    public Bruker(String fnavn, String enavn, String adr, String tlf, Calendar fd, String email, String persnummer)
+    public Bruker(String fnavn, String enavn, String adr, String tlf, Date fd, String email, String persnummer)
     {
         super(fnavn, enavn, adr, tlf);
         epost = email;
@@ -40,7 +43,7 @@ public abstract class Bruker extends Person
         return personnummer;
     }
     
-    public Calendar getFodtdato()
+    public Date getFodtdato()
     {
         return fodtdato;
     }
@@ -50,7 +53,7 @@ public abstract class Bruker extends Person
     public String toString()
     {
         String utskrift = super.toString();  //kall på superklassens toString-metode
-        utskrift += "\nPersonnummer: " + personnummer + "\nFødesldato: " + fodtdato 
+        utskrift += "\nPersonnummer: " + personnummer + "\nFødesldato: " + sdf.format(fodtdato) 
                   + "\nEpostadresse: " + epost;
         
         return utskrift;

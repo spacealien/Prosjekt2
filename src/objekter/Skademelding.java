@@ -5,7 +5,8 @@
  */
 package objekter;
 
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -14,8 +15,8 @@ import java.util.Calendar;
 public class Skademelding
 {
     private final Forsikring forsikring;
-    private Calendar dato;
-    private Calendar opprettetdato;
+    private Date dato;
+    private Date opprettetdato;
     private final int skadenummer;
     private static int nestenr = 20000;
     private String skadetype;
@@ -25,15 +26,18 @@ public class Skademelding
     Vitne vitne;
     private int takseringsbelop;
     private int erstatningsbelop;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     
-    public Skademelding( Forsikring forsikring, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )
+    public Skademelding( Forsikring forsikring, Date dato, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )
     {
         this.forsikring = forsikring;
+        this.dato = dato;
         this.skadetype = skadetype;
         this.beskrivelse = beskrivelse;
         this.takseringsbelop = takseringsbelop;
         this.erstatningsbelop = erstatingsbelop;
         skadenummer = nestenr++;
+        opprettetdato = new Date();
     }
     
     public int getErstatningsbelop()
@@ -56,6 +60,15 @@ public class Skademelding
         this.beskrivelse = input;
     }
 
+    @Override
+    public String toString()
+    {
+        String ut = "\nOpprettet dato: " + sdf.format(opprettetdato) + "\nSkadenummer: " + skadenummer
+                + "\nDato for skaden: " + dato + "\nSkadetype: " + skadetype +  
+                "\nBeskrivelse av skaden: " + beskrivelse + "\nTakseringsbeløp: "
+                + takseringsbelop + "\nErstatningsbeløp: " + erstatningsbelop;
+        return ut;
+    }
     
     
 }

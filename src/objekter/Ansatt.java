@@ -6,6 +6,7 @@
 package objekter;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -19,7 +20,7 @@ public class Ansatt extends Bruker
     private final String brukernavn;
     private String passord;
 
-    public Ansatt(String fnavn, String enavn, String adr, String tlf, Calendar fd, String email, String persnummer)
+    public Ansatt(String fnavn, String enavn, String adr, String tlf, Date fd, String email, String persnummer)
     {   
         super(fnavn, enavn, adr, tlf, fd, email, persnummer);
         ansattnr = nestenr++;
