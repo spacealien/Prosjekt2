@@ -43,13 +43,13 @@ public class MenyPanel extends JPanel implements ActionListener
         
         JPanel wrapper = new JPanel();
         wrapper.setLayout(new GridLayout(8,1,5,2));        
-        wrapper.add(søkFelt);
-        wrapper.add(søkKnapp);
+        //wrapper.add(søkFelt);
+        //wrapper.add(søkKnapp);
         wrapper.add(nyKunde);
         wrapper.add(finnKunde);
         wrapper.add(nyForsikring);
         wrapper.add(nySkademelding);
-        wrapper.add(avansertSok);
+        //wrapper.add(avansertSok);
         wrapper.add(finnStatistikk);
         //menyPanel.setLayout( new BoxLayout(menyPanel, BoxLayout.PAGE_AXIS));
         add(wrapper);

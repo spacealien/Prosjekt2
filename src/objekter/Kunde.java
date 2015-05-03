@@ -6,7 +6,6 @@
 package objekter;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +16,6 @@ import java.util.List;
  */
 public class Kunde extends Bruker
 {
-    //private Agent agent;  //implementere senre?
     private final int kundenummer;
     private static int nestenr = 100000;
     private final List<String> forsikringsnøkkel = new ArrayList<>();

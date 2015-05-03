@@ -109,6 +109,13 @@ public class Kunderegister
         return null;
     }
     
+    public List<Kunde> finnAlleKundeEtterPersonnummer(String personnummer)
+    {
+        return kunderegister.stream().filter( x -> x.getPersonnummer()
+                .equals(personnummer)).collect(Collectors.toList());
+    }
+    
+    
     public Kunde finnKundeEtterTelefonnummer( String telefonnummer )
     {
         for( Kunde kunde: kunderegister )
@@ -133,7 +140,7 @@ public class Kunderegister
     }
     
     //ok, testet
-    public List<Kunde> finnKunde( String fornavn, String etternavn )
+    public List<Kunde> finnKunderEtterNavn( String fornavn, String etternavn )
     {
         return kunderegister.stream().filter( (x) -> x.getEtternavn().equals(etternavn) &&
                 x.getFornavn().equals(fornavn)).collect(Collectors.toList());

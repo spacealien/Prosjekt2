@@ -5,8 +5,9 @@
  */
 package objekter;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -19,6 +20,7 @@ public class Ansatt extends Bruker
     private boolean admin = false;
     private final String brukernavn;
     private String passord;
+    private List<String> kundenøkler = new ArrayList<>();
 
     public Ansatt(String fnavn, String enavn, String adr, String tlf, Date fd, String email, String persnummer)
     {   
@@ -28,6 +30,11 @@ public class Ansatt extends Bruker
         String brukernavnhjelper = String.valueOf(ansattnr);
         brukernavn = this.getEtternavn()+ brukernavnhjelper;
         passord = "passord";
+    }
+    
+    public void leggTilKundenøkel( String nøkkel)
+    {
+        kundenøkler.add(nøkkel);
     }
     
     public int getAnsattnr()
@@ -69,8 +76,8 @@ public class Ansatt extends Bruker
     public String toString()
     {
         String utskrift = super.toString();  //kall på superklassens toString-metode
-    utskrift += "\nAnsattnummer: " + ansattnr;
-    return utskrift;
+        utskrift += "\nAnsattnummer: " + ansattnr;
+        return utskrift;
     }    
 
 }

@@ -9,8 +9,6 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -18,11 +16,13 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import objekter.Ansatt;
 import objekter.Kunde;
 import register.HovedRegister;
 
@@ -35,6 +35,7 @@ public class AnsattVindu extends JFrame
     //private Tab tabben;
     private final Container mainContainer;
     private final JPanel hovedPanel;
+    private final JPanel hovedPanelTop;
     private final JPanel hovedPanelBunn;
     private final JTabbedPane fanekort;
     private final MenyPanel menyPanel;
@@ -54,12 +55,13 @@ public class AnsattVindu extends JFrame
     private final JToggleButton lukkeknapp;
     
     private HovedRegister register;
+    private Ansatt ansatt;
     
     public AnsattVindu()
     {
         super("Forsikring Vindu");
         setSize(1600,900);
-        setVisible(true);
+        setVisible(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         register = new HovedRegister();
         KnappeLytter knappeLytter = new KnappeLytter();
@@ -67,6 +69,7 @@ public class AnsattVindu extends JFrame
         fanekort =  new JTabbedPane();
         hovedPanelBunn =  new JPanel();
         hovedPanel = new JPanel();
+        hovedPanelTop = new JPanel();
         menyPanel = new MenyPanel(this);
         tabellContainer = new JPanel();
         bunnContainer = new JPanel();
@@ -89,44 +92,41 @@ public class AnsattVindu extends JFrame
         en top og en på bunn.
        */
         
-        mainContainer.setLayout( new GridBagLayout() );
-        GridBagConstraints gbc = new GridBagConstraints();
+        mainContainer.setLayout( new BorderLayout() );
+        mainContainer.add( menyPanel, BorderLayout.WEST);
+        mainContainer.add( hovedPanel, BorderLayout.CENTER);  
+        mainContainer.add( hovedPanelBunn, BorderLayout.SOUTH);
         
-        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+        hovedPanel.setLayout( new BorderLayout());
+        hovedPanel.add(fanekort, BorderLayout.CENTER);
         
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        mainContainer.add( menyPanel, gbc);
-        
-        gbc.anchor = GridBagConstraints.NORTH;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.weightx = 100;
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        mainContainer.add( hovedPanel, gbc);  
-        
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        mainContainer.add( hovedPanelBunn, gbc);
-        
-        hovedPanel.setLayout( new GridBagLayout() );
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        hovedPanel.add(fanekort, gbc);
-        
-        hovedPanelBunn.setLayout( new BorderLayout());
         lukkeknapp = new JCheckBox();
         tabellModell = new TabellModell(register.getKundeliste().alleKunder());
+        
+        this.setMenuBar( new MenyLinje(this));
         visTabellPanel(tabellModell);
+        visLogin();
     }
     
+    public void visLogin()
+    {
+        LoginVindu loginvindu = new LoginVindu(this);
+    }
+    
+    public void setAnsatt( Ansatt ansatt )
+    {
+        this.ansatt = ansatt;
+    }
     
     public void lukkFanekort(JPanel panel)
     {
         fanekort.remove(panel);
 	fanekort.setSelectedIndex(fanekort.getTabCount()-1);
+    }
+    
+    public void lukkAlleFanekort()
+    {
+        fanekort.removeAll();
     }
     
     public void leggTilNyFane( JPanel panel, String tittel )
@@ -168,14 +168,77 @@ public class AnsattVindu extends JFrame
         hovedPanelBunn.add( bunnContainer, BorderLayout.CENTER);
     }
     
-    public void oppdaterTabell( TabellModell modell )
+    public void oppdaterTabell( List<Kunde> liste )
     {
-        tabell.setModel(modell);
+        if( liste.size() >= 1 )
+        {
+            tabellModell = new TabellModell(liste);
+            tabell.setModel(tabellModell);
+        }
+        else
+        {
+            visInformasjon("Beskjed", "Søket ga ingen funn");
+        }  
+    }
+    
+    public void visSøkeresltat()
+    {
+        String søkeord = søkefelt.getText();
+        String fornavn = søkefeltFornavn.getText();
+        String etternavn = søkefeltEtternavn.getText();
+        
+        if( søkeord.matches("\\d{11}"))
+        {
+            System.out.println("test");
+            List<Kunde> nyListe = register.getKundeliste().finnAlleKundeEtterPersonnummer(søkeord);
+            oppdaterTabell(nyListe);
+            tomSøkefelter();
+        }
+        else if( søkeord.matches("\\d{6}"))
+        {
+            
+        }
+        else if( etternavn.matches("\\D+") && fornavn.matches("\\D+"))
+        {
+            List<Kunde> nyListe =  register.getKundeliste().finnKunderEtterNavn(fornavn, etternavn);
+            oppdaterTabell(nyListe);
+            tomSøkefelter();
+        }
+        else if( etternavn.matches("\\D+") && fornavn.length() == 0)
+        {
+            List<Kunde> nyListe = register.getKundeliste().finnKundeEtterEtternavn(etternavn);
+            oppdaterTabell(nyListe);
+            tomSøkefelter();
+        }
+        else if( fornavn.matches("\\D+") && etternavn.length() == 0 )
+        {
+            List<Kunde> nyListe = register.getKundeliste().finnKundeEtterFornavn(fornavn);
+            oppdaterTabell(nyListe);
+            tomSøkefelter();
+        }
+    }
+    
+    public void tomSøkefelter()
+    {
+        søkefelt.setText("");
+        søkefeltFornavn.setText("");
+        søkefeltEtternavn.setText("");
     }
     
     public HovedRegister getRegister()
     {
         return register;
+    }
+    
+    // lager en JOptionPane av typen feilmelding.
+    public void visFeilmelding( String tittel, String melding )
+    {
+        JOptionPane.showMessageDialog(null, menyPanel, null, WIDTH, null);
+    }
+    
+    public void visInformasjon( String tittel, String melding )
+    {
+        JOptionPane.showMessageDialog(null, melding, tittel, JOptionPane.INFORMATION_MESSAGE);
     }
     
     private class KnappeLytter implements ActionListener
@@ -185,18 +248,12 @@ public class AnsattVindu extends JFrame
         {
             if( e.getSource() == søkekanpp )
             {
-                String søkeord = søkefelt.getText();
-                String fornavn = søkefeltFornavn.getText();
-                String etternavn = søkefeltEtternavn.getText();
-                List<Kunde> testliste = register.finnKundeMedNavn(fornavn,etternavn);
-                tabellModell = new TabellModell(testliste);
-                oppdaterTabell(tabellModell);
+                visSøkeresltat();
             }
             else if( e.getSource() == alleKunder )
             {
                 List<Kunde> kundeliste =  register.getKundeliste().alleKunder();
-                tabellModell = new TabellModell(kundeliste);
-                oppdaterTabell(tabellModell);
+                oppdaterTabell(kundeliste);
             }
             else if( e.getSource() == mineKunder )
             {

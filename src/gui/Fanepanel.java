@@ -38,16 +38,16 @@ public class Fanepanel extends JPanel
 	});
         add(new JLabel(tekst));
         add(lukkeknapp);
-        
     }
     
-    	private class Lukkelytter implements ActionListener
-	{
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-		fanekort.remove(panel);
-		fanekort.setSelectedIndex(fanekort.getTabCount()-1);
-            }
-	}
+    
+    private class Lukkelytter implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            fanekort.remove(panel);
+	    fanekort.setSelectedIndex(fanekort.getTabCount()-1);
+        }
+    }
 }

@@ -16,16 +16,20 @@ public abstract class Bruker extends Person
     private final String personnummer;
     private final Date fodtdato;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+    private final Date startdato;
     
-
-
     public Bruker(String fnavn, String enavn, String adr, String tlf, Date fd, String email, String persnummer)
     {
         super(fnavn, enavn, adr, tlf);
         epost = email;
         personnummer = persnummer;
         fodtdato = fd;
-         
+        startdato =  new Date();
+    }
+    
+    public Date getStartdato()
+    {
+        return startdato;
     }
 
     public String getEpost()

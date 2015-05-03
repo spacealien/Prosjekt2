@@ -58,8 +58,6 @@ public class KundeTabell extends JTable
         nyReiseforsikring.addActionListener(menyLytter);
         nySkademelding.addActionListener(menyLytter);
         
-        
-        
         nyForsikring.add(nyBilforsikring);
         nyForsikring.add(nyBåtforsikring);
         nyForsikring.add(nyHusforsikring);
@@ -95,6 +93,11 @@ public class KundeTabell extends JTable
     }); // end of anonym muselytter        
     } // end of konstruktør
     
+    public Kunde getKunde()
+    {
+        return vindu.getRegister().finnKundeMedPersonnummer((String)getValueAt(getSelectedRow(), 0));
+    }
+    
     private class Lytter implements ActionListener
     {
         @Override
@@ -102,40 +105,38 @@ public class KundeTabell extends JTable
         {
             if( e.getSource() == info )
             {
-                Kunde kunde = vindu.getRegister().finnKundeMedPersonnummer((String)getValueAt(getSelectedRow(), 0));
+                Kunde kunde = getKunde();
                 vindu.leggTilNyFane( new KundePanel(kunde), kunde.getEtternavn() );
             }
             else if( e.getSource() == nyBilforsikring )
             {
-                System.out.println("nyBilforsikring");
-                Kunde kunde = vindu.getRegister().finnKundeMedPersonnummer((String)getValueAt(getSelectedRow(), 0));
+                Kunde kunde = getKunde();
                 vindu.leggTilNyFane( new BilforsikringPanel(kunde), "Bilforsikring" );
-            }
-            else if( e.getSource() == nySkademelding)
-            {
-                Kunde kunde = vindu.getRegister().finnKundeMedPersonnummer((String)getValueAt(getSelectedRow(), 0));
-                vindu.leggTilNyFane(new SkademeldingPanel(kunde), "Skademelding");
-                System.out.println("nySkademelding");
             }
             else if( e.getSource() == nyBåtforsikring)
             {
-                System.out.println("nyBåtforsikring");
+                Kunde kunde = getKunde();
+                vindu.leggTilNyFane(new BatforsikringPanel(kunde), "Båtforsikring");
             }
             else if( e.getSource() == nyHusforsikring)
             {
-                System.out.println("nyHusforsikring");
+                Kunde kunde = getKunde();
+                vindu.leggTilNyFane(new HusforsikringPanel(kunde), "Båtforsikring");
             }
             else if( e.getSource() == nyFritidsboligforsikring)
             {
-                System.out.println("nyFritidsboligforsikring");
+                Kunde kunde = getKunde();
+                vindu.leggTilNyFane(new FritidsboligforsikringPanel(kunde), "Båtforsikring");
             }
             else if( e.getSource() == nyReiseforsikring )
             {
-                System.out.println("nyReiseforsikring");
+                Kunde kunde = getKunde();
+                vindu.leggTilNyFane(new ReiseforsikringPanel(kunde), "Båtforsikring");
             }
-            else if( e.getSource() == nySkademelding )
+            else if( e.getSource() == nySkademelding)
             {
-                System.out.println("nySkademelding");
+                Kunde kunde = getKunde();
+                vindu.leggTilNyFane(new SkademeldingPanel(kunde), "Skademelding");
             }
         }
     }

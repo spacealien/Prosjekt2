@@ -12,7 +12,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import objekter.Ansatt;
 import objekter.BatForsikring;
 import objekter.Bilforsikring;
@@ -52,7 +51,6 @@ public class HovedRegister
         return kunderegister.leggTil(nyKunde);
     }
     
-    
     public Kunde finnKunde()
     {
         return null;
@@ -61,7 +59,7 @@ public class HovedRegister
     
     public List<Kunde> finnKundeMedNavn(String fornavn, String etternavn)
     {
-        return kunderegister.finnKunde(fornavn, etternavn);
+        return kunderegister.finnKunderEtterNavn(fornavn, etternavn);
     }
     
     
@@ -81,25 +79,27 @@ public class HovedRegister
     {
         return  kunderegister.finnKundeEtterPersonnummer(personnummer);
     }
-    /**
-    public Kunde finnKundeMedNavn( String fornavn, String etternavn )
-    {
-        retrun null;
-    }
-    * */
-   
-    /**
-     * public Kunde finnKundeMedNavn( String fornavn, String etternavn )
-    {
-        retrun null;
-    }
-     * @return
-     */
+    
     public Kunderegister getKundeliste()
     {
         return kunderegister;
     }
     
+    public SkademeldingRegister getSkademeldingsregister()
+    {
+        return skademeldingsregister;
+    }
+    
+    public Forsikringsliste getForsikringrsliste()
+    {
+        return forsikringsregister;
+    }
+    
+    public Ansattregister getAnsattregister()
+    {
+        return ansattregister;
+    }
+
     public double  getInntekter()
     {
         double totalSum = 0.0;
