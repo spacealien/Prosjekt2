@@ -211,11 +211,11 @@ public class HovedRegister
         return nyForsikring;
     }
     
-    public Forsikring nyFritidsboligforsikring( Kunde k, String hadresse, int byggar,
+    public Forsikring nyFritidsboligforsikring( Kunde k, int e_andel, String hadresse, int byggar,
                                           String bt, String mat, String stand, int kvm,
                                           int belopByg, int belopInn, boolean alarm, boolean utl)
     {
-        Forsikring nyForsikring = new Fritidsboligforsikring(k, 8000, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, alarm, utl);
+        Forsikring nyForsikring = new Fritidsboligforsikring(k, e_andel, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, alarm, utl);
         forsikringsregister.leggTil( k, nyForsikring);
         return nyForsikring;
     }
