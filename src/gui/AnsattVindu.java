@@ -235,7 +235,7 @@ public class AnsattVindu extends JFrame
     // lager en JOptionPane av typen feilmelding.
     public void visFeilmelding( String tittel, String melding )
     {
-        JOptionPane.showMessageDialog(null, menyPanel, null, WIDTH, null);
+        JOptionPane.showMessageDialog(null, melding, tittel, JOptionPane.ERROR_MESSAGE);
     }
     
     public void visInformasjon( String tittel, String melding )

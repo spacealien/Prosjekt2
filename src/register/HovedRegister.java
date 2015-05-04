@@ -176,7 +176,6 @@ public class HovedRegister
             else if( forsikring instanceof Fritidsboligforsikring )
                 fritidsboligForsikring++;
         }
-        System.out.print("bilforsikringer" + bilForsikring);
     }
     
     public Forsikring nyBilForsikring( Kunde k, String registreringsnummer,
