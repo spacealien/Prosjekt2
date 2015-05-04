@@ -10,6 +10,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import objekter.*;
+import register.*;
 
 /**
  *
@@ -18,6 +19,9 @@ import objekter.*;
 public class BilforsikringPanel extends JPanel implements ActionListener
 {
  
+    HovedRegister register;
+    Eier eier;
+    
     private final JTextField eierFornavn;
     private final JTextField eierEtternavn;
     private final JTextField eierTlf;
@@ -41,19 +45,28 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                         "Lamborghini"};
     JComboBox<String> bilmerkevelger;
     
-    String[] kjorelengde = {"", "8000", "12000", "16000", "20000", "25000", "30000", "Ubegrenset"};
+    String[] kjorelengde = {"", "8000", "12000", "16000", "20000", "25000", "30000",
+                            "Ubegrenset"};
     JComboBox<String> kjorelengdevelger;
-    String[] foreralder = {"", "Bilfører < 23 år", "Bilfører mellom 23 - 25 år", "Bilfører > 25 år"};
+    String[] foreralder = {"", "Bilfører < 23 år", "Bilfører mellom 23 - 25 år", 
+                           "Bilfører > 25 år"};
     JComboBox<String> aldervelger;
     String[] dekning = {"", "Delkasko", "Kasko", "Superkasko"};
     JComboBox<String> dekningvelger;
-    String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
+    String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", 
+                            "30000"};
     JComboBox<String> egenandelsvelger;
+    String[] bonus = {"", "-50%", "-40%", "-30%", "-20%", "-10%", "0%", "10%", 
+                     "20%", "30%", "40%", "50%", "60%", "70%", "70% 2 år",
+                     "70% 3 år", "70% 4 år", "70% 5 år", "75%", "75% 2 år",
+                     "75% 3 år", "75% 4 år", "75% 5 år", "75% >5 år"};
+    JComboBox<String> bonusvelger;
     private final Kunde kunde;
     
     public BilforsikringPanel(Kunde k)
     {
-     
+        register = new HovedRegister();
+                
         eierFornavn = new JTextField(20);
         eierEtternavn = new JTextField(20);
         eierTlf = new JTextField(8);
@@ -94,6 +107,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         egenandelsvelger = new JComboBox<>(egenandel);
         dekningvelger = new JComboBox<>(dekning);
         aldervelger = new JComboBox<>(foreralder);
+        bonusvelger = new JComboBox<>(bonus);
     
         JPanel garasjen = new JPanel();
         JPanel tegnBilPanel1 = new JPanel();
@@ -122,12 +136,12 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel1.add(aldervelger);
         tegnBilPanel1.add(new JLabel("Dekning: "));
         tegnBilPanel1.add(dekningvelger);
+        tegnBilPanel1.add(new JLabel("Din bonus: "));
+        tegnBilPanel1.add(bonusvelger);
         tegnBilPanel1.add(new JLabel("Velg egenandel: "));
         tegnBilPanel1.add(egenandelsvelger);
         tegnBilPanel1.add(new JLabel("Er eier annen enn kunde?"));
         tegnBilPanel1.add(annenEier);
-        tegnBilPanel1.add(new JLabel());
-        tegnBilPanel1.add(new JLabel());
         tegnBilPanel1.add(new JLabel("Foreslått tilbud: "));
         tegnBilPanel1.add(bilTilbud);
         tegnBilPanel1.add(new JLabel());
@@ -150,17 +164,69 @@ public class BilforsikringPanel extends JPanel implements ActionListener
          System.out.println("Etternavn: " + eierEtternavn.getText());
          System.out.println("Telefonnummer: " + eierTlf.getText());
          System.out.println("Addresse: " + eierAdresse.getText());
+         eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), eierAdresse.getText(), eierTlf.getText());
       }    
                 
         }}});
         
     }
     
+    public void tegnNy()
+    {
+        
+        boolean garasje = false;
+        
+             
+        String regnr = bilRegnr.getText();
+        String modell = bilModell.getText();
+        int hk = Integer.parseInt(bilHk.getText());
+        int ar = Integer.parseInt(bilRegAr.getText());
+        int kmstand = Integer.parseInt(bilKmstand.getText());  
+        
+        if (garasjeJa.isSelected() && !garasjeNei.isSelected())
+                    garasje = true;
+        else if (!garasjeJa.isSelected() && garasjeNei.isSelected())
+                    garasje = false;
+              
+            int type_n = biltypevelger.getSelectedIndex();
+            String typevalget = biltypevelger.getItemAt(type_n);
+            int merke_n = bilmerkevelger.getSelectedIndex();
+            String merkevalget = bilmerkevelger.getItemAt(merke_n);
+            int lengde_n = kjorelengdevelger.getSelectedIndex();
+            int lengdevalget = Integer.parseInt(kjorelengdevelger.getItemAt(lengde_n));
+            int bonus_n = bonusvelger.getSelectedIndex();
+            double bonusen = Double.parseDouble(bonusvelger.getItemAt(bonus_n));
+            
+            
+            if (lengde_n == 0 || merkevalget.equals("") || typevalget.equals("") || (!garasjeJa.isSelected() && !garasjeNei.isSelected()))
+            {
+                if (lengde_n == 0)
+                {JOptionPane.showMessageDialog(null, "Du må velge maximum kjørelengde!", "Feilmelding", JOptionPane.ERROR_MESSAGE);}
+                
+                    if (merkevalget.equals(""))
+                    {JOptionPane.showMessageDialog(null, "Du må velge fabrikant!", "Feilmelding", JOptionPane.ERROR_MESSAGE);}
+                
+                    if (typevalget.equals(""))
+                    {JOptionPane.showMessageDialog(null, "Du må velge biltype!", "Feilmelding", JOptionPane.ERROR_MESSAGE);}
+                    
+                    if(!garasjeJa.isSelected() && !garasjeNei.isSelected())
+                    {JOptionPane.showMessageDialog(null, "Du må krysse av for garasjevalg", "Feilmelding", JOptionPane.ERROR_MESSAGE);}
+            }
+            else
+            {
+                   Forsikring forsikring = register.nyBilForsikring( kunde, regnr,
+                                                     merkevalget,modell, typevalget, hk, ar,
+                                                     kmstand, bonusen, garasje, lengdevalget ); 
+                   //forsikring.setEier(eier);
+            }
+      }
+    
     @Override
     public void actionPerformed(ActionEvent e) 
     {
         if( e.getSource() == bilGiTilbud)
         {
+            tegnNy();
             System.out.println("test");
         }
         
