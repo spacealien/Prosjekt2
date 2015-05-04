@@ -126,7 +126,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel1.add(bilKmstand);
         tegnBilPanel1.add(new JLabel("Velg biltype: "));
         tegnBilPanel1.add(biltypevelger);
-        tegnBilPanel1.add(new JLabel("Velg bilmerke: "));
+        tegnBilPanel1.add(new JLabel("Velg fabrikant: "));
         tegnBilPanel1.add(bilmerkevelger);
         tegnBilPanel1.add(new JLabel("Garasje: "));
         tegnBilPanel1.add(garasjen);
@@ -136,7 +136,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel1.add(aldervelger);
         tegnBilPanel1.add(new JLabel("Dekning: "));
         tegnBilPanel1.add(dekningvelger);
-        tegnBilPanel1.add(new JLabel("Din bonus: "));
+        tegnBilPanel1.add(new JLabel("Bonus: "));
         tegnBilPanel1.add(bonusvelger);
         tegnBilPanel1.add(new JLabel("Velg egenandel: "));
         tegnBilPanel1.add(egenandelsvelger);
@@ -169,6 +169,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                 
         }}});
         
+        bilGiTilbud.addActionListener(this);
+        
     }
     
     public void tegnNy()
@@ -189,36 +191,59 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     garasje = false;
               
             int type_n = biltypevelger.getSelectedIndex();
-            String typevalget = biltypevelger.getItemAt(type_n);
             int merke_n = bilmerkevelger.getSelectedIndex();
-            String merkevalget = bilmerkevelger.getItemAt(merke_n);
             int lengde_n = kjorelengdevelger.getSelectedIndex();
-            int lengdevalget = Integer.parseInt(kjorelengdevelger.getItemAt(lengde_n));
             int bonus_n = bonusvelger.getSelectedIndex();
-            double bonusen = Double.parseDouble(bonusvelger.getItemAt(bonus_n));
+            int egenandel_n = egenandelsvelger.getSelectedIndex();
+            int alder_n = aldervelger.getSelectedIndex();
+            int dekning_n = dekningvelger.getSelectedIndex();
             
             
-            if (lengde_n == 0 || merkevalget.equals("") || typevalget.equals("") || (!garasjeJa.isSelected() && !garasjeNei.isSelected()))
+            if (lengde_n == 0 || merke_n == 0 || type_n == 0 || egenandel_n == 0 || alder_n == 0 || dekning_n == 0|| bonus_n == 0|| (!garasjeJa.isSelected() && !garasjeNei.isSelected()))
             {
+                String ut = "Det mangler informasjon om:\n";
                 if (lengde_n == 0)
-                {JOptionPane.showMessageDialog(null, "Du må velge maximum kjørelengde!", "Feilmelding", JOptionPane.ERROR_MESSAGE);}
+                {ut += "Maximum kjørelengde\n";}
                 
-                    if (merkevalget.equals(""))
-                    {JOptionPane.showMessageDialog(null, "Du må velge fabrikant!", "Feilmelding", JOptionPane.ERROR_MESSAGE);}
+                    if (merke_n == 0)
+                    {ut += "Fabrikant\n";}
                 
-                    if (typevalget.equals(""))
-                    {JOptionPane.showMessageDialog(null, "Du må velge biltype!", "Feilmelding", JOptionPane.ERROR_MESSAGE);}
+                    if (type_n == 0)
+                    {ut += "Biltype\n";}
+                    
+                    if (egenandel_n == 0)
+                    {ut += "Egenandel\n";}
+                    
+                    if (alder_n == 0)
+                    {ut += "Bilførers alder\n";}
+                    
+                    if (dekning_n == 0)
+                    {ut += "Dekning\n";}
+                    
+                    if (bonus_n == 0)
+                    {ut += "Bonus\n";}
                     
                     if(!garasjeJa.isSelected() && !garasjeNei.isSelected())
-                    {JOptionPane.showMessageDialog(null, "Du må krysse av for garasjevalg", "Feilmelding", JOptionPane.ERROR_MESSAGE);}
+                    {ut += "Garasjevalg";}
+            
+                    JOptionPane.showMessageDialog(null, ut, "Feilmelding", JOptionPane.ERROR_MESSAGE);
             }
             else
             {
+             
+            String typevalget = biltypevelger.getItemAt(type_n);
+            String merkevalget = bilmerkevelger.getItemAt(merke_n);
+            int lengdevalget = Integer.parseInt(kjorelengdevelger.getItemAt(lengde_n));
+            String b = bonusvelger.getItemAt(bonus_n);
+            double bonusen = (Double.parseDouble(b.substring(0,2)) / 100);
+            
                    Forsikring forsikring = register.nyBilForsikring( kunde, regnr,
                                                      merkevalget,modell, typevalget, hk, ar,
                                                      kmstand, bonusen, garasje, lengdevalget ); 
                    Kjoretoyforsikring forsikringen =(Kjoretoyforsikring)forsikring;
                    forsikringen.setEier(eier);
+                    System.out.println(forsikringen);
+                   
             }
       }
     
