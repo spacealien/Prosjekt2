@@ -13,14 +13,16 @@ import objekter.*;
 
 /**
  *
-<<<<<<< HEAD
- * @author Marthejansonskogen
-=======
  * @author Odd, Thomas, Marthe
->>>>>>> origin/master
  */
 public class BilforsikringPanel extends JPanel implements ActionListener
 {
+ 
+    private final JTextField eierFornavn;
+    private final JTextField eierEtternavn;
+    private final JTextField eierTlf;
+    private final JTextField eierAdresse;
+    
     private final JTextField bilRegnr;
     private final JTextField bilRegAr;
     private final JTextField bilHk;
@@ -31,7 +33,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private final JRadioButton garasjeNei;
     private final JButton annenEier;
     private final JButton bilGiTilbud;
-    String[] biltype = {"", "Småbil", "Lastebil", "Vogntog", "Varebil", "SUV"};
+    String[] biltype = {"", "Personbil", "Lastebil", "Vogntog", "Varebil", "SUV"};
     JComboBox<String> biltypevelger;
 
     String[] bilmerke = {"", "Mercedes", "Toyota", "BMW", "Volkswagen", "Ford",
@@ -41,10 +43,32 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     
     String[] kjorelengde = {"", "8000", "12000", "16000", "20000", "25000", "30000", "Ubegrenset"};
     JComboBox<String> kjorelengdevelger;
+    String[] foreralder = {"", "Bilfører < 23 år", "Bilfører mellom 23 - 25 år", "Bilfører > 25 år"};
+    JComboBox<String> aldervelger;
+    String[] dekning = {"", "Delkasko", "Kasko", "Superkasko"};
+    JComboBox<String> dekningvelger;
+    String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
+    JComboBox<String> egenandelsvelger;
     private final Kunde kunde;
     
     public BilforsikringPanel(Kunde k)
     {
+     
+        eierFornavn = new JTextField(20);
+        eierEtternavn = new JTextField(20);
+        eierTlf = new JTextField(8);
+        eierAdresse = new JTextField(15);
+        
+        JPanel eierPanel = new JPanel();
+        eierPanel.add(new JLabel("Fornavn: "));
+        eierPanel.add(eierFornavn);
+        eierPanel.add(new JLabel("Etternavn: "));
+        eierPanel.add(eierEtternavn);
+        eierPanel.add(new JLabel("Telefonnummer: "));
+        eierPanel.add(eierTlf);
+        eierPanel.add(new JLabel("Adresse: "));
+        eierPanel.add(eierAdresse);
+        
         kunde = k;
         bilRegnr = new JTextField( 7 );
         bilRegAr = new JTextField( 4 );
@@ -67,10 +91,13 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         //bilmerkevelger.setSelectedIndex(10);
         kjorelengdevelger = new JComboBox<>(kjorelengde);
         //kjorelengdevelger.setSelectedIndex(0);
+        egenandelsvelger = new JComboBox<>(egenandel);
+        dekningvelger = new JComboBox<>(dekning);
+        aldervelger = new JComboBox<>(foreralder);
     
         JPanel garasjen = new JPanel();
         JPanel tegnBilPanel1 = new JPanel();
-        tegnBilPanel1.setLayout(new GridLayout(6,4,2,10));
+        tegnBilPanel1.setLayout(new GridLayout(8,4,2,10));
         garasjen.add(garasjeJa);
         garasjen.add(garasjeNei);
         tegnBilPanel1.add(new JLabel("Registreringsnummer: "));
@@ -91,13 +118,42 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel1.add(garasjen);
         tegnBilPanel1.add(new JLabel("Årlig forventet kjørelengde: "));
         tegnBilPanel1.add(kjorelengdevelger);
+        tegnBilPanel1.add(new JLabel("Yngste bilførers alder: "));
+        tegnBilPanel1.add(aldervelger);
+        tegnBilPanel1.add(new JLabel("Dekning: "));
+        tegnBilPanel1.add(dekningvelger);
+        tegnBilPanel1.add(new JLabel("Velg egenandel: "));
+        tegnBilPanel1.add(egenandelsvelger);
         tegnBilPanel1.add(new JLabel("Er eier annen enn kunde?"));
         tegnBilPanel1.add(annenEier);
         tegnBilPanel1.add(new JLabel());
+        tegnBilPanel1.add(new JLabel());
         tegnBilPanel1.add(new JLabel("Foreslått tilbud: "));
         tegnBilPanel1.add(bilTilbud);
+        tegnBilPanel1.add(new JLabel());
         tegnBilPanel1.add(bilGiTilbud);
         add(tegnBilPanel1);
+        
+        annenEier.addActionListener(new ActionListener()
+        {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+    if (e.getSource() == annenEier)
+        {
+            int result = JOptionPane.showConfirmDialog(null, eierPanel, 
+               "Vennligst fyll ut bileiers kontaktinformasjon:", JOptionPane.OK_CANCEL_OPTION);
+      if (result == JOptionPane.OK_OPTION)
+      {
+          //Her skal det endres
+         System.out.println("Fornavn: " + eierFornavn.getText());
+         System.out.println("Etternavn: " + eierEtternavn.getText());
+         System.out.println("Telefonnummer: " + eierTlf.getText());
+         System.out.println("Addresse: " + eierAdresse.getText());
+      }    
+                
+        }}});
+        
     }
     
     @Override

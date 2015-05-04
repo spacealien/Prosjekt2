@@ -25,6 +25,8 @@ public class BatforsikringPanel extends JPanel implements ActionListener
     private final String[] battype = {"","Skjærgårdsjeep", "Cabin cruiser", "Rib", "Annen småbåt",
                         "Speedbåt", "Seilbåt", "Snekke"};
     JComboBox<String> battypevelger;
+    String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
+    JComboBox<String> egenandelsvelger;
     private final JButton batGiTilbud;
     private final Kunde kunde;
     
@@ -46,11 +48,12 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         vektere.add(vekterJa);
         vektere.add(vekterNei);
         battypevelger = new JComboBox<>(battype);
+        egenandelsvelger = new JComboBox<>(egenandel);
         batGiTilbud = new JButton("Tegn forsikring");
         
         JPanel vekt = new JPanel();
         JPanel tegnBatPanel1 = new JPanel();
-        tegnBatPanel1.setLayout(new GridLayout(6,4,2,10));
+        tegnBatPanel1.setLayout(new GridLayout(7,4,2,10));
         vekt.add(vekterJa);
         vekt.add(vekterNei);
         tegnBatPanel1.add(new JLabel("Reg.nummer: "));
@@ -69,9 +72,13 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         tegnBatPanel1.add(battypevelger);
         tegnBatPanel1.add(new JLabel("Vekter: "));
         tegnBatPanel1.add(vekt);
+        tegnBatPanel1.add(new JLabel("Egenandel: "));
+        tegnBatPanel1.add(egenandelsvelger);
+        tegnBatPanel1.add(new JLabel());
         tegnBatPanel1.add(new JLabel());
         tegnBatPanel1.add(new JLabel("Foreslått tilbud: "));
         tegnBatPanel1.add(batTilbud);
+        tegnBatPanel1.add(new JLabel());
         tegnBatPanel1.add(batGiTilbud);
         add(tegnBatPanel1);
     }

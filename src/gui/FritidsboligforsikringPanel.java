@@ -35,6 +35,9 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
     private final String[] fritidmateriale = {"","Mur", "Tre", "Brannfast", "Laftet tømmer"};
     private final String[] fritidstandard = {"","Normal standard", "Bedre standard", "Høy standard"};
     JComboBox<String> fritidstandardvelger;
+    String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
+    JComboBox<String> egenandelsvelger;
+    
     private final Kunde kunde;
     
     public FritidsboligforsikringPanel(Kunde k)
@@ -49,6 +52,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         fritidtypevelger = new JComboBox<>(fritidtype);
         fritidmaterialevelger = new JComboBox<>(fritidmateriale);
         fritidstandardvelger = new JComboBox<>(fritidstandard);
+        egenandelsvelger = new JComboBox<>(egenandel);
         utleidJa = new JRadioButton("Ja");
         utleidJa.setMnemonic(KeyEvent.VK_J);
         utleidNei = new JRadioButton("Nei");
@@ -60,7 +64,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         
         JPanel tegnFritidPanel1 = new JPanel();
         JPanel utleie = new JPanel();
-        tegnFritidPanel1.setLayout(new GridLayout(6,4,1,5));
+        tegnFritidPanel1.setLayout(new GridLayout(7,4,1,5));
         utleie.add(utleidJa);
         utleie.add(utleidNei);
         tegnFritidPanel1.add(new JLabel("Adresse: "));
@@ -77,12 +81,15 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         tegnFritidPanel1.add(fritidstandardvelger);
         tegnFritidPanel1.add(new JLabel("Utleid: "));
         tegnFritidPanel1.add(utleie);
+        tegnFritidPanel1.add(new JLabel("Egenandel: "));
+        tegnFritidPanel1.add(egenandelsvelger);
         tegnFritidPanel1.add(new JLabel("Forsikringsbeløp: "));
         tegnFritidPanel1.add(belopFritid);
         tegnFritidPanel1.add(new JLabel("Forsikringsbeløp innbo: "));
         tegnFritidPanel1.add(belopFritidInnbo);
         tegnFritidPanel1.add(new JLabel("Foreslått tilbud: "));
         tegnFritidPanel1.add(fritidTilbud);
+        tegnFritidPanel1.add(new JLabel());
         tegnFritidPanel1.add(fritidGiTilbud);
         add(tegnFritidPanel1);
     }
