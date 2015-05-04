@@ -37,6 +37,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private final JRadioButton garasjeNei;
     private final JButton annenEier;
     private final JButton bilGiTilbud;
+    private final JButton beregnPris;
     String[] biltype = {"", "Personbil", "Lastebil", "Vogntog", "Varebil", "SUV"};
     JComboBox<String> biltypevelger;
 
@@ -62,6 +63,19 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                      "75% 3 år", "75% 4 år", "75% 5 år", "75% >5 år"};
     JComboBox<String> bonusvelger;
     private final Kunde kunde;
+    
+    private String regnr;
+    private String modell;
+    private int hk;
+    private int ar;
+    private int kmstand;  
+    private String typevalget;
+    private String merkevalget;
+    private int lengdevalget;
+    private String b;
+    private double bonusen;
+    private int egenandelvalget;
+    private boolean garasje;
     
     public BilforsikringPanel(Kunde k)
     {
@@ -97,6 +111,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         garasje.add(garasjeJa);
         garasje.add(garasjeNei);
         bilGiTilbud = new JButton("Tegn forsikring");
+        beregnPris = new JButton("Beregn pris");
         annenEier = new JButton("Trykk her for annen eier");
         biltypevelger = new JComboBox<>(biltype);
         //biltypevelger.setSelectedIndex(4);
@@ -111,7 +126,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     
         JPanel garasjen = new JPanel();
         JPanel tegnBilPanel1 = new JPanel();
-        tegnBilPanel1.setLayout(new GridLayout(8,4,2,10));
+        tegnBilPanel1.setLayout(new GridLayout(9,4,2,10));
         garasjen.add(garasjeJa);
         garasjen.add(garasjeNei);
         tegnBilPanel1.add(new JLabel("Registreringsnummer: "));
@@ -142,6 +157,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel1.add(egenandelsvelger);
         tegnBilPanel1.add(new JLabel("Er eier annen enn kunde?"));
         tegnBilPanel1.add(annenEier);
+        tegnBilPanel1.add(beregnPris);
         tegnBilPanel1.add(new JLabel("Foreslått tilbud: "));
         tegnBilPanel1.add(bilTilbud);
         tegnBilPanel1.add(new JLabel());
@@ -170,20 +186,14 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         }}});
         
         bilGiTilbud.addActionListener(this);
-        
+        beregnPris.addActionListener(this);
     }
     
-    public void tegnNy()
+    public boolean hentInfo()
     {
         
-        boolean garasje = false;
-        
              
-        String regnr = bilRegnr.getText();
-        String modell = bilModell.getText();
-        int hk = Integer.parseInt(bilHk.getText());
-        int ar = Integer.parseInt(bilRegAr.getText());
-        int kmstand = Integer.parseInt(bilKmstand.getText());  
+        
         
         if (garasjeJa.isSelected() && !garasjeNei.isSelected())
                     garasje = true;
@@ -230,17 +240,39 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             
                     JOptionPane.showMessageDialog(null, ut, "Feilmelding",
                                                 JOptionPane.ERROR_MESSAGE);
+                    return false;
             }
             else
             {
              
-            String typevalget = biltypevelger.getItemAt(type_n);
-            String merkevalget = bilmerkevelger.getItemAt(merke_n);
-            int lengdevalget = Integer.parseInt(kjorelengdevelger.getItemAt(lengde_n));
-            String b = bonusvelger.getItemAt(bonus_n);
-            double bonusen = (Double.parseDouble(b.substring(0,2)) / 100);
-            int egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
-            
+            typevalget = biltypevelger.getItemAt(type_n);
+            merkevalget = bilmerkevelger.getItemAt(merke_n);
+            lengdevalget = Integer.parseInt(kjorelengdevelger.getItemAt(lengde_n));
+            b = bonusvelger.getItemAt(bonus_n);
+            bonusen = (Double.parseDouble(b.substring(0,2)) / 100);
+            egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
+            regnr = bilRegnr.getText();
+            modell = bilModell.getText();
+            hk = Integer.parseInt(bilHk.getText());
+            ar = Integer.parseInt(bilRegAr.getText());
+            kmstand = Integer.parseInt(bilKmstand.getText());  
+            return true;
+            }
+    }
+    
+    public void beregnPris()
+    {
+        if (hentInfo())
+        {
+            //Beregn pris
+            //bilTilbud.setText();
+        }
+    }
+    
+    public void tegnNy()
+    {
+        if (hentInfo())
+        {
             Forsikring forsikring = register.nyBilForsikring( kunde, egenandelvalget, regnr,
                                     merkevalget,modell, typevalget, hk, ar,
                                     kmstand, bonusen, garasje, lengdevalget ); 
@@ -248,7 +280,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             forsikringen.setEier(eier);
             System.out.println(forsikringen);
             JOptionPane.showMessageDialog(null, "Du har nå tegnet bilforsikring med nummer " + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() + " " + kunde.getEtternavn() , "Bekreftelse", JOptionPane.INFORMATION_MESSAGE);
-            }
+        }
       }
     
     @Override
@@ -257,6 +289,10 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         if( e.getSource() == bilGiTilbud)
         {
             tegnNy();
+        }
+        else if( e.getSource() == beregnPris)
+        {
+            beregnPris();
         }
         
     }

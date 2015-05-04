@@ -12,6 +12,7 @@ package objekter;
 public abstract class Eiendomsforsikring extends Forsikring
 {
     private String husadresse;
+    private boolean alarm;
     private final int byggear;
     private String boligtype;
     private String materiale;
@@ -21,10 +22,11 @@ public abstract class Eiendomsforsikring extends Forsikring
     private int forsikringsbelopInnbo;
     
     public Eiendomsforsikring( Kunde k, int e_andel, String hadresse, int byggar, String bt, String mat, String stand, int kvm, int belopByg,
-                             int belopInn )
+                             int belopInn, boolean alarmen )
     {
         super(k, e_andel);
         husadresse = hadresse;
+        alarm = alarmen;
         byggear = byggar;
         boligtype = bt;
         materiale = mat;
@@ -38,6 +40,15 @@ public abstract class Eiendomsforsikring extends Forsikring
     public String getHusadresse()
     {
         return husadresse;
+    }
+    public boolean getAlarm()
+    {
+        return alarm;
+    }
+    
+    public void setAlarm(boolean a)
+    {
+        alarm = a;
     }
     
     public int getKvadratmeter()

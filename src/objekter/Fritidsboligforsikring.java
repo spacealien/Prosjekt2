@@ -15,9 +15,9 @@ public class Fritidsboligforsikring extends Eiendomsforsikring
     private String utleid = "";
     public Fritidsboligforsikring(Kunde k, int e_andel, String hadresse, int byggar,
                                   String bt, String mat, String stand, int kvm,
-                                  int belopByg, int belopInn, boolean utl)
+                                  int belopByg, int belopInn, boolean alarmen, boolean utl)
     {
-    super( k, e_andel, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn);
+    super( k, e_andel, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, alarmen);
     utleie = utl;
     }
     

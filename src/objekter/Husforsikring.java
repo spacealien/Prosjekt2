@@ -12,9 +12,9 @@ package objekter;
 public class Husforsikring extends Eiendomsforsikring
 {
     public Husforsikring( Kunde k, int e_andel, String hadresse, int byggar, String bt, String mat, String stand, int kvm, int belopByg,
-                             int belopInn)
+                             int belopInn, boolean alarmen)
     {
-    super( k, e_andel, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn);
+    super( k, e_andel, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, alarmen);
     }
     
     public void beregnPris( Kunde kunde)

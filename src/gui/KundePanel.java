@@ -189,10 +189,10 @@ public class KundePanel extends JPanel implements ActionListener
         return null;
     }
     
-    public boolean validerFelter()
+    /*public boolean validerFelter()
     {
         
-    }
+    }*/
     
     
     @Override

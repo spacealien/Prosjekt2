@@ -54,14 +54,14 @@ public class HovedRegister
                                                     1970, "Tremannsbolig", 
                                                     "Laftet tømmer", 
                                                     "Høy standard", 320, 
-                                                    4500000, 1200000);
+                                                    4500000, 1200000, false);
         Forsikring forsikring_5 = new Reiseforsikring( kunde_3, 4000, false, 0, 1, 
                                                     40000 );
         Forsikring forsikring_6 = new Fritidsboligforsikring( kunde_3, 4000, 
                                                     "Hardangervidda", 1899, 
                                                     "Hus/Hytte", "Tre", 
                                                     "Normal standard", 13, 
-                                                    250000, 125000, false);
+                                                    250000, 125000, true, false);
         
         forsikringsregister.leggTil(kunde_1, forsikring_1);
         forsikringsregister.leggTil(kunde_1, forsikring_2);
@@ -202,20 +202,20 @@ public class HovedRegister
         return nyForsikring;
     }
     
-    public Forsikring nyHusforsikring( Kunde k, int e_andel, String adresse, int byggar, String bt, String mat, String stand,int kvm, int belopByg, int belopInn)
+    public Forsikring nyHusforsikring( Kunde k, int e_andel, String adresse, int byggar, String bt, String mat, String stand,int kvm, int belopByg, int belopInn, boolean alarm)
     {
         Forsikring nyForsikring = new Husforsikring( k , e_andel, adresse,
                                                      byggar, bt, mat, stand, 
-                                                     kvm, belopByg, belopInn );
+                                                     kvm, belopByg, belopInn, alarm );
         forsikringsregister.leggTil( k, nyForsikring);
         return nyForsikring;
     }
     
     public Forsikring nyFritidsboligforsikring( Kunde k, String hadresse, int byggar,
                                           String bt, String mat, String stand, int kvm,
-                                          int belopByg, int belopInn, boolean utl)
+                                          int belopByg, int belopInn, boolean alarm, boolean utl)
     {
-        Forsikring nyForsikring = new Fritidsboligforsikring(k, 8000, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, utl);
+        Forsikring nyForsikring = new Fritidsboligforsikring(k, 8000, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, alarm, utl);
         forsikringsregister.leggTil( k, nyForsikring);
         return nyForsikring;
     }
