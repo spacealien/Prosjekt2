@@ -112,7 +112,7 @@ public class Kunderegister
     public List<Kunde> finnAlleKundeEtterPersonnummer(String personnummer)
     {
         return kunderegister.stream().filter( x -> x.getPersonnummer()
-                .equals(personnummer)).collect(Collectors.toList());
+                .equalsIgnoreCase(personnummer)).collect(Collectors.toList());
     }
     
     
@@ -129,21 +129,21 @@ public class Kunderegister
     public List<Kunde> finnKundeEtterFornavn( String fornavn )
     {
         return kunderegister.stream().filter( (x) ->
-                x.getFornavn().equals(fornavn)).collect(Collectors.toList());
+                x.getFornavn().equalsIgnoreCase(fornavn)).collect(Collectors.toList());
     }
     
     public List<Kunde> finnKundeEtterEtternavn( String etternavn )
     {
         
         return kunderegister.stream().filter( (x) -> 
-                x.getEtternavn().equals(etternavn)).collect(Collectors.toList());
+                x.getEtternavn().equalsIgnoreCase(etternavn)).collect(Collectors.toList());
     }
     
     //ok, testet
     public List<Kunde> finnKunderEtterNavn( String fornavn, String etternavn )
     {
-        return kunderegister.stream().filter( (x) -> x.getEtternavn().equals(etternavn) &&
-                x.getFornavn().equals(fornavn)).collect(Collectors.toList());
+        return kunderegister.stream().filter( (x) -> x.getEtternavn().equalsIgnoreCase(etternavn) &&
+                x.getFornavn().equalsIgnoreCase(fornavn)).collect(Collectors.toList());
     }
     
     public List<Kunde> alleKunder()
