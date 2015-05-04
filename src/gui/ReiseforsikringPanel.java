@@ -29,6 +29,8 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
     private final JButton reiseGiTilbud;
     String[] sone = {"", "Norden", "Europa", "Verden"};
     JComboBox<String> sonevelger;
+    String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
+    JComboBox<String> egenandelsvelger;
     private final Kunde kunde;
     
     public ReiseforsikringPanel(Kunde k)
@@ -42,6 +44,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
         antbarnLabel.setEnabled(false);
         reiseGiTilbud = new JButton("Tegn forsikring");
         sonevelger = new JComboBox<>(sone);
+        egenandelsvelger = new JComboBox<>(egenandel);
         forsorgerJa = new JRadioButton("Ja");
         forsorgerJa.setMnemonic(KeyEvent.VK_J);
         forsorgerNei = new JRadioButton("Nei");
@@ -52,7 +55,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
         
         JPanel tegnReisePanel1 = new JPanel();
         JPanel forsorgerP = new JPanel();
-        tegnReisePanel1.setLayout(new GridLayout(5,4,1,5));
+        tegnReisePanel1.setLayout(new GridLayout(6,4,1,5));
         forsorgerP.add(forsorgerJa);
         forsorgerP.add(forsorgerNei);
         tegnReisePanel1.add(new JLabel("Er kunde forsørger? "));
@@ -63,13 +66,16 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
         tegnReisePanel1.add(sonevelger);
         tegnReisePanel1.add(new JLabel());
         tegnReisePanel1.add(new JLabel());
+        tegnReisePanel1.add(new JLabel("Egenandel: "));
+        tegnReisePanel1.add(egenandelsvelger);
+        tegnReisePanel1.add(new JLabel());
+        tegnReisePanel1.add(new JLabel());
         tegnReisePanel1.add(new JLabel("Forsikringsbeløp: "));
         tegnReisePanel1.add(reiseBelop);
         tegnReisePanel1.add(new JLabel());
         tegnReisePanel1.add(new JLabel());
         tegnReisePanel1.add(new JLabel("Foreslått tilbud: "));
         tegnReisePanel1.add(reiseTilbud);
-        tegnReisePanel1.add(new JLabel());
         tegnReisePanel1.add(new JLabel());
         tegnReisePanel1.add(reiseGiTilbud);
         add(tegnReisePanel1);

@@ -27,6 +27,8 @@ public class HusforsikringPanel extends JPanel implements ActionListener
     private final String[] husmateriale = {"","Mur", "Tre", "Brannfast", "Laftet tømmer"};
     private final String[] husstandard = {"","Normal standard", "Bedre standard", "Høy standard"};
     JComboBox<String> husstandardvelger;
+    String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
+    JComboBox<String> egenandelsvelger;
     private final JButton husGiTilbud;
     private final Kunde kunde;
     
@@ -42,10 +44,11 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         hustypevelger = new JComboBox<>(hustype);
         husmaterialevelger = new JComboBox<>(husmateriale);
         husstandardvelger = new JComboBox<>(husstandard);
+        egenandelsvelger = new JComboBox<>(egenandel);
         husGiTilbud = new JButton("Tegn forsikring");
         
         JPanel tegnHusPanel1 = new JPanel();
-        tegnHusPanel1.setLayout(new GridLayout(6,4,5,10));
+        tegnHusPanel1.setLayout(new GridLayout(7,4,5,10));
         tegnHusPanel1.add(new JLabel("Adresse: "));
         tegnHusPanel1.add(husAdresse);
         tegnHusPanel1.add(new JLabel("Byggemateriale: "));
@@ -58,10 +61,14 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         tegnHusPanel1.add(husKvm);
         tegnHusPanel1.add(new JLabel("Byggeår: "));
         tegnHusPanel1.add(husAr);
+        tegnHusPanel1.add(new JLabel("Egenandel: "));
+        tegnHusPanel1.add(egenandelsvelger);
         tegnHusPanel1.add(new JLabel("Forsikringsbeløp: "));
         tegnHusPanel1.add(belopHus);
         tegnHusPanel1.add(new JLabel("Forskringsbeløp innbo: "));
         tegnHusPanel1.add(belopHusInnbo);
+        tegnHusPanel1.add(new JLabel());
+        tegnHusPanel1.add(new JLabel());
         tegnHusPanel1.add(new JLabel("Foreslått tilbud: "));
         tegnHusPanel1.add(husTilbud);
         tegnHusPanel1.add(new JLabel());
