@@ -220,10 +220,11 @@ public class HovedRegister
         return nyForsikring;
     }
     
-    public void nyReiseforsikring()
+    public Forsikring nyReiseforsikring(Kunde k, int e_andel, boolean forsorger, int antBarn, int belop, int sone)
     {
-        //Forsikring nyForsikring = new Reiseforsirking();
-        //forsikringsregister.leggTil( k, nyForsikring);
+        Forsikring nyForsikring = new Reiseforsikring(k, e_andel, forsorger, antBarn, belop, sone);
+        forsikringsregister.leggTil( k, nyForsikring);
+        return nyForsikring;
     }
     
     public void nySkademelding( Forsikring forsikring, Date dato, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )

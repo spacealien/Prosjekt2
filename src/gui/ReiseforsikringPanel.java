@@ -9,17 +9,15 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import objekter.*;
+import register.*;
 
 /**
  *
-<<<<<<< HEAD
- * @author Marthejansonskogen
-=======
  * @author Odd, Thomas, Marthe
->>>>>>> origin/master
  */
 public class ReiseforsikringPanel extends JPanel implements ActionListener
 {
+    private HovedRegister register;
     private final JTextField reiseBelop;
     private final JTextField reiseTilbud;
     private final JTextField antbarn;
@@ -27,14 +25,22 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
     private final JRadioButton forsorgerJa;
     private final JRadioButton forsorgerNei;
     private final JButton reiseGiTilbud;
+    private final JButton beregnPris;
     String[] sone = {"", "Norden", "Europa", "Verden"};
     JComboBox<String> sonevelger;
     String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
     JComboBox<String> egenandelsvelger;
     private final Kunde kunde;
     
+    private int antBarn;
+    private int belop;
+    private boolean forsorger_b;
+    private int sone_n;
+    private int egenandelvalget;
+    
     public ReiseforsikringPanel(Kunde k)
     {
+        register = new HovedRegister();
         kunde = k;
         reiseBelop = new JTextField( 7 );
         reiseTilbud = new JTextField( 7 );
@@ -43,6 +49,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
         antbarn.setEnabled(false);
         antbarnLabel.setEnabled(false);
         reiseGiTilbud = new JButton("Tegn forsikring");
+        beregnPris = new JButton("Beregn pris");
         sonevelger = new JComboBox<>(sone);
         egenandelsvelger = new JComboBox<>(egenandel);
         forsorgerJa = new JRadioButton("Ja");
@@ -73,12 +80,15 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
         tegnReisePanel1.add(new JLabel("Forsikringsbeløp: "));
         tegnReisePanel1.add(reiseBelop);
         tegnReisePanel1.add(new JLabel());
-        tegnReisePanel1.add(new JLabel());
+        tegnReisePanel1.add(beregnPris);
         tegnReisePanel1.add(new JLabel("Foreslått tilbud: "));
         tegnReisePanel1.add(reiseTilbud);
         tegnReisePanel1.add(new JLabel());
         tegnReisePanel1.add(reiseGiTilbud);
         add(tegnReisePanel1);
+        
+        reiseGiTilbud.addActionListener(this);
+        beregnPris.addActionListener(this);
         
         forsorgerJa.addItemListener(new ItemListener()
         {
@@ -99,9 +109,75 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
         }});
     }
     
+    
+    public boolean hentInfo()
+    {
+        sone_n = sonevelger.getSelectedIndex();
+        int egenandel_n = egenandelsvelger.getSelectedIndex();
+                
+                
+                if(egenandel_n == 0 || sone_n == 0 || (!forsorgerJa.isSelected() && !forsorgerNei.isSelected()))
+                {
+                    String ut = "Det mangler informasjon om:\n";
+                    if (sone_n == 0)
+                {ut += "Sone\n";}
+                    if (egenandel_n == 0)
+                {ut += "Egenandel\n";}
+                    if (!forsorgerJa.isSelected() && !forsorgerNei.isSelected())
+                    {ut += "Forsørgervalg\n";}
+                    ut += "\nVennligst fyll ut denne informasjonen og prøv igjen.";
+                            JOptionPane.showMessageDialog(null, ut, "Feilmelding",
+                                                JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+                else
+                {
+                if (forsorgerJa.isSelected() && !forsorgerNei.isSelected())
+                {
+                    forsorger_b = true;
+                    antBarn = Integer.parseInt(antbarn.getText());
+                 }
+                else if (!forsorgerJa.isSelected() && forsorgerNei.isSelected())
+                {
+                    forsorger_b = false;
+                    antBarn = 0;
+                }
+                
+                belop = Integer.parseInt(reiseBelop.getText());
+                return true;
+                }
+                
+                
+               
+    }
+    
+    public void beregnPris()
+    {
+        if (hentInfo())
+        {
+           //Beregn pris
+        }
+    }
+    
+    public void tegnNy()
+    {
+        if (hentInfo())
+        {
+           Forsikring forsikringen = register.nyReiseforsikring(kunde, egenandelvalget, forsorger_b, antBarn, sone_n, belop);
+                System.out.println(forsikringen);
+        }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        
+        if (e.getSource() == reiseGiTilbud)
+        {
+            tegnNy();
+        }
+        else if (e.getSource() == beregnPris)
+        {
+            beregnPris();
+        }
     }
 }
