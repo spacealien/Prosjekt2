@@ -242,8 +242,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                                                      kmstand, bonusen, garasje, lengdevalget ); 
                    Kjoretoyforsikring forsikringen =(Kjoretoyforsikring)forsikring;
                    forsikringen.setEier(eier);
-                    System.out.println(forsikringen);
-                   
+                   System.out.println(forsikringen);
+                   JOptionPane.showMessageDialog(null, "Du har nå tegnet bilforsikring med nummer " + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() + " " + kunde.getEtternavn() , "Bekreftelse", JOptionPane.INFORMATION_MESSAGE);
             }
       }
     
