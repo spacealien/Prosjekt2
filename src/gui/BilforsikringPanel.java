@@ -199,7 +199,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             int dekning_n = dekningvelger.getSelectedIndex();
             
             
-            if (lengde_n == 0 || merke_n == 0 || type_n == 0 || egenandel_n == 0 || alder_n == 0 || dekning_n == 0|| bonus_n == 0|| (!garasjeJa.isSelected() && !garasjeNei.isSelected()))
+            if (lengde_n == 0 || merke_n == 0 || type_n == 0 || egenandel_n == 0 
+               || alder_n == 0 || dekning_n == 0 || bonus_n == 0 || 
+                    (!garasjeJa.isSelected() && !garasjeNei.isSelected()))
             {
                 String ut = "Det mangler informasjon om:\n";
                 if (lengde_n == 0)
@@ -226,7 +228,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     if(!garasjeJa.isSelected() && !garasjeNei.isSelected())
                     {ut += "Garasjevalg";}
             
-                    JOptionPane.showMessageDialog(null, ut, "Feilmelding", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, ut, "Feilmelding",
+                                                JOptionPane.ERROR_MESSAGE);
             }
             else
             {
@@ -236,14 +239,15 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             int lengdevalget = Integer.parseInt(kjorelengdevelger.getItemAt(lengde_n));
             String b = bonusvelger.getItemAt(bonus_n);
             double bonusen = (Double.parseDouble(b.substring(0,2)) / 100);
+            int egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
             
-                   Forsikring forsikring = register.nyBilForsikring( kunde, regnr,
-                                                     merkevalget,modell, typevalget, hk, ar,
-                                                     kmstand, bonusen, garasje, lengdevalget ); 
-                   Kjoretoyforsikring forsikringen =(Kjoretoyforsikring)forsikring;
-                   forsikringen.setEier(eier);
-                   System.out.println(forsikringen);
-                   JOptionPane.showMessageDialog(null, "Du har nå tegnet bilforsikring med nummer " + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() + " " + kunde.getEtternavn() , "Bekreftelse", JOptionPane.INFORMATION_MESSAGE);
+            Forsikring forsikring = register.nyBilForsikring( kunde, egenandelvalget, regnr,
+                                    merkevalget,modell, typevalget, hk, ar,
+                                    kmstand, bonusen, garasje, lengdevalget ); 
+            Kjoretoyforsikring forsikringen =(Kjoretoyforsikring)forsikring;
+            forsikringen.setEier(eier);
+            System.out.println(forsikringen);
+            JOptionPane.showMessageDialog(null, "Du har nå tegnet bilforsikring med nummer " + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() + " " + kunde.getEtternavn() , "Bekreftelse", JOptionPane.INFORMATION_MESSAGE);
             }
       }
     
@@ -253,7 +257,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         if( e.getSource() == bilGiTilbud)
         {
             tegnNy();
-            System.out.println("test");
         }
         
     }

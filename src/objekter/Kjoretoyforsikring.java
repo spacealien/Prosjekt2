@@ -19,10 +19,10 @@ public abstract class Kjoretoyforsikring extends Forsikring
     private int hestekrefter;
     private final int arsmodell;
         
-    public Kjoretoyforsikring( Kunde k, String registreringsnummer, String fabrikant, 
+    public Kjoretoyforsikring( Kunde k, int e_andel, String registreringsnummer, String fabrikant, 
                                String modell, String type, int hestekrefter, int arsmodell)
     {
-        super(k);
+        super(k, e_andel);
         this.registreringsnmmer = registreringsnummer;
         this.fabrikant = fabrikant;
         this.modell = modell;
@@ -47,8 +47,11 @@ public abstract class Kjoretoyforsikring extends Forsikring
     }
 
     @Override
-    public String toString() {
-        return "Kjoretoyforsikring{" + "registreringsnmmer=" + registreringsnmmer + ", fabrikant=" + fabrikant + ", modell=" + modell + ", hestekrefter=" + hestekrefter + ", arsmodell=" + arsmodell + '}';
+    public String toString()
+    { 
+        String ut = super.toString();
+        ut += "\nRegistreringsnummer: " +  registreringsnmmer + "\nFabrikant: " + fabrikant + "\nModell: " + modell + "\nHestekrefter: " + hestekrefter + "\nÅrsmodell: " + arsmodell;
+        return ut;
     }
     
 }

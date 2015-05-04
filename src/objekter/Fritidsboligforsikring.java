@@ -13,11 +13,11 @@ public class Fritidsboligforsikring extends Eiendomsforsikring
 {
     private boolean utleie;
     private String utleid = "";
-    public Fritidsboligforsikring(Kunde k, String hadresse, int byggar,
+    public Fritidsboligforsikring(Kunde k, int e_andel, String hadresse, int byggar,
                                   String bt, String mat, String stand, int kvm,
                                   int belopByg, int belopInn, boolean utl)
     {
-    super( k, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn);
+    super( k, e_andel, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn);
     utleie = utl;
     }
     

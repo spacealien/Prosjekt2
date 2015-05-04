@@ -20,6 +20,7 @@ public abstract class Forsikring
     
     //private final Ansatt ansatt;            Legg til datafelt for ansatt.
     private final Kunde kunde;
+    private int egenandel;
     private final Date startdato;
     private Date sluttdato;
     private double arligPremie = 0;
@@ -31,14 +32,25 @@ public abstract class Forsikring
     private boolean aktiv = true;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     
-    public Forsikring( Kunde k )
+    public Forsikring( Kunde k, int e_andel )
     {
+        egenandel = e_andel;
         startdato = new Date();
         forsikringsnummer =  løpenummer++;
         //this.vilkår = vilkår;
         kunde = k;
     }
 
+    public int getEgenandel()
+    {
+        return egenandel;
+    }
+    
+    public void setEgenandel(int e)
+    {
+        egenandel = e;
+    }
+    
     public double getTotalbelop() {
         return totalbelop;
     }

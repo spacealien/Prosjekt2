@@ -11,24 +11,18 @@ package objekter;
  */
 public class BatForsikring extends Kjoretoyforsikring
 {
-    private double bonus;
     private boolean vekter;
     private int lengde;
         
-    public BatForsikring(  Kunde k, String registreringsnummer,
+    public BatForsikring(  Kunde k, int e_andel, String registreringsnummer,
                            String fabrikant, String modell, String type, int hestekrefter, 
-                           int arsmodell, double bonus, boolean vekter, int lengde)
+                           int arsmodell, boolean vekter, int lengde)
     {
-        super( k, registreringsnummer, fabrikant, modell, type, hestekrefter, arsmodell );
-        this.bonus = bonus;
+        super( k, e_andel, registreringsnummer, fabrikant, modell, type, hestekrefter, arsmodell );
         this.vekter = vekter;
         this.lengde = lengde;
     }
     
-    public void setBonus( double bonus )
-    {
-        this.bonus = bonus;
-    }
     
     public void setGarasje( boolean bekreftelse )
     {
@@ -56,7 +50,7 @@ public class BatForsikring extends Kjoretoyforsikring
             vekt = "Nei";
         
         String ut = super.toString();
-        ut += "\nBonus: " + bonus + "\nVekter: " + vekt + "\nLengde: " + lengde;
+        ut +=  "\nVekter: " + vekt + "\nLengde: " + lengde;
         return ut;
     }
     

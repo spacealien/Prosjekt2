@@ -39,26 +39,25 @@ public class HovedRegister
         Kunde kunde_2 = kunderegister.finnKundeEtterPersonnummer("01258446816");
         Kunde kunde_3 = kunderegister.finnKundeEtterPersonnummer("02029449964");
         
-        Forsikring forsikring_1 = new Bilforsikring( kunde_1, "DH12345", 
+        Forsikring forsikring_1 = new Bilforsikring( kunde_1, 2000, "DH12345", 
                                                     "Volvo", "XC90", "SUV", 340, 
                                                     2014, 30000, 0.50, false, 
                                                     10000 );
-        Forsikring forsikring_2 = new BatForsikring( kunde_1, "DK54321", 
+        Forsikring forsikring_2 = new BatForsikring( kunde_1, 20000, "DK54321", 
                                                     "Tresfjord", "Ultra 360 FB", 
-                                                    "Cabin cruiser", 120, 2014, 
-                                                    0.70, false, 30 );
-        Forsikring forsikring_3 = new Bilforsikring( kunde_2, "CD67890", 
+                                                    "Cabin cruiser", 120, 2014, false, 30 );
+        Forsikring forsikring_3 = new Bilforsikring( kunde_2, 2000, "CD67890", 
                                                     "Volvo", "Sonett", "Småbil", 
                                                     800, 1968, 300000, 1.00, 
                                                     true, 50000 );
-        Forsikring forsikring_4 = new Husforsikring( kunde_2, "Fjollesvingen 32", 
+        Forsikring forsikring_4 = new Husforsikring( kunde_2, 8000, "Fjollesvingen 32", 
                                                     1970, "Tremannsbolig", 
                                                     "Laftet tømmer", 
                                                     "Høy standard", 320, 
                                                     4500000, 1200000);
-        Forsikring forsikring_5 = new Reiseforsikring( kunde_3, false, 0, 1, 
+        Forsikring forsikring_5 = new Reiseforsikring( kunde_3, 4000, false, 0, 1, 
                                                     40000 );
-        Forsikring forsikring_6 = new Fritidsboligforsikring( kunde_3, 
+        Forsikring forsikring_6 = new Fritidsboligforsikring( kunde_3, 4000, 
                                                     "Hardangervidda", 1899, 
                                                     "Hus/Hytte", "Tre", 
                                                     "Normal standard", 13, 
@@ -179,12 +178,12 @@ public class HovedRegister
         System.out.print("bilforsikringer" + bilForsikring);
     }
     
-    public Forsikring nyBilForsikring( Kunde k, String registreringsnummer,
+    public Forsikring nyBilForsikring( Kunde k, int e_andel, String registreringsnummer,
                                  String fabrikant, String modell, String type, int hestekrefter, 
                                  int arsmodell, int kilometerstand, double bonus, 
                                  boolean garasje, int km)
     {
-        Forsikring nyForsikring = new Bilforsikring( k, registreringsnummer,
+        Forsikring nyForsikring = new Bilforsikring( k, e_andel, registreringsnummer,
                                                      fabrikant,modell, type, hestekrefter, arsmodell,
                                                      kilometerstand, bonus, garasje, km );
         
@@ -192,21 +191,21 @@ public class HovedRegister
         return nyForsikring;
     }
     
-    public Forsikring nyBatForsikring( Kunde k, String registreringsnummer,
+    public Forsikring nyBatForsikring( Kunde k, int e_andel, String registreringsnummer,
                                  String fabrikant, String modell, String type, int hestekrefter, 
-                                 int arsmodell, double bonus, 
+                                 int arsmodell, 
                                  boolean vekter, int lengde)
     {
-        Forsikring nyForsikring = new BatForsikring( k, registreringsnummer,
-                                                     fabrikant,modell, type, hestekrefter, arsmodell, bonus, vekter, lengde);
+        Forsikring nyForsikring = new BatForsikring( k, e_andel, registreringsnummer,
+                                                     fabrikant,modell, type, hestekrefter, arsmodell, vekter, lengde);
         
         forsikringsregister.leggTil( k, nyForsikring);
         return nyForsikring;
     }
     
-    public Forsikring nyHusforsikring( Kunde k, String adresse, int byggar, String bt, String mat, String stand,int kvm, int belopByg, int belopInn)
+    public Forsikring nyHusforsikring( Kunde k, int e_andel, String adresse, int byggar, String bt, String mat, String stand,int kvm, int belopByg, int belopInn)
     {
-        Forsikring nyForsikring = new Husforsikring( k , adresse,
+        Forsikring nyForsikring = new Husforsikring( k , e_andel, adresse,
                                                      byggar, bt, mat, stand, 
                                                      kvm, belopByg, belopInn );
         forsikringsregister.leggTil( k, nyForsikring);
@@ -217,7 +216,7 @@ public class HovedRegister
                                           String bt, String mat, String stand, int kvm,
                                           int belopByg, int belopInn, boolean utl)
     {
-        Forsikring nyForsikring = new Fritidsboligforsikring(k, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, utl);
+        Forsikring nyForsikring = new Fritidsboligforsikring(k, 8000, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, utl);
         forsikringsregister.leggTil( k, nyForsikring);
         return nyForsikring;
     }

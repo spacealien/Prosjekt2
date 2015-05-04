@@ -19,10 +19,10 @@ public class Reiseforsikring extends Personligforsikring
     
     
     
-    public Reiseforsikring(Kunde k, boolean fs, int antallBarn, int son, int belop )
+    public Reiseforsikring(Kunde k, int e_andel, boolean fs, int antallBarn, int son, int belop )
     {
         
-        super(k, fs, antallBarn);
+        super(k, e_andel, fs, antallBarn);
         sone = son;  
         belopet = belop;
     }
