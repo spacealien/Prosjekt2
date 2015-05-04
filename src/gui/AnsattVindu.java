@@ -8,6 +8,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -93,9 +94,9 @@ public class AnsattVindu extends JFrame
        */
         
         mainContainer.setLayout( new BorderLayout() );
-        mainContainer.add( menyPanel, BorderLayout.WEST);
+        mainContainer.add( menyPanel, BorderLayout.LINE_START);
         mainContainer.add( hovedPanel, BorderLayout.CENTER);  
-        mainContainer.add( hovedPanelBunn, BorderLayout.SOUTH);
+        mainContainer.add( hovedPanelBunn, BorderLayout.PAGE_END);
         
         hovedPanel.setLayout( new BorderLayout());
         hovedPanel.add(fanekort, BorderLayout.CENTER);
@@ -145,6 +146,7 @@ public class AnsattVindu extends JFrame
     {
         hovedPanelBunn.removeAll();
         tabell = new KundeTabell(modell, this);
+        tabell.setPreferredScrollableViewportSize(new Dimension(500,200));
         bunnContainer.removeAll();
         bunnContainer.setLayout( new BorderLayout() );
         søkePanel.removeAll();
@@ -165,7 +167,7 @@ public class AnsattVindu extends JFrame
         tabellContainer.add(new JScrollPane(tabell), BorderLayout.CENTER);
         bunnContainer.add( tabellContainer);
         hovedPanelBunn.setLayout( new BorderLayout() );
-        hovedPanelBunn.add( bunnContainer, BorderLayout.CENTER);
+        hovedPanelBunn.add( bunnContainer, BorderLayout.PAGE_END);
     }
     
     public void oppdaterTabell( List<Kunde> liste )
