@@ -64,11 +64,25 @@ public class KundeTabell extends JTable
         nyForsikring.add(nyFritidsboligforsikring);
         nyForsikring.add(nyReiseforsikring);
         
-        addMouseListener(new MouseAdapter() {
-         @Override
-        public void mouseReleased(MouseEvent e) 
+        addMouseListener(new MouseAdapter()
         {
-            int r = rowAtPoint(e.getPoint());
+         @Override
+         public void mousePressed(MouseEvent e)
+        {
+        sjekkKlikk(e);
+        }
+         @Override
+        public void mouseReleased(MouseEvent e)
+        {
+         sjekkKlikk(e);
+        }
+        
+  
+        public void sjekkKlikk(MouseEvent e)
+        {
+        if (e.isPopupTrigger())
+        {
+        int r = rowAtPoint(e.getPoint());
             if (r >= 0 && r < getRowCount()) 
             {
                 setRowSelectionInterval(r, r);
@@ -90,8 +104,11 @@ public class KundeTabell extends JTable
                 popup.show(e.getComponent(), e.getX(), e.getY());
             }
         }
-    }); // end of anonym muselytter        
+    }   
+    }); // end of anonym muselytter
     } // end of konstruktør
+   
+   
     
     public Kunde getKunde()
     {
