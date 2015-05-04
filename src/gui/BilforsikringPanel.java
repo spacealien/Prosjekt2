@@ -217,7 +217,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                    Forsikring forsikring = register.nyBilForsikring( kunde, regnr,
                                                      merkevalget,modell, typevalget, hk, ar,
                                                      kmstand, bonusen, garasje, lengdevalget ); 
-                   //forsikring.setEier(eier);
+                   Kjoretoyforsikring forsikringen =(Kjoretoyforsikring)forsikring;
+                   forsikringen.setEier(eier);
             }
       }
     
