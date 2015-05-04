@@ -15,7 +15,7 @@ import objekter.Kunde;
  */
 public class TabellModell extends AbstractTableModel
 {
-    private String[] kolonnenavn = { "Personnummer", "Fornavn", "Etternavn", "Kundenummer", "Adresse", "Telefonnummer", "Opprettet"};
+    private String[] kolonnenavn = { "Personnummer", "Fornavn", "Etternavn", "Adresse", "Telefonnummer", "Opprettet","fødselsdato"};
     private Object[][] innhold;
     private List<Kunde> kunder;
     
@@ -34,6 +34,7 @@ public class TabellModell extends AbstractTableModel
             innhold[teller][3] = kunde.getAdresse();
             innhold[teller][4] = kunde.getTlfnr();
             innhold[teller][5] = kunde.getStartdato();
+            innhold[teller][6] = kunde.getFodtdato();
             teller++;
         }
     }

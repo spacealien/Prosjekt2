@@ -11,6 +11,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -39,9 +40,11 @@ public class KundePanel extends JPanel implements ActionListener
     private final JButton regKunde;
     private final JButton kontaktKunde;
     private boolean nyKunde;
+    private final AnsattVindu vindu;
     
-    public KundePanel()
+    public KundePanel( AnsattVindu vindu)
     {
+        this.vindu = vindu;
         kundeInfo_1 = new JPanel();
         kundeInfo_2 = new JPanel();
         knappeWrapper = new JPanel();
@@ -72,14 +75,14 @@ public class KundePanel extends JPanel implements ActionListener
         
         setLayout( new BorderLayout() );
         knappeWrapper.setLayout( new FlowLayout() );
-        JButton vidreKnapp = new JButton("Videre");
-        knappeWrapper.add(vidreKnapp);
+        knappeWrapper.add(regKunde);
         add(kundeInfo_1, BorderLayout.CENTER );
         add(knappeWrapper, BorderLayout.SOUTH );
     }
     
-    public KundePanel( Kunde kunde )
+    public KundePanel( AnsattVindu vindu, Kunde kunde )
     {
+        this.vindu = vindu;
         kundeInfo_1 = new JPanel();
         kundeInfo_2 = new JPanel();
         knappeWrapper = new JPanel();
@@ -153,6 +156,33 @@ public class KundePanel extends JPanel implements ActionListener
         add(knappeWrapper, BorderLayout.SOUTH);
     }
     
+    public Kunde nyKunde()
+    {
+        try
+        { 
+           String fornavn = regFornavn.getText();
+           String etternavn = regEtternavn.getText();
+            String adresse = regAdresse.getText();
+            String telefonnummer = regTlfnr.getText();
+            String epost = regEpost.getText();
+            String personnummer = regPersnr.getText();
+            //int fødselsår = Integer.parseInt(epost);
+            //int fødselsmåned = Integer.parseInt(epost);
+            //int fødselsdato = Integer.parseInt(epost);
+
+            Date fødelsdato = new Date();
+            Kunde kunde = new Kunde( fornavn, etternavn, adresse, telefonnummer,
+            fødelsdato, epost, personnummer );
+            return kunde;
+        }
+        catch( NumberFormatException e)
+        {
+            
+        }
+        return null;
+    }
+    
+    
     
     @Override
     public void actionPerformed(ActionEvent e) 
@@ -160,6 +190,11 @@ public class KundePanel extends JPanel implements ActionListener
         if( e.getSource() ==  kontaktKunde)
         {
             
+        }
+        else if( e.getSource()== regKunde)
+        {
+            Kunde nyKunde1 = nyKunde();
+            vindu.leggTilNyFane( new ForsikringsPanel(), "Forsikringsvelger" );
         }
     }
 }

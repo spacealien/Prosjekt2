@@ -35,13 +35,42 @@ public class HovedRegister
 
     public HovedRegister( )
     {
-        Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer(null);
-        Kunde kunde_2 = kunderegister.finnKundeEtterPersonnummer(null);
+        Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer("08206049937");
+        Kunde kunde_2 = kunderegister.finnKundeEtterPersonnummer("01258446816");
+        Kunde kunde_3 = kunderegister.finnKundeEtterPersonnummer("02029449964");
         
+        Forsikring forsikring_1 = new Bilforsikring( kunde_1, "DH12345", 
+                                                    "Volvo", "XC90", "SUV", 340, 
+                                                    2014, 30000, 0.50, false, 
+                                                    10000 );
+        Forsikring forsikring_2 = new BatForsikring( kunde_1, "DK54321", 
+                                                    "Tresfjord", "Ultra 360 FB", 
+                                                    "Cabin cruiser", 120, 2014, 
+                                                    0.70, false, 30 );
+        Forsikring forsikring_3 = new Bilforsikring( kunde_2, "CD67890", 
+                                                    "Volvo", "Sonett", "Småbil", 
+                                                    800, 1968, 300000, 1.00, 
+                                                    true, 50000 );
+        Forsikring forsikring_4 = new Husforsikring( kunde_2, "Fjollesvingen 32", 
+                                                    1970, "Tremannsbolig", 
+                                                    "Laftet tømmer", 
+                                                    "Høy standard", 320, 
+                                                    4500000, 1200000);
+        Forsikring forsikring_5 = new Reiseforsikring( kunde_3, false, 0, 1, 
+                                                    40000 );
+        Forsikring forsikring_6 = new Fritidsboligforsikring( kunde_3, 
+                                                    "Hardangervidda", 1899, 
+                                                    "Hus/Hytte", "Tre", 
+                                                    "Normal standard", 13, 
+                                                    250000, 125000, false);
         
-        
-        forsikringsregister.leggTil(kunde_1, null);
-        forsikringsregister.leggTil(kunde_2, null);
+        forsikringsregister.leggTil(kunde_1, forsikring_1);
+        forsikringsregister.leggTil(kunde_1, forsikring_2);
+        forsikringsregister.leggTil(kunde_2, forsikring_3);
+        forsikringsregister.leggTil(kunde_2, forsikring_4);
+        forsikringsregister.leggTil(kunde_3, forsikring_5);
+        forsikringsregister.leggTil(kunde_3, forsikring_6);
+       
     }
     
     public Kunde nyKunde( String fnavn, String enavn, String adr, String tlf, String email, String persnummer)

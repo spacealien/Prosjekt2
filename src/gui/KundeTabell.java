@@ -123,7 +123,7 @@ public class KundeTabell extends JTable
             if( e.getSource() == info )
             {
                 Kunde kunde = getKunde();
-                vindu.leggTilNyFane( new KundePanel(kunde), kunde.getEtternavn() );
+                vindu.leggTilNyFane( new KundePanel(vindu,kunde), kunde.getEtternavn() );
             }
             else if( e.getSource() == nyBilforsikring )
             {

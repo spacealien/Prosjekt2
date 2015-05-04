@@ -5,6 +5,7 @@
  */
 package gui;
 
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 /**
@@ -13,9 +14,12 @@ import javax.swing.JPanel;
  */
 public class ForsikringsPanel extends JPanel
 {
+    
+    private final String[] forsikringsvalg = {"", "Bilforsikring", "Båtforsikring", "Husforsikring", "Fritidsboligforsikring", "Reiseforsikring"};
+    private final JComboBox<String> forsikringsDropDown;
     public ForsikringsPanel()
     {
-        
-        
+        forsikringsDropDown = new JComboBox<>(forsikringsvalg);
+        add(forsikringsDropDown);
     }
 }

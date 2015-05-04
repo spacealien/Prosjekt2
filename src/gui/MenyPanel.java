@@ -68,7 +68,7 @@ public class MenyPanel extends JPanel implements ActionListener
     {
         if( e.getSource() == nyKunde)
         {
-            vindu.leggTilNyFane( new KundePanel(), "Ny kunde");
+            vindu.leggTilNyFane( new KundePanel(vindu), "Ny kunde");
         }
         else if( e.getSource() == nyForsikring )
         {

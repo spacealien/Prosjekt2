@@ -26,7 +26,7 @@ public class Kunderegister
     {
         kunderegister = new HashSet<>();
         
-        Date fdato = new Date();
+        Date fdato = new Date(91,6,6);
         Kunde test_1 = new Kunde("Rolf", "Hestman", "Kongleknaggen 18", "22260906", fdato, "hesterolf@yahoo.no", "08206049937");
         Kunde test_2 = new Kunde("Bjørn", "Dæhlie", "Trysil 23B", "22260906", fdato, "epost@epost.no", "12048449997");
         Kunde test_3 = new Kunde("Marit", "Bjørgen", "Trondheim 23B", "22260906", fdato, "marit@langrenn.no", "02029449964");
