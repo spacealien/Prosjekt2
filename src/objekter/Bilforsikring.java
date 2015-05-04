@@ -35,11 +35,6 @@ public class Bilforsikring extends Kjoretoyforsikring
         this.garasje = bekreftelse;
     }
     
-    /*public void setMaxKjorelengde( MaxKjorelengde km)
-    {
-        maxKjorelengd = km;
-    } */
-    
     /**
      * Denne metoden mottar kunde som parameter og gjør prisberegninger 
      * utifra kundeinformasjon.
@@ -64,24 +59,4 @@ public class Bilforsikring extends Kjoretoyforsikring
         ut += "\nMax kjørelengde: " + maxKjorelengd + "\nBonus: " + bonus + "\nGarasje: " + g;
         return ut;
     }
-    
-    public enum MaxKjorelengde 
-    { 
-        BRONZE(3000),
-        SILVER(6000),
-        GOLD(12000),
-        PLATINUM(16000);
-        
-        private final int grense;
-        
-        private MaxKjorelengde(int km)
-        {
-            this.grense = km;
-        }
-        
-        public int getKM()
-        {
-            return grense;
-        }
-    }; 
 }

@@ -31,10 +31,9 @@ public class TabellModell extends AbstractTableModel
             innhold[teller][0] = kunde.getPersonnummer();
             innhold[teller][1] = kunde.getFornavn();
             innhold[teller][2] = kunde.getEtternavn();
-            innhold[teller][3] = kunde.getKundenr();
-            innhold[teller][4] = kunde.getAdresse();
-            innhold[teller][5] = kunde.getTlfnr();
-            innhold[teller][6] = kunde.getStartdato();
+            innhold[teller][3] = kunde.getAdresse();
+            innhold[teller][4] = kunde.getTlfnr();
+            innhold[teller][5] = kunde.getStartdato();
             teller++;
         }
     }

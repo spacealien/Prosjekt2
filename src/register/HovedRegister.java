@@ -35,10 +35,14 @@ public class HovedRegister
 
     public HovedRegister( )
     {
+        Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer(null);
+        Kunde kunde_2 = kunderegister.finnKundeEtterPersonnummer(null);
         
-
+        
+        
+        forsikringsregister.leggTil(kunde_1, null);
+        forsikringsregister.leggTil(kunde_2, null);
     }
-    
     
     public Kunde nyKunde( String fnavn, String enavn, String adr, String tlf, String email, String persnummer)
     {
