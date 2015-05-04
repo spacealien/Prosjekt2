@@ -16,11 +16,12 @@ import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import objekter.Forsikring;
+import objekter.Fritidsboligforsikring;
 import objekter.Kunde;
 
 /**
@@ -38,7 +39,6 @@ public class KundePanel extends JPanel implements ActionListener
     private final JTextField regTlfnr;
     private final JTextField regAdresse;
     private final JTextField regEpost;
-    private final JTextArea regInfo;
     private final JButton regKunde;
     private final JButton kontaktKunde;
     private final AnsattVindu vindu;
@@ -47,6 +47,8 @@ public class KundePanel extends JPanel implements ActionListener
     private final JButton nyForsikring = new JButton("Ny forsikring");
     private final JButton nySkademelding = new JButton("Ny Skademelding");
     private Kunde kunde = null;
+    private final String[] forsikringsvalg = {"", "Bilforsikring", "Båtforsikring", "Husforsikring", "Fritidsboligforsikring", "Reiseforsikring"};
+    private final JComboBox<String> forsikringsDropDown = new JComboBox<>(forsikringsvalg);
     
     public KundePanel( AnsattVindu vindu)
     {
@@ -61,8 +63,7 @@ public class KundePanel extends JPanel implements ActionListener
         regTlfnr = new JTextField( 8 );
         regAdresse = new JTextField( 15 );
         regEpost = new JTextField(20);
-        regInfo = new JTextArea(200,100);
-        regKunde = new JButton("Registrer kunde" );
+        regKunde = new JButton("Videre" );
         kontaktKunde = new JButton("Kontakt");
         regKunde.addActionListener(this);
         kundeInfo_1.setLayout(new GridLayout(6,2,5,10));
@@ -81,6 +82,8 @@ public class KundePanel extends JPanel implements ActionListener
         
         setLayout( new BorderLayout() );
         knappeWrapper.setLayout( new FlowLayout() );
+        knappeWrapper.add( new JLabel("Velg Forsikringstype: "));
+        knappeWrapper.add(forsikringsDropDown);
         knappeWrapper.add(regKunde);
         add(kundeInfo_1, BorderLayout.CENTER );
         add(knappeWrapper, BorderLayout.SOUTH );
@@ -100,7 +103,6 @@ public class KundePanel extends JPanel implements ActionListener
         regTlfnr = new JTextField( 8 );
         regAdresse = new JTextField( 15 );
         regEpost = new JTextField(20);
-        regInfo = new JTextArea(200,100);
         regKunde = new JButton("Registrer kunde" );
         kontaktKunde = new JButton("Kontakt");
         kontaktKunde.addActionListener(this);
@@ -187,6 +189,10 @@ public class KundePanel extends JPanel implements ActionListener
         return null;
     }
     
+    public boolean validerFelter()
+    {
+        
+    }
     
     
     @Override
@@ -198,14 +204,24 @@ public class KundePanel extends JPanel implements ActionListener
         }
         else if( e.getSource() == regKunde)
         {
-            Kunde nyKunde1 = nyKunde();
-            vindu.leggTilNyFane( new ForsikringsPanel(), "Forsikringsvelger" );
+            Kunde nyKunde = nyKunde();
+            String valg = (String) forsikringsDropDown.getSelectedItem();
+            if( valg.equals(""))
+                vindu.visFeilmelding("Melding", "Du må velge en type forsikring for å gå videre. ");
+            else if( valg.equals("Bilforsikring") )
+                vindu.leggTilNyFane( new BilforsikringPanel(nyKunde), "Ny Bilforsikring");
+            else if( valg.equals("Båtforsikring"))
+                vindu.leggTilNyFane( new BatforsikringPanel(nyKunde), "Ny Båtforsikring");
+            else if( valg.equals("Husforsikring"))
+                vindu.leggTilNyFane( new HusforsikringPanel(nyKunde), "Ny Husforsikring");
+            else if( valg.equals("Fritidsboligforsikring"))
+                vindu.leggTilNyFane( new FritidsboligforsikringPanel(nyKunde), "Ny Fritidsboligforsikring");
+            else if( valg.equals("Reiseforsikring"))
+                vindu.leggTilNyFane( new ReiseforsikringPanel(nyKunde), "Ny Reiseforsikring");
         }
         else if( e.getSource() == visForsikringer)
         {
             List<Forsikring> kundeForsikringer = vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde);
-            vindu.getRegister().getAntallForsikringerEtterType();
-            System.out.println(kundeForsikringer);
         }
     }
 }
