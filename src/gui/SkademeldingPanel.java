@@ -7,8 +7,12 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.*;
 import objekter.*;
+import register.*;
 
 /**
  *
@@ -22,10 +26,22 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     private final JTextField skadeTakst;
     private final JButton sendInnSkade;
     private Kunde kunde;
+    private Forsikring forsikring;
+    private HovedRegister register;
+    SimpleDateFormat sdf;
     
-    public SkademeldingPanel(Kunde k)
+    private Date dato;
+    private String type;
+    private String beskrivelse;
+    private int takst;
+    private int belop;
+    
+    public SkademeldingPanel(Kunde k, Forsikring f)
     {
+        sdf = new SimpleDateFormat("ddMMyyyy");
         kunde = k;
+        forsikring = f;
+        register = new HovedRegister();
         skadeDato = new JTextField( 7 );
         skadeType = new JTextField( 7 );
         skadeBeskrivelse = new JTextArea( 100, 100 );
@@ -51,9 +67,48 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         add(Box.createRigidArea(new Dimension(40, 40)));
         add(sendInnSkade);
     }
+    
+    public boolean hentInfo()
+    {
+        //int sd = Integer.parseInt(skadeDato.getText());
+        String sd = skadeDato.getText();
+        try
+        {
+        dato = sdf.parse(sd);
+        /*int sdar = Integer.parseInt(sd.substring(4,8));
+        int sdmnd = Integer.parseInt(sd.substring(2,4));
+        int sddag = Integer.parseInt(sd.substring(0,2));
+        Date skadedatoen = new Date((sdar-1900), sdmnd, sddag);*/
+        type = skadeType.getText();
+        beskrivelse = skadeBeskrivelse.getText();
+        takst = Integer.parseInt(skadeTakst.getText());
+        
+        return true;
+        } catch (ParseException e)
+        {
+            JOptionPane.showMessageDialog(null, "Vennligst skriv inn datoen i følgende format: ddmmåååå.", "Feilmelding", JOptionPane.ERROR_MESSAGE);
+            return false;
+	}
+        
+    }
+    
+    public void beregnPris()
+    {
+        //Beregner pris
+        //belop =;
+    }
+    
+    public void nySkademelding()
+    {
+        if (hentInfo())
+        register.nySkademelding(forsikring, dato, type, beskrivelse, takst, belop );
+    }
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        
+        if (e.getSource() == sendInnSkade)
+        {
+            nySkademelding();
+        }
     }
 }

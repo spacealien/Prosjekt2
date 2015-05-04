@@ -150,11 +150,11 @@ public class KundeTabell extends JTable
                 Kunde kunde = getKunde();
                 vindu.leggTilNyFane(new ReiseforsikringPanel(kunde), "Båtforsikring");
             }
-            else if( e.getSource() == nySkademelding)
+            /*else if( e.getSource() == nySkademelding)
             {
                 Kunde kunde = getKunde();
-                vindu.leggTilNyFane(new SkademeldingPanel(kunde), "Skademelding");
-            }
+                vindu.leggTilNyFane(new SkademeldingPanel(forsikring), "Skademelding");
+            }*/
         }
     }
 }
