@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -19,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import objekter.Forsikring;
 import objekter.Kunde;
 
 /**
@@ -39,8 +41,12 @@ public class KundePanel extends JPanel implements ActionListener
     private final JTextArea regInfo;
     private final JButton regKunde;
     private final JButton kontaktKunde;
-    private boolean nyKunde;
     private final AnsattVindu vindu;
+    private final JButton visForsikringer = new JButton("Vis Forsikringer");
+    private final JButton visSkademeldinger = new JButton("Vis Skademeldinger");
+    private final JButton nyForsikring = new JButton("Ny forsikring");
+    private final JButton nySkademelding = new JButton("Ny Skademelding");
+    private Kunde kunde = null;
     
     public KundePanel( AnsattVindu vindu)
     {
@@ -83,6 +89,7 @@ public class KundePanel extends JPanel implements ActionListener
     public KundePanel( AnsattVindu vindu, Kunde kunde )
     {
         this.vindu = vindu;
+        this.kunde = kunde;
         kundeInfo_1 = new JPanel();
         kundeInfo_2 = new JPanel();
         knappeWrapper = new JPanel();
@@ -140,15 +147,13 @@ public class KundePanel extends JPanel implements ActionListener
         infobox.add( kundeInfo_2 );
         
         knappeWrapper.setLayout( new FlowLayout() );
-        JButton visForsikringer = new JButton("Vis Forsikringer");
-        JButton visSkademeldinger = new JButton("Vis Skademeldinger");
-        JButton nyForsikring = new JButton("Ny forsikring");
-        JButton nySkademelding = new JButton("Ny Skademelding");
         knappeWrapper.add(visForsikringer);
         knappeWrapper.add(visSkademeldinger);
         knappeWrapper.add(nyForsikring);
         knappeWrapper.add(nySkademelding);
         knappeWrapper.add(kontaktKunde);
+        
+        visForsikringer.addActionListener(this);
         
         
         setLayout( new BorderLayout()  );
@@ -191,10 +196,16 @@ public class KundePanel extends JPanel implements ActionListener
         {
             
         }
-        else if( e.getSource()== regKunde)
+        else if( e.getSource() == regKunde)
         {
             Kunde nyKunde1 = nyKunde();
             vindu.leggTilNyFane( new ForsikringsPanel(), "Forsikringsvelger" );
+        }
+        else if( e.getSource() == visForsikringer)
+        {
+            List<Forsikring> kundeForsikringer = vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde);
+            vindu.getRegister().getAntallForsikringerEtterType();
+            System.out.println(kundeForsikringer);
         }
     }
 }
