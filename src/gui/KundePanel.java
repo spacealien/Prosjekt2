@@ -37,6 +37,7 @@ public class KundePanel extends JPanel implements ActionListener
     private final JTextField regEpost;
     private final JTextArea regInfo;
     private final JButton regKunde;
+    private final JButton kontaktKunde;
     private boolean nyKunde;
     
     public KundePanel()
@@ -53,6 +54,7 @@ public class KundePanel extends JPanel implements ActionListener
         regEpost = new JTextField(20);
         regInfo = new JTextArea(200,100);
         regKunde = new JButton("Registrer kunde" );
+        kontaktKunde = new JButton("Kontakt");
         regKunde.addActionListener(this);
         kundeInfo_1.setLayout(new GridLayout(6,2,5,10));
         kundeInfo_1.add(new JLabel("Fornavn: "));
@@ -90,6 +92,8 @@ public class KundePanel extends JPanel implements ActionListener
         regEpost = new JTextField(20);
         regInfo = new JTextArea(200,100);
         regKunde = new JButton("Registrer kunde" );
+        kontaktKunde = new JButton("Kontakt");
+        kontaktKunde.addActionListener(this);
         regKunde.addActionListener(this);
         kundeInfo_1.setLayout(new GridLayout(6,2,5,10));
         kundeInfo_1.add(new JLabel("Fornavn: "));
@@ -141,6 +145,7 @@ public class KundePanel extends JPanel implements ActionListener
         knappeWrapper.add(visSkademeldinger);
         knappeWrapper.add(nyForsikring);
         knappeWrapper.add(nySkademelding);
+        knappeWrapper.add(kontaktKunde);
         
         
         setLayout( new BorderLayout()  );
@@ -152,7 +157,9 @@ public class KundePanel extends JPanel implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        
+        if( e.getSource() ==  kontaktKunde)
+        {
+            
+        }
     }
-    
 }
