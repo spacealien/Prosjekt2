@@ -22,7 +22,7 @@ import objekter.Kunde;
 
 public class Forsikringsliste
 {
-    Map<String,Forsikring> liste = new HashMap<>();
+    Map<Integer,Forsikring> liste = new HashMap<>();
     
     public Forsikringsliste()
     {
@@ -47,13 +47,12 @@ public class Forsikringsliste
     
     public List<Forsikring> getKundensForsikringer( Kunde kunde )
     {
-        List<String> nøkkler  = kunde.getNøkkelliste();
+        List<Integer> nøkkler  = kunde.getNøkkelliste();
         List<Forsikring> funnetForsikringer = new ArrayList<>( nøkkler.size() );
         
-        for( String n: nøkkler)
-        {
+        nøkkler.stream().forEach((n) -> {
             funnetForsikringer.add(liste.get(n));
-        }
+        });
         return funnetForsikringer;
     }
     

@@ -98,12 +98,15 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel1.add(bilTilbud);
         tegnBilPanel1.add(bilGiTilbud);
         add(tegnBilPanel1);
-        
     }
     
     @Override
     public void actionPerformed(ActionEvent e) 
     {
+        if( e.getSource() == bilGiTilbud)
+        {
+            System.out.println("test");
+        }
         
     }
 }

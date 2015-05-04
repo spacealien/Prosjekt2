@@ -16,32 +16,14 @@ import java.util.List;
  */
 public class Kunde extends Bruker
 {
-    private final int kundenummer;
-    private static int nestenr = 100000;
-    private final List<String> forsikringsnøkkel = new ArrayList<>();
+    private final List<Integer> forsikringsnøkkel = new ArrayList<>();
     private final boolean totalkunde = false;
     private double årligForsikringsPremie = 0;
     
     public Kunde(String fnavn, String enavn, String adr, String tlf, Date fd,
                  String email, String persnummer)
     {
-        super( fnavn,  enavn,  adr,  tlf,  fd, email, persnummer);              
-        kundenummer = nestenr++;
-    }
-
-    public int getKundenr()
-    {
-        return kundenummer;
-    }
-    
-    public int getNestenr()
-    {
-        return nestenr;
-    }
-    
-    public void setNestenr(int nr)
-    {
-        nestenr = nr;
+        super( fnavn,  enavn,  adr,  tlf,  fd, email, persnummer);
     }
     
     public void leggTilÅrligForsikringsPremie(double beløp)
@@ -59,20 +41,19 @@ public class Kunde extends Bruker
         return årligForsikringsPremie;
     }
     
-    public int finnForsikring( String n )
+    public int finnForsikring( int n )
     {
         return Collections.binarySearch(forsikringsnøkkel, n);
     }
     
-    public void leggTilNøkkel( String i)
+    public void leggTilNøkkel( int i)
     {
         forsikringsnøkkel.add(i);
     }
     
-    public List<String> getNøkkelliste()
+    public List<Integer> getNøkkelliste()
     {
         return forsikringsnøkkel;
-        //return forsikringsnøkkel.toArray(new String[forsikringsnøkkel.size()]);
     }
     
     public boolean erTotalkunde()
@@ -84,7 +65,6 @@ public class Kunde extends Bruker
     public String toString()
     {
         String utskrift = super.toString();  //kall på superklassens toString-metode
-        utskrift += "\nKundenummer: " + kundenummer;
         return utskrift;
     }    
 /**

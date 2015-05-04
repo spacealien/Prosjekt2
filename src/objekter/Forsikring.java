@@ -25,8 +25,8 @@ public abstract class Forsikring
     private double arligPremie = 0;
     private double totalbelop = 0;
     private String vilkår;
-    private final String forsikringsnummer;
-    private static int løpenummer = 1;
+    private final int forsikringsnummer;
+    private static int løpenummer = 1000000;
     private final List<Integer> skademeldingsnøkkler = new ArrayList<>();
     private boolean aktiv = true;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
@@ -34,7 +34,7 @@ public abstract class Forsikring
     public Forsikring( Kunde k )
     {
         startdato = new Date();
-        forsikringsnummer = "F" + løpenummer++;
+        forsikringsnummer =  løpenummer++;
         //this.vilkår = vilkår;
         kunde = k;
     }
@@ -100,7 +100,7 @@ public abstract class Forsikring
         return totalbelop;
     }
     
-    public String getForsikringsnummer()
+    public int getForsikringsnummer()
     {
         return forsikringsnummer;
     }
@@ -132,8 +132,8 @@ public abstract class Forsikring
     {
         sluttdato = d;
     }
-     
     
+    @Override
     public String toString()
     {
         String utskrift;
