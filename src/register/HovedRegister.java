@@ -41,14 +41,14 @@ public class HovedRegister
         
         Forsikring forsikring_1 = new Bilforsikring( kunde_1, 2000, "DH12345", 
                                                     "Volvo", "XC90", "SUV", 340, 
-                                                    2014, 30000, 0.50, false, 
+                                                    2014, 30000, 0.50, 1, false, 
                                                     10000 );
         Forsikring forsikring_2 = new BatForsikring( kunde_1, 20000, "DK54321", 
                                                     "Tresfjord", "Ultra 360 FB", 
                                                     "Cabin cruiser", 120, 2014, false, 30 );
         Forsikring forsikring_3 = new Bilforsikring( kunde_2, 2000, "CD67890", 
                                                     "Volvo", "Sonett", "Småbil", 
-                                                    800, 1968, 300000, 1.00, 
+                                                    800, 1968, 300000, 0.10, 1, 
                                                     true, 50000 );
         Forsikring forsikring_4 = new Husforsikring( kunde_2, 8000, "Fjollesvingen 32", 
                                                     1970, "Tremannsbolig", 
@@ -179,12 +179,12 @@ public class HovedRegister
     
     public Forsikring nyBilForsikring( Kunde k, int e_andel, String registreringsnummer,
                                  String fabrikant, String modell, String type, int hestekrefter, 
-                                 int arsmodell, int kilometerstand, double bonus, 
+                                 int arsmodell, int kilometerstand, double bonus, int antAr, 
                                  boolean garasje, int km)
     {
         Forsikring nyForsikring = new Bilforsikring( k, e_andel, registreringsnummer,
                                                      fabrikant,modell, type, hestekrefter, arsmodell,
-                                                     kilometerstand, bonus, garasje, km );
+                                                     kilometerstand, bonus, antAr, garasje, km );
         
         forsikringsregister.leggTil( k, nyForsikring);
         return nyForsikring;

@@ -82,6 +82,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
         slDatoMnd = new JTextField(2);
         slDatoAr = new JTextField(4);
         sokKnapp = new JButton("Søk");
+        sokKnapp.setEnabled(false);
         sokKnapp.addActionListener(this);
         
         JPanel avansertSokPanel1 = new JPanel();
@@ -90,7 +91,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
         JPanel avansertSokPanel4 = new JPanel();
         avansertSokPanel3.setLayout(new BoxLayout(avansertSokPanel3, BoxLayout.PAGE_AXIS));
         avansertSokPanel1.setLayout(new GridLayout(11,1,2,2));
-        avansertSokPanel2.setLayout(new GridLayout(6,3,2,2));
+        avansertSokPanel2.setLayout(new GridLayout(8,3,2,2));
         avansertSokPanel1.add(new JLabel("Søk etter:"));
         avansertSokPanel1.add(sokevelger);
         avansertSokPanel1.add(new JLabel());
@@ -123,6 +124,12 @@ public class StatistikkPanel extends JPanel implements ActionListener
         avansertSokPanel2.add(slDatoDag);
         avansertSokPanel2.add(slDatoMnd);
         avansertSokPanel2.add(slDatoAr);
+        avansertSokPanel2.add(new JLabel());
+        avansertSokPanel2.add(new JLabel());
+        avansertSokPanel2.add(new JLabel());
+        avansertSokPanel2.add(new JLabel());
+        avansertSokPanel2.add(new JLabel());
+        avansertSokPanel2.add(sokKnapp);
         avansertSokPanel3.add(avansertSokPanel4);
         avansertSokPanel3.add(avansertSokPanel2);
         add(avansertSokPanel1);
@@ -140,6 +147,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
             utgiftsvelger.setEnabled(false);
             inntektsvelger.setEnabled(false);
             statistikkvelger.setEnabled(false);
+            sokKnapp.setEnabled(true);
         }
         else if (sokevelger.getSelectedIndex() == 0)
         {
@@ -160,6 +168,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
             sokevelger.setEnabled(false);
             inntektsvelger.setEnabled(false);
             statistikkvelger.setEnabled(false);
+            sokKnapp.setEnabled(true);
         }
         else if (utgiftsvelger.getSelectedIndex() == 0)
             {
@@ -181,6 +190,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
             sokevelger.setEnabled(false);
             utgiftsvelger.setEnabled(false);
             statistikkvelger.setEnabled(false);
+            sokKnapp.setEnabled(true);
         }
         else if (inntektsvelger.getSelectedIndex() == 0)
         {
@@ -202,6 +212,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
             sokevelger.setEnabled(false);
             utgiftsvelger.setEnabled(false);
             inntektsvelger.setEnabled(false);
+            sokKnapp.setEnabled(true);
         }
         else if (statistikkvelger.getSelectedIndex() == 0)
                 {
@@ -240,6 +251,20 @@ public class StatistikkPanel extends JPanel implements ActionListener
  {
      
  }
+ 
+ public void totalPremieinntekt()
+ {
+     
+ }
+ public void totalPremieinntektPaForsikringstype()
+ {
+     
+ }
+ public void premieInntektPaKunde()
+ {
+     
+ }
+ 
  public void statistikkSkademeldinger()
  {
      
@@ -261,7 +286,10 @@ public class StatistikkPanel extends JPanel implements ActionListener
      
  }
  
-        
+public void feilMelding(String t)
+{
+    JOptionPane.showMessageDialog(null, t, "Feilmelding", JOptionPane.ERROR_MESSAGE);
+}
         
  
  
@@ -270,6 +298,83 @@ public class StatistikkPanel extends JPanel implements ActionListener
     {
         if (e.getSource() == sokKnapp)
         {
+            if (sokevelger.isEnabled())
+            {
+                switch (sokevelger.getSelectedIndex())
+                {
+                    case 1:
+                        if(forsikringsvelgeren.getSelectedIndex() != 0)
+                        alleKunderMedForsikring();
+                        else
+                            feilMelding("Du må velge forsikringstype");
+                        break;
+                    case 2:
+                        if(forsikringsvelgeren.getSelectedIndex() != 0)
+                            antSkademeldinger();
+                        else
+                            feilMelding("Du må velge forsikringstype");
+                        break;
+                    case 3:
+                        if(forsikringsvelgeren.getSelectedIndex() != 0)
+                            antForsikringer();
+                        else
+                            feilMelding("Du må velge forsikringstype");
+                        break;
+                }
+            }
+            else if (utgiftsvelger.isEnabled())
+            {
+                switch (utgiftsvelger.getSelectedIndex())
+                {
+                    case 1:
+                        totalErstatning();
+                        break;
+                    case 2:
+                        totalErstatningPaForsikring();
+                        break;
+                    case 3:
+                        totalErstatningPaKunde();
+                        break;
+                }
+            }
+            else if (inntektsvelger.isEnabled())
+            {
+                switch (inntektsvelger.getSelectedIndex())
+                {
+                    case 1:
+                        totalPremieinntekt();
+                        break;
+                    case 2:
+                        totalPremieinntektPaForsikringstype();
+                        break;
+                    case 3:
+                        premieInntektPaKunde();
+                        break;
+                        
+                }
+                
+            }
+            else if (statistikkvelger.isEnabled())
+            {
+                switch (statistikkvelger.getSelectedIndex())
+                {
+                    case 1:
+                        statistikkSkademeldinger();
+                        break;
+                    case 2:
+                        statistikkSkademeldingPaForsikring();
+                        break;
+                    case 3:
+                        statistikkErstatning();
+                        break;
+                    case 4:
+                        statistikkErstatningPaSkadetype();
+                        break;
+                    case 5:
+                        typeForsikringPaAntall();
+                        break;
+                }
+            }
             
         }
     }

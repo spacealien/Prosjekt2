@@ -77,6 +77,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private double bonusen;
     private int egenandelvalget;
     private boolean garasje;
+    private int antAr = 1;
     
     public BilforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -246,12 +247,117 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             }
             else
             {
-             
+            switch (bonus_n)
+            {
+                case 1:
+                    bonusen = -0.50;
+                    break;
+                case 2:
+                     bonusen = -0.40;
+                    break;   
+                case 3:
+                    bonusen = -0.30;
+                    break;
+                case 4:
+                    bonusen = -0.20;
+                    break;
+                case 5:
+                    bonusen = -0.10;
+                    break;
+                case 6:
+                     bonusen = 0.00;
+                    break;   
+                case 7:
+                   bonusen = 0.10;
+                    break;
+                case 8:
+                    bonusen = 0.20;
+                    break;
+                case 9:
+                     bonusen = 0.30;
+                    break;   
+                case 10:
+                    bonusen = 0.40;
+                    break;
+                case 11:
+                    bonusen = 0.50;
+                    break;
+                case 12:
+                    bonusen = 0.60;
+                    break;
+                case 13: 
+                    bonusen = 0.70;
+                    break;
+                case 14:
+                    bonusen = 0.70;
+                    antAr = 2;
+                    break;
+                case 15:  
+                    bonusen = 0.70;
+                    antAr = 3;
+                    break; 
+                case 16:
+                    bonusen = 0.70;
+                    antAr = 4;
+                    break;
+                case 17:
+                    bonusen = 0.70;
+                    antAr = 5;
+                    break;
+                case 18:
+                     bonusen = 0.75;
+                    break; 
+                case 19:
+                     bonusen = 0.75;
+                     antAr = 2;
+                    break; 
+                case 20:
+                     bonusen = 0.75;
+                     antAr = 3;
+                    break; 
+                case 21:
+                     bonusen = 0.75;
+                     antAr = 4;
+                    break; 
+                case 22:  
+                     bonusen = 0.75;
+                     antAr = 5;
+                    break;  
+                case 23:
+                     bonusen = 0.75;
+                     antAr = 6;
+                    break;   
+                
+            }
+            
+            switch(lengde_n)
+            {
+                case 1:
+                    lengdevalget = 8000;
+                    break;
+                case 2:
+                    lengdevalget = 12000;
+                    break;
+                case 3:
+                    lengdevalget = 16000;
+                    break;
+                case 4:
+                    lengdevalget = 20000;
+                    break;
+                case 5:
+                    lengdevalget = 25000;
+                    break;
+                case 6:
+                    lengdevalget = 30000;
+                    break;
+                case 7:
+                    lengdevalget = 100000;
+                    break;
+            }
+                
             typevalget = biltypevelger.getItemAt(type_n);
             merkevalget = bilmerkevelger.getItemAt(merke_n);
-            lengdevalget = Integer.parseInt(kjorelengdevelger.getItemAt(lengde_n));
             b = bonusvelger.getItemAt(bonus_n);
-            bonusen = (Double.parseDouble(b.substring(0,2)) / 100);
             egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
             regnr = bilRegnr.getText();
             modell = bilModell.getText();
@@ -277,7 +383,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         {
             Forsikring forsikring = register.nyBilForsikring( kunde, egenandelvalget, regnr,
                                     merkevalget,modell, typevalget, hk, ar,
-                                    kmstand, bonusen, garasje, lengdevalget ); 
+                                    kmstand, bonusen, antAr, garasje, lengdevalget ); 
             Kjoretoyforsikring forsikringen =(Kjoretoyforsikring)forsikring;
             forsikringen.setEier(eier);
             System.out.println(forsikringen);
