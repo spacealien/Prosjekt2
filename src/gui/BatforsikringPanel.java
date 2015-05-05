@@ -14,14 +14,15 @@ import register.*;
 
 public class BatforsikringPanel extends JPanel implements ActionListener
 {
-    HovedRegister register;
-    Eier eier;
+    private AnsattVindu vindu;
+    private HovedRegister register;
+    private Eier eier;
     
     private final JTextField eierFornavn;
     private final JTextField eierEtternavn;
     private final JTextField eierTlf;
     private final JTextField eierAdresse;
-    JPanel eierPanel;
+    private JPanel eierPanel;
     
     private final JTextField batRegnr;
     private final JTextField batModell;
@@ -52,10 +53,11 @@ public class BatforsikringPanel extends JPanel implements ActionListener
     private int egenandelvalget;
     private boolean vekter_b;
     
-    public BatforsikringPanel(Kunde k)
+    public BatforsikringPanel(Kunde k, AnsattVindu v)
     {
      
-        register = new HovedRegister();
+        vindu = v;
+        register = vindu.getRegister();
         kunde = k;
         batRegnr = new JTextField( 7 );
         batModell = new JTextField( 7 );

@@ -17,6 +17,7 @@ import register.*;
  */
 public class ReiseforsikringPanel extends JPanel implements ActionListener
 {
+    private AnsattVindu vindu;
     private HovedRegister register;
     private final JTextField reiseBelop;
     private final JTextField reiseTilbud;
@@ -38,9 +39,10 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
     private int sone_n;
     private int egenandelvalget;
     
-    public ReiseforsikringPanel(Kunde k)
+    public ReiseforsikringPanel(Kunde k, AnsattVindu v)
     {
-        register = new HovedRegister();
+        vindu = v;
+        register = vindu.getRegister();
         kunde = k;
         reiseBelop = new JTextField( 7 );
         reiseTilbud = new JTextField( 7 );

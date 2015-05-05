@@ -16,6 +16,7 @@ import register.*;
  */
 public class HusforsikringPanel extends JPanel implements ActionListener
 {
+    private AnsattVindu vindu;
     private HovedRegister register;
     private final JTextField husAdresse;
     private final JTextField husAr;
@@ -49,9 +50,10 @@ public class HusforsikringPanel extends JPanel implements ActionListener
     private int belopInnbo;
     private boolean alarm_b;
     
-    public HusforsikringPanel(Kunde k)
+    public HusforsikringPanel(Kunde k, AnsattVindu v)
     {
-        register = new HovedRegister();
+        vindu = v;
+        register = vindu.getRegister();
         kunde = k;
         husAdresse = new JTextField( 7 );
         belopHus = new JTextField( 7 );

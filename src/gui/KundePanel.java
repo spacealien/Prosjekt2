@@ -209,15 +209,15 @@ public class KundePanel extends JPanel implements ActionListener
             if( valg.equals(""))
                 vindu.visFeilmelding("Melding", "Du må velge en type forsikring for å gå videre. ");
             else if( valg.equals("Bilforsikring") )
-                vindu.leggTilNyFane( new BilforsikringPanel(nyKunde), "Ny Bilforsikring");
+                vindu.leggTilNyFane( new BilforsikringPanel(nyKunde, vindu), "Ny Bilforsikring");
             else if( valg.equals("Båtforsikring"))
-                vindu.leggTilNyFane( new BatforsikringPanel(nyKunde), "Ny Båtforsikring");
+                vindu.leggTilNyFane( new BatforsikringPanel(nyKunde, vindu), "Ny Båtforsikring");
             else if( valg.equals("Husforsikring"))
-                vindu.leggTilNyFane( new HusforsikringPanel(nyKunde), "Ny Husforsikring");
+                vindu.leggTilNyFane( new HusforsikringPanel(nyKunde, vindu), "Ny Husforsikring");
             else if( valg.equals("Fritidsboligforsikring"))
-                vindu.leggTilNyFane( new FritidsboligforsikringPanel(nyKunde), "Ny Fritidsboligforsikring");
+                vindu.leggTilNyFane( new FritidsboligforsikringPanel(nyKunde, vindu), "Ny Fritidsboligforsikring");
             else if( valg.equals("Reiseforsikring"))
-                vindu.leggTilNyFane( new ReiseforsikringPanel(nyKunde), "Ny Reiseforsikring");
+                vindu.leggTilNyFane( new ReiseforsikringPanel(nyKunde, vindu), "Ny Reiseforsikring");
         }
         else if( e.getSource() == visForsikringer)
         {

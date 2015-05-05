@@ -76,7 +76,7 @@ public class MenyPanel extends JPanel implements ActionListener
         }
         else if( e.getSource() == finnStatistikk )
         {
-            vindu.leggTilNyFane( new StatistikkPanel(), "Statistikk" );
+            vindu.leggTilNyFane( new StatistikkPanel(vindu), "Statistikk" );
         }
 
     }

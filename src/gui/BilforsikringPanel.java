@@ -19,8 +19,9 @@ import register.*;
 public class BilforsikringPanel extends JPanel implements ActionListener
 {
  
-    HovedRegister register;
-    Eier eier;
+    private AnsattVindu vindu;
+    private HovedRegister register;
+    private Eier eier;
     
     private final JTextField eierFornavn;
     private final JTextField eierEtternavn;
@@ -77,9 +78,10 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private int egenandelvalget;
     private boolean garasje;
     
-    public BilforsikringPanel(Kunde k)
+    public BilforsikringPanel(Kunde k, AnsattVindu v)
     {
-        register = new HovedRegister();
+        vindu = v;
+        register = vindu.getRegister();
                 
         eierFornavn = new JTextField(20);
         eierEtternavn = new JTextField(20);

@@ -20,6 +20,8 @@ import register.*;
  */
 public class SkademeldingPanel extends JPanel implements ActionListener
 {
+    private AnsattVindu vindu;
+    private HovedRegister register;
     private final JTextField skadeDato;
     private final JTextField skadeType;
     private final JTextArea skadeBeskrivelse;
@@ -27,8 +29,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     private final JButton sendInnSkade;
     private Kunde kunde;
     private Forsikring forsikring;
-    private HovedRegister register;
-    SimpleDateFormat sdf;
+    private SimpleDateFormat sdf;
     
     private Date dato;
     private String type;
@@ -36,12 +37,13 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     private int takst;
     private int belop;
     
-    public SkademeldingPanel(Kunde k, Forsikring f)
+    public SkademeldingPanel(Kunde k, Forsikring f, AnsattVindu v)
     {
         sdf = new SimpleDateFormat("ddMMyyyy");
         kunde = k;
         forsikring = f;
-        register = new HovedRegister();
+        vindu = v;
+        register = vindu.getRegister();
         skadeDato = new JTextField( 7 );
         skadeType = new JTextField( 7 );
         skadeBeskrivelse = new JTextArea( 100, 100 );

@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import static javax.swing.Box.*;
+import objekter.*;
+import register.*;
 
 /**
  *
@@ -16,6 +18,8 @@ import static javax.swing.Box.*;
  */
 public class StatistikkPanel extends JPanel implements ActionListener
 {
+    private AnsattVindu vindu;
+    private HovedRegister register;
     private final String[] soket = {"", "Alle kunder som har en gitt type forsikring",
                                "Antall skademeldinger innen en gitt tidsperiode", "Antall"
                               + " tegnede forsikringer innen en gitt tidsperiode"};
@@ -62,9 +66,11 @@ public class StatistikkPanel extends JPanel implements ActionListener
     private int statistikken;
     
     
- public StatistikkPanel()
+ public StatistikkPanel(AnsattVindu v)
  {
-     sokevelger = new JComboBox<>(soket);
+        vindu = v;
+        register = vindu.getRegister();
+        sokevelger = new JComboBox<>(soket);
         utgiftsvelger = new JComboBox<>(utgifter);
         inntektsvelger = new JComboBox<>(inntekter);
         forsikringsvelgeren = new JComboBox<>(forsikringer);
@@ -209,8 +215,57 @@ public class StatistikkPanel extends JPanel implements ActionListener
         
  }
  
+ public void alleKunderMedForsikring()
+ {
+     
+ }
+ public void antSkademeldinger()
+ {
+     
+ }
+ public void antForsikringer()
+ {
+     
+ }
+ 
+ public void totalErstatning()
+ {
+     
+ }
+ public void totalErstatningPaForsikring()
+ {
+     
+ }
+ public void totalErstatningPaKunde()
+ {
+     
+ }
+ public void statistikkSkademeldinger()
+ {
+     
+ }
+ public void statistikkSkademeldingPaForsikring()
+ {
+     
+ }
+ public void statistikkErstatning()
+ {
+     
+ }
+ public void statistikkErstatningPaSkadetype()
+ {
+     
+ }
+ public void typeForsikringPaAntall()
+ {
+     
+ }
+ 
         
-        @Override
+        
+ 
+ 
+    @Override
     public void actionPerformed(ActionEvent e) 
     {
         if (e.getSource() == sokKnapp)

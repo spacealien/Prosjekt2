@@ -17,7 +17,8 @@ import register.*;
  */
 public class FritidsboligforsikringPanel extends JPanel implements ActionListener
 {
-    HovedRegister register;
+    private AnsattVindu vindu;
+    private HovedRegister register;
     private final JTextField fritidAdresse;
     private final JTextField belopFritid;
     private final JTextField belopFritidInnbo;
@@ -51,10 +52,11 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
     
     private final Kunde kunde;
     
-    public FritidsboligforsikringPanel(Kunde k)
+    public FritidsboligforsikringPanel(Kunde k, AnsattVindu v)
     {
         kunde = k;
-        register = new HovedRegister();
+        vindu = v;
+        register = vindu.getRegister();
         fritidAdresse = new JTextField( 7 );
         fritidKvm = new JTextField(5);
         fritidAr = new JTextField( 4 );
