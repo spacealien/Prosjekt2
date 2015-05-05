@@ -6,11 +6,15 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.List;
 import javax.swing.Box;
@@ -21,7 +25,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import objekter.Forsikring;
-import objekter.Fritidsboligforsikring;
 import objekter.Kunde;
 
 /**
@@ -49,6 +52,9 @@ public class KundePanel extends JPanel implements ActionListener
     private Kunde kunde = null;
     private final String[] forsikringsvalg = {"", "Bilforsikring", "Båtforsikring", "Husforsikring", "Fritidsboligforsikring", "Reiseforsikring"};
     private final JComboBox<String> forsikringsDropDown = new JComboBox<>(forsikringsvalg);
+    
+    private Desktop desktop = Desktop.getDesktop();
+    private Desktop.Action action = Desktop.Action.OPEN;
     
     public KundePanel( AnsattVindu vindu)
     {
@@ -167,8 +173,8 @@ public class KundePanel extends JPanel implements ActionListener
     {
         try
         { 
-           String fornavn = regFornavn.getText();
-           String etternavn = regEtternavn.getText();
+            String fornavn = regFornavn.getText();
+            String etternavn = regEtternavn.getText();
             String adresse = regAdresse.getText();
             String telefonnummer = regTlfnr.getText();
             String epost = regEpost.getText();
@@ -188,21 +194,27 @@ public class KundePanel extends JPanel implements ActionListener
         }
         return null;
     }
-    
-    /*public boolean validerFelter()
-    {
-        
-    }*/
-    
-    
+
     @Override
     public void actionPerformed(ActionEvent e) 
     {
         if( e.getSource() ==  kontaktKunde)
         {
-            
+            String mailTo = kunde.getEpost();
+            URI uriMailTo = null;
+       
+            try
+            {
+                uriMailTo = new URI("mailto", mailTo, null);
+                desktop.mail(uriMailTo);
+            } 
+            catch (URISyntaxException | IOException ex) 
+            {
+                
+            }
+
         }
-        else if( e.getSource() == regKunde)
+        else if( e.getSource() == regKunde )
         {
             Kunde nyKunde = nyKunde();
             String valg = (String) forsikringsDropDown.getSelectedItem();
