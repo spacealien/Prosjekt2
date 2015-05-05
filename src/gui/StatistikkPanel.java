@@ -29,16 +29,16 @@ public class StatistikkPanel extends JPanel implements ActionListener
                             "Reiseforsikring", "Alle forsikringstyper"};
     private final JComboBox<String> forsikringsvelgeren;
     private final String[] utgifter = {"", "Total utbetaling av erstatninger i løpet"
-                                        + " av et år",
+                                        + " av en gitt tidsperiode",
                                 "Total utbetaling av erstatninger for en gitt"
-                                 + " forsikringstype i løpet av et år",
+                                 + " forsikringstype i løpet av en gitt tidsperiode",
                                 "Utbetaling til en gitt forsikringskunde i løpet"
                                 + " av kundeforholdet"};
     private final JComboBox<String> utgiftsvelger;
     private final String[] inntekter = {"", "Total forsikringspremieinntekter i løpet"
-                                        + " av et år", 
+                                        + " en gitt tidsperiode", 
                                     "Total forsikringspremieinntekter for en"
-                                    + " gitt forsikringstype i løpet av et år",
+                                    + " gitt forsikringstype i løpet av en gitt tidsperiode",
                                     "Forsikringspremieinntekter på en gitt "
                                 + "forsikringskunde i løpet av kundeforholdet"};
     private final JComboBox<String> inntektsvelger;
@@ -290,7 +290,43 @@ public void feilMelding(String t)
 {
     JOptionPane.showMessageDialog(null, t, "Feilmelding", JOptionPane.ERROR_MESSAGE);
 }
-        
+
+public boolean sjekkDato()
+{
+    if (stDatoAr.getText().equals("") || stDatoMnd.getText().equals("") || 
+                        stDatoDag.getText().equals("") || slDatoAr.getText().equals("") || 
+                        slDatoMnd.getText().equals("") || slDatoDag.getText().equals(""))
+    {
+        feilMelding("Fyll ut alle feltene for dato");
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+public boolean sjekkDatoOgForsikringsvelger()
+{
+   if (stDatoAr.getText().equals("") || stDatoMnd.getText().equals("") || 
+                        stDatoDag.getText().equals("") || slDatoAr.getText().equals("") || 
+                        slDatoMnd.getText().equals("") || slDatoDag.getText().equals("") 
+                                || forsikringsvelgeren.getSelectedIndex() == 0)
+                        {
+                            if(stDatoAr.getText().equals("") || stDatoMnd.getText().equals("") || 
+                        stDatoDag.getText().equals("") || slDatoAr.getText().equals("") || 
+                        slDatoMnd.getText().equals("") || slDatoDag.getText().equals(""))
+                            {feilMelding("Fyll ut alle feltene for dato"); }
+                            
+                            if (forsikringsvelgeren.getSelectedIndex() == 0)
+                            {feilMelding("Du må velge forsikringstype");}
+                           
+                            return false;
+                        } 
+   else
+   {
+       return true;
+   }
+}
  
  
     @Override
@@ -307,18 +343,21 @@ public void feilMelding(String t)
                         alleKunderMedForsikring();
                         else
                             feilMelding("Du må velge forsikringstype");
+                        
                         break;
                     case 2:
                         if(forsikringsvelgeren.getSelectedIndex() != 0)
                             antSkademeldinger();
                         else
                             feilMelding("Du må velge forsikringstype");
+                        
                         break;
                     case 3:
                         if(forsikringsvelgeren.getSelectedIndex() != 0)
                             antForsikringer();
                         else
                             feilMelding("Du må velge forsikringstype");
+                        
                         break;
                 }
             }
@@ -327,12 +366,17 @@ public void feilMelding(String t)
                 switch (utgiftsvelger.getSelectedIndex())
                 {
                     case 1:
+                        if (!sjekkDato())
                         totalErstatning();
-                        break;
+                        
+                    break;
                     case 2:
-                        totalErstatningPaForsikring();
+                        if (!sjekkDatoOgForsikringsvelger())
+                            totalErstatningPaForsikring();
+                        
                         break;
                     case 3:
+                        //Må velge kunde på en eller annen måte
                         totalErstatningPaKunde();
                         break;
                 }
@@ -342,33 +386,45 @@ public void feilMelding(String t)
                 switch (inntektsvelger.getSelectedIndex())
                 {
                     case 1:
+                        if (!sjekkDato())
                         totalPremieinntekt();
-                        break;
+                        
+                    break;
                     case 2:
-                        totalPremieinntektPaForsikringstype();
+                        if (!sjekkDatoOgForsikringsvelger())
+                            totalPremieinntektPaForsikringstype();
+                        
                         break;
                     case 3:
+                        //Må velge kunde på en eller annen måte
                         premieInntektPaKunde();
                         break;
                         
                 }
                 
             }
+            
             else if (statistikkvelger.isEnabled())
             {
                 switch (statistikkvelger.getSelectedIndex())
                 {
                     case 1:
+                        if (!sjekkDato())
                         statistikkSkademeldinger();
                         break;
                     case 2:
+                    if (!sjekkDatoOgForsikringsvelger())
                         statistikkSkademeldingPaForsikring();
+                        
                         break;
                     case 3:
+                    
                         statistikkErstatning();
                         break;
                     case 4:
+                    if (!sjekkDatoOgForsikringsvelger())
                         statistikkErstatningPaSkadetype();
+                        
                         break;
                     case 5:
                         typeForsikringPaAntall();
