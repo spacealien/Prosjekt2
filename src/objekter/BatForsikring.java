@@ -14,11 +14,11 @@ public class BatForsikring extends Kjoretoyforsikring
     private boolean vekter;
     private int lengde;
         
-    public BatForsikring(  Kunde k, int e_andel, String registreringsnummer,
+    public BatForsikring(  Kunde k, int e_andel, String registreringsnummer, int belop,
                            String fabrikant, String modell, String type, int hestekrefter, 
                            int arsmodell, boolean vekter, int lengde)
     {
-        super( k, e_andel, registreringsnummer, fabrikant, modell, type, hestekrefter, arsmodell );
+        super( k, e_andel, registreringsnummer, belop, fabrikant, modell, type, hestekrefter, arsmodell );
         this.vekter = vekter;
         this.lengde = lengde;
     }

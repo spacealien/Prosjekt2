@@ -146,7 +146,7 @@ public class AnsattVindu extends JFrame
     {
         hovedPanelBunn.removeAll();
         tabell = new KundeTabell(modell, this);
-        tabell.setPreferredScrollableViewportSize(new Dimension(500,200));
+        tabell.setPreferredScrollableViewportSize(new Dimension(500,180));
         bunnContainer.removeAll();
         bunnContainer.setLayout( new BorderLayout() );
         søkePanel.removeAll();

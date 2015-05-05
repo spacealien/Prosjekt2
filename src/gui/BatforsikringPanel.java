@@ -26,6 +26,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
     
     private final JTextField batRegnr;
     private final JTextField batModell;
+    private final JTextField batVerdi;
     private final JTextField batTilbud;
     private final JTextField batMerke;
     private final JTextField batLengde;
@@ -52,6 +53,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
     private String typevalget;
     private int egenandelvalget;
     private boolean vekter_b;
+    private int belop;
     
     public BatforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -61,6 +63,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         kunde = k;
         batRegnr = new JTextField( 7 );
         batModell = new JTextField( 7 );
+        batVerdi  = new JTextField( 8 );
         batTilbud = new JTextField( 7 );
         batMerke = new JTextField( 7 );
         batLengde = new JTextField( 7 );
@@ -103,8 +106,10 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         tegnBatPanel1.add(batRegnr);
         tegnBatPanel1.add(new JLabel("Merke: "));
         tegnBatPanel1.add(batMerke);
-        tegnBatPanel1.add(new JLabel("Modell: "));
-        tegnBatPanel1.add(batModell);
+        tegnBatPanel1.add(new JLabel("Verdi "));
+        tegnBatPanel1.add(batVerdi);
+        tegnBatPanel1.add(new JLabel("Merke: "));
+        tegnBatPanel1.add(batMerke);
         tegnBatPanel1.add(new JLabel("Lengde: "));
         tegnBatPanel1.add(batLengde);
         tegnBatPanel1.add(new JLabel("Årsmodell: "));
@@ -167,6 +172,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
                     vekter_b = false;
                     
             reg = batRegnr.getText();
+            belop = Integer.parseInt(batVerdi.getText());
             merke = batMerke.getText();
             modell = batModell.getText();
             hk = Integer.parseInt(batHk.getText());
@@ -190,7 +196,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
     {
         if(hentInfo())
         {
-            Forsikring forsikringen = register.nyBatForsikring(kunde, egenandelvalget, reg,
+            Forsikring forsikringen = register.nyBatForsikring(kunde, egenandelvalget, reg, belop,
                                  merke, modell, typevalget, hk, 
                                  ar, vekter_b, lengde);
             Kjoretoyforsikring forsikring = (Kjoretoyforsikring)forsikringen;

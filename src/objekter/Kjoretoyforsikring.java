@@ -18,8 +18,9 @@ public abstract class Kjoretoyforsikring extends Forsikring
     private final String type;
     private int hestekrefter;
     private final int arsmodell;
+    private int belop;
         
-    public Kjoretoyforsikring( Kunde k, int e_andel, String registreringsnummer, String fabrikant, 
+    public Kjoretoyforsikring( Kunde k, int e_andel, String registreringsnummer, int belop, String fabrikant, 
                                String modell, String type, int hestekrefter, int arsmodell)
     {
         super(k, e_andel);

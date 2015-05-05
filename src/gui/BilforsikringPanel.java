@@ -31,8 +31,10 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private final JTextField bilRegnr;
     private final JTextField bilRegAr;
     private final JTextField bilHk;
+    private final JTextField bilVerdi;
     private final JTextField bilModell;
     private final JTextField bilKmstand;
+    private final JLabel tilbudLabel;
     private final JTextField bilTilbud;
     private final JRadioButton garasjeJa;
     private final JRadioButton garasjeNei;
@@ -78,6 +80,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private int egenandelvalget;
     private boolean garasje;
     private int antAr = 1;
+    private int belop;
     
     public BilforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -102,10 +105,14 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         kunde = k;
         bilRegnr = new JTextField( 7 );
         bilRegAr = new JTextField( 4 );
+        bilVerdi = new JTextField(8);
         bilModell = new JTextField( 10 );
         bilHk = new JTextField( 7 );
         bilKmstand = new JTextField( 6 );
         bilTilbud = new JTextField( 6 );
+        bilTilbud.setVisible(false);
+        tilbudLabel = new JLabel("Foreslått tilbud: ");
+        tilbudLabel.setVisible(false);
         garasjeJa = new JRadioButton("Ja");
         garasjeNei = new JRadioButton("Nei");
         garasjeJa.setMnemonic(KeyEvent.VK_J);
@@ -126,16 +133,19 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         dekningvelger = new JComboBox<>(dekning);
         aldervelger = new JComboBox<>(foreralder);
         bonusvelger = new JComboBox<>(bonus);
+        
     
         JPanel garasjen = new JPanel();
         JPanel tegnBilPanel1 = new JPanel();
-        tegnBilPanel1.setLayout(new GridLayout(9,4,2,10));
+        tegnBilPanel1.setLayout(new GridLayout(11,4,1,1));
         garasjen.add(garasjeJa);
         garasjen.add(garasjeNei);
         tegnBilPanel1.add(new JLabel("Registreringsnummer: "));
         tegnBilPanel1.add(bilRegnr);
         tegnBilPanel1.add(new JLabel("Registreringsår: "));
         tegnBilPanel1.add(bilRegAr);
+        tegnBilPanel1.add(new JLabel("Verdi: "));
+        tegnBilPanel1.add(bilVerdi);
         tegnBilPanel1.add(new JLabel("Modell: "));
         tegnBilPanel1.add(bilModell);
         tegnBilPanel1.add(new JLabel("Hestekrefter: "));
@@ -160,10 +170,11 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel1.add(egenandelsvelger);
         tegnBilPanel1.add(new JLabel("Er eier annen enn kunde?"));
         tegnBilPanel1.add(annenEier);
-        tegnBilPanel1.add(beregnPris);
-        tegnBilPanel1.add(new JLabel("Foreslått tilbud: "));
-        tegnBilPanel1.add(bilTilbud);
         tegnBilPanel1.add(new JLabel());
+        tegnBilPanel1.add(beregnPris);
+        tegnBilPanel1.add(new JLabel());
+        tegnBilPanel1.add(tilbudLabel);
+        tegnBilPanel1.add(bilTilbud);
         tegnBilPanel1.add(bilGiTilbud);
         add(tegnBilPanel1);
         
@@ -355,6 +366,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     break;
             }
                 
+            belop = Integer.parseInt(bilVerdi.getText());
             typevalget = biltypevelger.getItemAt(type_n);
             merkevalget = bilmerkevelger.getItemAt(merke_n);
             b = bonusvelger.getItemAt(bonus_n);
@@ -372,6 +384,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     {
         if (hentInfo())
         {
+            bilTilbud.setVisible(true);
+            tilbudLabel.setVisible(true);
             //Beregn pris
             //bilTilbud.setText();
         }
@@ -381,7 +395,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     {
         if (hentInfo())
         {
-            Forsikring forsikring = register.nyBilForsikring( kunde, egenandelvalget, regnr,
+            Forsikring forsikring = register.nyBilForsikring( kunde, egenandelvalget, regnr, belop,
                                     merkevalget,modell, typevalget, hk, ar,
                                     kmstand, bonusen, antAr, garasje, lengdevalget ); 
             Kjoretoyforsikring forsikringen =(Kjoretoyforsikring)forsikring;

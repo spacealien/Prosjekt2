@@ -16,11 +16,11 @@ public class Bilforsikring extends Kjoretoyforsikring
     private int maxKjorelengd;
     private int antallAr;
     
-    public Bilforsikring(  Kunde k, int e_andel, String registreringsnummer,
+    public Bilforsikring(  Kunde k, int e_andel, String registreringsnummer, int belop,
                            String fabrikant, String modell, String type, int hestekrefter, 
                            int arsmodell, int kilometerstand, double bonus, int antAr, boolean garasje, int km )
     {
-        super( k, e_andel, registreringsnummer, fabrikant, modell, type, hestekrefter, arsmodell);
+        super( k, e_andel, registreringsnummer, belop, fabrikant, modell, type, hestekrefter, arsmodell);
         this.bonus = bonus;
         antallAr = antAr;
         this.garasje = garasje;
