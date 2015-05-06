@@ -85,6 +85,12 @@ public abstract class Eiendomsforsikring extends Forsikring
     }
     
     @Override
+    public void beregnPris()
+    {
+        
+    }
+    
+    @Override
     public String toString()
     {
         String utskrift = super.toString();

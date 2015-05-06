@@ -57,7 +57,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     JComboBox<String> aldervelger;
     String[] dekning = {"", "Delkasko", "Kasko", "Superkasko"};
     JComboBox<String> dekningvelger;
-    String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", 
+    String[] egenandel = {"", "4000", "8000", "12000", "16000", "20000", 
                             "30000"};
     JComboBox<String> egenandelsvelger;
     String[] bonus = {"", "-50%", "-40%", "-30%", "-20%", "-10%", "0%", "10%", 
@@ -81,6 +81,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private boolean garasje;
     private int antAr = 1;
     private int belop;
+    private String forer;
     
     public BilforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -361,7 +362,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     lengdevalget = 100000;
                     break;
             }
-                
+            
+            forer = aldervelger.getItemAt(alder_n);
             belop = Integer.parseInt(bilVerdi.getText());
             typevalget = biltypevelger.getItemAt(type_n);
             merkevalget = bilmerkevelger.getItemAt(merke_n);

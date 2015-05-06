@@ -7,6 +7,7 @@ package objekter;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public class Ansatt extends Bruker
     private String passord;
     private List<String> kundenøkler = new ArrayList<>();
 
-    public Ansatt(String fnavn, String enavn, String adr, String tlf, Date fd, String email, String persnummer)
+    public Ansatt(String fnavn, String enavn, String adr, String tlf, GregorianCalendar fd, String email, String persnummer)
     {   
         super(fnavn, enavn, adr, tlf, fd, email, persnummer);
         ansattnr = nestenr++;

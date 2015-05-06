@@ -7,6 +7,7 @@ package objekter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -17,7 +18,7 @@ public class Skademelding
     
     private final Forsikring forsikring;
     private Date dato;
-    private Date opprettetdato;
+    private GregorianCalendar opprettetdato;
     private final int skadenummer;
     private static int nestenr = 20000;
     private String skadetype;
@@ -28,6 +29,7 @@ public class Skademelding
     private int takseringsbelop;
     private int erstatningsbelop;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+    private boolean aktiv = true;
     
     public Skademelding( Forsikring forsikring, Date dato, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )
     {
@@ -38,7 +40,7 @@ public class Skademelding
         this.takseringsbelop = takseringsbelop;
         this.erstatningsbelop = erstatingsbelop;
         skadenummer = nestenr++;
-        opprettetdato = new Date();
+        opprettetdato = new GregorianCalendar();
     }
     
     public Forsikring getForsikring()
@@ -46,7 +48,17 @@ public class Skademelding
         return forsikring;
     }
     
-    public Date getOpprettetDato()
+    public boolean getAktiv()
+    {
+        return aktiv;
+    }
+    
+    public void setAktiv(boolean b)
+    {
+        aktiv = b;
+    }
+    
+    public GregorianCalendar getOpprettetDato()
     {
         return opprettetdato;
     }

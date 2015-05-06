@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import objekter.Ansatt;
 import objekter.BatForsikring;
@@ -32,23 +33,25 @@ public class HovedRegister
     private Forsikringsliste forsikringsregister = new Forsikringsliste();
     private SkademeldingRegister skademeldingsregister = new SkademeldingRegister();
     private Ansattregister ansattregister = new Ansattregister();
+    private GregorianCalendar kalender;
 
     public HovedRegister( )
     {
+        kalender = new GregorianCalendar();
         Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer("08206049937");
         Kunde kunde_2 = kunderegister.finnKundeEtterPersonnummer("01258446816");
         Kunde kunde_3 = kunderegister.finnKundeEtterPersonnummer("02029449964");
         
         Forsikring forsikring_1 = new Bilforsikring( kunde_1, 2000, "DH12345", 1600000, 
                                                     "Volvo", "XC90", "SUV", 340, 
-                                                    2014, 30000, 0.50, 1, false, 
+                                                    2014, 30000, "Bilfører < 23 år", 0.50, 1, false, 
                                                     10000 );
         Forsikring forsikring_2 = new BatForsikring( kunde_1, 20000, "DK54321", 600000, 
                                                     "Tresfjord", "Ultra 360 FB", 
                                                     "Cabin cruiser", 120, 2014, false, 30 );
         Forsikring forsikring_3 = new Bilforsikring( kunde_2, 2000, "CD67890", 270000, 
                                                     "Volvo", "Sonett", "Småbil", 
-                                                    800, 1968, 300000, 0.10, 1, 
+                                                    800, 1968, 300000, "Bilfører < 23 år", 0.10, 1, 
                                                     true, 50000 );
         Forsikring forsikring_4 = new Husforsikring( kunde_2, 8000, "Fjollesvingen 32", 
                                                     1970, "Tremannsbolig", 
@@ -76,9 +79,36 @@ public class HovedRegister
         skademeldingsregister.leggTil(forsikring_1, test_1);
     }
     
+    
     public List<Skademelding> getAlleKundensSkademeldinger( Kunde kunde )
     {
         return skademeldingsregister.getKundensSkademeldinger(forsikringsregister.getKundensForsikringer(kunde));
+       
+    }
+    
+    public List<Forsikring> getAlleKundensForsikringer(Kunde kunde)
+    {
+        return forsikringsregister.getKundensForsikringer(kunde);
+    }
+    
+    public void sjekkTid()
+    {
+      
+       //GregorianCalendar kalender = vindu.getKalender();
+      for( Kunde kunde : kunderegister.alleKunder() )
+        {
+           List<Forsikring> forsikringsliste = getAlleKundensForsikringer( kunde );
+           for( Forsikring forsikring : forsikringsliste )
+            {
+               
+                    if(Math.abs(( kalender.getTime().getTime() - forsikring.getStartdato().getTime().getTime())) > (1000*60*60*24*365.25) ) 
+                    {
+                        forsikring.beregnPris();
+                    }
+               
+            }
+            
+        }  
     }
     
     public List<Kunde> getAnsattKunde( Ansatt ansatt )
@@ -89,7 +119,7 @@ public class HovedRegister
     public Kunde nyKunde( String fnavn, String enavn, String adr, String tlf, String email, String persnummer)
     {
         
-        Date fd = new Date();
+        GregorianCalendar fd = new GregorianCalendar();
         // sette fødselsdato fødselsdato.set();
         Kunde nyKunde = new Kunde( fnavn,  enavn,  adr, tlf, fd ,
                                    email, persnummer);
@@ -193,12 +223,12 @@ public class HovedRegister
     
     public Forsikring nyBilForsikring( Kunde k, int e_andel, String registreringsnummer, int belop,
                                  String fabrikant, String modell, String type, int hestekrefter, 
-                                 int arsmodell, int kilometerstand, double bonus, int antAr, 
+                                 int arsmodell, int kilometerstand, String forer, double bonus, int antAr, 
                                  boolean garasje, int km)
     {
         Forsikring nyForsikring = new Bilforsikring( k, e_andel, registreringsnummer, belop,
                                                      fabrikant,modell, type, hestekrefter, arsmodell,
-                                                     kilometerstand, bonus, antAr, garasje, km );
+                                                     kilometerstand, forer, bonus, antAr, garasje, km );
         
         forsikringsregister.leggTil( k, nyForsikring);
         return nyForsikring;
@@ -245,6 +275,11 @@ public class HovedRegister
     {
         Skademelding nySkademedling = new Skademelding( forsikring, dato, skadetype, beskrivelse, takseringsbelop, erstatingsbelop );
         skademeldingsregister.leggTil( forsikring, nySkademedling );
+        if (forsikring instanceof Bilforsikring)
+        {
+            Bilforsikring bilforsikring = (Bilforsikring)forsikring;
+            bilforsikring.korrigerBonusVedSkade();
+        }
     }
     
     public Ansatt login( String brukernavn, String passord )

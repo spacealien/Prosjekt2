@@ -6,6 +6,7 @@
 package objekter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 /**
  *
  * @author Odd, Thomas, Marthe
@@ -14,11 +15,11 @@ public abstract class Bruker extends Person
 {
     private String epost;
     private final String personnummer;
-    private final Date fodtdato;
+    private final GregorianCalendar fodtdato;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     private final Date startdato;
     
-    public Bruker(String fnavn, String enavn, String adr, String tlf, Date fd, String email, String persnummer)
+    public Bruker(String fnavn, String enavn, String adr, String tlf, GregorianCalendar fd, String email, String persnummer)
     {
         super(fnavn, enavn, adr, tlf);
         epost = email;
@@ -47,7 +48,7 @@ public abstract class Bruker extends Person
         return personnummer;
     }
     
-    public Date getFodtdato()
+    public GregorianCalendar getFodtdato()
     {
         return fodtdato;
     }

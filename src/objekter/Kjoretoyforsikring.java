@@ -48,6 +48,11 @@ public abstract class Kjoretoyforsikring extends Forsikring
     }
 
     @Override
+    public void beregnPris()
+    {
+        
+    }
+    @Override
     public String toString()
     { 
         String ut = super.toString();

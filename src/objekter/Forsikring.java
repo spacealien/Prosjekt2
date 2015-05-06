@@ -8,6 +8,7 @@ package objekter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -21,8 +22,8 @@ public abstract class Forsikring
     //private final Ansatt ansatt;            Legg til datafelt for ansatt.
     private final Kunde kunde;
     private int egenandel;
-    private final Date startdato;
-    private Date sluttdato;
+    private final GregorianCalendar startdato;
+    private GregorianCalendar sluttdato;
     private double arligPremie = 0;
     private double totalbelop = 0;
     private String vilkår;
@@ -35,7 +36,7 @@ public abstract class Forsikring
     public Forsikring( Kunde k, int e_andel )
     {
         egenandel = e_andel;
-        startdato = new Date();
+        startdato = new GregorianCalendar();
         forsikringsnummer =  løpenummer++;
         //this.vilkår = vilkår;
         kunde = k;
@@ -152,19 +153,24 @@ public abstract class Forsikring
         //return forsikringsnøkkel.toArray(new String[forsikringsnøkkel.size()]);
     }
     
-    public Date getStartdato()
+    public GregorianCalendar getStartdato()
     {
         return startdato;
     }
     
-    public Date getSluttdato()
+    public GregorianCalendar getSluttdato()
     {
         return sluttdato;
     }
     
-    public void setSluttdato(Date d)
+    public void setSluttdato(GregorianCalendar d)
     {
         sluttdato = d;
+    }
+    
+    public void beregnPris()
+    {
+        
     }
     
     @Override
@@ -181,5 +187,5 @@ public abstract class Forsikring
     }
     
     // må arves av alle ikke abstracte subklasser.
-    abstract void beregnPris( Kunde kunde);
+    //abstract void beregnPris( Kunde kunde);
 }//end of class

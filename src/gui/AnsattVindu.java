@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -33,7 +34,7 @@ import register.HovedRegister;
  */
 public class AnsattVindu extends JFrame
 {
-    //private Tab tabben;
+    private GregorianCalendar kalender;
     private final Container mainContainer;
     private final JPanel hovedPanel;
     private final JPanel hovedPanelTop;
@@ -64,6 +65,7 @@ public class AnsattVindu extends JFrame
         setSize(1600,900);
         setVisible(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        kalender = new GregorianCalendar();
         register = new HovedRegister();
         KnappeLytter knappeLytter = new KnappeLytter();
         mainContainer = getContentPane();
@@ -107,6 +109,11 @@ public class AnsattVindu extends JFrame
         this.setMenuBar( new MenyLinje(this));
         visTabellPanel(tabellModell);
         visLogin();
+    }
+    
+    public GregorianCalendar getKalender()
+    {
+        return kalender;
     }
     
     public void visLogin()

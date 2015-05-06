@@ -82,6 +82,7 @@ public class KundeDataTabell extends JTable
         MenyLytter menyLytter = new MenyLytter();
         åpneSkademelding.addActionListener(menyLytter);
         visSkademeldinger.addActionListener(menyLytter);
+        
     } // slutt på konstuktør
     
     public void brukForsikringsPopup()
