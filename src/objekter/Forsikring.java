@@ -5,11 +5,14 @@
  */
 package objekter;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -22,7 +25,7 @@ public abstract class Forsikring
     //private final Ansatt ansatt;            Legg til datafelt for ansatt.
     private final Kunde kunde;
     private int egenandel;
-    private final GregorianCalendar startdato;
+    private final Calendar startdato;
     private GregorianCalendar sluttdato;
     private double arligPremie = 0;
     private double totalbelop = 0;
@@ -32,11 +35,16 @@ public abstract class Forsikring
     private final List<Integer> skademeldingsnøkkler = new ArrayList<>();
     private boolean aktiv = true;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+    java.util.Locale norge = new java.util.Locale( "no" );
+    private Date stDato;
+                   //lokalitetsobjekt for norsk standard
     
     public Forsikring( Kunde k, int e_andel )
     {
         egenandel = e_andel;
-        startdato = new GregorianCalendar();
+        startdato = Calendar.getInstance(norge);
+       stDato = startdato.getTime();
+        //startdato = new GregorianCalendar(norge );
         forsikringsnummer =  løpenummer++;
         //this.vilkår = vilkår;
         kunde = k;
@@ -153,7 +161,7 @@ public abstract class Forsikring
         //return forsikringsnøkkel.toArray(new String[forsikringsnøkkel.size()]);
     }
     
-    public GregorianCalendar getStartdato()
+    public Calendar getStartdato()
     {
         return startdato;
     }
@@ -177,7 +185,7 @@ public abstract class Forsikring
     public String toString()
     {
         String utskrift;
-        utskrift = "\nStartdato:" + sdf.format(startdato) + 
+        utskrift = "\nStartdato:" + sdf.format(stDato) + 
                    //"\nSluttdato: " + sluttdato.toString() +   
                     "\nÅrlig Premie: " + arligPremie + 
                    "\nTotal beløp: " + totalbelop +
