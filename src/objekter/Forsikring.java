@@ -26,7 +26,7 @@ public abstract class Forsikring
     private final Kunde kunde;
     private int egenandel;
     private final Calendar startdato;
-    private GregorianCalendar sluttdato;
+    private Calendar sluttdato;
     private double arligPremie = 0;
     private double totalbelop = 0;
     private String vilkår;
@@ -43,8 +43,7 @@ public abstract class Forsikring
     {
         egenandel = e_andel;
         startdato = Calendar.getInstance(norge);
-       stDato = startdato.getTime();
-        //startdato = new GregorianCalendar(norge );
+        stDato = startdato.getTime();
         forsikringsnummer =  løpenummer++;
         //this.vilkår = vilkår;
         kunde = k;
@@ -166,7 +165,7 @@ public abstract class Forsikring
         return startdato;
     }
     
-    public GregorianCalendar getSluttdato()
+    public Calendar getSluttdato()
     {
         return sluttdato;
     }

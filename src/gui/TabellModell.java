@@ -5,6 +5,7 @@
  */
 package gui;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import objekter.Kunde;
@@ -18,6 +19,7 @@ public class TabellModell extends AbstractTableModel
     private String[] kolonnenavn = { "Personnummer", "Fornavn", "Etternavn", "Adresse", "Telefonnummer", "Opprettet","fødselsdato"};
     private Object[][] innhold;
     private List<Kunde> kunder;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     
     
     public TabellModell( List<Kunde> kunder )
@@ -33,8 +35,8 @@ public class TabellModell extends AbstractTableModel
             innhold[teller][2] = kunde.getEtternavn();
             innhold[teller][3] = kunde.getAdresse();
             innhold[teller][4] = kunde.getTlfnr();
-            innhold[teller][5] = kunde.getStartdato();
-            innhold[teller][6] = kunde.getFodtdato();
+            innhold[teller][5] = sdf.format(kunde.getStartdato());
+            innhold[teller][6] = sdf.format(kunde.getFodtdato());
             teller++;
         }
     }

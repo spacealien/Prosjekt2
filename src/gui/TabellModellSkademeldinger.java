@@ -7,6 +7,7 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -23,6 +24,7 @@ public class TabellModellSkademeldinger extends AbstractTableModel implements Ac
     private final Object[][] innhold;
     private final List<Skademelding> skademeldinger;
     private final KundePanel panel;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     
     public TabellModellSkademeldinger( List<Skademelding> skademeldinger, KundePanel panel )
     {

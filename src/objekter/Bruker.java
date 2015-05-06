@@ -5,6 +5,7 @@
  */
 package objekter;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 /**
@@ -15,17 +16,20 @@ public abstract class Bruker extends Person
 {
     private String epost;
     private final String personnummer;
-    private final GregorianCalendar fodtdato;
+    private final Calendar fodtdato;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     private final Date startdato;
+    java.util.Locale norge = new java.util.Locale( "no" );
+    private Date fDato;
     
-    public Bruker(String fnavn, String enavn, String adr, String tlf, GregorianCalendar fd, String email, String persnummer)
+    public Bruker(String fnavn, String enavn, String adr, String tlf, Calendar fd, String email, String persnummer)
     {
         super(fnavn, enavn, adr, tlf);
         epost = email;
         personnummer = persnummer;
         fodtdato = fd;
         startdato =  new Date();
+        fDato = fodtdato.getTime();
     }
     
     public Date getStartdato()
@@ -48,9 +52,9 @@ public abstract class Bruker extends Person
         return personnummer;
     }
     
-    public GregorianCalendar getFodtdato()
+    public Date getFodtdato()
     {
-        return fodtdato;
+        return fDato;
     }
     
     
@@ -58,7 +62,7 @@ public abstract class Bruker extends Person
     public String toString()
     {
         String utskrift = super.toString();  //kall på superklassens toString-metode
-        utskrift += "\nPersonnummer: " + personnummer + "\nFødesldato: " + sdf.format(fodtdato) 
+        utskrift += "\nPersonnummer: " + personnummer + "\nFødesldato: " + sdf.format(fDato) 
                   + "\nEpostadresse: " + epost;
         
         return utskrift;

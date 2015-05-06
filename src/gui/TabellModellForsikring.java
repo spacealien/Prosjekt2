@@ -5,6 +5,7 @@
  */
 package gui;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import objekter.Forsikring;
@@ -19,6 +20,7 @@ public class TabellModellForsikring extends AbstractTableModel
     private Object[][] innhold;
     private List<Forsikring> forsikringer;
     private final KundePanel panel;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     
     public TabellModellForsikring( List<Forsikring> forsikringer, KundePanel panel)
     {
@@ -32,7 +34,7 @@ public class TabellModellForsikring extends AbstractTableModel
             innhold[teller][0] = forsikring.getForsikringsnummer();
             innhold[teller][1] = forsikring.getType();
             innhold[teller][2] = forsikring.erAktiv();
-            innhold[teller][3] = forsikring.getStartdato();
+            innhold[teller][3] = sdf.format(forsikring.getStartdato());
             teller++;
         }
     }
