@@ -16,10 +16,7 @@ import objekter.Kunde;
 /**
  *
  * @author Odd, Thomas, Marthe
- * @param <Forsikringer>
  */
-
-
 public class Forsikringsliste
 {
     Map<Integer,Forsikring> liste = new HashMap<>();
@@ -54,6 +51,18 @@ public class Forsikringsliste
             funnetForsikringer.add(liste.get(n));
         });
         return funnetForsikringer;
+    }
+    
+    public int tellKundensForsikringer( Kunde kunde )
+    {
+        List<Forsikring> forsikringer =  getKundensForsikringer( kunde );
+        
+        int teller = 0;
+        for(Forsikring forsikring : forsikringer)
+            if(forsikring.erAktiv())
+                teller++;
+        
+        return teller;
     }
     
     public List<Forsikring> alleForsikringer()

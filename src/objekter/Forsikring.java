@@ -40,7 +40,27 @@ public abstract class Forsikring
         //this.vilkår = vilkår;
         kunde = k;
     }
-
+    
+    public String getType()
+    {
+        if( this instanceof Bilforsikring)
+            return "Bilforsikring";
+        else if( this instanceof BatForsikring)
+            return "Båtforsikring";
+        else if( this instanceof Eiendomsforsikring)
+            return "Eiendomsforsikring";
+        else if( this instanceof Fritidsboligforsikring)
+            return "Fritidsboligforsikring";
+        else
+            return "Husforsikring";
+    }
+    
+    public boolean erAktiv()
+    {
+        return aktiv;
+    }
+    
+    
     public int getEgenandel()
     {
         return egenandel;
@@ -51,31 +71,35 @@ public abstract class Forsikring
         egenandel = e;
     }
     
-    public double getTotalbelop() {
+    public double getTotalbelop() 
+    {
         return totalbelop;
     }
 
-    public void setTotalbelop(double totalbelop) {
+    public void setTotalbelop(double totalbelop)
+    {
         this.totalbelop = totalbelop;
     }
 
-    public static int getLøpenummer() {
+    public static int getLøpenummer() 
+    {
         return løpenummer;
     }
 
-    public static void setLøpenummer(int løpenummer) {
+    public static void setLøpenummer(int løpenummer) 
+    {
         Forsikring.løpenummer = løpenummer;
     }
 
-    public boolean isAktiv() {
+    public boolean isAktiv() 
+    {
         return aktiv;
     }
 
-    public void setAktiv(boolean aktiv) {
+    public void setAktiv(boolean aktiv) 
+    {
         this.aktiv = aktiv;
     }
-    
-    
     
     public void setAktiver( boolean ok )
     {
@@ -132,8 +156,6 @@ public abstract class Forsikring
     {
         return startdato;
     }
-    
-    
     
     public Date getSluttdato()
     {

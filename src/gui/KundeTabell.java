@@ -21,6 +21,7 @@ import objekter.Kunde;
  */
 public class KundeTabell extends JTable
 {
+    private final JPopupMenu popup;
     private final JMenuItem info;
     private final JMenu nyForsikring;
     private final JMenuItem nyBilforsikring;
@@ -30,7 +31,6 @@ public class KundeTabell extends JTable
     private final JMenuItem nyReiseforsikring;
     private final JMenuItem nySkademelding;
     private final AnsattVindu vindu;
-    private TabellModell modell;
     
     
     public KundeTabell( TabellModell modell, AnsattVindu v )
@@ -40,7 +40,8 @@ public class KundeTabell extends JTable
         setRowHeight(20);
         setAutoCreateRowSorter(true);
         
-        Lytter menyLytter = new Lytter();
+        MenyLytter menyLytter = new MenyLytter();
+        popup = new JPopupMenu();
         info = new JMenuItem("Vis informasjon");
         nyForsikring = new JMenu("Ny forsikring");
         nyBilforsikring = new JMenuItem("Bilforsikring");
@@ -64,58 +65,57 @@ public class KundeTabell extends JTable
         nyForsikring.add(nyFritidsboligforsikring);
         nyForsikring.add(nyReiseforsikring);
         
+        popup.add(info);
+        popup.add(nyForsikring);
+        popup.add(nySkademelding);
+        
         addMouseListener(new MouseAdapter()
         {
-         @Override
-         public void mousePressed(MouseEvent e)
+            
+        @Override
+        public void mousePressed(MouseEvent e)
         {
-        sjekkKlikk(e);
+            sjekkKlikk(e);
         }
-         @Override
+        @Override
         public void mouseReleased(MouseEvent e)
         {
-         sjekkKlikk(e);
+             sjekkKlikk(e);
         }
         
-  
         public void sjekkKlikk(MouseEvent e)
         {
-        if (e.isPopupTrigger())
-        {
-        int r = rowAtPoint(e.getPoint());
-            if (r >= 0 && r < getRowCount()) 
+            if (e.isPopupTrigger())
             {
-                setRowSelectionInterval(r, r);
-            }
-            else 
-            {
-                clearSelection();
-            }
+                int r = rowAtPoint(e.getPoint());
+                    if (r >= 0 && r < getRowCount()) 
+                    {
+                        setRowSelectionInterval(r, r);
+                    }
+                    else 
+                    {
+                        clearSelection();
+                    }
             
-            int rowindex = getSelectedRow();
-            if (rowindex < 0)
-                return;
-            if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) 
-            {
-                JPopupMenu popup = new JPopupMenu();
-                popup.add(info);
-                popup.add(nyForsikring);
-                popup.add(nySkademelding);
-                popup.show(e.getComponent(), e.getX(), e.getY());
+                    int rowindex = getSelectedRow();
+                    if (rowindex < 0)
+                        return;
+                    if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) 
+                    {
+                        popup.show(e.getComponent(), e.getX(), e.getY());
+                    }
             }
-        }
-    }   
-    }); // end of anonym muselytter
+        }   
+        }); // end of anonym muselytter
     } // end of konstruktør
-   
-   
+
     
     public Kunde getKunde()
     {
         return vindu.getRegister().finnKundeMedPersonnummer((String)getValueAt(getSelectedRow(), 0));
     }
     
-    private class Lytter implements ActionListener
+    private class MenyLytter implements ActionListener
     {
         @Override
         public void actionPerformed(ActionEvent e) 
@@ -150,7 +150,7 @@ public class KundeTabell extends JTable
                 Kunde kunde = getKunde();
                 vindu.leggTilNyFane(new ReiseforsikringPanel(kunde, vindu), "Båtforsikring");
             }
-            /*else if( e.getSource() == nySkademelding)
+          /*else if( e.getSource() == nySkademelding)
             {
                 Kunde kunde = getKunde();
                 vindu.leggTilNyFane(new SkademeldingPanel(forsikring), "Skademelding");

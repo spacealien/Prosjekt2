@@ -42,20 +42,20 @@ public class Kunderegister
         Kunde test_13 = new Kunde("Pepper", "Pots", "Pasadena", "22260906", fdato, "pepper@starkindustries.com", "06047647884");
         Kunde test_14 = new Kunde("Bruce", "Wayne", "Gotham City", "22260906", fdato, "imbatman@waynemanor.net", "07097547933");
         
-        Kunde test_15 = new Kunde("Bruce", "Hestman", "Kongleknaggen 18", "22260906", fdato, "hesterolf@yahoo.no", "08206049937");
-        Kunde test_16 = new Kunde("Rolf", "Dæhlie", "Trysil 23B", "22260906", fdato, "epost@epost.no", "12048449997");
-        Kunde test_17 = new Kunde("Bjørn", "Dæhlie", "Trondheim 23B", "22260906", fdato, "marit@langrenn.no", "02029449964");
-        Kunde test_18 = new Kunde("Marit", "Dæhlie", "Trysil 23B", "22260906", fdato, "epost@epost.no", "01258449963");
-        Kunde test_19 = new Kunde("Ole-Einar", "Skywalker", "Trysil 23B", "22260906", fdato, "kongen@skiskytter.no", "01258446816");
-        Kunde test_20 = new Kunde("Ole", "Skywalker", "Tatooine", "22260906", fdato, "luke@cantina.com", "03306849785");
-        Kunde test_21 = new Kunde("Luke", "Solo", "Millenium Falcon", "22260906", fdato, "hansolo@smuggler.org", "03306844899");
-        Kunde test_22 = new Kunde("Darth", "Organa", "Deathstar", "22260906", fdato, "darkfather@deathstar.gov", "04215348879");
-        Kunde test_23 = new Kunde("Darth", "Hestman", "Coruscant", "22260906", fdato, "palpatine@emperor.gov", "04215338644");
-        Kunde test_24 = new Kunde("Tony", "Organa", "Coruscant", "22260906", fdato, "alderaan@galacticsenate.gov", "05299049681");
-        Kunde test_25 = new Kunde("Tony", "Calrissian", "Cloud City", "22260906", fdato, "lando@cloudcity.gov", "05299248072");
-        Kunde test_26 = new Kunde("Pepper", "Calrissian", "Pasadena", "22260906", fdato, "tony@starkindustries.com", "06049946838");
-        Kunde test_27 = new Kunde("Pepper", "Ås", "Pasadena", "22260906", fdato, "pepper@starkindustries.com", "06047647884");
-        Kunde test_28 = new Kunde("Bruce", "Ødegård", "Gotham City", "22260906", fdato, "imbatman@waynemanor.net", "07097547933");
+        Kunde test_15 = new Kunde("Bruce", "Hestman", "Kongleknaggen 18", "22260906", fdato, "hesterolf@yahoo.no", "08205049937");
+        Kunde test_16 = new Kunde("Rolf", "Dæhlie", "Trysil 23B", "22260906", fdato, "epost@epost.no", "12048448997");
+        Kunde test_17 = new Kunde("Bjørn", "Dæhlie", "Trondheim 23B", "22260906", fdato, "marit@langrenn.no", "02025449964");
+        Kunde test_18 = new Kunde("Marit", "Dæhlie", "Trysil 23B", "22260906", fdato, "epost@epost.no", "01258443963");
+        Kunde test_19 = new Kunde("Ole-Einar", "Skywalker", "Trysil 23B", "22260906", fdato, "kongen@skiskytter.no", "01258456816");
+        Kunde test_20 = new Kunde("Ole", "Skywalker", "Tatooine", "22260906", fdato, "luke@cantina.com", "03307849785");
+        Kunde test_21 = new Kunde("Luke", "Solo", "Millenium Falcon", "22260906", fdato, "hansolo@smuggler.org", "03307844899");
+        Kunde test_22 = new Kunde("Darth", "Organa", "Deathstar", "22260906", fdato, "darkfather@deathstar.gov", "04115348879");
+        Kunde test_23 = new Kunde("Darth", "Hestman", "Coruscant", "22260906", fdato, "palpatine@emperor.gov", "04115338644");
+        Kunde test_24 = new Kunde("Tony", "Organa", "Coruscant", "22260906", fdato, "alderaan@galacticsenate.gov", "05269049681");
+        Kunde test_25 = new Kunde("Tony", "Calrissian", "Cloud City", "22260906", fdato, "lando@cloudcity.gov", "05259248072");
+        Kunde test_26 = new Kunde("Pepper", "Calrissian", "Pasadena", "22260906", fdato, "tony@starkindustries.com", "06043946838");
+        Kunde test_27 = new Kunde("Pepper", "Ås", "Pasadena", "22260906", fdato, "pepper@starkindustries.com", "06067647884");
+        Kunde test_28 = new Kunde("Bruce", "Ødegård", "Gotham City", "22260906", fdato, "imbatman@waynemanor.net", "07094547933");
         
         kunderegister.add(test_1);
         kunderegister.add(test_2);
