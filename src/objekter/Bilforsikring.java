@@ -120,6 +120,54 @@ public class Bilforsikring extends Kjoretoyforsikring
         }
         //beregnPris(kunde); For å oppdatere prisen
     }
+
+    public boolean harGarasje() {
+        return garasje;
+    }
+
+    public int getMaxKjorelengd() {
+        return maxKjorelengd;
+    }
+
+    public String getForeralder() {
+        return foreralder;
+    }
+
+    public int getBelopet() {
+        return belopet;
+    }
+
+    public int getAr() {
+        return ar;
+    }
+
+    public int getKmst() {
+        return kmst;
+    }
+
+    public double getBonusen() {
+        return bonusen;
+    }
+
+    public int getHk() {
+        return hk;
+    }
+
+    public int getKmlengde() {
+        return kmlengde;
+    }
+
+    public int getEgenAndel() {
+        return egenAndel;
+    }
+
+    public boolean isGarasjen() {
+        return garasjen;
+    }
+
+    public String getfAlder() {
+        return fAlder;
+    }
     
     public void setBonus( double b )
     {
@@ -179,23 +227,27 @@ public class Bilforsikring extends Kjoretoyforsikring
       {
           hkvar = 5;
       }
+        
       double var = belopet * 0.012; //kasko: * 0.015, superkasko: * 0.02
       double arspris = var*0.09*(2015-ar); //Må bruke Calendar i stedet for 2015
       double hkpris = (var*0.1*hkvar);
       double lengdepris = (var*0.00005*kmlengde);
       double kmstandpris = (var*0.00004*kmst);
       double garasjepris = 0;
+      
       if(!garasje)
       {
           garasjepris = var*0.5;
       }
+      
       double andelsPris = (egenAndel / (egenAndel/1000));
       forsikringspris = var + arspris + hkpris + lengdepris + kmstandpris + garasjepris + andelsPris;
       double forerpris;
+      
       if (fAlder.equals("Bilfører < 23 år"))
-      forsikringspris = forsikringspris*1.29;
+        forsikringspris = forsikringspris*1.29;
       else if (fAlder.equals("Bilfører mellom 23 - 25 år"))
-      forsikringspris = forsikringspris*1.09;
+        forsikringspris = forsikringspris*1.09;
       
       System.out.println(forsikringspris);
       //kunde.setÅrligPremieblablabla for å oppdatere prisen (årlig)

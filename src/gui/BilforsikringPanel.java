@@ -22,6 +22,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private AnsattVindu vindu;
     private HovedRegister register;
     private Eier eier;
+    private Bilforsikring bilforsikring;
     
     private final JTextField eierFornavn;
     private final JTextField eierEtternavn;
@@ -184,24 +185,37 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         @Override
         public void actionPerformed(ActionEvent e)
         {
-    if (e.getSource() == annenEier)
+            if (e.getSource() == annenEier)
+            {
+                int result = JOptionPane.showConfirmDialog(null, eierPanel, 
+                                        "Vennligst fyll ut bileiers kontaktinformasjon:",
+                                        JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION)
         {
-            int result = JOptionPane.showConfirmDialog(null, eierPanel, 
-               "Vennligst fyll ut bileiers kontaktinformasjon:", JOptionPane.OK_CANCEL_OPTION);
-      if (result == JOptionPane.OK_OPTION)
-      {
-          //Her skal det endres
-         System.out.println("Fornavn: " + eierFornavn.getText());
-         System.out.println("Etternavn: " + eierEtternavn.getText());
-         System.out.println("Telefonnummer: " + eierTlf.getText());
-         System.out.println("Addresse: " + eierAdresse.getText());
-         eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), eierAdresse.getText(), eierTlf.getText());
-      }    
-                
-        }}});
+         //Her skal det endres
+            System.out.println("Fornavn: " + eierFornavn.getText());
+            System.out.println("Etternavn: " + eierEtternavn.getText());
+            System.out.println("Telefonnummer: " + eierTlf.getText());
+            System.out.println("Addresse: " + eierAdresse.getText());
+            eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), eierAdresse.getText(), eierTlf.getText());
+        }        
+            }}}); // wtf
         
         bilGiTilbud.addActionListener(this);
         beregnPris.addActionListener(this);
+    } // slutt på konstuktør
+    
+    public void visForsikring( Forsikring f)
+    {
+        this.bilforsikring =  f;
+        bilRegnr.setText(bilforsikring.get);
+        bilRegAr
+        bilVerdi
+        bilModell
+        bilHk 
+        bilKmstand
+        bilTilbud
+        
     }
     
     public boolean hentInfo()
@@ -255,87 +269,87 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             }
             else
             {
-            switch (bonus_n)
-            {
-                case 1:
-                    bonusen = -0.50;
-                    break;
-                case 2:
-                     bonusen = -0.40;
-                    break;   
-                case 3:
-                    bonusen = -0.30;
-                    break;
-                case 4:
-                    bonusen = -0.20;
-                    break;
-                case 5:
-                    bonusen = -0.10;
-                    break;
-                case 6:
-                     bonusen = 0.00;
-                    break;   
-                case 7:
-                   bonusen = 0.10;
-                    break;
-                case 8:
-                    bonusen = 0.20;
-                    break;
-                case 9:
-                     bonusen = 0.30;
-                    break;   
-                case 10:
-                    bonusen = 0.40;
-                    break;
-                case 11:
-                    bonusen = 0.50;
-                    break;
-                case 12:
-                    bonusen = 0.60;
-                    break;
-                case 13: 
-                    bonusen = 0.70;
-                    break;
-                case 14:
-                    bonusen = 0.70;
-                    antAr = 2;
-                    break;
-                case 15:  
-                    bonusen = 0.70;
-                    antAr = 3;
-                    break; 
-                case 16:
-                    bonusen = 0.70;
-                    antAr = 4;
-                    break;
-                case 17:
-                    bonusen = 0.70;
-                    antAr = 5;
-                    break;
-                case 18:
-                     bonusen = 0.75;
-                    break; 
-                case 19:
-                     bonusen = 0.75;
-                     antAr = 2;
-                    break; 
-                case 20:
-                     bonusen = 0.75;
-                     antAr = 3;
-                    break; 
-                case 21:
-                     bonusen = 0.75;
-                     antAr = 4;
-                    break; 
-                case 22:  
-                     bonusen = 0.75;
-                     antAr = 5;
-                    break;  
-                case 23:
-                     bonusen = 0.75;
-                     antAr = 6;
-                    break;   
                 
+                switch (bonus_n)
+                {
+                    case 1:
+                        bonusen = -0.50;
+                        break;
+                    case 2:
+                        bonusen = -0.40;
+                        break;   
+                    case 3:
+                        bonusen = -0.30;
+                        break;
+                    case 4:
+                        bonusen = -0.20;
+                        break;
+                    case 5:
+                        bonusen = -0.10;
+                        break;
+                    case 6:
+                        bonusen = 0.00;
+                        break;   
+                    case 7:
+                        bonusen = 0.10;
+                        break;
+                    case 8:
+                        bonusen = 0.20;
+                        break;
+                    case 9:
+                        bonusen = 0.30;
+                        break;   
+                    case 10:
+                        bonusen = 0.40;
+                        break;
+                    case 11:
+                        bonusen = 0.50;
+                        break;
+                    case 12:
+                        bonusen = 0.60;
+                        break;
+                    case 13: 
+                        bonusen = 0.70;
+                        break;
+                    case 14:
+                        bonusen = 0.70;
+                        antAr = 2;
+                        break;
+                    case 15:  
+                        bonusen = 0.70;
+                        antAr = 3;
+                        break; 
+                    case 16:
+                        bonusen = 0.70;
+                        antAr = 4;
+                        break;
+                    case 17:
+                        bonusen = 0.70;
+                        antAr = 5;
+                        break;
+                    case 18:
+                        bonusen = 0.75;
+                        break; 
+                    case 19:
+                        bonusen = 0.75;
+                        antAr = 2;
+                        break; 
+                    case 20:
+                        bonusen = 0.75;
+                        antAr = 3;
+                        break; 
+                    case 21:
+                        bonusen = 0.75;
+                        antAr = 4;
+                        break; 
+                    case 22:  
+                        bonusen = 0.75;
+                        antAr = 5;
+                        break;  
+                    case 23:
+                        bonusen = 0.75;
+                        antAr = 6;
+                    break;
             }
             
             switch(lengde_n)
@@ -361,20 +375,19 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                 case 7:
                     lengdevalget = 100000;
                     break;
-            }
-            
-            forer = aldervelger.getItemAt(alder_n);
-            belop = Integer.parseInt(bilVerdi.getText());
-            typevalget = biltypevelger.getItemAt(type_n);
-            merkevalget = bilmerkevelger.getItemAt(merke_n);
-            b = bonusvelger.getItemAt(bonus_n);
-            egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
-            regnr = bilRegnr.getText();
-            modell = bilModell.getText();
-            hk = Integer.parseInt(bilHk.getText());
-            ar = Integer.parseInt(bilRegAr.getText());
-            kmstand = Integer.parseInt(bilKmstand.getText());  
-            return true;
+            } 
+                forer = aldervelger.getItemAt(alder_n);
+                belop = Integer.parseInt(bilVerdi.getText());
+                typevalget = biltypevelger.getItemAt(type_n);
+                merkevalget = bilmerkevelger.getItemAt(merke_n);
+                b = bonusvelger.getItemAt(bonus_n);
+                egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
+                regnr = bilRegnr.getText();
+                modell = bilModell.getText();
+                hk = Integer.parseInt(bilHk.getText());
+                ar = Integer.parseInt(bilRegAr.getText());
+                kmstand = Integer.parseInt(bilKmstand.getText());  
+                return true;
             }
     }
     
