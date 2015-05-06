@@ -102,10 +102,10 @@ public class HovedRegister
            for( Forsikring forsikring : forsikringsliste )
             {
                
-                    if(Math.abs(( kalender.getTime().getTime() - forsikring.getStartdato().getTime().getTime())) > (1000*60*60*24*365.25) ) 
+                    /*if(Math.abs(( kalender.getTime().getTime() - forsikring.getStartdato().getTime().getTime())) > (1000*60*60*24*365.25) ) 
                     {
                         forsikring.beregnPris();
-                    }
+                    }*/
                
             }
             

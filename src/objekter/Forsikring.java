@@ -160,9 +160,9 @@ public abstract class Forsikring
         //return forsikringsnøkkel.toArray(new String[forsikringsnøkkel.size()]);
     }
     
-    public Calendar getStartdato()
+    public Date getStartdato()
     {
-        return startdato;
+        return stDato;
     }
     
     public Calendar getSluttdato()
