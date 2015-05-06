@@ -35,7 +35,7 @@ public class BatForsikring extends Kjoretoyforsikring
      * @param kunde 
      */
     
-    @Override
+    //@Override
     public void beregnPris( Kunde kunde )
     {
         

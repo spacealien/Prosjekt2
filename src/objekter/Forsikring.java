@@ -159,5 +159,5 @@ public abstract class Forsikring
     }
     
     // må arves av alle ikke abstracte subklasser.
-    abstract void beregnPris( Kunde kunde);
+    //abstract void beregnPris( Kunde kunde);
 }//end of class
