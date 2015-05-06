@@ -70,24 +70,23 @@ public class KundeTabell extends JTable
         popup.add(nySkademelding);
         
         addMouseListener(new MouseAdapter()
-        {
-            
-        @Override
-        public void mousePressed(MouseEvent e)
-        {
-            sjekkKlikk(e);
-        }
-        @Override
-        public void mouseReleased(MouseEvent e)
-        {
-             sjekkKlikk(e);
-        }
-        
-        public void sjekkKlikk(MouseEvent e)
-        {
-            if (e.isPopupTrigger())
+        {    
+            @Override
+            public void mousePressed(MouseEvent e)
             {
-                int r = rowAtPoint(e.getPoint());
+                sjekkKlikk(e);
+            }
+            @Override
+            public void mouseReleased(MouseEvent e)
+            {
+                sjekkKlikk(e);
+            }
+        
+            public void sjekkKlikk(MouseEvent e)
+            {
+                if (e.isPopupTrigger())
+                {
+                    int r = rowAtPoint(e.getPoint());
                     if (r >= 0 && r < getRowCount()) 
                     {
                         setRowSelectionInterval(r, r);
@@ -96,7 +95,6 @@ public class KundeTabell extends JTable
                     {
                         clearSelection();
                     }
-            
                     int rowindex = getSelectedRow();
                     if (rowindex < 0)
                         return;
@@ -104,8 +102,8 @@ public class KundeTabell extends JTable
                     {
                         popup.show(e.getComponent(), e.getX(), e.getY());
                     }
-            }
-        }   
+                }
+            }   
         }); // end of anonym muselytter
     } // end of konstruktør
 
@@ -150,11 +148,6 @@ public class KundeTabell extends JTable
                 Kunde kunde = getKunde();
                 vindu.leggTilNyFane(new ReiseforsikringPanel(kunde, vindu), "Båtforsikring");
             }
-          /*else if( e.getSource() == nySkademelding)
-            {
-                Kunde kunde = getKunde();
-                vindu.leggTilNyFane(new SkademeldingPanel(forsikring), "Skademelding");
-            }*/
         }
     }
 }

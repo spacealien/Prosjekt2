@@ -24,8 +24,10 @@ public class KundeDataTabell extends JTable
     private JPopupMenu popup;
     private final JPopupMenu popupSkademelding;
     private final JPopupMenu popupForsikring;
+    private final JMenuItem nySkademelding;
     private final JMenuItem åpneSkademelding;
     private final JMenuItem åpneForsikring;
+    private final JMenuItem visSkademeldingensForsikring;
     private final JMenuItem visSkademeldinger;
     private final KundePanel panel;
         
@@ -33,16 +35,30 @@ public class KundeDataTabell extends JTable
     {
         super(model);
         this.panel = panel;
-        åpneSkademelding = new JMenuItem("Åpne");
+        
+        // popup for Forsikringer
+        popupForsikring = new JPopupMenu();
         åpneForsikring = new JMenuItem("Åpne");
         visSkademeldinger = new JMenuItem("Vis Skademeldinger for denne forsikring");
-        popupForsikring = new JPopupMenu();
-        popupSkademelding = new JPopupMenu();
+        nySkademelding = new JMenuItem("Ny Skademelding");
         popupForsikring.add(åpneForsikring);
         popupForsikring.add(visSkademeldinger);
-        popupSkademelding.add(åpneSkademelding);
-        brukForsikringsPopup();
         
+        // popup for Skademeldinger
+        popupSkademelding = new JPopupMenu();
+        åpneSkademelding = new JMenuItem("Åpne");
+        visSkademeldingensForsikring = new JMenuItem("Vis skademeldingens forsikring");
+        popupSkademelding.add(åpneSkademelding);
+        popupSkademelding.add(visSkademeldingensForsikring);
+        
+        MenyLytter menyLytter = new MenyLytter();
+        åpneForsikring.addActionListener(menyLytter);
+        åpneSkademelding.addActionListener(menyLytter);
+        visSkademeldinger.addActionListener(menyLytter);
+        nySkademelding.addActionListener(menyLytter);
+        visSkademeldingensForsikring.addActionListener(menyLytter);
+        
+        brukForsikringsPopup();
         addMouseListener(new MouseAdapter()
         {    
             @Override
@@ -78,11 +94,6 @@ public class KundeDataTabell extends JTable
             }
         }
         });
-        
-        MenyLytter menyLytter = new MenyLytter();
-        åpneSkademelding.addActionListener(menyLytter);
-        visSkademeldinger.addActionListener(menyLytter);
-        
     } // slutt på konstuktør
     
     public void brukForsikringsPopup()
@@ -94,7 +105,6 @@ public class KundeDataTabell extends JTable
     {
          popup = popupSkademelding;
     }
-
     
     private class MenyLytter implements ActionListener
     {
@@ -103,11 +113,15 @@ public class KundeDataTabell extends JTable
         {
             if( e.getSource() == åpneSkademelding)
             {
-                
+                panel.åpneForsikringsTab();
+            }
+            else if( e.getSource() == åpneForsikring )
+            {
+                panel.åpneForsikringsTab();
             }
             else if( e.getSource() == visSkademeldinger)
             {
-                panel.visForsikringensSkademeldng();
+                panel.visForsikringensSkademeldnger();
             }
         }
     }

@@ -22,8 +22,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
+import objekter.BatForsikring;
+import objekter.Bilforsikring;
+import objekter.Eiendomsforsikring;
 import objekter.Forsikring;
+import objekter.Fritidsboligforsikring;
+import objekter.Husforsikring;
 import objekter.Kunde;
+import objekter.Reiseforsikring;
 import objekter.Skademelding;
 
 /**
@@ -141,7 +147,7 @@ public class KundePanel extends JPanel implements ActionListener
         visSkademeldinger.addActionListener(this);
     }
     
-    public void visForsikringensSkademeldng()
+    public void visForsikringensSkademeldnger()
     {
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
         Forsikring forsirking = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
@@ -151,12 +157,6 @@ public class KundePanel extends JPanel implements ActionListener
         tabell.brukSkademeldingPopup();
     }
     
-    public void visForsikring()
-    {
-        Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
-        Forsikring forsirking = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
-    }
-    
     public void visAlleSkademeldinger()
     {
         List<Forsikring> kundensForsikringer =   vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde);
@@ -164,6 +164,31 @@ public class KundePanel extends JPanel implements ActionListener
         TabellModellSkademeldinger nyModell = new TabellModellSkademeldinger(nyListe, this);
         tabell.setModel(nyModell);
         tabell.brukSkademeldingPopup();
+    }
+    
+    public void åpneSkademeldingTab()
+    {
+        Integer skademeldingnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
+        Skademelding skademelding = vindu.getRegister().getSkademeldingsregister().getSkademelding(skademeldingnummer);
+        //vindu.leggTilNyFane( new SkademeldingPanel(kunde,skademelding.getForsikring(),vindu) "skademelding");
+    }
+    
+    public void åpneForsikringsTab()
+    {
+        Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
+        Forsikring forsikring = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
+        if( forsikring.getClass() == Bilforsikring.class)
+            System.out.println("test");
+        else if( forsikring.getClass() == BatForsikring.class )
+            System.out.println("test");
+        else if( forsikring.getClass() == Eiendomsforsikring.class)
+            System.out.println("test");
+        else if( forsikring.getClass() == Fritidsboligforsikring.class)
+            System.out.println("test");
+        else if( forsikring.getClass() == Husforsikring.class)
+            System.out.println("test");
+        else if( forsikring.getClass() == Reiseforsikring.class)
+            System.out.println("test");
     }
     
     @Override
