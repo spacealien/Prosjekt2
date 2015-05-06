@@ -178,7 +178,7 @@ public class KundePanel extends JPanel implements ActionListener
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
         Forsikring forsikring = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
         if( forsikring.getClass() == Bilforsikring.class)
-            System.out.println("test");
+            vindu.leggTilNyFane( new BilforsikringPanel(forsikring.getKunde(), vindu), "test");
         else if( forsikring.getClass() == BatForsikring.class )
             System.out.println("test");
         else if( forsikring.getClass() == Eiendomsforsikring.class)

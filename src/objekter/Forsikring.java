@@ -63,6 +63,11 @@ public abstract class Forsikring
             return "Husforsikring";
     }
     
+    public Kunde getKunde()
+    {
+        return kunde;
+    }
+    
     public boolean erAktiv()
     {
         return aktiv;
