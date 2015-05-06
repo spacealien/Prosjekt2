@@ -150,6 +150,7 @@ public class KundePanel extends JPanel implements ActionListener
         List<Skademelding> nyListe = vindu.getRegister().getSkademeldingsregister().getSkademeldinger(forsirking);
         TabellModellSkademeldinger nyModell = new TabellModellSkademeldinger(nyListe, this);
         tabell.setModel(nyModell);
+        System.out.println(tabell.getModel());
     }
     
     public void visForsikring()

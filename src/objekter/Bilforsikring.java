@@ -54,6 +54,12 @@ public class Bilforsikring extends Kjoretoyforsikring
     public void setBonus( double b )
     {
         bonus = b;
+        //beregnPris(kunde); For å oppdatere prisen
+    }
+    
+    public double getBonus()
+    {
+        return bonus;
     }
     
     public void setAntallAr(int a)
@@ -122,9 +128,10 @@ public class Bilforsikring extends Kjoretoyforsikring
       forsikringspris = forsikringspris*1.09;
       
       System.out.println(forsikringspris);
-      
+      //kunde.setÅrligPremieblablabla for å oppdatere prisen (årlig)
     }
     
+    @Override
     public String toString()
     {
         String g;

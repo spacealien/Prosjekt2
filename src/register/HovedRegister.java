@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import objekter.Ansatt;
 import objekter.BatForsikring;
@@ -32,9 +33,11 @@ public class HovedRegister
     private Forsikringsliste forsikringsregister = new Forsikringsliste();
     private SkademeldingRegister skademeldingsregister = new SkademeldingRegister();
     private Ansattregister ansattregister = new Ansattregister();
+    private GregorianCalendar kalender;
 
     public HovedRegister( )
     {
+        kalender = new GregorianCalendar();
         Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer("08206049937");
         Kunde kunde_2 = kunderegister.finnKundeEtterPersonnummer("01258446816");
         Kunde kunde_3 = kunderegister.finnKundeEtterPersonnummer("02029449964");
@@ -73,6 +76,19 @@ public class HovedRegister
         Skademelding test_1 = new Skademelding( forsikring_1, new Date() , "Skadetype" , "Beskrivelse", 2000, 30000 );
         skademeldingsregister.leggTil(forsikring_1, test_1);
        
+    }
+    
+    public void sjekkTid()
+    {
+      long avstand = Math.abs( kalender.getTime().getTime() -
+                              da.getTime().getTime() );
+       //GregorianCalendar kalender = vindu.getKalender();
+      for( Kunde kunde : kunderegister.alleKunder() )
+        {
+            
+            if(Math.abs( kalender.getTime().getTime() -
+                              kunde.get.getTime().getTime() ))
+        }  
     }
     
     public Kunde nyKunde( String fnavn, String enavn, String adr, String tlf, String email, String persnummer)
