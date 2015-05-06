@@ -401,7 +401,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             
             Forsikring forsikring = register.nyBilForsikring( kunde, egenandelvalget, regnr, belop,
                                     merkevalget,modell, typevalget, hk, ar,
-                                    kmstand, bonusen, antAr, garasje, lengdevalget ); 
+                                    kmstand, forer, bonusen, antAr, garasje, lengdevalget ); 
             
             kunde.leggTilNøkkel(forsikring.getForsikringsnummer());
             Kjoretoyforsikring forsikringen =(Kjoretoyforsikring)forsikring;
