@@ -80,14 +80,13 @@ public class HovedRegister
     
     public void sjekkTid()
     {
-      long avstand = Math.abs( kalender.getTime().getTime() -
-                              da.getTime().getTime() );
+      
        //GregorianCalendar kalender = vindu.getKalender();
       for( Kunde kunde : kunderegister.alleKunder() )
         {
-            
-            if(Math.abs( kalender.getTime().getTime() -
-                              kunde.get.getTime().getTime() ))
+           kunde.getNøkkelliste();
+            //if(Math.abs( kalender.getTime().getTime() -
+                              //kunde.get.getTime().getTime() ))
         }  
     }
     

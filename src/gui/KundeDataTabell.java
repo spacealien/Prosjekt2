@@ -21,12 +21,11 @@ import javax.swing.table.AbstractTableModel;
 public class KundeDataTabell extends JTable 
 {
     private AbstractTableModel model = null;
-    
-    
+    private JPopupMenu popup;
     private final JPopupMenu popupSkademelding;
     private final JPopupMenu popupForsikring;
-    private final JMenuItem info;
-    private final JMenuItem infoSkade;
+    private final JMenuItem åpneSkademelding;
+    private final JMenuItem åpneForsikring;
     private final JMenuItem visSkademeldinger;
     private final KundePanel panel;
         
@@ -34,17 +33,15 @@ public class KundeDataTabell extends JTable
     {
         super(model);
         this.panel = panel;
-
-        
-        
-        info = new JMenuItem("Åpne");
-        infoSkade = new JMenuItem("Jeg hører til skademeldingtabell");
+        åpneSkademelding = new JMenuItem("Åpne");
+        åpneForsikring = new JMenuItem("Åpne");
         visSkademeldinger = new JMenuItem("Vis Skademeldinger for denne forsikring");
         popupForsikring = new JPopupMenu();
         popupSkademelding = new JPopupMenu();
-        popupForsikring.add(info);
+        popupForsikring.add(åpneForsikring);
         popupForsikring.add(visSkademeldinger);
-        popupSkademelding.add(infoSkade);
+        popupSkademelding.add(åpneSkademelding);
+        brukForsikringsPopup();
         
         addMouseListener(new MouseAdapter()
         {    
@@ -58,8 +55,8 @@ public class KundeDataTabell extends JTable
             {
                 sjekkKlikk(e);
             }   
-    public void sjekkKlikk(MouseEvent e)
-    {   
+        public void sjekkKlikk(MouseEvent e)
+        {
             if (e.isPopupTrigger())
             {
                 int r = rowAtPoint(e.getPoint());
@@ -75,25 +72,28 @@ public class KundeDataTabell extends JTable
             if (rowindex < 0)
                 return;
             if (e.isPopupTrigger() && e.getComponent() instanceof JTable )
-            { System.out.println(model);
-                if( model instanceof TabellModellForsikring )
-                {
-                    popupForsikring.show(e.getComponent(), e.getX(), e.getY());
-                }
-                else if( model instanceof TabellModellSkademeldinger )
-                {
-                    popupSkademelding.show(e.getComponent(), e.getX(), e.getY());
-                }
+            {
+                    popup.show(e.getComponent(), e.getX(), e.getY());
+            }
             }
         }
-    }
         });
         
         MenyLytter menyLytter = new MenyLytter();
-        info.addActionListener(menyLytter);
+        åpneSkademelding.addActionListener(menyLytter);
         visSkademeldinger.addActionListener(menyLytter);
-        infoSkade.addActionListener(menyLytter);
+        
     } // slutt på konstuktør
+    
+    public void brukForsikringsPopup()
+    {
+         popup = popupForsikring;
+    }
+    
+    public void brukSkademeldingPopup()
+    {
+         popup = popupSkademelding;
+    }
 
     
     private class MenyLytter implements ActionListener
@@ -101,7 +101,7 @@ public class KundeDataTabell extends JTable
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            if( e.getSource() == info)
+            if( e.getSource() == åpneSkademelding)
             {
                 
             }

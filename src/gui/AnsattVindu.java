@@ -111,7 +111,7 @@ public class AnsattVindu extends JFrame
         visLogin();
     }
     
-    public GregorianCalender getKalender()
+    public GregorianCalendar getKalender()
     {
         return kalender;
     }

@@ -206,10 +206,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     
     public boolean hentInfo()
     {
-        
-             
-        
-        
         if (garasjeJa.isSelected() && !garasjeNei.isSelected())
                     garasje = true;
         else if (!garasjeJa.isSelected() && garasjeNei.isSelected())
@@ -397,6 +393,10 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     {
         if (hentInfo())
         {
+            if( vindu.getRegister().getKundeliste().erKunde(kunde) == false)
+            {
+                register.getKundeliste().leggTil(kunde);
+            }
             Forsikring forsikring = register.nyBilForsikring( kunde, egenandelvalget, regnr, belop,
                                     merkevalget,modell, typevalget, hk, ar,
                                     kmstand, forer, bonusen, antAr, garasje, lengdevalget ); 
