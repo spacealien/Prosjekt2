@@ -75,6 +75,7 @@ public class HovedRegister
         
         Skademelding test_1 = new Skademelding( forsikring_1, new Date() , "Skadetype" , "Beskrivelse", 2000, 30000 );
         skademeldingsregister.leggTil(forsikring_1, test_1);
+        sjekkTid();
     }
     
     
@@ -89,7 +90,7 @@ public class HovedRegister
         return forsikringsregister.getKundensForsikringer(kunde);
     }
     
-    public void sjekkTid()
+    public final void sjekkTid()
     {
       
        //GregorianCalendar kalender = vindu.getKalender();

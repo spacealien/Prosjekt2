@@ -13,9 +13,10 @@ public class Reiseforsikring extends Personligforsikring
 {
     private int sone;
     private int belopet;
-    private int soneBeregn;
+    private double soneBeregn;
     private double forsorgerpris = 1;
     private double premie;
+    private double sum;
     
     
     
@@ -37,7 +38,7 @@ public class Reiseforsikring extends Personligforsikring
         sone = s;
     }
 
-    public int getSoneBeregn()
+    public double getSoneBeregn()
     {
         return soneBeregn;
     }
@@ -81,12 +82,12 @@ public class Reiseforsikring extends Personligforsikring
         {
             case 1: soneBeregn = 1;//Hva man skal gange prisen med
                     break;
-            case 2: soneBeregn = 2;//Hva man skal gange prisen med
+            case 2: soneBeregn = 1.10;//Hva man skal gange prisen med
                     break;
-            case 3: soneBeregn = 3;//Hva man skal gange prisen med
+            case 3: soneBeregn = 1.20;//Hva man skal gange prisen med
                     break;
         }
-        //premie =
+        premie = belopet*0.20*soneBeregn*forsorgerpris;
     }
     
     @Override
