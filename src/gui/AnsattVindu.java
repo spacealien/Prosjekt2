@@ -226,7 +226,7 @@ public class AnsattVindu extends JFrame
             tomSøkefelter();
         }
     }
-    
+
     public void tomSøkefelter()
     {
         søkefelt.setText("");
@@ -237,6 +237,11 @@ public class AnsattVindu extends JFrame
     public HovedRegister getRegister()
     {
         return register;
+    }
+    
+    public Ansatt getAnsatt()
+    {
+        return ansatt;
     }
     
     // lager en JOptionPane av typen feilmelding.
@@ -266,7 +271,8 @@ public class AnsattVindu extends JFrame
             }
             else if( e.getSource() == mineKunder )
             {
-                
+                List<Kunde> kundeliste = register.getAnsattKunde(ansatt);
+                oppdaterTabell(kundeliste);
             }
         }
     }

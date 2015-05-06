@@ -109,6 +109,11 @@ public class HovedRegister
         }  
     }
     
+    public List<Kunde> getAnsattKunde( Ansatt ansatt )
+    {
+        return kunderegister.getAnsattesKunder(ansatt);
+    }
+    
     public Kunde nyKunde( String fnavn, String enavn, String adr, String tlf, String email, String persnummer)
     {
         
@@ -309,9 +314,4 @@ public class HovedRegister
             
         }
     }
-
-    void nyBilForsikring(Kunde kunden, String text, String bilmerk, String biltyp, int parseInt, int parseInt0, int parseInt1, int i, int i0, boolean b, int kjorelengd) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

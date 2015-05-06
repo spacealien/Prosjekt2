@@ -5,12 +5,14 @@
  */
 package register;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import objekter.Ansatt;
 import objekter.Kunde;
 
 
@@ -86,6 +88,21 @@ public class Kunderegister
         kunderegister.add(test_26);
         kunderegister.add(test_27);
         kunderegister.add(test_28);
+    }
+    
+    public List<Kunde> getAnsattesKunder( Ansatt ansatt )
+    {
+        List<String> nøkkler = ansatt.getKundenøkler();
+        List<Kunde> funnetKunder = new ArrayList<>();
+        for( Kunde kunde :  kunderegister)
+        {
+            for( String nøkkel : nøkkler)
+            {
+                if( nøkkel.equals(kunde.getPersonnummer()))
+                    funnetKunder.add(kunde);
+            }
+        }
+        return funnetKunder;
     }
     
     public boolean erKunde( Kunde kunde)

@@ -81,9 +81,9 @@ public class NyKundePanel extends JPanel implements ActionListener
     {
         try
         { 
-            String fornavn = regFornavn.getText().toUpperCase();
-            String etternavn = regEtternavn.getText().toUpperCase();
-            String adresse = regAdresse.getText().toUpperCase();
+            String fornavn = regFornavn.getText();
+            String etternavn = regEtternavn.getText();
+            String adresse = regAdresse.getText();
             String telefonnummer = regTlfnr.getText();
             String epost = regEpost.getText();
             String personnummer = regPersnr.getText();

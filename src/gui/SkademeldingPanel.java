@@ -76,22 +76,21 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         String sd = skadeDato.getText();
         try
         {
-        dato = sdf.parse(sd);
-        /*int sdar = Integer.parseInt(sd.substring(4,8));
-        int sdmnd = Integer.parseInt(sd.substring(2,4));
-        int sddag = Integer.parseInt(sd.substring(0,2));
-        Date skadedatoen = new Date((sdar-1900), sdmnd, sddag);*/
-        type = skadeType.getText();
-        beskrivelse = skadeBeskrivelse.getText();
-        takst = Integer.parseInt(skadeTakst.getText());
-        
-        return true;
-        } catch (ParseException e)
+            dato = sdf.parse(sd);
+            /*int sdar = Integer.parseInt(sd.substring(4,8));
+            int sdmnd = Integer.parseInt(sd.substring(2,4));
+            int sddag = Integer.parseInt(sd.substring(0,2));
+            Date skadedatoen = new Date((sdar-1900), sdmnd, sddag);*/
+            type = skadeType.getText();
+            beskrivelse = skadeBeskrivelse.getText();
+            takst = Integer.parseInt(skadeTakst.getText());
+            return true;
+        } 
+        catch (ParseException e)
         {
             JOptionPane.showMessageDialog(null, "Vennligst skriv inn datoen i følgende format: ddmmåååå.", "Feilmelding", JOptionPane.ERROR_MESSAGE);
             return false;
 	}
-        
     }
     
     public void beregnPris()
