@@ -7,6 +7,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -20,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import objekter.BatForsikring;
@@ -133,9 +135,11 @@ public class KundePanel extends JPanel implements ActionListener
         JPanel tabellwrapper = new JPanel();
         tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde), this);
         tabell = new KundeDataTabell(tabellModell,this);
+        tabell.setPreferredScrollableViewportSize(new Dimension(500,180));
+        JScrollPane scrollTabell = new JScrollPane(tabell);
         tabellwrapper.setLayout( new BorderLayout() );
         tabellwrapper.add( tabell.getTableHeader(), BorderLayout.NORTH);
-        tabellwrapper.add( tabell, BorderLayout.CENTER);
+        tabellwrapper.add( scrollTabell, BorderLayout.CENTER);
 
         setLayout( new BorderLayout()  );
         add( infobox, BorderLayout.NORTH );
@@ -178,7 +182,11 @@ public class KundePanel extends JPanel implements ActionListener
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
         Forsikring forsikring = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
         if( forsikring.getClass() == Bilforsikring.class)
-            vindu.leggTilNyFane( new BilforsikringPanel(forsikring.getKunde(), vindu), "test");
+        {
+            BilforsikringPanel panel = new BilforsikringPanel(forsikring.getKunde(), vindu);
+            panel.visForsikring(forsikring);
+            vindu.leggTilNyFane( panel, "test");
+        }
         else if( forsikring.getClass() == BatForsikring.class )
             System.out.println("test");
         else if( forsikring.getClass() == Eiendomsforsikring.class)
@@ -222,7 +230,6 @@ public class KundePanel extends JPanel implements ActionListener
             {
                 vindu.visInformasjon("Beskjed", "Denne Kunden har ingen forsikringer" );
             }
-                
         }
         else if( e.getSource() == visSkademeldinger)
         {

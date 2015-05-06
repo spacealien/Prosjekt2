@@ -207,15 +207,15 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     
     public void visForsikring( Forsikring f)
     {
-        this.bilforsikring =  f;
-        bilRegnr.setText(bilforsikring.get);
-        bilRegAr
-        bilVerdi
-        bilModell
-        bilHk 
-        bilKmstand
-        bilTilbud
-        
+        this.bilforsikring = (Bilforsikring) f;
+        bilRegnr.setText(bilforsikring.getRegistreringsnmmer());
+        bilRegAr.setText(String.valueOf(bilforsikring.getArsmodell()));
+        bilVerdi.setText("ikke ferdig?");
+        bilModell.setText(bilforsikring.getModell());
+        //bilHk 
+        //bilKmstand
+        //bilTilbud
+
     }
     
     public boolean hentInfo()

@@ -27,7 +27,7 @@ public class Bilforsikring extends Kjoretoyforsikring
     private int hk;
     private int kmlengde;
     private int egenAndel;
-    private boolean garasjen;
+    private final boolean garasjen;
     private String fAlder;
     
     public Bilforsikring(  Kunde k, int e_andel, String registreringsnummer, int belop,

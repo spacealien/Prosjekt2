@@ -31,6 +31,34 @@ public abstract class Kjoretoyforsikring extends Forsikring
         this.arsmodell = arsmodell;  
         this.type = type;
     }
+
+    public Eier getEier() {
+        return eier;
+    }
+
+    public String getRegistreringsnmmer() {
+        return registreringsnmmer;
+    }
+
+    public String getFabrikant() {
+        return fabrikant;
+    }
+
+    public String getModell() {
+        return modell;
+    }
+
+    public int getHestekrefter() {
+        return hestekrefter;
+    }
+
+    public int getArsmodell() {
+        return arsmodell;
+    }
+
+    public int getBelop() {
+        return belop;
+    }
     
     public void setEier( Eier e )
     {

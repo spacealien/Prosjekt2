@@ -20,7 +20,7 @@ import objekter.Skademelding;
 
 public class TabellModellSkademeldinger extends AbstractTableModel implements ActionListener
 {
-    private final String[] kolonnenavn = {"Skadenummer", "Tilhørende forsikring", "Skadedato", "Opprettet Dato", "Takst", "Utbetalt"};
+    private final String[] kolonnenavn = {"ID", "Forsikring", "Skadedato", "Opprettet Dato", "Takst", "Utbetalt"};
     private final Object[][] innhold;
     private final List<Skademelding> skademeldinger;
     private final KundePanel panel;
