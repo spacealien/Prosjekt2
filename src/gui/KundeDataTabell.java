@@ -21,8 +21,7 @@ import javax.swing.table.AbstractTableModel;
 public class KundeDataTabell extends JTable 
 {
     private AbstractTableModel model = null;
-    
-    
+    private JPopupMenu popup;
     private final JPopupMenu popupSkademelding;
     private final JPopupMenu popupForsikring;
     private final JMenuItem info;
@@ -33,15 +32,14 @@ public class KundeDataTabell extends JTable
     {
         super(model);
         this.panel = panel;
-
-        
-        
         info = new JMenuItem("Åpne");
         visSkademeldinger = new JMenuItem("Vis Skademeldinger for denne forsikring");
         popupForsikring = new JPopupMenu();
         popupSkademelding = new JPopupMenu();
         popupForsikring.add(info);
         popupForsikring.add(visSkademeldinger);
+        popupSkademelding.add(info);
+        brukForsikringsPopup();
         
         addMouseListener(new MouseAdapter()
         {    
@@ -55,8 +53,8 @@ public class KundeDataTabell extends JTable
             {
                 sjekkKlikk(e);
             }   
-    public void sjekkKlikk(MouseEvent e)
-    {   
+        public void sjekkKlikk(MouseEvent e)
+        {
             if (e.isPopupTrigger())
             {
                 int r = rowAtPoint(e.getPoint());
@@ -73,21 +71,26 @@ public class KundeDataTabell extends JTable
                 return;
             if (e.isPopupTrigger() && e.getComponent() instanceof JTable )
             {
-                if( model instanceof TabellModellForsikring )
-                {
-                    popupForsikring.show(e.getComponent(), e.getX(), e.getY());
-                }
-                else
-                    popupSkademelding.show(e.getComponent(), e.getX(), e.getY());
+                    popup.show(e.getComponent(), e.getX(), e.getY());
+            }
             }
         }
-    }
         });
         
         MenyLytter menyLytter = new MenyLytter();
         info.addActionListener(menyLytter);
         visSkademeldinger.addActionListener(menyLytter);
     } // slutt på konstuktør
+    
+    public void brukForsikringsPopup()
+    {
+         popup = popupForsikring;
+    }
+    
+    public void brukSkademeldingPopup()
+    {
+         popup = popupSkademelding;
+    }
 
     
     private class MenyLytter implements ActionListener

@@ -116,8 +116,8 @@ public class KundePanel extends JPanel implements ActionListener
         JPanel infobox = new JPanel();
         infobox.setLayout( new BoxLayout(infobox,BoxLayout.X_AXIS) );
         infobox.add( kundeInfo_1 );
-        infobox.add(  Box.createRigidArea(new Dimension(14,20)) );
-        infobox.add( kundeInfo_2 );
+        //infobox.add(  Box.createRigidArea(new Dimension(14,20)) );
+        //infobox.add( kundeInfo_2 );
         
         knappeWrapper.setLayout( new FlowLayout() );
         knappeWrapper.add(visForsikringer);
@@ -150,6 +150,7 @@ public class KundePanel extends JPanel implements ActionListener
         List<Skademelding> nyListe = vindu.getRegister().getSkademeldingsregister().getSkademeldinger(forsirking);
         TabellModellSkademeldinger nyModell = new TabellModellSkademeldinger(nyListe, this);
         tabell.setModel(nyModell);
+        tabell.brukSkademeldingPopup();
     }
     
     public void visForsikring()
@@ -163,6 +164,7 @@ public class KundePanel extends JPanel implements ActionListener
         List<Skademelding> nyListe = vindu.getRegister().getSkademeldingsregister().getKundensSkademeldinger(kundensForsikringer);
         TabellModellSkademeldinger nyModell = new TabellModellSkademeldinger(nyListe, this);
         tabell.setModel(nyModell);
+        tabell.brukSkademeldingPopup();
     }
     
     @Override
@@ -190,6 +192,7 @@ public class KundePanel extends JPanel implements ActionListener
                 List<Forsikring> kundeForsikringer = vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde);
                 TabellModellForsikring forsikringsTabell = new TabellModellForsikring(kundeForsikringer, this);
                 tabell.setModel(forsikringsTabell);    
+                tabell.brukForsikringsPopup();
             }
             else
             {
@@ -200,6 +203,7 @@ public class KundePanel extends JPanel implements ActionListener
         else if( e.getSource() == visSkademeldinger)
         {
             visAlleSkademeldinger();
+            tabell.brukSkademeldingPopup();
         }
     }
 }
