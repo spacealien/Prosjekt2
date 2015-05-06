@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class Skademelding
 {
+    
     private final Forsikring forsikring;
     private Date dato;
     private Date opprettetdato;
@@ -38,6 +39,21 @@ public class Skademelding
         this.erstatningsbelop = erstatingsbelop;
         skadenummer = nestenr++;
         opprettetdato = new Date();
+    }
+    
+    public Forsikring getForsikring()
+    {
+        return forsikring;
+    }
+    
+    public Date getOpprettetDato()
+    {
+        return opprettetdato;
+    }
+    
+    public Date getSkadeDato()
+    {
+        return dato;
     }
     
     public int getErstatningsbelop()

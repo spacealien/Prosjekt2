@@ -23,7 +23,7 @@ public class SkademeldingRegister
     
     public SkademeldingRegister()
     {
-        
+
     }
     
     public void leggTil( Forsikring forsikring, Skademelding skademelding )
@@ -35,6 +35,20 @@ public class SkademeldingRegister
     public Skademelding getSkademelding( int skademeldingnummer )
     {
         return skademeldinger.get(skademeldingnummer);
+    }
+    
+    public List<Skademelding> getKundensSkademeldinger( List<Forsikring> forsikringer )
+    {
+        List<Skademelding> funnetSkademeldinger = new ArrayList<>();
+        for( Forsikring forsikring :forsikringer)
+        {
+            List<Integer> nøkler = forsikring.getNøkkelliste();
+            for( Integer nøkkel :nøkler)
+            {
+                funnetSkademeldinger.add(skademeldinger.get(nøkkel));
+            }
+        }
+        return funnetSkademeldinger;
     }
     
     public List<Skademelding> getSkademeldinger( Forsikring forsikring )
