@@ -75,7 +75,18 @@ public class HovedRegister
         
         Skademelding test_1 = new Skademelding( forsikring_1, new Date() , "Skadetype" , "Beskrivelse", 2000, 30000 );
         skademeldingsregister.leggTil(forsikring_1, test_1);
+    }
+    
+    
+    public List<Skademelding> getAlleKundensSkademeldinger( Kunde kunde )
+    {
+        return skademeldingsregister.getKundensSkademeldinger(forsikringsregister.getKundensForsikringer(kunde));
        
+    }
+    
+    public List<Forsikring> getAlleKundensForsikringer(Kunde kunde)
+    {
+        return forsikringsregister.getKundensForsikringer(kunde);
     }
     
     public void sjekkTid()
@@ -84,16 +95,24 @@ public class HovedRegister
        //GregorianCalendar kalender = vindu.getKalender();
       for( Kunde kunde : kunderegister.alleKunder() )
         {
-           kunde.getNøkkelliste();
-            //if(Math.abs( kalender.getTime().getTime() -
-                              //kunde.get.getTime().getTime() ))
+           List<Forsikring> forsikringsliste = getAlleKundensForsikringer( kunde );
+           for( Forsikring forsikring : forsikringsliste )
+            {
+               
+                    if(Math.abs(( kalender.getTime().getTime() - forsikring.getStartdato().getTime().getTime())) > (1000*60*60*24*365.25) ) 
+                    {
+                        forsikring.beregnPris();
+                    }
+               
+            }
+            
         }  
     }
     
     public Kunde nyKunde( String fnavn, String enavn, String adr, String tlf, String email, String persnummer)
     {
         
-        Date fd = new Date();
+        GregorianCalendar fd = new GregorianCalendar();
         // sette fødselsdato fødselsdato.set();
         Kunde nyKunde = new Kunde( fnavn,  enavn,  adr, tlf, fd ,
                                    email, persnummer);
@@ -249,6 +268,11 @@ public class HovedRegister
     {
         Skademelding nySkademedling = new Skademelding( forsikring, dato, skadetype, beskrivelse, takseringsbelop, erstatingsbelop );
         skademeldingsregister.leggTil( forsikring, nySkademedling );
+        if (forsikring instanceof Bilforsikring)
+        {
+            Bilforsikring bilforsikring = (Bilforsikring)forsikring;
+            bilforsikring.korrigerBonusVedSkade();
+        }
     }
     
     public Ansatt login( String brukernavn, String passord )

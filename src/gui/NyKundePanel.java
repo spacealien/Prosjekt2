@@ -11,6 +11,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -80,9 +81,9 @@ public class NyKundePanel extends JPanel implements ActionListener
     {
         try
         { 
-            String fornavn = regFornavn.getText();
-            String etternavn = regEtternavn.getText();
-            String adresse = regAdresse.getText();
+            String fornavn = regFornavn.getText().toUpperCase();
+            String etternavn = regEtternavn.getText().toUpperCase();
+            String adresse = regAdresse.getText().toUpperCase();
             String telefonnummer = regTlfnr.getText();
             String epost = regEpost.getText();
             String personnummer = regPersnr.getText();
@@ -90,7 +91,7 @@ public class NyKundePanel extends JPanel implements ActionListener
             //int fødselsmåned = Integer.parseInt(epost);
             //int fødselsdato = Integer.parseInt(epost);
 
-            Date fødelsdato = new Date();
+            GregorianCalendar fødelsdato = new GregorianCalendar();
             Kunde kunde = new Kunde( fornavn, etternavn, adresse, telefonnummer,
             fødelsdato, epost, personnummer );
             return kunde;

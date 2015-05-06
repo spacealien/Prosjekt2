@@ -403,7 +403,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             Bilforsikring forsikringen =(Bilforsikring)forsikring;
             forsikringen.setEier(eier);
             System.out.println(forsikringen);
-            forsikringen.beregnPris(kunde);
+            forsikringen.beregnPris();
             JOptionPane.showMessageDialog(null, "Du har nå tegnet bilforsikring med nummer " + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() + " " + kunde.getEtternavn() , "Bekreftelse", JOptionPane.INFORMATION_MESSAGE);
         }
       }

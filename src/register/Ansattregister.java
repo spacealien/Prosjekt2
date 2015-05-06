@@ -6,6 +6,7 @@
 package register;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,7 +23,7 @@ public class Ansattregister
     
     public Ansattregister()
     {
-        Date fodedat = new Date();
+        GregorianCalendar fodedat = new GregorianCalendar();
         Ansatt test_1 = new Ansatt( "fnavn", "Bjarne", "adresse", "22260906", fodedat , "email", "22031548526");
         Ansatt test_2 = new Ansatt( "fnavn", "Henriksen", "adresse", "22260906", fodedat, "email", "22031548526");
         Ansatt test_3 = new Ansatt( "fnavn", "Kåresen", "adresse", "22260906", fodedat, "email", "22031548526");

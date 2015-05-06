@@ -6,6 +6,7 @@
 package objekter;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -51,6 +52,75 @@ public class Bilforsikring extends Kjoretoyforsikring
         egenAndel = e_andel;
     }
     
+    public void korrigerBonusVedSkade()
+    {
+        GregorianCalendar dato = new GregorianCalendar();
+        if (bonus < 0.75)
+        {
+            bonus -= 0.30;
+            antallAr = 1;
+        }
+        
+        else if (bonus == 0.75)
+        {
+            switch (antallAr)
+            {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    bonus -=0.15;
+                    antallAr = 1;
+                    break;
+                case 6:
+                    antallAr = 1;
+                    break;
+            }
+        }
+        //beregnPris(kunde); For å oppdatere prisen
+    }
+    
+    public void korrigerArligBonus()
+    {
+        if (bonus < 0.70)
+        {
+            bonus += 0.10;
+            antallAr = 1;
+        }
+        else if (bonus == 0.70)
+        {
+            switch (antallAr)
+            {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    antallAr++;
+                    break;
+                case 6:
+                    bonus +=0.05;
+                    antallAr = 1;
+                    break;
+            }
+        }
+        else if (bonus == 0.75)
+        {
+            switch (antallAr)
+            {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    antallAr++;
+                    break;
+            }
+        }
+        //beregnPris(kunde); For å oppdatere prisen
+    }
+    
     public void setBonus( double b )
     {
         bonus = b;
@@ -83,8 +153,8 @@ public class Bilforsikring extends Kjoretoyforsikring
      * @param kunde 
      */
     
-    //@Override
-    public void beregnPris( Kunde kunde )
+    @Override
+    public void beregnPris()
     {
         int hkvar = 0;
         double forsikringspris;

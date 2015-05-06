@@ -21,7 +21,8 @@ public class Fritidsboligforsikring extends Eiendomsforsikring
     utleie = utl;
     }
     
-    public void beregnPris( Kunde kunde)
+    @Override
+    public void beregnPris()
     {
         
     }

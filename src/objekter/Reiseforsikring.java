@@ -67,7 +67,8 @@ public class Reiseforsikring extends Personligforsikring
         premie = p;
     }
     
-    void beregnPris(Kunde kunde)
+    @Override
+    public void beregnPris()
     {
         if (super.isForsorger())
         {

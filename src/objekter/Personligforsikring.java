@@ -38,7 +38,11 @@ public abstract class Personligforsikring extends Forsikring
     public void setAntBarn(int a) {
         antBarn = a;
     }
-    
+    @Override
+    public void beregnPris()
+    {
+        
+    }
     @Override
     public String toString()
     {

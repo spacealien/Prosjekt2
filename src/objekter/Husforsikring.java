@@ -17,7 +17,8 @@ public class Husforsikring extends Eiendomsforsikring
     super( k, e_andel, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, alarmen);
     }
     
-    public void beregnPris( Kunde kunde)
+    @Override
+    public void beregnPris()
     {
         
     }
