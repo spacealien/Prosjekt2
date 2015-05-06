@@ -390,9 +390,10 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     public void tegnNy()
     {
         if (hentInfo())
-        {
-            if( vindu.getRegister().getKundeliste().erKunde(kunde) == false)
+        {   
+            if( vindu.getRegister().getKundeliste().erKunde(kunde) == false )
             {
+                vindu.getAnsatt().leggTilKundenøkel(kunde.getPersonnummer());
                 register.getKundeliste().leggTil(kunde);
             }
             Forsikring forsikring = register.nyBilForsikring( kunde, egenandelvalget, regnr, belop,

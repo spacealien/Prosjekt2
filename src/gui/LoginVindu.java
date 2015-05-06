@@ -87,6 +87,7 @@ public class LoginVindu extends JFrame
             vindu.lukkAlleFanekort();
             vindu.leggTilNyFane( new AnsattPanel(), "Min Side");
             vindu.oppdaterTabell( vindu.getRegister().getKundeliste().alleKunder()    );
+            vindu.setAnsatt(ansatt);
         }
     }
     

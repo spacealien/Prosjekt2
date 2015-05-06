@@ -32,6 +32,11 @@ public class Ansatt extends Bruker
         passord = "passord";
     }
     
+    public List<String> getKundenøkler()
+    {
+        return kundenøkler;
+    }
+    
     public void leggTilKundenøkel( String nøkkel)
     {
         kundenøkler.add(nøkkel);
