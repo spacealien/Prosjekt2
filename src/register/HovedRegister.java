@@ -73,6 +73,8 @@ public class HovedRegister
         forsikringsregister.leggTil(kunde_3, forsikring_5);
         forsikringsregister.leggTil(kunde_3, forsikring_6);
         
+        System.out.println(forsikring_6);
+        
         Skademelding test_1 = new Skademelding( forsikring_1, new Date() , "Skadetype" , "Beskrivelse", 2000, 30000 );
         skademeldingsregister.leggTil(forsikring_1, test_1);
         sjekkTid();

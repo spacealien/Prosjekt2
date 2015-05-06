@@ -165,8 +165,15 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
     {
         if (hentInfo())
         {
-           Forsikring forsikringen = register.nyReiseforsikring(kunde, egenandelvalget, forsorger_b, antBarn, sone_n, belop);
-                System.out.println(forsikringen);
+            if( vindu.getRegister().getKundeliste().erKunde(kunde) == false )
+            {
+                vindu.getAnsatt().leggTilKundenøkel(kunde.getPersonnummer());
+                register.getKundeliste().leggTil(kunde);
+            }
+            
+            Forsikring forsikringen = register.nyReiseforsikring(kunde, egenandelvalget, forsorger_b, antBarn, sone_n, belop);
+            
+            kunde.leggTilNøkkel(forsikringen.getForsikringsnummer());
         }
     }
     

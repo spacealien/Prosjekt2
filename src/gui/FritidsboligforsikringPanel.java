@@ -174,9 +174,21 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
     {
         if (hentInfo())
         {
+            if( vindu.getRegister().getKundeliste().erKunde(kunde) == false )
+            {
+                vindu.getAnsatt().leggTilKundenøkel(kunde.getPersonnummer());
+                register.getKundeliste().leggTil(kunde);
+            }
+            
             Forsikring forsikringen = register.nyFritidsboligforsikring(kunde, egenandelvalget, adr, ar, 
                        typevalget, materialevalget, standardvalget, kvm, belop, belopInnbo, alarm_b, utleid_b);
-            JOptionPane.showMessageDialog(null, "Du har nå tegnet fritidsboligforsikring med nummer " + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() + " " + kunde.getEtternavn() , "Bekreftelse", JOptionPane.INFORMATION_MESSAGE);
+            
+            kunde.leggTilNøkkel(forsikringen.getForsikringsnummer());
+            
+            JOptionPane.showMessageDialog(null, "Du har nå tegnet fritidsboligforsikring med nummer " 
+                                          + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() 
+                                          + " " + kunde.getEtternavn() , "Bekreftelse", 
+                                            JOptionPane.INFORMATION_MESSAGE);
         
             System.out.println(forsikringen);
         }
