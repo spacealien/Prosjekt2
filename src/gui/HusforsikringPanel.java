@@ -185,10 +185,18 @@ public class HusforsikringPanel extends JPanel implements ActionListener
     {
             if (hentInfo())
             {
-            
+                if( vindu.getRegister().getKundeliste().erKunde(kunde) == false )
+                {
+                    vindu.getAnsatt().leggTilKundenøkel(kunde.getPersonnummer());
+                    register.getKundeliste().leggTil(kunde);
+                }
+                
             Forsikring forsikringen = register.nyHusforsikring(kunde, 
                     egenandelvalget, adr, ar, hustypevalget, husmaterialevalget, 
                     husstandardvalget, kvm, belop, belopInnbo, alarm_b);
+            
+            kunde.leggTilNøkkel(forsikringen.getForsikringsnummer());
+            
             System.out.println(forsikringen);
             }
     }

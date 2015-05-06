@@ -196,14 +196,25 @@ public class BatforsikringPanel extends JPanel implements ActionListener
     {
         if(hentInfo())
         {
+            if( vindu.getRegister().getKundeliste().erKunde(kunde) == false )
+            {
+                vindu.getAnsatt().leggTilKundenøkel(kunde.getPersonnummer());
+                register.getKundeliste().leggTil(kunde);
+            }
+            
             Forsikring forsikringen = register.nyBatForsikring(kunde, egenandelvalget, reg, belop,
                                  merke, modell, typevalget, hk, 
                                  ar, vekter_b, lengde);
-            Kjoretoyforsikring forsikring = (Kjoretoyforsikring)forsikringen;
-            if (eier != null)
-            forsikring.setEier(eier);
             
-            JOptionPane.showMessageDialog(null, "Du har nå tegnet båtforsikring med nummer " + forsikring.getForsikringsnummer() + " på " + kunde.getFornavn() + " " + kunde.getEtternavn() , "Bekreftelse", JOptionPane.INFORMATION_MESSAGE);
+            kunde.leggTilNøkkel(forsikringen.getForsikringsnummer());
+            Kjoretoyforsikring forsikring = (Kjoretoyforsikring)forsikringen;
+            
+            if (eier != null)
+                forsikring.setEier(eier);
+            
+            JOptionPane.showMessageDialog(null, "Du har nå tegnet båtforsikring med nummer "
+                                          + forsikring.getForsikringsnummer() + " på " + kunde.getFornavn() 
+                                          + " " + kunde.getEtternavn() , "Bekreftelse", JOptionPane.INFORMATION_MESSAGE);
             System.out.println(forsikring);
         }
     }
