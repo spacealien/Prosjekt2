@@ -72,7 +72,11 @@ public class HovedRegister
         
         Skademelding test_1 = new Skademelding( forsikring_1, new Date() , "Skadetype" , "Beskrivelse", 2000, 30000 );
         skademeldingsregister.leggTil(forsikring_1, test_1);
-       
+    }
+    
+    public List<Skademelding> getAlleKundensSkademeldinger( Kunde kunde )
+    {
+        return skademeldingsregister.getKundensSkademeldinger(forsikringsregister.getKundensForsikringer(kunde));
     }
     
     public Kunde nyKunde( String fnavn, String enavn, String adr, String tlf, String email, String persnummer)

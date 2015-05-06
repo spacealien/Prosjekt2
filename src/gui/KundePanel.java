@@ -153,7 +153,8 @@ public class KundePanel extends JPanel implements ActionListener
     
     public void visForsikring()
     {
-        
+        Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
+        Forsikring forsirking = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
     }
     
     public void visAlleSkademeldinger()
