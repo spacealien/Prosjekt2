@@ -85,7 +85,11 @@ public class Kunderegister
         kunderegister.add(test_26);
         kunderegister.add(test_27);
         kunderegister.add(test_28);
-        
+    }
+    
+    public boolean erKunde( Kunde kunde)
+    {
+        return kunderegister.contains(kunde);
     }
     
     public Kunde leggTil(  Kunde kunde )

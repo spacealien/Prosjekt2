@@ -24,7 +24,8 @@ public class KundeDataTabell extends JTable
     private JPopupMenu popup;
     private final JPopupMenu popupSkademelding;
     private final JPopupMenu popupForsikring;
-    private final JMenuItem info;
+    private final JMenuItem åpneSkademelding;
+    private final JMenuItem åpneForsikring;
     private final JMenuItem visSkademeldinger;
     private final KundePanel panel;
         
@@ -32,13 +33,14 @@ public class KundeDataTabell extends JTable
     {
         super(model);
         this.panel = panel;
-        info = new JMenuItem("Åpne");
+        åpneSkademelding = new JMenuItem("Åpne");
+        åpneForsikring = new JMenuItem("Åpne");
         visSkademeldinger = new JMenuItem("Vis Skademeldinger for denne forsikring");
         popupForsikring = new JPopupMenu();
         popupSkademelding = new JPopupMenu();
-        popupForsikring.add(info);
+        popupForsikring.add(åpneForsikring);
         popupForsikring.add(visSkademeldinger);
-        popupSkademelding.add(info);
+        popupSkademelding.add(åpneSkademelding);
         brukForsikringsPopup();
         
         addMouseListener(new MouseAdapter()
@@ -78,7 +80,7 @@ public class KundeDataTabell extends JTable
         });
         
         MenyLytter menyLytter = new MenyLytter();
-        info.addActionListener(menyLytter);
+        åpneSkademelding.addActionListener(menyLytter);
         visSkademeldinger.addActionListener(menyLytter);
     } // slutt på konstuktør
     
@@ -98,7 +100,7 @@ public class KundeDataTabell extends JTable
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            if( e.getSource() == info)
+            if( e.getSource() == åpneSkademelding)
             {
                 
             }
