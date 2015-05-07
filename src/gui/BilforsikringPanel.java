@@ -173,8 +173,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         JPanel gjenkjenningPanel = new JPanel();
         JPanel tegnBilPanel1 = new JPanel();
         JPanel tegnBilPanel2 = new JPanel();
-        tegnBilPanel1.setLayout(new GridLayout(8,2,1,1));
-        tegnBilPanel2.setLayout(new GridLayout(9,2,1,1));
+        tegnBilPanel1.setLayout(new GridLayout(10,2,1,1));
+        tegnBilPanel2.setLayout(new GridLayout(12,2,1,1));
         garasjen.add(garasjeJa);
         garasjen.add(garasjeNei);
         alarmPanel.add(alarmJa);
@@ -199,16 +199,18 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel1.add(biltypevelger);
         tegnBilPanel1.add(new JLabel("Velg fabrikant: "));
         tegnBilPanel1.add(bilmerkevelger);
+        tegnBilPanel1.add(new JLabel("Årlig forventet kjørelengde: "));
+        tegnBilPanel1.add(kjorelengdevelger);
+        tegnBilPanel1.add(beregnPris);
+        tegnBilPanel1.add(new JLabel());
         tegnBilPanel2.add(new JLabel("Garasje: "));
         tegnBilPanel2.add(garasjen);
         tegnBilPanel2.add(new JLabel("FG-godkjent alarm: "));
         tegnBilPanel2.add(alarmPanel);
         tegnBilPanel2.add(new JLabel("ESP antiskrens: "));
         tegnBilPanel2.add(espPanel);
-        tegnBilPanel2.add(new JLabel("FG-godkjent søk- \nog gjenkjenningssystem: "));
+        tegnBilPanel2.add(new JLabel("FG-godkjent søk- \n" + "og gjenkjenningssystem: "));
         tegnBilPanel2.add(gjenkjenningPanel);
-        tegnBilPanel2.add(new JLabel("Årlig forventet kjørelengde: "));
-        tegnBilPanel2.add(kjorelengdevelger);
         tegnBilPanel2.add(new JLabel("Yngste bilførers alder: "));
         tegnBilPanel2.add(aldervelger);
         tegnBilPanel2.add(new JLabel("Dekning: "));
@@ -220,12 +222,13 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel2.add(new JLabel("Er eier annen enn kunde?"));
         tegnBilPanel2.add(annenEier);
         tegnBilPanel2.add(new JLabel());
-        tegnBilPanel2.add(beregnPris);
-        tegnBilPanel2.add(new JLabel());
         tegnBilPanel2.add(tilbudLabel);
         tegnBilPanel2.add(bilTilbud);
+        tegnBilPanel2.add(new JLabel());
         tegnBilPanel2.add(bilGiTilbud);
+        
         add(tegnBilPanel1);
+        add(tegnBilPanel2);
         
         annenEier.addActionListener(new ActionListener()
         {
