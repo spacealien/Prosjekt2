@@ -46,6 +46,8 @@ public class KundePanel extends JPanel implements ActionListener
     private final JPanel kundeInfo_1;
     private final JPanel kundeInfo_2;
     private final JPanel knappeWrapper;
+    private final JPanel forsikringsVelger;
+    private final JPanel bunnWrapper;
     private final JTextField regFornavn;
     private final JTextField regEtternavn;
     private final JTextField regPersnr;
@@ -79,6 +81,8 @@ public class KundePanel extends JPanel implements ActionListener
         kundeInfo_1 = new JPanel();
         kundeInfo_2 = new JPanel();
         knappeWrapper = new JPanel();
+        forsikringsVelger = new JPanel();
+        bunnWrapper = new JPanel();
         
         regFornavn = new JTextField( 15 );
         regEtternavn = new JTextField( 15 );
@@ -102,20 +106,6 @@ public class KundePanel extends JPanel implements ActionListener
         kundeInfo_1.add( new JLabel("Epost: "));
         kundeInfo_1.add(regEpost);
         
-        kundeInfo_2.setLayout( new GridLayout(6,2,5,10) );
-        kundeInfo_2.add( new JLabel("Aktive forsikringer: "));
-        kundeInfo_2.add( new JTextField());
-        kundeInfo_2.add( new JLabel("Antall skademeldinger"));
-        kundeInfo_2.add( new JTextField(3));
-        kundeInfo_2.add( new JLabel());
-        kundeInfo_2.add( new JTextField());
-        kundeInfo_2.add( new JLabel("Tidligere forhold"));
-        kundeInfo_2.add( new JTextField(3));
-        kundeInfo_2.add( new JLabel());
-        kundeInfo_2.add( new JLabel());
-        kundeInfo_2.add( new JLabel());
-        kundeInfo_2.add( new JLabel());
-        
         regFornavn.setText(kunde.getFornavn());
         regEtternavn.setText(kunde.getEtternavn());
         regPersnr.setText(kunde.getPersonnummer());
@@ -123,26 +113,26 @@ public class KundePanel extends JPanel implements ActionListener
         regAdresse.setText(kunde.getAdresse());
         regEpost.setText(kunde.getEpost());
         
-        JPanel infobox = new JPanel();
-        infobox.setLayout( new BoxLayout(infobox,BoxLayout.X_AXIS) );
-        infobox.add( kundeInfo_1 );
-        //infobox.add(  Box.createRigidArea(new Dimension(14,20)) );
-        //infobox.add( kundeInfo_2 );
-        
         knappeWrapper.setLayout( new FlowLayout() );
         knappeWrapper.add(visForsikringer);
         knappeWrapper.add(visSkademeldinger);
         knappeWrapper.add(nySkademelding);
         knappeWrapper.add(kontaktKunde);
         knappeWrapper.add(rediger);
+
+        JPanel infobox = new JPanel();
+        infobox.setLayout( new BorderLayout() );
+        infobox.add( kundeInfo_1, BorderLayout.PAGE_START );
+        infobox.add( knappeWrapper, BorderLayout.PAGE_END);
+        //infobox.add(  Box.createRigidArea(new Dimension(14,20)) );
+        //infobox.add( kundeInfo_2 );
         
-        JPanel forsikringsVelger = new JPanel();
+        
         forsikringsVelger.setLayout( new FlowLayout() );
         forsikringsVelger.add( new JLabel("Velg Forsikringstype"));
         forsikringsVelger.add(forsikringsDropDown);
         forsikringsVelger.add(nyForsikring);
         
-        JPanel bunnWrapper = new JPanel();
         tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde), this);
         tabell = new KundeDataTabell(tabellModell,this);
         tabell.setPreferredScrollableViewportSize(new Dimension(500,50));
@@ -150,12 +140,11 @@ public class KundePanel extends JPanel implements ActionListener
         bunnWrapper.setLayout( new BorderLayout() );
         bunnWrapper.add( tabell.getTableHeader(), BorderLayout.NORTH);
         bunnWrapper.add( scrollTabell, BorderLayout.CENTER);
-        bunnWrapper.add( forsikringsVelger, BorderLayout.PAGE_END);
 
         setLayout( new BorderLayout()  );
         add( infobox, BorderLayout.NORTH );
-        add(knappeWrapper, BorderLayout.CENTER);
-        add(bunnWrapper, BorderLayout.SOUTH);
+        add( bunnWrapper, BorderLayout.CENTER);
+        add( forsikringsVelger, BorderLayout.SOUTH);
         
         
         kontaktKunde.addActionListener(this);
