@@ -39,9 +39,10 @@ public class KundeDataTabell extends JTable
         // popup for Forsikringer
         popupForsikring = new JPopupMenu();
         åpneForsikring = new JMenuItem("Åpne");
-        visSkademeldinger = new JMenuItem("Vis Skademeldinger for denne forsikring");
+        visSkademeldinger = new JMenuItem("Vis Skademeldinger");
         nySkademelding = new JMenuItem("Ny Skademelding");
         popupForsikring.add(åpneForsikring);
+        popupForsikring.add(nySkademelding);
         popupForsikring.add(visSkademeldinger);
         
         // popup for Skademeldinger

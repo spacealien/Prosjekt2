@@ -22,7 +22,22 @@ public class BatForsikring extends Kjoretoyforsikring
         this.vekter = vekter;
         this.lengde = lengde;
     }
-    
+
+    public boolean isVekter() {
+        return vekter;
+    }
+
+    public void setVekter(boolean vekter) {
+        this.vekter = vekter;
+    }
+
+    public int getLengde() {
+        return lengde;
+    }
+
+    public void setLengde(int lengde) {
+        this.lengde = lengde;
+    }
     
     public void setGarasje( boolean bekreftelse )
     {

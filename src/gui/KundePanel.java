@@ -188,7 +188,11 @@ public class KundePanel extends JPanel implements ActionListener
             vindu.leggTilNyFane( panel, "test");
         }
         else if( forsikring.getClass() == BatForsikring.class )
-            System.out.println("test");
+        {
+            BatforsikringPanel panel = new BatforsikringPanel(forsikring.getKunde(),vindu);
+            panel.visForsikring((BatForsikring)forsikring);
+            vindu.leggTilNyFane(panel, "informativ tekst");
+        }
         else if( forsikring.getClass() == Eiendomsforsikring.class)
             System.out.println("test");
         else if( forsikring.getClass() == Fritidsboligforsikring.class)
