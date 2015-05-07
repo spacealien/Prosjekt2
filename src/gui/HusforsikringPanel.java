@@ -120,6 +120,14 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         beregnPris.addActionListener(this);
     }
     
+    // ikke fjern, ikke ferdig
+    public void visForsikring( Forsikring f)
+    {
+        
+    }
+    
+    
+    
     public boolean hentInfo()
     {
       

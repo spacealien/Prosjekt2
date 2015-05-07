@@ -112,6 +112,12 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         beregnPris.addActionListener(this);
     }
     
+    // ikke fjern, ikke ferdig
+    public void visForsikring( Forsikring f)
+    {
+        
+    }
+    
     public void beregnPris()
     {
         if(hentInfo())
