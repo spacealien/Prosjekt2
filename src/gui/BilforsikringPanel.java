@@ -252,6 +252,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         beregnPris.addActionListener(this);
     } // slutt på konstuktør
     
+    // ikke ferdig
     public void visForsikring( Forsikring f)
     {
         this.bilforsikring = (Bilforsikring) f;
@@ -259,9 +260,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         bilRegAr.setText(String.valueOf(bilforsikring.getArsmodell()));
         bilVerdi.setText("ikke ferdig?");
         bilModell.setText(bilforsikring.getModell());
-        //bilHk 
-        //bilKmstand
-        //bilTilbud
+        bilHk.setText(String.valueOf(bilforsikring.getHestekrefter()));
+        bilKmstand.setText(String.valueOf(bilforsikring.getKmstand()));
+        //bilTilbud.setText();
 
     }
     

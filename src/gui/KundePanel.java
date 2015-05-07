@@ -177,6 +177,8 @@ public class KundePanel extends JPanel implements ActionListener
         //vindu.leggTilNyFane( new SkademeldingPanel(kunde,skademelding.getForsikring(),vindu) "skademelding");
     }
     
+    
+    // ikke ferdig, gjenstår å endre navnene på tabs til noe informativt og fylle ut alle feltene i planelene, panel.visForsikring();
     public void åpneForsikringsTab()
     {
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
@@ -193,14 +195,24 @@ public class KundePanel extends JPanel implements ActionListener
             panel.visForsikring((BatForsikring)forsikring);
             vindu.leggTilNyFane(panel, "informativ tekst");
         }
-        else if( forsikring.getClass() == Eiendomsforsikring.class)
-            System.out.println("test");
-        else if( forsikring.getClass() == Fritidsboligforsikring.class)
-            System.out.println("test");
         else if( forsikring.getClass() == Husforsikring.class)
-            System.out.println("test");
+        {
+            HusforsikringPanel panel = new HusforsikringPanel( forsikring.getKunde(), vindu);
+            panel.visForsikring(forsikring);
+            vindu.leggTilNyFane(panel, "test"); //endre navn på tabs 
+        }
+        else if( forsikring.getClass() == Fritidsboligforsikring.class)
+        {
+            FritidsboligforsikringPanel panel = new FritidsboligforsikringPanel( forsikring.getKunde(), vindu);
+            panel.visForsikring(forsikring);
+            vindu.leggTilNyFane(panel, "test");
+        }
         else if( forsikring.getClass() == Reiseforsikring.class)
-            System.out.println("test");
+        {
+            ReiseforsikringPanel panel = new ReiseforsikringPanel(forsikring.getKunde(), vindu);
+            panel.visForsikring( forsikring );
+            vindu.leggTilNyFane(panel, "test");
+        }
     }
     
     @Override

@@ -94,22 +94,30 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
         
         forsorgerJa.addItemListener(new ItemListener()
         {
-        @Override
-        public void itemStateChanged(ItemEvent e)
-        {
-    if (e.getStateChange() == ItemEvent.SELECTED)
-        {
-        antbarn.setEnabled(true);
-        antbarnLabel.setEnabled(true);
+            @Override
+            public void itemStateChanged(ItemEvent e)
+            {
+                if (e.getStateChange() == ItemEvent.SELECTED)
+            {
+            antbarn.setEnabled(true);
+            antbarnLabel.setEnabled(true);
         }
-    else if (e.getStateChange() == ItemEvent.DESELECTED)
-    {
-        antbarn.setEnabled(false);
-        antbarnLabel.setEnabled(false);
-    }
-        
+        else if (e.getStateChange() == ItemEvent.DESELECTED)
+        {
+            antbarn.setEnabled(false);
+            antbarnLabel.setEnabled(false);
+        } 
         }});
     }
+    
+    
+    // ikke fjern, ikke ferdig
+    public void visForsikring( Forsikring f)
+    {
+        
+    }
+    
+    
     
     
     public boolean hentInfo()
