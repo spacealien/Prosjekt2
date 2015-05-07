@@ -70,6 +70,12 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         add(sendInnSkade);
     }
     
+    public void visSkademelding( Skademelding skademelding )
+    {
+        
+        
+    }
+    
     public boolean hentInfo()
     {
         //int sd = Integer.parseInt(skadeDato.getText());

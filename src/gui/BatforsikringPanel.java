@@ -17,6 +17,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
     private AnsattVindu vindu;
     private HovedRegister register;
     private Eier eier;
+    private BatForsikring forsikring;
     
     private final JTextField eierFornavn;
     private final JTextField eierEtternavn;
@@ -108,8 +109,8 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         tegnBatPanel1.add(batMerke);
         tegnBatPanel1.add(new JLabel("Verdi "));
         tegnBatPanel1.add(batVerdi);
-        tegnBatPanel1.add(new JLabel("Merke: "));
-        tegnBatPanel1.add(batMerke);
+        tegnBatPanel1.add(new JLabel("Modell: "));
+        tegnBatPanel1.add(batModell);
         tegnBatPanel1.add(new JLabel("Lengde: "));
         tegnBatPanel1.add(batLengde);
         tegnBatPanel1.add(new JLabel("Årsmodell: "));
@@ -135,6 +136,17 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         batGiTilbud.addActionListener(this);
         annenEier.addActionListener(this);
         beregnPris.addActionListener(this);
+    }
+    
+    public void visForsikring( Forsikring f )
+    {
+        this.forsikring = (BatForsikring) f;
+        batRegnr.setText(forsikring.getRegistreringsnmmer());
+        batMerke.setText(forsikring.getFabrikant());
+        //batVerdi.setText();
+        batLengde.setText(String.valueOf(forsikring.getLengde()));
+        batArsmodell.setText(String.valueOf(forsikring.getArsmodell()));
+        batHk.setText(String.valueOf(forsikring.getHestekrefter()));
     }
     
     public boolean hentInfo()

@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import objekter.Skademelding;
 

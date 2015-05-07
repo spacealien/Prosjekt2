@@ -67,7 +67,7 @@ public class KundeTabell extends JTable
         
         popup.add(info);
         popup.add(nyForsikring);
-        popup.add(nySkademelding);
+        //popup.add(nySkademelding);
         
         addMouseListener(new MouseAdapter()
         {    
