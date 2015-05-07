@@ -436,7 +436,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     garasje = false;
             if (espJa.isSelected() && !espNei.isSelected())
                     esp_b = true;
-        else if (!espa.isSelected() && espNei.isSelected())
+        else if (!espJa.isSelected() && espNei.isSelected())
                     esp_b = false;
             if (alarmJa.isSelected() && !alarmNei.isSelected())
                     alarm_b = true;
@@ -484,7 +484,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             
             Forsikring forsikring = register.nyBilForsikring( kunde, egenandelvalget, regnr, belop,
                                     merkevalget,modell, typevalget, hk, ar,
-                                    kmstand, forer, bonusen, antAr, garasje, lengdevalget ); 
+                                    kmstand, forer, bonusen, antAr, garasje, alarm_b, esp_b, gjenkjenning_b, lengdevalget ); 
             
             kunde.leggTilNøkkel(forsikring.getForsikringsnummer());
             Kjoretoyforsikring forsikringen =(Kjoretoyforsikring)forsikring;

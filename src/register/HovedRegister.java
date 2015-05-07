@@ -44,15 +44,15 @@ public class HovedRegister
         
         Forsikring forsikring_1 = new Bilforsikring( kunde_1, 2000, "DH12345", 1600000, 
                                                     "Volvo", "XC90", "SUV", 340, 
-                                                    2014, 30000, "Bilfører < 23 år", 0.50, 1, false, 
-                                                    10000 );
+                                                    2014, 30000, "Bilfører < 23 år", 0.50, 1, 
+                                                    false, false, false, false, 10000 );
         Forsikring forsikring_2 = new BatForsikring( kunde_1, 20000, "DK54321", 600000, 
                                                     "Tresfjord", "Ultra 360 FB", 
                                                     "Cabin cruiser", 120, 2014, false, 30 );
         Forsikring forsikring_3 = new Bilforsikring( kunde_2, 2000, "CD67890", 270000, 
                                                     "Volvo", "Sonett", "Småbil", 
                                                     800, 1968, 300000, "Bilfører < 23 år", 0.10, 1, 
-                                                    true, 50000 );
+                                                    true, true, true, false, 50000 );
         Forsikring forsikring_4 = new Husforsikring( kunde_2, 8000, "Fjollesvingen 32", 
                                                     1970, "Tremannsbolig", 
                                                     "Laftet tømmer", 
@@ -225,11 +225,12 @@ public class HovedRegister
     public Forsikring nyBilForsikring( Kunde k, int e_andel, String registreringsnummer, int belop,
                                  String fabrikant, String modell, String type, int hestekrefter, 
                                  int arsmodell, int kilometerstand, String forer, double bonus, int antAr, 
-                                 boolean garasje, int km)
+                                 boolean garasje, boolean alarm, boolean esp, boolean gjenkjenning, int km)
     {
         Forsikring nyForsikring = new Bilforsikring( k, e_andel, registreringsnummer, belop,
                                                      fabrikant,modell, type, hestekrefter, arsmodell,
-                                                     kilometerstand, forer, bonus, antAr, garasje, km );
+                                                     kilometerstand, forer, bonus, antAr, garasje, 
+                                                     alarm, esp, gjenkjenning, km );
         
         forsikringsregister.leggTil( k, nyForsikring);
         return nyForsikring;

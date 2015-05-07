@@ -16,6 +16,9 @@ public class Bilforsikring extends Kjoretoyforsikring
 {
     private double bonus;
     private boolean garasje;
+    private boolean alarmen;
+    private boolean esp;
+    private boolean gjenkjenningen;
     private int maxKjorelengd;
     private int antallAr;
     private String foreralder;
@@ -32,12 +35,16 @@ public class Bilforsikring extends Kjoretoyforsikring
     
     public Bilforsikring(  Kunde k, int e_andel, String registreringsnummer, int belop,
                            String fabrikant, String modell, String type, int hestekrefter, 
-                           int arsmodell, int kilometerstand, String foreralder, double bonus, int antAr, boolean garasje, int km )
+                           int arsmodell, int kilometerstand, String foreralder, double bonus,
+                           int antAr, boolean garasje, boolean alarm, boolean esp, boolean gjenkjenning, int km )
     {
         super( k, e_andel, registreringsnummer, belop, fabrikant, modell, type, hestekrefter, arsmodell);
         this.bonus = bonus;
         antallAr = antAr;
         this.garasje = garasje;
+        alarmen = alarm;
+        this.esp = esp;
+        gjenkjenningen = gjenkjenning;
         maxKjorelengd = km;
         this.foreralder = foreralder;
         kmst = kilometerstand;
@@ -134,7 +141,31 @@ public class Bilforsikring extends Kjoretoyforsikring
         return maxKjorelengd;
     }
 
-
+    public boolean getAlarm()
+    {
+        return alarmen;
+    }
+    public boolean getESP()
+    {
+        return esp;
+    }
+    public boolean getGjenkjenning()
+    {
+        return gjenkjenningen;
+    }
+    public void setAlarm(boolean a)
+    {
+        alarmen = a;
+    }
+    
+    public void setESP(boolean e)
+    {
+        esp = e;
+    }
+    public void setGjenkjenning(boolean g)
+    {
+        gjenkjenningen = g;
+    }
     public boolean isGarasjen() {
         return garasjen;
     }
