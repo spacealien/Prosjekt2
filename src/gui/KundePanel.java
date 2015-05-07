@@ -6,6 +6,8 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -15,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -56,6 +60,7 @@ public class KundePanel extends JPanel implements ActionListener
     private final JButton visSkademeldinger = new JButton("Vis Alle Skademeldinger");
     private final JButton nyForsikring = new JButton("Ny forsikring");
     private final JButton nySkademelding = new JButton("Ny Skademelding");
+    private final JButton rediger = new JButton("Rediger informasjon");
     private Kunde kunde = null;
     private final String[] forsikringsvalg = {"", "Bilforsikring", "Båtforsikring", "Husforsikring", "Fritidsboligforsikring", "Reiseforsikring"};
     private final JComboBox<String> forsikringsDropDown = new JComboBox<>(forsikringsvalg);
@@ -132,7 +137,7 @@ public class KundePanel extends JPanel implements ActionListener
         knappeWrapper.add(nyForsikring);
         knappeWrapper.add(nySkademelding);
         knappeWrapper.add(kontaktKunde);
-        
+        knappeWrapper.add(rediger);
         
         JPanel tabellwrapper = new JPanel();
         tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde), this);
@@ -151,6 +156,36 @@ public class KundePanel extends JPanel implements ActionListener
         regKunde.addActionListener(this);
         visForsikringer.addActionListener(this);
         visSkademeldinger.addActionListener(this);
+        rediger.addActionListener(this);
+        
+        for(Component component : getKomponenter(this))
+                {
+                    if(!(component instanceof JButton))
+                    component.setEnabled(false);
+                }
+    }
+    
+    private Component[] getKomponenter(Component pane)
+     {
+        ArrayList<Component> liste = null;
+
+        try
+        {
+            liste = new ArrayList<Component>(Arrays.asList(
+                  ((Container) pane).getComponents()));
+            for (int i = 0; i < liste.size(); i++)
+            {
+            for (Component currentComponent : getKomponenter(liste.get(i)))
+            {
+                liste.add(currentComponent);
+            }
+            }
+        } catch (ClassCastException e) {
+            liste = new ArrayList<Component>();
+        }
+
+        return liste.toArray(new Component[liste.size()]);
+        
     }
     
     public void visForsikringensSkademeldnger()
@@ -234,6 +269,13 @@ public class KundePanel extends JPanel implements ActionListener
             {
                 
             }
+        }
+        else if( e.getSource() == rediger)
+        {
+            for(Component component : getKomponenter(this))
+                {
+                    component.setEnabled(true);
+                }
         }
         else if( e.getSource() == visForsikringer)
         {
