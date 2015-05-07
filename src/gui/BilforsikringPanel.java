@@ -225,8 +225,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel2.add(bilTilbud);
         tegnBilPanel2.add(new JLabel());
         tegnBilPanel2.add(bilGiTilbud);
-        
+        setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
         add(tegnBilPanel1);
+        add(new JSeparator(SwingConstants.VERTICAL));
         add(tegnBilPanel2);
         
         annenEier.addActionListener(new ActionListener()
