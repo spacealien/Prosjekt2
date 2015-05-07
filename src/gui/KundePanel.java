@@ -283,7 +283,11 @@ public class KundePanel extends JPanel implements ActionListener
         {
             for(Component component : getKomponenter(this))
                 {
-                    component.setEnabled(true);
+                    if((component instanceof JTextField))
+                    {
+                        JTextField tf = (JTextField)component;
+                        tf.setEditable(true);
+                    }
                 }
         }
         else if( e.getSource() == visForsikringer)
