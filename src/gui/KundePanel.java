@@ -30,7 +30,6 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import objekter.BatForsikring;
 import objekter.Bilforsikring;
-import objekter.Eiendomsforsikring;
 import objekter.Forsikring;
 import objekter.Fritidsboligforsikring;
 import objekter.Husforsikring;
@@ -133,25 +132,32 @@ public class KundePanel extends JPanel implements ActionListener
         knappeWrapper.setLayout( new FlowLayout() );
         knappeWrapper.add(visForsikringer);
         knappeWrapper.add(visSkademeldinger);
-        knappeWrapper.add(forsikringsDropDown);
-        knappeWrapper.add(nyForsikring);
         knappeWrapper.add(nySkademelding);
         knappeWrapper.add(kontaktKunde);
         knappeWrapper.add(rediger);
         
-        JPanel tabellwrapper = new JPanel();
+        JPanel forsikringsVelger = new JPanel();
+        forsikringsVelger.setLayout( new FlowLayout() );
+        forsikringsVelger.add( new JLabel("Velg Forsikringstype"));
+        forsikringsVelger.add(forsikringsDropDown);
+        forsikringsVelger.add(nyForsikring);
+        
+        JPanel bunnWrapper = new JPanel();
         tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde), this);
         tabell = new KundeDataTabell(tabellModell,this);
         tabell.setPreferredScrollableViewportSize(new Dimension(500,180));
         JScrollPane scrollTabell = new JScrollPane(tabell);
-        tabellwrapper.setLayout( new BorderLayout() );
-        tabellwrapper.add( tabell.getTableHeader(), BorderLayout.NORTH);
-        tabellwrapper.add( scrollTabell, BorderLayout.CENTER);
+        bunnWrapper.setLayout( new BorderLayout() );
+        bunnWrapper.add( tabell.getTableHeader(), BorderLayout.NORTH);
+        bunnWrapper.add( scrollTabell, BorderLayout.CENTER);
+        bunnWrapper.add( forsikringsVelger, BorderLayout.PAGE_END);
 
         setLayout( new BorderLayout()  );
         add( infobox, BorderLayout.NORTH );
         add(knappeWrapper, BorderLayout.CENTER);
-        add(tabellwrapper, BorderLayout.SOUTH);
+        add(bunnWrapper, BorderLayout.SOUTH);
+        
+        
         kontaktKunde.addActionListener(this);
         regKunde.addActionListener(this);
         visForsikringer.addActionListener(this);
