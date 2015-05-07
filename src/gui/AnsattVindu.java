@@ -62,7 +62,6 @@ public class AnsattVindu extends JFrame
     public AnsattVindu()
     {
         super("Forsikring Vindu");
-        setSize(1600,900);
         setVisible(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         kalender = new GregorianCalendar();
@@ -70,6 +69,7 @@ public class AnsattVindu extends JFrame
         KnappeLytter knappeLytter = new KnappeLytter();
         mainContainer = getContentPane();
         fanekort =  new JTabbedPane();
+        fanekort.setPreferredSize( new Dimension(500,500));
         hovedPanelBunn =  new JPanel();
         hovedPanel = new JPanel();
         hovedPanelTop = new JPanel();
@@ -109,6 +109,7 @@ public class AnsattVindu extends JFrame
         this.setMenuBar( new MenyLinje(this));
         visTabellPanel(tabellModell);
         visLogin();
+        pack();
     }
     
     public GregorianCalendar getKalender()
