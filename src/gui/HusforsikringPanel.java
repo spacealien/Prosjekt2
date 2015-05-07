@@ -18,6 +18,8 @@ public class HusforsikringPanel extends JPanel implements ActionListener
 {
     private AnsattVindu vindu;
     private HovedRegister register;
+    private Husforsikring forsikring;
+    
     private final JTextField husAdresse;
     private final JTextField husAr;
     private final JTextField husKvm;
@@ -120,13 +122,16 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         beregnPris.addActionListener(this);
     }
     
-    // ikke fjern, ikke ferdig
+    // ikke fjern, ikke ferdig....mangler visning for dropdown
     public void visForsikring( Forsikring f)
     {
-        
+        this.forsikring = ( Husforsikring) f;
+        husAdresse.setText(forsikring.getAdresse());
+        husKvm.setText(String.valueOf(forsikring.getKvadratmeter()));
+        husAr.setText(String.valueOf(forsikring.getByggeAr()) );
+        belopHus.setText(String.valueOf(forsikring.getForsikringsbelopBygning()));
+        belopHusInnbo.setText(String.valueOf(forsikring.getForsikringsbelopInnbo()));   
     }
-    
-    
     
     public boolean hentInfo()
     {
