@@ -149,9 +149,7 @@ public class Bilforsikring extends Kjoretoyforsikring
         return bonusen;
     }
 
-    public int getHk() {
-        return hk;
-    }
+    
 
     public int getKmlengde() {
         return kmlengde;

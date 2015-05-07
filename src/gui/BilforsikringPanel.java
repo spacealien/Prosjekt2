@@ -39,6 +39,12 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private final JTextField bilTilbud;
     private final JRadioButton garasjeJa;
     private final JRadioButton garasjeNei;
+    private final JRadioButton alarmJa;
+    private final JRadioButton alarmNei;
+    private final JRadioButton espJa;
+    private final JRadioButton espNei;
+    private final JRadioButton gjenkjenningJa;
+    private final JRadioButton gjenkjenningNei;
     private final JButton annenEier;
     private final JButton bilGiTilbud;
     private final JButton beregnPris;
@@ -80,6 +86,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private double bonusen;
     private int egenandelvalget;
     private boolean garasje;
+    private boolean alarm_b;
+    private boolean esp_b;
+    private boolean gjenkjenning_b;
     private int antAr = 1;
     private int belop;
     private String forer;
@@ -122,6 +131,27 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         ButtonGroup garasje = new ButtonGroup();
         garasje.add(garasjeJa);
         garasje.add(garasjeNei);
+        espJa = new JRadioButton("Ja");
+        espNei = new JRadioButton("Nei");
+        espJa.setMnemonic(KeyEvent.VK_J);
+        espNei.setMnemonic(KeyEvent.VK_N);
+        ButtonGroup esp = new ButtonGroup();
+        esp.add(espJa);
+        esp.add(espNei);
+        gjenkjenningJa = new JRadioButton("Ja");
+        gjenkjenningNei = new JRadioButton("Nei");
+        gjenkjenningJa.setMnemonic(KeyEvent.VK_J);
+        gjenkjenningNei.setMnemonic(KeyEvent.VK_N);
+        ButtonGroup gjenkjenning = new ButtonGroup();
+        gjenkjenning.add(gjenkjenningJa);
+        gjenkjenning.add(gjenkjenningNei);
+        alarmJa = new JRadioButton("Ja");
+        alarmNei = new JRadioButton("Nei");
+        alarmJa.setMnemonic(KeyEvent.VK_J);
+        alarmNei.setMnemonic(KeyEvent.VK_N);
+        ButtonGroup alarm = new ButtonGroup();
+        alarm.add(alarmJa);
+        alarm.add(alarmNei);
         bilGiTilbud = new JButton("Tegn forsikring");
         beregnPris = new JButton("Beregn pris");
         annenEier = new JButton("Trykk her for annen eier");
@@ -138,10 +168,21 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         
     
         JPanel garasjen = new JPanel();
+        JPanel alarmPanel = new JPanel();
+        JPanel espPanel = new JPanel();
+        JPanel gjenkjenningPanel = new JPanel();
         JPanel tegnBilPanel1 = new JPanel();
-        tegnBilPanel1.setLayout(new GridLayout(11,4,1,1));
+        JPanel tegnBilPanel2 = new JPanel();
+        tegnBilPanel1.setLayout(new GridLayout(8,2,1,1));
+        tegnBilPanel2.setLayout(new GridLayout(9,2,1,1));
         garasjen.add(garasjeJa);
         garasjen.add(garasjeNei);
+        alarmPanel.add(alarmJa);
+        alarmPanel.add(alarmNei);
+        espPanel.add(espJa);
+        espPanel.add(espNei);
+        gjenkjenningPanel.add(gjenkjenningJa);
+        gjenkjenningPanel.add(gjenkjenningNei);
         tegnBilPanel1.add(new JLabel("Registreringsnummer: "));
         tegnBilPanel1.add(bilRegnr);
         tegnBilPanel1.add(new JLabel("Registreringsår: "));
@@ -158,26 +199,32 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel1.add(biltypevelger);
         tegnBilPanel1.add(new JLabel("Velg fabrikant: "));
         tegnBilPanel1.add(bilmerkevelger);
-        tegnBilPanel1.add(new JLabel("Garasje: "));
-        tegnBilPanel1.add(garasjen);
-        tegnBilPanel1.add(new JLabel("Årlig forventet kjørelengde: "));
-        tegnBilPanel1.add(kjorelengdevelger);
-        tegnBilPanel1.add(new JLabel("Yngste bilførers alder: "));
-        tegnBilPanel1.add(aldervelger);
-        tegnBilPanel1.add(new JLabel("Dekning: "));
-        tegnBilPanel1.add(dekningvelger);
-        tegnBilPanel1.add(new JLabel("Bonus: "));
-        tegnBilPanel1.add(bonusvelger);
-        tegnBilPanel1.add(new JLabel("Velg egenandel: "));
-        tegnBilPanel1.add(egenandelsvelger);
-        tegnBilPanel1.add(new JLabel("Er eier annen enn kunde?"));
-        tegnBilPanel1.add(annenEier);
-        tegnBilPanel1.add(new JLabel());
-        tegnBilPanel1.add(beregnPris);
-        tegnBilPanel1.add(new JLabel());
-        tegnBilPanel1.add(tilbudLabel);
-        tegnBilPanel1.add(bilTilbud);
-        tegnBilPanel1.add(bilGiTilbud);
+        tegnBilPanel2.add(new JLabel("Garasje: "));
+        tegnBilPanel2.add(garasjen);
+        tegnBilPanel2.add(new JLabel("FG-godkjent alarm: "));
+        tegnBilPanel2.add(alarmPanel);
+        tegnBilPanel2.add(new JLabel("ESP antiskrens: "));
+        tegnBilPanel2.add(espPanel);
+        tegnBilPanel2.add(new JLabel("FG-godkjent søk- \nog gjenkjenningssystem: "));
+        tegnBilPanel2.add(gjenkjenningPanel);
+        tegnBilPanel2.add(new JLabel("Årlig forventet kjørelengde: "));
+        tegnBilPanel2.add(kjorelengdevelger);
+        tegnBilPanel2.add(new JLabel("Yngste bilførers alder: "));
+        tegnBilPanel2.add(aldervelger);
+        tegnBilPanel2.add(new JLabel("Dekning: "));
+        tegnBilPanel2.add(dekningvelger);
+        tegnBilPanel2.add(new JLabel("Bonus: "));
+        tegnBilPanel2.add(bonusvelger);
+        tegnBilPanel2.add(new JLabel("Velg egenandel: "));
+        tegnBilPanel2.add(egenandelsvelger);
+        tegnBilPanel2.add(new JLabel("Er eier annen enn kunde?"));
+        tegnBilPanel2.add(annenEier);
+        tegnBilPanel2.add(new JLabel());
+        tegnBilPanel2.add(beregnPris);
+        tegnBilPanel2.add(new JLabel());
+        tegnBilPanel2.add(tilbudLabel);
+        tegnBilPanel2.add(bilTilbud);
+        tegnBilPanel2.add(bilGiTilbud);
         add(tegnBilPanel1);
         
         annenEier.addActionListener(new ActionListener()
@@ -199,7 +246,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             System.out.println("Addresse: " + eierAdresse.getText());
             eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), eierAdresse.getText(), eierTlf.getText());
         }        
-            }}}); // wtf
+            }}});
         
         bilGiTilbud.addActionListener(this);
         beregnPris.addActionListener(this);
@@ -220,11 +267,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     
     public boolean hentInfo()
     {
-        if (garasjeJa.isSelected() && !garasjeNei.isSelected())
-                    garasje = true;
-        else if (!garasjeJa.isSelected() && garasjeNei.isSelected())
-                    garasje = false;
-              
             int type_n = biltypevelger.getSelectedIndex();
             int merke_n = bilmerkevelger.getSelectedIndex();
             int lengde_n = kjorelengdevelger.getSelectedIndex();
@@ -236,7 +278,10 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             
             if (lengde_n == 0 || merke_n == 0 || type_n == 0 || egenandel_n == 0 
                || alder_n == 0 || dekning_n == 0 || bonus_n == 0 || 
-                    (!garasjeJa.isSelected() && !garasjeNei.isSelected()))
+                    (!garasjeJa.isSelected() && !garasjeNei.isSelected()) || 
+                    (!alarmJa.isSelected() && !alarmNei.isSelected()) || 
+                    (!espJa.isSelected() && !espNei.isSelected()) || 
+                    (!gjenkjenningJa.isSelected() && !gjenkjenningNei.isSelected()))
             {
                 String ut = "Det mangler informasjon om:\n";
                 if (lengde_n == 0)
@@ -261,8 +306,17 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     {ut += "Bonus\n";}
                     
                     if(!garasjeJa.isSelected() && !garasjeNei.isSelected())
-                    {ut += "Garasjevalg";}
-            
+                    {ut += "Garasjevalg\n";}
+                    
+                    if(!alarmJa.isSelected() && !alarmNei.isSelected())
+                    {ut += "Alarmvalg\n";}
+                    
+                    if(!espJa.isSelected() && !espNei.isSelected())
+                    {ut += "ESPvalg\n";}
+                    
+                    if(!gjenkjenningJa.isSelected() && !gjenkjenningNei.isSelected())
+                    {ut += "Gjenkjenningssystemvalg\n";}
+                    ut += "\nVennligst fyll ut denne informasjonen og prøv igjen.";
                     JOptionPane.showMessageDialog(null, ut, "Feilmelding",
                                                 JOptionPane.ERROR_MESSAGE);
                     return false;
@@ -376,6 +430,22 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     lengdevalget = 100000;
                     break;
             } 
+            if (garasjeJa.isSelected() && !garasjeNei.isSelected())
+                    garasje = true;
+        else if (!garasjeJa.isSelected() && garasjeNei.isSelected())
+                    garasje = false;
+            if (espJa.isSelected() && !espNei.isSelected())
+                    esp_b = true;
+        else if (!espa.isSelected() && espNei.isSelected())
+                    esp_b = false;
+            if (alarmJa.isSelected() && !alarmNei.isSelected())
+                    alarm_b = true;
+        else if (!alarmJa.isSelected() && alarmNei.isSelected())
+                    alarm_b = false;
+            if (gjenkjenningJa.isSelected() && !gjenkjenningNei.isSelected())
+                    gjenkjenning_b = true;
+        else if (!gjenkjenningJa.isSelected() && gjenkjenningNei.isSelected())
+                    gjenkjenning_b = false;
                 forer = aldervelger.getItemAt(alder_n);
                 belop = Integer.parseInt(bilVerdi.getText());
                 typevalget = biltypevelger.getItemAt(type_n);
