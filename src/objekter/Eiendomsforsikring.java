@@ -37,7 +37,7 @@ public abstract class Eiendomsforsikring extends Forsikring
     }
    
     
-    public String getHusadresse()
+    public String getAdresse()
     {
         return husadresse;
     }

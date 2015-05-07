@@ -46,9 +46,9 @@ public class MenyPanel extends JPanel implements ActionListener
         //wrapper.add(søkFelt);
         //wrapper.add(søkKnapp);
         wrapper.add(nyKunde);
-        wrapper.add(finnKunde);
-        wrapper.add(nyForsikring);
-        wrapper.add(nySkademelding);
+        //wrapper.add(finnKunde);
+        //wrapper.add(nyForsikring);
+        //wrapper.add(nySkademelding);
         //wrapper.add(avansertSok);
         wrapper.add(finnStatistikk);
         //menyPanel.setLayout( new BoxLayout(menyPanel, BoxLayout.PAGE_AXIS));

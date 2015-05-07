@@ -19,6 +19,9 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
 {
     private AnsattVindu vindu;
     private HovedRegister register;
+    private Fritidsboligforsikring forsikring;
+    
+    
     private final JTextField fritidAdresse;
     private final JTextField belopFritid;
     private final JTextField belopFritidInnbo;
@@ -115,6 +118,16 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
     // ikke fjern, ikke ferdig
     public void visForsikring( Forsikring f)
     {
+        this.forsikring = (Fritidsboligforsikring) f;
+        fritidAdresse.setText(forsikring.getAdresse());
+        fritidAr.setText(String.valueOf(forsikring.getByggeAr()));
+        fritidKvm.setText(String.valueOf(forsikring.getKvadratmeter()));
+        //belopFritid.setText(forsikring);
+        belopFritidInnbo.setText(adr);
+        
+        
+        
+        
         
     }
     

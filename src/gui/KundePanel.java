@@ -128,9 +128,11 @@ public class KundePanel extends JPanel implements ActionListener
         knappeWrapper.setLayout( new FlowLayout() );
         knappeWrapper.add(visForsikringer);
         knappeWrapper.add(visSkademeldinger);
+        knappeWrapper.add(forsikringsDropDown);
         knappeWrapper.add(nyForsikring);
         knappeWrapper.add(nySkademelding);
         knappeWrapper.add(kontaktKunde);
+        
         
         JPanel tabellwrapper = new JPanel();
         tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde), this);
@@ -251,6 +253,10 @@ public class KundePanel extends JPanel implements ActionListener
         {
             visAlleSkademeldinger();
             tabell.brukSkademeldingPopup();
+        }
+        else if( e.getSource() == nyForsikring)
+        {
+            
         }
     }
 }
