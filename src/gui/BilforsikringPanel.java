@@ -94,7 +94,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private int antAr = 1;
     private int belop;
     private String forer;
-    private JButton rediger = new JButton("Rediger forsikring");
+    JButton rediger = new JButton("Rediger forsikringinfo");
     
     public BilforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -176,6 +176,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         JPanel gjenkjenningPanel = new JPanel();
         JPanel tegnBilPanel1 = new JPanel();
         JPanel tegnBilPanel2 = new JPanel();
+        JPanel hovedPanel = new JPanel();
         tegnBilPanel1.setLayout(new GridLayout(11,2,1,1));
         tegnBilPanel2.setLayout(new GridLayout(10,2,1,1));
         garasjen.add(garasjeJa);
@@ -228,10 +229,12 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel2.add(bilTilbud);
         tegnBilPanel2.add(new JLabel());
         tegnBilPanel2.add(bilGiTilbud);
-        setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
-        add(tegnBilPanel1);
-        add(new JSeparator(SwingConstants.VERTICAL));
-        add(tegnBilPanel2);
+        hovedPanel.setLayout(new BoxLayout(hovedPanel, BoxLayout.LINE_AXIS));
+        hovedPanel.add(tegnBilPanel1);
+        hovedPanel.add(new JSeparator(SwingConstants.VERTICAL));
+        hovedPanel.add(tegnBilPanel2);
+        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+        add(hovedPanel);
         
         annenEier.addActionListener(new ActionListener()
         {
@@ -291,10 +294,12 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         bilHk.setText(String.valueOf(bilforsikring.getHestekrefter()));
         bilKmstand.setText(String.valueOf(bilforsikring.getKmstand()));
         //bilTilbud.setText();
-        
-        JButton rediger = new JButton("Rediger forsikringinfo");
-        //knappewrapper.add(rediger);
+        JPanel knappePanel = new JPanel();
         rediger.addActionListener(this);
+        knappePanel.add(rediger);
+        add(knappePanel);
+        revalidate();
+        repaint();
         
         for(Component component : getKomponenter(this))
                 {
@@ -303,6 +308,10 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                         JTextField tf = (JTextField)component;
                         tf.setEditable(false);
                     }
+                    else if (component.equals(bilGiTilbud))
+                            {
+                                component.setVisible(false);
+                            }
                 }
 
     }
@@ -554,11 +563,11 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         }
         else if( e.getSource() == rediger)
         {
-            for(Component component : getKomponenter(this))
+            /*for(Component component : getKomponenter(this))
                 {
                     if(!(component instanceof JButton))
                     component.setEnabled(false);
-                }
+                }*/
         }
         
     }
