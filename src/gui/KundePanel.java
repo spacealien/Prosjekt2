@@ -217,7 +217,7 @@ public class KundePanel extends JPanel implements ActionListener
     {
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
         Forsikring forsirking = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
-        vindu.leggTilNyFane( new SkademeldingPanel(forsirking, vindu), forsirking.getKunde().getEtternavn() );
+        vindu.leggTilNyFane( new SkademeldingPanel(forsirking, vindu), "Skade " + forsirking.getKunde().getEtternavn() );
     }
     
     

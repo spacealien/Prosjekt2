@@ -5,9 +5,12 @@
  */
 package objekter;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -24,7 +27,7 @@ public class Skademelding
     private String skadetype;
     //private String skademeldingsskjema;
     private String beskrivelse;
-    //private FIL bilde;
+    private List<File> bildeListe = new LinkedList<>();
     Vitne vitne;
     private int takseringsbelop;
     private int erstatningsbelop;
