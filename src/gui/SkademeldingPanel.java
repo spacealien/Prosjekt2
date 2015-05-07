@@ -37,10 +37,10 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     private int takst;
     private int belop;
     
-    public SkademeldingPanel(Kunde k, Forsikring f, AnsattVindu v)
+    public SkademeldingPanel( Forsikring f, AnsattVindu v)
     {
         sdf = new SimpleDateFormat("ddMMyyyy");
-        kunde = k;
+        kunde = f.getKunde();
         forsikring = f;
         vindu = v;
         register = vindu.getRegister();

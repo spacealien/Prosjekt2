@@ -126,7 +126,7 @@ public class KundeDataTabell extends JTable
             }
             else if( e.getSource() == nySkademelding )
             {
-                
+                panel.visNySkademeldingsTab();
             }
         }
     }

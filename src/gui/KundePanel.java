@@ -213,6 +213,13 @@ public class KundePanel extends JPanel implements ActionListener
         //vindu.leggTilNyFane( new SkademeldingPanel(kunde,skademelding.getForsikring(),vindu) "skademelding");
     }
     
+    public void visNySkademeldingsTab()
+    {
+        Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
+        Forsikring forsirking = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
+        vindu.leggTilNyFane( new SkademeldingPanel(forsirking, vindu), forsirking.getKunde().getEtternavn() );
+    }
+    
     
     // ikke ferdig, gjenstår å endre navnene på tabs til noe informativt og fylle ut alle feltene i planelene, panel.visForsikring();
     public void åpneForsikringsTab()
@@ -223,31 +230,31 @@ public class KundePanel extends JPanel implements ActionListener
         {
             BilforsikringPanel panel = new BilforsikringPanel(forsikring.getKunde(), vindu);
             panel.visForsikring(forsikring);
-            vindu.leggTilNyFane( panel, "test");
+            vindu.leggTilNyFane( panel, "Bil " + forsikring.getKunde().getEtternavn());
         }
         else if( forsikring.getClass() == BatForsikring.class )
         {
             BatforsikringPanel panel = new BatforsikringPanel(forsikring.getKunde(),vindu);
-            panel.visForsikring((BatForsikring)forsikring);
-            vindu.leggTilNyFane(panel, "informativ tekst");
+            panel.visForsikring(forsikring);
+            vindu.leggTilNyFane(panel, "Båt " + forsikring.getKunde().getEtternavn());
         }
         else if( forsikring.getClass() == Husforsikring.class)
         {
             HusforsikringPanel panel = new HusforsikringPanel( forsikring.getKunde(), vindu);
             panel.visForsikring(forsikring);
-            vindu.leggTilNyFane(panel, "test"); //endre navn på tabs 
+            vindu.leggTilNyFane(panel, "Hus " + forsikring.getKunde().getEtternavn()); //endre navn på tabs 
         }
         else if( forsikring.getClass() == Fritidsboligforsikring.class)
         {
             FritidsboligforsikringPanel panel = new FritidsboligforsikringPanel( forsikring.getKunde(), vindu);
             panel.visForsikring(forsikring);
-            vindu.leggTilNyFane(panel, "test");
+            vindu.leggTilNyFane(panel, "Fritidsbolig " + forsikring.getKunde().getEtternavn());
         }
         else if( forsikring.getClass() == Reiseforsikring.class)
         {
             ReiseforsikringPanel panel = new ReiseforsikringPanel(forsikring.getKunde(), vindu);
             panel.visForsikring( forsikring );
-            vindu.leggTilNyFane(panel, "test");
+            vindu.leggTilNyFane(panel, "Reise " + forsikring.getKunde().getEtternavn());
         }
     }
     
