@@ -69,8 +69,8 @@ public class KundePanel extends JPanel implements ActionListener
     private final KundeDataTabell tabell;
     private final AbstractTableModel tabellModell;
     
-    private Desktop desktop = Desktop.getDesktop();
-    private Desktop.Action action = Desktop.Action.OPEN;
+    private final Desktop desktop = Desktop.getDesktop();
+    private final Desktop.Action action = Desktop.Action.OPEN;
     
     public KundePanel( AnsattVindu vindu, Kunde kunde )
     {
@@ -145,7 +145,7 @@ public class KundePanel extends JPanel implements ActionListener
         JPanel bunnWrapper = new JPanel();
         tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde), this);
         tabell = new KundeDataTabell(tabellModell,this);
-        tabell.setPreferredScrollableViewportSize(new Dimension(500,180));
+        tabell.setPreferredScrollableViewportSize(new Dimension(500,50));
         JScrollPane scrollTabell = new JScrollPane(tabell);
         bunnWrapper.setLayout( new BorderLayout() );
         bunnWrapper.add( tabell.getTableHeader(), BorderLayout.NORTH);
@@ -163,8 +163,9 @@ public class KundePanel extends JPanel implements ActionListener
         visForsikringer.addActionListener(this);
         visSkademeldinger.addActionListener(this);
         rediger.addActionListener(this);
+        nyForsikring.addActionListener(this);
         
-        for(Component component : getKomponenter(this))
+        for(Component component : getKomponenter(kundeInfo_1))
                 {
                     if((component instanceof JTextField))
                     {
@@ -174,7 +175,7 @@ public class KundePanel extends JPanel implements ActionListener
                 }
     }
     
-    private Component[] getKomponenter(Component pane)
+    private Component[] getKomponenter( Component pane)
      {
         ArrayList<Component> liste = null;
 
@@ -184,17 +185,17 @@ public class KundePanel extends JPanel implements ActionListener
                   ((Container) pane).getComponents()));
             for (int i = 0; i < liste.size(); i++)
             {
-            for (Component currentComponent : getKomponenter(liste.get(i)))
-            {
-                liste.add(currentComponent);
+                for (Component currentComponent : getKomponenter(liste.get(i)))
+                {
+                    liste.add(currentComponent);
+                }
             }
-            }
-        } catch (ClassCastException e) {
+        } 
+        catch (ClassCastException e) 
+        {
             liste = new ArrayList<Component>();
         }
-
         return liste.toArray(new Component[liste.size()]);
-        
     }
     
     public void visForsikringensSkademeldnger()

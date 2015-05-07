@@ -124,6 +124,10 @@ public class KundeDataTabell extends JTable
             {
                 panel.visForsikringensSkademeldnger();
             }
+            else if( e.getSource() == nySkademelding )
+            {
+                
+            }
         }
     }
 }
