@@ -122,13 +122,8 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         fritidAdresse.setText(forsikring.getAdresse());
         fritidAr.setText(String.valueOf(forsikring.getByggeAr()));
         fritidKvm.setText(String.valueOf(forsikring.getKvadratmeter()));
-        //belopFritid.setText(forsikring);
-        belopFritidInnbo.setText(adr);
-        
-        
-        
-        
-        
+        belopFritid.setText(String.valueOf(forsikring.getForsikringsbelopBygning()));
+        belopFritidInnbo.setText(String.valueOf(forsikring.getForsikringsbelopInnbo()));
     }
     
     public void beregnPris()
