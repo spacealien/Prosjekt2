@@ -160,8 +160,11 @@ public class KundePanel extends JPanel implements ActionListener
         
         for(Component component : getKomponenter(this))
                 {
-                    if(!(component instanceof JButton))
-                    component.setEnabled(false);
+                    if((component instanceof JTextField))
+                    {
+                        JTextField tf = (JTextField)component;
+                        tf.setEditable(false);
+                    }
                 }
     }
     

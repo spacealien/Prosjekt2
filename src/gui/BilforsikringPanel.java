@@ -7,6 +7,8 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.*;
 
 import objekter.*;
@@ -92,6 +94,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private int antAr = 1;
     private int belop;
     private String forer;
+    private JButton rediger = new JButton("Rediger forsikring");
     
     public BilforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -253,9 +256,31 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         
         bilGiTilbud.addActionListener(this);
         beregnPris.addActionListener(this);
+        
     } // slutt på konstuktør
     
-    // ikke ferdig
+    private Component[] getKomponenter(Component pane)
+     {
+        ArrayList<Component> liste = null;
+
+        try
+        {
+            liste = new ArrayList<Component>(Arrays.asList(
+                  ((Container) pane).getComponents()));
+            for (int i = 0; i < liste.size(); i++)
+            {
+            for (Component currentComponent : getKomponenter(liste.get(i)))
+            {
+                liste.add(currentComponent);
+            }
+            }
+        } catch (ClassCastException e) {
+            liste = new ArrayList<Component>();
+        }
+
+        return liste.toArray(new Component[liste.size()]);
+        
+    }
     public void visForsikring( Forsikring f)
     {
         this.bilforsikring = (Bilforsikring) f;
@@ -266,8 +291,22 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         bilHk.setText(String.valueOf(bilforsikring.getHestekrefter()));
         bilKmstand.setText(String.valueOf(bilforsikring.getKmstand()));
         //bilTilbud.setText();
+        
+        JButton rediger = new JButton("Rediger forsikringinfo");
+        //knappewrapper.add(rediger);
+        rediger.addActionListener(this);
+        
+        for(Component component : getKomponenter(this))
+                {
+                    if((component instanceof JTextField))
+                    {
+                        JTextField tf = (JTextField)component;
+                        tf.setEditable(false);
+                    }
+                }
 
     }
+    // ikke ferdig
     
     public boolean hentInfo()
     {
@@ -512,6 +551,14 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         else if( e.getSource() == beregnPris)
         {
             beregnPris();
+        }
+        else if( e.getSource() == rediger)
+        {
+            for(Component component : getKomponenter(this))
+                {
+                    if(!(component instanceof JButton))
+                    component.setEnabled(false);
+                }
         }
         
     }
