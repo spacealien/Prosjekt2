@@ -162,7 +162,7 @@ public class KundePanel extends JPanel implements ActionListener
                         tf.setEditable(false);
                     }
                 }
-    }
+        }
     
     private Component[] getKomponenter( Component pane)
      {
@@ -220,7 +220,7 @@ public class KundePanel extends JPanel implements ActionListener
         vindu.leggTilNyFane( new SkademeldingPanel(forsirking, vindu), "Skade " + forsirking.getKunde().getEtternavn() );
     }
     
-    
+    //skal flyttes
     // ikke ferdig, gjenstår å endre navnene på tabs til noe informativt og fylle ut alle feltene i planelene, panel.visForsikring();
     public void åpneForsikringsTab()
     {

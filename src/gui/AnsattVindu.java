@@ -25,6 +25,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import objekter.Ansatt;
+import objekter.Forsikring;
 import objekter.Kunde;
 import register.HovedRegister;
 
@@ -204,9 +205,10 @@ public class AnsattVindu extends JFrame
             oppdaterTabell(nyListe);
             tomSøkefelter();
         }
-        else if( søkeord.matches("\\d{6}"))
+        else if( søkeord.matches("\\d{7"))
         {
-            
+            int forsikringsnummer = Integer.parseInt(søkeord);
+            Forsikring forsikring = register.getForsikringrsliste().getForsikring(forsikringsnummer);
         }
         else if( etternavn.matches("\\D+") && fornavn.matches("\\D+"))
         {

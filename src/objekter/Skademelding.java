@@ -9,8 +9,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
@@ -27,12 +25,18 @@ public class Skademelding
     private String skadetype;
     //private String skademeldingsskjema;
     private String beskrivelse;
-    private List<File> bildeListe = new LinkedList<>();
-    Vitne vitne;
+    private File[] bilder;
+    private Vitne vitne;
     private int takseringsbelop;
     private int erstatningsbelop;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     private boolean aktiv = true;
+    
+    public Skademelding( Forsikring forsikring)
+    {
+        this.forsikring = forsikring;
+        skadenummer = nestenr;
+    }
     
     public Skademelding( Forsikring forsikring, Date dato, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )
     {
@@ -90,6 +94,12 @@ public class Skademelding
     {
         this.beskrivelse = input;
     }
+    
+    public void setBilder( File[] photo )
+    {
+        bilder = photo;
+    }
+        
 
     @Override
     public String toString()

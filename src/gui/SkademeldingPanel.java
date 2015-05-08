@@ -7,6 +7,7 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,10 +30,12 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     private final JTextField skadeForsikring;
     private final JButton sendInnSkade;
     private final JButton lastOppBildeKnapp;
+    private final JButton vitneKnapp;
     private final Kunde kunde;
     private final Forsikring forsikring;
+    private File[] bilder;
     private SimpleDateFormat sdf;
-    
+    private Skademelding skademelding;
     private Date dato;
     private String type;
     private String beskrivelse;
@@ -46,9 +49,6 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         forsikring = f;
         vindu = v;
         register = vindu.getRegister();
-        
-        
-        
         skadeDato = new JTextField( 7 );
         skadeType = new JTextField( 7 );
         skadeBeskrivelse = new JTextArea( 20, 30);
@@ -56,6 +56,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         sendInnSkade = new JButton("Send inn skade");  
         lastOppBildeKnapp = new JButton("Last Opp Bilde");
         skadeForsikring = new JTextField(16);
+        vitneKnapp = new JButton("Legg Til Vitner");
         
         JPanel wrapper_1 = new JPanel();
         GridLayout layout_1 = new GridLayout(2,4);
@@ -82,11 +83,16 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         wrapper_3.setLayout( new FlowLayout() );
         wrapper_3.add(sendInnSkade);
         wrapper_3.add(lastOppBildeKnapp);
+        wrapper_3.add(vitneKnapp);
         
         this.setLayout( new BorderLayout());
         add(wrapper_1, BorderLayout.PAGE_START);
         add(wrapper_2, BorderLayout.CENTER);
         add(wrapper_3, BorderLayout.PAGE_END);
+        
+        
+        lastOppBildeKnapp.addActionListener(this);
+        sendInnSkade.addActionListener(this);
     }
     
     public void visSkademelding( Skademelding skademelding )
@@ -126,7 +132,11 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     public void nySkademelding()
     {
         if (hentInfo())
-        register.nySkademelding(forsikring, dato, type, beskrivelse, takst, belop );
+        {
+            skademelding = register.nySkademelding(forsikring, dato, type, beskrivelse, takst, belop );
+            if( bilder != null)
+                skademelding.setBilder(bilder);
+        }
     }
     @Override
     public void actionPerformed(ActionEvent e) 
@@ -134,6 +144,17 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         if (e.getSource() == sendInnSkade)
         {
             nySkademelding();
+        }
+        else if( e.getSource() == lastOppBildeKnapp)
+        {
+            JFileChooser fil = new JFileChooser();
+            fil.setMultiSelectionEnabled(true);
+            fil.setCurrentDirectory( new File (".") );
+            if( JFileChooser.APPROVE_OPTION == fil.showOpenDialog( vindu ))
+            {
+                File[] foto = fil.getSelectedFiles();
+                this.bilder = foto;
+            }
         }
     }
 }
