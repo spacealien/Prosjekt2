@@ -5,8 +5,12 @@
  */
 package gui;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.*;
 import objekter.*;
 import register.*;
@@ -28,6 +32,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
     private final JTextField husTilbud;
     private final JTextField prisenar;
     private final JTextField prisenmnd;
+    private JLabel tilbudLabel;
     JComboBox<String> hustypevelger;
     private final String[] hustype = {"","Enebolig", "Tomannsbolig", "Tremannsbolig", "Firemannsbolig", "Rekkehus"};
     JComboBox<String> husmaterialevelger;
@@ -51,6 +56,9 @@ public class HusforsikringPanel extends JPanel implements ActionListener
     private int belop;
     private int belopInnbo;
     private boolean alarm_b;
+    private JPanel knappePanel = new JPanel();
+    private JButton rediger = new JButton("Rediger forsikring");
+    private JButton lagreNyInfo = new JButton("Lagre forsikring");
     
     public HusforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -65,6 +73,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         husKvm = new JTextField( 4 );
         prisenar = new JTextField( 6 );
         prisenmnd = new JTextField( 6 );
+        tilbudLabel = new JLabel("Foreslått tilbud: ");
         hustypevelger = new JComboBox<>(hustype);
         husmaterialevelger = new JComboBox<>(husmateriale);
         husstandardvelger = new JComboBox<>(husstandard);
@@ -110,7 +119,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         tegnHusPanel1.add(new JLabel());
         tegnHusPanel1.add(beregnPris);
         tegnHusPanel1.add(new JLabel());
-        tegnHusPanel1.add(new JLabel("Årlig pris: "));
+        tegnHusPanel1.add(tilbudLabel);
         tegnHusPanel1.add(husTilbud);
         tegnHusPanel1.add(new JLabel());
         tegnHusPanel1.add(new JLabel());
@@ -121,7 +130,28 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         husGiTilbud.addActionListener(this);
         beregnPris.addActionListener(this);
     }
-    
+    private Component[] getKomponenter(Component pane)
+     {
+        ArrayList<Component> liste = null;
+
+        try
+        {
+            liste = new ArrayList<Component>(Arrays.asList(
+                  ((Container) pane).getComponents()));
+            for (int i = 0; i < liste.size(); i++)
+            {
+            for (Component currentComponent : getKomponenter(liste.get(i)))
+            {
+                liste.add(currentComponent);
+            }
+            }
+        } catch (ClassCastException e) {
+            liste = new ArrayList<Component>();
+        }
+
+        return liste.toArray(new Component[liste.size()]);
+        
+    }
     // ikke fjern, ikke ferdig....mangler visning for dropdown
     public void visForsikring( Forsikring f)
     {
@@ -129,8 +159,38 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         husAdresse.setText(forsikring.getAdresse());
         husKvm.setText(String.valueOf(forsikring.getKvadratmeter()));
         husAr.setText(String.valueOf(forsikring.getByggeAr()) );
+        hustypevelger.setSelectedItem(forsikring.getBoligtype());
+        husmaterialevelger.setSelectedItem(forsikring.getMateriale());
+        husstandardvelger.setSelectedItem(forsikring.getStandard());
+        egenandelsvelger.setSelectedItem(forsikring.getEgenandel());
         belopHus.setText(String.valueOf(forsikring.getForsikringsbelopBygning()));
-        belopHusInnbo.setText(String.valueOf(forsikring.getForsikringsbelopInnbo()));   
+        belopHusInnbo.setText(String.valueOf(forsikring.getForsikringsbelopInnbo()));
+        if (forsikring.getAlarm())
+            alarmJa.setSelected(true);
+        else
+            alarmNei.setSelected(true);
+        
+        knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
+        knappePanel.add(rediger);
+        add(knappePanel);
+        tilbudLabel.setText("Årlig premie: ");
+        tilbudLabel.setVisible(true);
+        husTilbud.setVisible(true);
+        revalidate();
+        repaint();
+        
+        for(Component component : getKomponenter(this))
+                {
+                    if((component instanceof JTextField))
+                    {
+                        JTextField tf = (JTextField)component;
+                        tf.setEditable(false);
+                    }
+                    else if (component.equals(husGiTilbud))
+                            {
+                                component.setVisible(false);
+                            }
+                }
     }
     
     public boolean hentInfo()
@@ -224,6 +284,38 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         else if(e.getSource() == beregnPris)
         {
             beregnPris();
+        }
+        else if(e.getSource() == rediger)
+        {
+            for(Component component : getKomponenter(this))
+                {
+                    if((component instanceof JTextField))
+                    {
+                        JTextField tf = (JTextField)component;
+                        tf.setEditable(true);
+                    }
+                }
+            knappePanel.add(lagreNyInfo);
+            tilbudLabel.setText("Foreslått tilbud: ");
+            beregnPris.setText("Beregn ny pris");
+            revalidate();
+            repaint();
+        }
+        else if (e.getSource() == lagreNyInfo)
+        {
+            forsikring.setAdresse(adr);
+            forsikring.setAlarm(alarm_b);
+            forsikring.setMateriale(husmaterialevalget);
+            forsikring.setKvadratmeter(kvm);
+            forsikring.setBoligtype(hustypevalget);
+            forsikring.setStandard(husstandardvalget);
+            forsikring.setForsikringsbelopBygning(belop);
+            forsikring.setForsikringsbelopInnbo(belopInnbo);
+            forsikring.setEgenandel(egenandelvalget);
+            forsikring.setByggeAr(ar);
+            
+            //Må beregne pris på nytt!
+            
         }
     }
 }

@@ -13,7 +13,7 @@ public abstract class Eiendomsforsikring extends Forsikring
 {
     private String husadresse;
     private boolean alarm;
-    private final int byggear;
+    private int byggear;
     private String boligtype;
     private String materiale;
     private String standard;
@@ -41,9 +41,37 @@ public abstract class Eiendomsforsikring extends Forsikring
     {
         return husadresse;
     }
+    public void setAdresse(String a)
+    {
+        husadresse = a;
+    }
+    public String getBoligtype()
+    {
+        return boligtype;
+    }
+    public void setBoligtype(String bt)
+    {
+        boligtype = bt;
+    }
     public boolean getAlarm()
     {
         return alarm;
+    }
+
+    public String getMateriale() {
+        return materiale;
+    }
+
+    public void setMateriale(String m) {
+        materiale = m;
+    }
+
+    public String getStandard() {
+        return standard;
+    }
+
+    public void setStandard(String s) {
+        standard = s;
     }
     
     public void setAlarm(boolean a)
@@ -64,6 +92,11 @@ public abstract class Eiendomsforsikring extends Forsikring
     public int getByggeAr()
     {
         return byggear;
+    }
+    
+    public void setByggeAr(int a)
+    {
+        byggear = a;
     }
     
     public int getForsikringsbelopBygning()

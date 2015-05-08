@@ -23,12 +23,12 @@ public class BatForsikring extends Kjoretoyforsikring
         this.lengde = lengde;
     }
 
-    public boolean isVekter() {
+    public boolean getVekter() {
         return vekter;
     }
 
-    public void setVekter(boolean vekter) {
-        this.vekter = vekter;
+    public void setVekter(boolean v) {
+        vekter = v;
     }
 
     public int getLengde() {
@@ -39,10 +39,7 @@ public class BatForsikring extends Kjoretoyforsikring
         this.lengde = lengde;
     }
     
-    public void setGarasje( boolean bekreftelse )
-    {
-        this.vekter = bekreftelse;
-    }
+    
     
     /**
      * Denne metoden mottar kunde som parameter og gjør prisberegninger 

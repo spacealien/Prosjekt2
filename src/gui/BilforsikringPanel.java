@@ -345,7 +345,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             }
             
         }
-        //bilTilbud.setText();
         knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
         knappePanel.add(rediger);
         add(knappePanel);
@@ -632,7 +631,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             else if (annenEier.getText().equals("Vis eier"))
             {
                JOptionPane.showMessageDialog( null, bilforsikring.getEier().toString(), 
-                      "Kjøretøyets regisrerte eier:", JOptionPane.PLAIN_MESSAGE);
+                      "Kjøretøyets registrerte eier:", JOptionPane.PLAIN_MESSAGE);
             }
         }
         else if( e.getSource() == rediger)
@@ -656,7 +655,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         else if(e.getSource() == lagreNyInfo)
         {
             if(hentInfo())
-            { //17 felter
+            { 
                 bilforsikring.setAntallAr(antAr);
                 bilforsikring.setGjenkjenning(gjenkjenning_b);
                 bilforsikring.setESP(esp_b);
@@ -676,6 +675,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                 bilforsikring.setBonus(bonusen);
                 bilforsikring.setArsmodell(ar);
                 
+                //Må beregne pris på nytt!
             }
         }
         

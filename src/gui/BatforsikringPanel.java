@@ -5,8 +5,12 @@
  */
 package gui;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.*;
 import objekter.*;
 import register.*;
@@ -33,6 +37,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
     private final JTextField batLengde;
     private final JTextField batHk;
     private final JTextField batArsmodell;
+    private JLabel tilbudLabel;
     private final JRadioButton vekterJa;
     private final JRadioButton vekterNei;
     private final String[] battype = {"","Skjærgårdsjeep", "Cabin cruiser", "Rib", "Annen småbåt",
@@ -55,6 +60,9 @@ public class BatforsikringPanel extends JPanel implements ActionListener
     private int egenandelvalget;
     private boolean vekter_b;
     private int belop;
+    private JPanel knappePanel = new JPanel();
+    private JButton rediger = new JButton("Rediger forsikring");
+    private JButton lagreNy = new JButton("Lagre forsikring");
     
     public BatforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -69,6 +77,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         batMerke = new JTextField( 7 );
         batLengde = new JTextField( 7 );
         batArsmodell = new JTextField( 7 );
+        tilbudLabel = new JLabel("Foreslått tilbud: ");
         batHk = new JTextField(4);
         vekterJa = new JRadioButton("Ja");
         vekterNei = new JRadioButton("Nei");
@@ -127,7 +136,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         tegnBatPanel1.add(egenandelsvelger);
         tegnBatPanel1.add(new JLabel());
         tegnBatPanel1.add(beregnPris);
-        tegnBatPanel1.add(new JLabel("Foreslått tilbud: "));
+        tegnBatPanel1.add(tilbudLabel);
         tegnBatPanel1.add(batTilbud);
         tegnBatPanel1.add(new JLabel());
         tegnBatPanel1.add(batGiTilbud);
@@ -137,16 +146,67 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         annenEier.addActionListener(this);
         beregnPris.addActionListener(this);
     }
+    private Component[] getKomponenter(Component pane)
+     {
+        ArrayList<Component> liste = null;
+
+        try
+        {
+            liste = new ArrayList<Component>(Arrays.asList(
+                  ((Container) pane).getComponents()));
+            for (int i = 0; i < liste.size(); i++)
+            {
+            for (Component currentComponent : getKomponenter(liste.get(i)))
+            {
+                liste.add(currentComponent);
+            }
+            }
+        } catch (ClassCastException e) {
+            liste = new ArrayList<Component>();
+        }
+
+        return liste.toArray(new Component[liste.size()]);
+     }
     
     public void visForsikring( Forsikring f )
     {
         this.forsikring = (BatForsikring) f;
         batRegnr.setText(forsikring.getRegistreringsnmmer());
         batMerke.setText(forsikring.getFabrikant());
+        batModell.setText(forsikring.getModell());
         //batVerdi.setText();
         batLengde.setText(String.valueOf(forsikring.getLengde()));
         batArsmodell.setText(String.valueOf(forsikring.getArsmodell()));
         batHk.setText(String.valueOf(forsikring.getHestekrefter()));
+        egenandelsvelger.setSelectedItem(String.valueOf(forsikring.getEgenandel()));
+        battypevelger.setSelectedItem(String.valueOf(forsikring.getType()));
+        if (forsikring.getVekter())
+            vekterJa.setSelected(true);
+        else
+            vekterNei.setSelected(true);
+        
+        annenEier.setText("Vis eier");
+        knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
+        knappePanel.add(rediger);
+        add(knappePanel);
+        tilbudLabel.setText("Årlig premie: ");
+        tilbudLabel.setVisible(true);
+        batTilbud.setVisible(true);
+        revalidate();
+        repaint();
+        
+        for(Component component : getKomponenter(this))
+                {
+                    if((component instanceof JTextField))
+                    {
+                        JTextField tf = (JTextField)component;
+                        tf.setEditable(false);
+                    }
+                    else if (component.equals(batGiTilbud))
+                            {
+                                component.setVisible(false);
+                            }
+                }
     }
     
     public boolean hentInfo()
@@ -245,12 +305,58 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         }
         else if (e.getSource() == annenEier)
         {
-            int result = JOptionPane.showConfirmDialog(null, eierPanel, 
+            if (annenEier.getText().equals("Trykk for annen eier"))
+            {
+                int result = JOptionPane.showConfirmDialog(null, eierPanel, 
                "Vennligst fyll ut bileiers kontaktinformasjon:", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.OK_OPTION)
-         {
-          eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), eierAdresse.getText(), eierTlf.getText());
-         }
+                if (result == JOptionPane.OK_OPTION)
+                {
+                eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), eierAdresse.getText(), eierTlf.getText());
+                }
+            }
+            else if(annenEier.getText().equals("Vis eier"))
+                {
+                  JOptionPane.showMessageDialog( null, forsikring.getEier().toString(), 
+                      "Kjøretøyets registrerte eier:", JOptionPane.PLAIN_MESSAGE);
+                }
+        }
+        else if (e.getSource() == rediger)
+        {
+            for(Component component : getKomponenter(this))
+                {
+                    if((component instanceof JTextField))
+                    {
+                        JTextField tf = (JTextField)component;
+                        tf.setEditable(true);
+                    }
+                    
+                }
+            beregnPris.setText("Beregn ny pris");
+            tilbudLabel.setText("Foreslått tilbud: ");
+            annenEier.setText("Trykk for annen eier");
+            knappePanel.add(lagreNy);
+        }
+        else if (e.getSource() == lagreNy)
+        {
+            if(hentInfo())
+            {/*egenandelvalget, reg, belop,
+                                 merke, modell, typevalget, hk, 
+                                 ar, vekter_b, lengde*/
+                forsikring.setRegistreringsnummer(reg);
+                forsikring.setLengde(lengde);
+                forsikring.setEgenandel(egenandelvalget);
+                forsikring.setVekter(vekter_b);
+                forsikring.setModell(modell);
+                forsikring.setFabrikant(merke);
+                forsikring.setType(typevalget);
+                forsikring.setHestekrefter(hk);
+                forsikring.setArsmodell(ar);
+                forsikring.setBelop(belop);
+                forsikring.setEier(eier);
+                
+                //Må beregne pris på nytt!
+            }
+            
         }
     }
 }
