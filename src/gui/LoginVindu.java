@@ -73,6 +73,7 @@ public class LoginVindu extends JFrame
         
         loginKnapp.addActionListener(knappeLytter);
         avsluttKnapp.addActionListener(knappeLytter);
+        this.getRootPane().setDefaultButton(loginKnapp);
     }
     
     private void login()
