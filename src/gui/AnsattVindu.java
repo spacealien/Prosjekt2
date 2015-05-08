@@ -25,6 +25,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import objekter.Ansatt;
+import objekter.Forsikring;
 import objekter.Kunde;
 import register.HovedRegister;
 
@@ -62,7 +63,6 @@ public class AnsattVindu extends JFrame
     public AnsattVindu()
     {
         super("Forsikring Vindu");
-        setSize(1600,900);
         setVisible(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         kalender = new GregorianCalendar();
@@ -70,6 +70,7 @@ public class AnsattVindu extends JFrame
         KnappeLytter knappeLytter = new KnappeLytter();
         mainContainer = getContentPane();
         fanekort =  new JTabbedPane();
+        fanekort.setPreferredSize( new Dimension(500,500));
         hovedPanelBunn =  new JPanel();
         hovedPanel = new JPanel();
         hovedPanelTop = new JPanel();
@@ -109,6 +110,7 @@ public class AnsattVindu extends JFrame
         this.setMenuBar( new MenyLinje(this));
         visTabellPanel(tabellModell);
         visLogin();
+        pack();
     }
     
     public GregorianCalendar getKalender()
@@ -203,9 +205,10 @@ public class AnsattVindu extends JFrame
             oppdaterTabell(nyListe);
             tomSøkefelter();
         }
-        else if( søkeord.matches("\\d{6}"))
+        else if( søkeord.matches("\\d{7"))
         {
-            
+            int forsikringsnummer = Integer.parseInt(søkeord);
+            Forsikring forsikring = register.getForsikringrsliste().getForsikring(forsikringsnummer);
         }
         else if( etternavn.matches("\\D+") && fornavn.matches("\\D+"))
         {

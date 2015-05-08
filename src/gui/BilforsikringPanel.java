@@ -69,6 +69,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     String[] egenandel = {"", "4000", "8000", "12000", "16000", "20000", 
                             "30000"};
     JComboBox<String> egenandelsvelger;
+    
     String[] bonus = {"", "-50%", "-40%", "-30%", "-20%", "-10%", "0%", "10%", 
                      "20%", "30%", "40%", "50%", "60%", "70%", "70% 2 år",
                      "70% 3 år", "70% 4 år", "70% 5 år", "75%", "75% 2 år",
@@ -95,6 +96,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private int belop;
     private String forer;
     JButton rediger = new JButton("Rediger forsikringinfo");
+    
+    JPanel tegnBilPanel1 = new JPanel();
     
     public BilforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -174,7 +177,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         JPanel alarmPanel = new JPanel();
         JPanel espPanel = new JPanel();
         JPanel gjenkjenningPanel = new JPanel();
-        JPanel tegnBilPanel1 = new JPanel();
         JPanel tegnBilPanel2 = new JPanel();
         JPanel hovedPanel = new JPanel();
         tegnBilPanel1.setLayout(new GridLayout(11,2,1,1));
@@ -298,8 +300,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         rediger.addActionListener(this);
         knappePanel.add(rediger);
         add(knappePanel);
-        revalidate();
-        repaint();
+
         
         for(Component component : getKomponenter(this))
                 {
@@ -374,8 +375,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     return false;
             }
             else
-            {
-                
+            {   
                 switch (bonus_n)
                 {
                     case 1:

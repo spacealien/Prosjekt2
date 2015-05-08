@@ -273,7 +273,7 @@ public class HovedRegister
         return nyForsikring;
     }
     
-    public void nySkademelding( Forsikring forsikring, Date dato, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )
+    public Skademelding nySkademelding( Forsikring forsikring, Date dato, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )
     {
         Skademelding nySkademedling = new Skademelding( forsikring, dato, skadetype, beskrivelse, takseringsbelop, erstatingsbelop );
         skademeldingsregister.leggTil( forsikring, nySkademedling );
@@ -282,6 +282,7 @@ public class HovedRegister
             Bilforsikring bilforsikring = (Bilforsikring)forsikring;
             bilforsikring.korrigerBonusVedSkade();
         }
+        return nySkademedling;
     }
     
     public Ansatt login( String brukernavn, String passord )

@@ -23,8 +23,6 @@ package gui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -79,7 +77,7 @@ public class LoginVindu extends JFrame
     
     private void login()
     {
-        Ansatt ansatt = vindu.getRegister().login( loginFelt.getText(), passordFelt.getText());
+        Ansatt ansatt = vindu.getRegister().login( loginFelt.getText(), String.valueOf(passordFelt.getPassword()));
         if( ansatt != null)
         {
             vindu.setVisible(true);
