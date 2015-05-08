@@ -13,11 +13,11 @@ public abstract class Kjoretoyforsikring extends Forsikring
 {
     private Eier eier;
     private String registreringsnmmer;
-    private final String fabrikant;
-    private final String modell;
-    private final String type;
+    private String fabrikant;
+    private String modell;
+    private String type;
     private int hestekrefter;
-    private final int arsmodell;
+    private int arsmodell;
     private int belop;
         
     public Kjoretoyforsikring( Kunde k, int e_andel, String registreringsnummer, int belop, String fabrikant, 
@@ -79,10 +79,30 @@ public abstract class Kjoretoyforsikring extends Forsikring
     {
         this.registreringsnmmer = registreringsnmmer;
     }
+    public void setArsmodell(int a)
+    {
+        arsmodell = a;
+    }
     
     public void setHestekrefter( int hestekrefter )
     {
         this.hestekrefter = hestekrefter;
+    }
+    public void setFabrikant(String f)
+    {
+        fabrikant = f;
+    }
+    public void setType(String t)
+    {
+        type = t;
+    }
+    public void setModell(String m)
+    {
+        modell = m;
+    }
+    public void setBelop(int b)
+    {
+        belop = b;
     }
 
     @Override

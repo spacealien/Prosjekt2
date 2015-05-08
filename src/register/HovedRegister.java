@@ -42,14 +42,14 @@ public class HovedRegister
         Kunde kunde_2 = kunderegister.finnKundeEtterPersonnummer("01258446816");
         Kunde kunde_3 = kunderegister.finnKundeEtterPersonnummer("02029449964");
         
-        Forsikring forsikring_1 = new Bilforsikring( kunde_1, 2000, "DH12345", 1600000, 
+        Forsikring forsikring_1 = new Bilforsikring( kunde_1, 4000, "DH12345", 1600000, 
                                                     "Volvo", "XC90", "SUV", 340, 
                                                     2014, 30000, "Bilfører < 23 år", 0.50, 1, 
                                                     false, false, false, false, 10000 );
         Forsikring forsikring_2 = new BatForsikring( kunde_1, 20000, "DK54321", 600000, 
                                                     "Tresfjord", "Ultra 360 FB", 
                                                     "Cabin cruiser", 120, 2014, false, 30 );
-        Forsikring forsikring_3 = new Bilforsikring( kunde_2, 2000, "CD67890", 270000, 
+        Forsikring forsikring_3 = new Bilforsikring( kunde_2, 4000, "CD67890", 270000, 
                                                     "Volvo", "Sonett", "Småbil", 
                                                     800, 1968, 300000, "Bilfører < 23 år", 0.10, 1, 
                                                     true, true, true, false, 50000 );

@@ -62,7 +62,7 @@ public class KundePanel extends JPanel implements ActionListener
     private final JButton rediger = new JButton("Rediger informasjon");
     private Kunde kunde = null;
     private final String[] forsikringsvalg = {"", "Bilforsikring", "Båtforsikring", "Husforsikring", "Fritidsboligforsikring", "Reiseforsikring"};
-    private final JComboBox<String> forsikringsDropDown = new JComboBox<>(forsikringsvalg);
+    private final JComboBox<String> forsikringsDropDown;
     
     
     
@@ -88,6 +88,7 @@ public class KundePanel extends JPanel implements ActionListener
         regEpost = new JTextField(20);
         regKunde = new JButton("Registrer kunde" );
         kontaktKunde = new JButton("Kontakt");
+        forsikringsDropDown = new JComboBox<>(forsikringsvalg);
         kundeInfo_1.setLayout(new GridLayout(6,2,5,10));
         kundeInfo_1.add(new JLabel("Fornavn: "));
         kundeInfo_1.add(regFornavn);
@@ -145,10 +146,10 @@ public class KundePanel extends JPanel implements ActionListener
         JPanel bunnWrapper = new JPanel();
         tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde), this);
         tabell = new KundeDataTabell(tabellModell,this);
-        tabell.setPreferredScrollableViewportSize(new Dimension(500,180));
+        tabell.setPreferredScrollableViewportSize(new Dimension(500,50));
         JScrollPane scrollTabell = new JScrollPane(tabell);
         bunnWrapper.setLayout( new BorderLayout() );
-        bunnWrapper.add( tabell.getTableHeader(), BorderLayout.NORTH);
+        bunnWrapper.add( tabell.getTableHeader(), BorderLayout.PAGE_START);
         bunnWrapper.add( scrollTabell, BorderLayout.CENTER);
         bunnWrapper.add( forsikringsVelger, BorderLayout.PAGE_END);
 

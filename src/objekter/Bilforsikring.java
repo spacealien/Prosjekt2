@@ -14,7 +14,8 @@ import java.util.GregorianCalendar;
  */
 public class Bilforsikring extends Kjoretoyforsikring
 {
-    private double bonus;
+    private double bonusen;
+    private String bonustekst;
     private boolean garasje;
     private boolean alarmen;
     private boolean esp;
@@ -26,7 +27,6 @@ public class Bilforsikring extends Kjoretoyforsikring
     //---test for på beregnPris
     private int belopet;
     private int ar;
-    private double bonusen;
     private int hk;
     private int kmlengde;
     private int egenAndel;
@@ -39,7 +39,7 @@ public class Bilforsikring extends Kjoretoyforsikring
                            int antAr, boolean garasje, boolean alarm, boolean esp, boolean gjenkjenning, int km )
     {
         super( k, e_andel, registreringsnummer, belop, fabrikant, modell, type, hestekrefter, arsmodell);
-        this.bonus = bonus;
+        //this.bonustekst = bonustekst;
         antallAr = antAr;
         this.garasje = garasje;
         alarmen = alarm;
@@ -59,16 +59,25 @@ public class Bilforsikring extends Kjoretoyforsikring
         egenAndel = e_andel;
     }
     
+    public String getBonusTekst()
+    {
+        return bonustekst;
+    }
+    public void setBonusTekst(String bt)
+    {
+        bonustekst = bt;
+    }
+    
     public void korrigerBonusVedSkade()
     {
         GregorianCalendar dato = new GregorianCalendar();
-        if (bonus < 0.75)
+        if (bonusen < 0.75)
         {
-            bonus -= 0.30;
+            bonusen -= 0.30;
             antallAr = 1;
         }
         
-        else if (bonus == 0.75)
+        else if (bonusen == 0.75)
         {
             switch (antallAr)
             {
@@ -77,7 +86,7 @@ public class Bilforsikring extends Kjoretoyforsikring
                 case 3:
                 case 4:
                 case 5:
-                    bonus -=0.15;
+                    bonusen -=0.15;
                     antallAr = 1;
                     break;
                 case 6:
@@ -90,12 +99,12 @@ public class Bilforsikring extends Kjoretoyforsikring
     
     public void korrigerArligBonus()
     {
-        if (bonus < 0.70)
+        if (bonusen < 0.70)
         {
-            bonus += 0.10;
+            bonusen += 0.10;
             antallAr = 1;
         }
-        else if (bonus == 0.70)
+        else if (bonusen == 0.70)
         {
             switch (antallAr)
             {
@@ -107,12 +116,12 @@ public class Bilforsikring extends Kjoretoyforsikring
                     antallAr++;
                     break;
                 case 6:
-                    bonus +=0.05;
+                    bonusen +=0.05;
                     antallAr = 1;
                     break;
             }
         }
-        else if (bonus == 0.75)
+        else if (bonusen == 0.75)
         {
             switch (antallAr)
             {
@@ -137,8 +146,13 @@ public class Bilforsikring extends Kjoretoyforsikring
     {
         kmst = kms;
     }
-    public int getMaxKjorelengde() {
+    public int getMaxKjorelengde()
+    {
         return maxKjorelengd;
+    }
+    public void setMaxKjorelengde(int mkl)
+    {
+        maxKjorelengd = mkl;
     }
 
     public boolean getAlarm()
@@ -173,16 +187,102 @@ public class Bilforsikring extends Kjoretoyforsikring
     public String getForerAlder() {
         return foreralder;
     }
+    public void setForerAlder(String f)
+    {
+        foreralder = f;
+    }
+    
     
     public void setBonus( double b )
     {
-        bonus = b;
+        bonusen = b;
+        /*switch (b)
+                {
+                    case "-50%":
+                        bonusen = -0.50;
+                        break;
+                    case "-40%":
+                        bonusen = -0.40;
+                        break;   
+                    case "-30%":
+                        bonusen = -0.30;
+                        break;
+                    case "-20%":
+                        bonusen = -0.20;
+                        break;
+                    case "-10%":
+                        bonusen = -0.10;
+                        break;
+                    case "0%":
+                        bonusen = 0.00;
+                        break;   
+                    case "10%":
+                        bonusen = 0.10;
+                        break;
+                    case "20%":
+                        bonusen = 0.20;
+                        break;
+                    case "30%":
+                        bonusen = 0.30;
+                        break;   
+                    case "40%":
+                        bonusen = 0.40;
+                        break;
+                    case "50%":
+                        bonusen = 0.50;
+                        break;
+                    case "60%":
+                        bonusen = 0.60;
+                        break;
+                    case "70%": 
+                        bonusen = 0.70;
+                        break;
+                    case "70% 2 år":
+                        bonusen = 0.70;
+                        antallAr = 2;
+                        break;
+                    case "70% 3 år":  
+                        bonusen = 0.70;
+                        antallAr = 3;
+                        break; 
+                    case "70% 4 år":
+                        bonusen = 0.70;
+                        antallAr = 4;
+                        break;
+                    case "70% 5 år":
+                        bonusen = 0.70;
+                        antallAr = 5;
+                        break;
+                    case "75%":
+                        bonusen = 0.75;
+                        break; 
+                    case "75% 2 år":
+                        bonusen = 0.75;
+                        antallAr = 2;
+                        break; 
+                    case "75% 3 år":
+                        bonusen = 0.75;
+                        antallAr = 3;
+                        break; 
+                    case "75% 4 år":
+                        bonusen = 0.75;
+                        antallAr = 4;
+                        break; 
+                    case "75% 5 år":  
+                        bonusen = 0.75;
+                        antallAr = 5;
+                        break;  
+                    case "75% >5 år":
+                        bonusen = 0.75;
+                        antallAr = 6;
+                    break;
+            }*/
         //beregnPris(kunde); For å oppdatere prisen
     }
     
     public double getBonus()
     {
-        return bonus;
+        return bonusen;
     }
     
     public void setAntallAr(int a)
@@ -268,7 +368,7 @@ public class Bilforsikring extends Kjoretoyforsikring
             g = "Nei";
         
         String ut = super.toString();
-        ut += "\nMax kjørelengde: " + maxKjorelengd + "\nBonus: " + bonus + "\nGarasje: " + g;
+        ut += "\nMax kjørelengde: " + maxKjorelengd + "\nBonus: " + bonusen + "\nGarasje: " + g;
         return ut;
     }
 }
