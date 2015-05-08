@@ -180,7 +180,7 @@ public class Bilforsikring extends Kjoretoyforsikring
     {
         gjenkjenningen = g;
     }
-    public boolean isGarasjen() {
+    public boolean getGarasje() {
         return garasjen;
     }
 

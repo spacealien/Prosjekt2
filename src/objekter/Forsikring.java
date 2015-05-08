@@ -49,7 +49,7 @@ public abstract class Forsikring
         kunde = k;
     }
     
-    public String getType()
+    public String getForsikringsType()
     {
         if( this instanceof Bilforsikring)
             return "Bilforsikring";

@@ -32,7 +32,7 @@ public class TabellModellForsikring extends AbstractTableModel
         for( Forsikring forsikring : forsikringer )
         {
             innhold[teller][0] = forsikring.getForsikringsnummer();
-            innhold[teller][1] = forsikring.getType();
+            innhold[teller][1] = forsikring.getForsikringsType();
             innhold[teller][2] = forsikring.erAktiv();
             innhold[teller][3] = sdf.format(forsikring.getStartdato());
             teller++;

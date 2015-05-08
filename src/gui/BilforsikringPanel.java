@@ -294,6 +294,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     public void visForsikring( Forsikring f)
     {
         this.bilforsikring = (Bilforsikring) f;
+        System.out.println(bilforsikring.getMaxKjorelengde());
         bilRegnr.setText(bilforsikring.getRegistreringsnmmer());
         bilRegAr.setText(String.valueOf(bilforsikring.getArsmodell()));
         bilVerdi.setText("ikke ferdig?");
@@ -301,6 +302,32 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         bilHk.setText(String.valueOf(bilforsikring.getHestekrefter()));
         bilKmstand.setText(String.valueOf(bilforsikring.getKmstand()));
         egenandelsvelger.setSelectedItem(String.valueOf(bilforsikring.getEgenandel()));
+        kjorelengdevelger.setSelectedItem(String.valueOf(bilforsikring.getMaxKjorelengde()));
+        biltypevelger.setSelectedItem(bilforsikring.getType());
+        aldervelger.setSelectedItem(bilforsikring.getForerAlder());
+        //dekningvelger.setSelectedItem(bilforsikring.getDekning());
+        //bilTilbud.setText(bilforsikring.getArligPremie());
+        if(bilforsikring.getGarasje())
+            garasjeJa.setSelected(true);
+        else
+            garasjeNei.setSelected(true);
+        
+        if(bilforsikring.getAlarm())
+            alarmJa.setSelected(true);
+        else
+            alarmNei.setSelected(true);
+        
+        if(bilforsikring.getESP())
+            espJa.setSelected(true);
+        else
+            espNei.setSelected(true);
+        
+        if(bilforsikring.getGjenkjenning())
+            gjenkjenningJa.setSelected(true);
+        else
+            gjenkjenningNei.setSelected(true);
+        
+        
         double d = bilforsikring.getBonus();
         int j = (int)(d*100);
         int a = bilforsikring.getAntallAr();
@@ -330,14 +357,15 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                 
                 
             }
-            else
-            {
-                System.out.println("Feil");
-            }
+            
         }
         //bilTilbud.setText();
+        knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
         knappePanel.add(rediger);
         add(knappePanel);
+        tilbudLabel.setText("Årlig premie: ");
+        tilbudLabel.setVisible(true);
+        bilTilbud.setVisible(true);
         revalidate();
         repaint();
         
@@ -603,7 +631,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         }
         else if( e.getSource() == rediger)
         {
-            System.out.println("FUNKER");
             for(Component component : getKomponenter(this))
                 {
                     if((component instanceof JTextField))
@@ -612,6 +639,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                         tf.setEditable(true);
                     }
                     knappePanel.add(lagreNyInfo);
+                    tilbudLabel.setText("Foreslått tilbud: ");
+                    beregnPris.setText("Beregn ny pris");
                     revalidate();
                     repaint();
                     

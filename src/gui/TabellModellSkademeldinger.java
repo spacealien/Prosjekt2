@@ -35,7 +35,7 @@ public class TabellModellSkademeldinger extends AbstractTableModel implements Ac
         for(Skademelding skademelding : skademeldinger)
         {
             innhold[teller][0] = skademelding.getSkadenummer();
-            innhold[teller][1] = skademelding.getForsikring().getType();
+            innhold[teller][1] = skademelding.getForsikring().getForsikringsType();
             innhold[teller][2] = skademelding.getSkadeDato();
             innhold[teller][3] = skademelding.getOpprettetDato();
             innhold[teller][4] = skademelding.getTakseringsbelop();

@@ -54,6 +54,11 @@ public abstract class Kjoretoyforsikring extends Forsikring
     {
         return modell;
     }
+    
+    public String getType()
+    {
+        return type;
+    }
 
     public int getHestekrefter() 
     {
