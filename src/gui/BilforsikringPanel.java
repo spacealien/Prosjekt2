@@ -73,8 +73,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                      "20%", "30%", "40%", "50%", "60%", "70%", "70% 2 år",
                      "70% 3 år", "70% 4 år", "70% 5 år", "75%", "75% 2 år",
                      "75% 3 år", "75% 4 år", "75% 5 år", "75% >5 år"};
-    
-    
     JComboBox<String> bonusvelger;
     private final Kunde kunde;
     
@@ -86,7 +84,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private String typevalget;
     private String merkevalget;
     private int lengdevalget;
-    private String bonusTekst;
+    private String b;
     private double bonusen;
     private int egenandelvalget;
     private boolean garasje;
@@ -96,9 +94,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private int antAr = 1;
     private int belop;
     private String forer;
-    private final JButton rediger = new JButton("Rediger forsikringinfo");
-    private final JButton lagreNyInfo = new JButton("Lagre forsikring");
-    JPanel knappePanel = new JPanel();
+    JButton rediger = new JButton("Rediger forsikringinfo");
     
     public BilforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -237,8 +233,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         hovedPanel.add(tegnBilPanel1);
         hovedPanel.add(new JSeparator(SwingConstants.VERTICAL));
         hovedPanel.add(tegnBilPanel2);
-        setLayout(new BoxLayout(this,BoxLayout.LINE_AXIS));
-        hovedPanel.add(new JSeparator(SwingConstants.VERTICAL));
+        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
         add(hovedPanel);
         
         annenEier.addActionListener(new ActionListener()
@@ -264,8 +259,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         
         bilGiTilbud.addActionListener(this);
         beregnPris.addActionListener(this);
-        rediger.addActionListener(this);
-        lagreNyInfo.addActionListener(this);
         
     } // slutt på konstuktør
     
@@ -300,46 +293,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         bilModell.setText(bilforsikring.getModell());
         bilHk.setText(String.valueOf(bilforsikring.getHestekrefter()));
         bilKmstand.setText(String.valueOf(bilforsikring.getKmstand()));
-        egenandelsvelger.setSelectedItem(String.valueOf(bilforsikring.getEgenandel()));
-        double d = bilforsikring.getBonus();
-        int j = (int)(d*100);
-        int a = bilforsikring.getAntallAr();
-        for (int i = 1; i< bonus.length; i++)
-        {
-            if (bonus[i].matches(".+" + j + ".*"))
-            {
-                if(j>0)
-                {
-                    if (j == 70)
-                    {
-                        if (bonus[i].matches(".+" + a + " år" + ".*"))
-                        {
-                            bonusvelger.setSelectedItem(bonusvelger.getItemAt(i));
-                        }
-                    }
-                    else if(j == 75)
-                    {
-                        if (bonus[i].matches(".+" + a + " år" + ".*"))
-                        {
-                            bonusvelger.setSelectedItem(bonusvelger.getItemAt(i));
-                        } 
-                    }
-                    else
-                    {
-                        bonusvelger.setSelectedItem(bonusvelger.getItemAt(i)); 
-                    }
-                }
-                else
-                {
-                    bonusvelger.setSelectedItem(bonusvelger.getItemAt(i));
-                }
-            }
-            else
-            {
-                System.out.println("Feil");
-            }
-        }
         //bilTilbud.setText();
+        JPanel knappePanel = new JPanel();
+        rediger.addActionListener(this);
         knappePanel.add(rediger);
         add(knappePanel);
         revalidate();
@@ -546,7 +502,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                 belop = Integer.parseInt(bilVerdi.getText());
                 typevalget = biltypevelger.getItemAt(type_n);
                 merkevalget = bilmerkevelger.getItemAt(merke_n);
-                bonusTekst = bonusvelger.getItemAt(bonus_n);
+                b = bonusvelger.getItemAt(bonus_n);
                 egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
                 regnr = bilRegnr.getText();
                 modell = bilModell.getText();
@@ -607,44 +563,11 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         }
         else if( e.getSource() == rediger)
         {
-            System.out.println("FUNKER");
-            for(Component component : getKomponenter(this))
+            /*for(Component component : getKomponenter(this))
                 {
-                    if((component instanceof JTextField))
-                    {
-                        JTextField tf = (JTextField)component;
-                        tf.setEditable(true);
-                    }
-                    knappePanel.add(lagreNyInfo);
-                    revalidate();
-                    repaint();
-                    
-                }
-        }
-        else if(e.getSource() == lagreNyInfo)
-        {
-            if(hentInfo())
-            { //17 felter
-                bilforsikring.setAntallAr(antAr);
-                bilforsikring.setGjenkjenning(gjenkjenning_b);
-                bilforsikring.setESP(esp_b);
-                bilforsikring.setGarasje(garasje);
-                bilforsikring.setKmstand(kmstand);
-                bilforsikring.setForerAlder(forer);
-                bilforsikring.setEier(eier);
-                bilforsikring.setHestekrefter(hk);
-                bilforsikring.setRegistreringsnummer(regnr);
-                bilforsikring.setEgenandel(egenandelvalget);
-                bilforsikring.setAlarm(alarm_b);
-                bilforsikring.setFabrikant(merkevalget);
-                bilforsikring.setType(typevalget);
-                bilforsikring.setModell(modell);
-                bilforsikring.setBelop(belop);
-                bilforsikring.setMaxKjorelengde(lengdevalget);
-                bilforsikring.setBonus(bonusen);
-                bilforsikring.setArsmodell(ar);
-                
-            }
+                    if(!(component instanceof JButton))
+                    component.setEnabled(false);
+                }*/
         }
         
     }
