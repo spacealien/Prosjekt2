@@ -310,18 +310,26 @@ public class KundePanel extends JPanel implements ActionListener
         else if( e.getSource() == nyForsikring)
         {
             String valg = (String) forsikringsDropDown.getSelectedItem();
-            if( valg.equals(""))
-                vindu.visFeilmelding("Melding", "Du må velge en type forsikring for å gå videre. ");
-            else if( valg.equals("Bilforsikring") )
-                vindu.leggTilNyFane( new BilforsikringPanel(kunde, vindu), "Ny Bilforsikring");
-            else if( valg.equals("Båtforsikring"))
-                vindu.leggTilNyFane( new BatforsikringPanel(kunde, vindu), "Ny Båtforsikring");
-            else if( valg.equals("Husforsikring"))
-                vindu.leggTilNyFane( new HusforsikringPanel(kunde, vindu), "Ny Husforsikring");
-            else if( valg.equals("Fritidsboligforsikring"))
-                vindu.leggTilNyFane( new FritidsboligforsikringPanel(kunde, vindu), "Ny Fritidsboligforsikring");
-            else if( valg.equals("Reiseforsikring"))
-                vindu.leggTilNyFane( new ReiseforsikringPanel(kunde, vindu), "Ny Reiseforsikring");   
+            switch (valg) {
+                case "":
+                    vindu.visFeilmelding("Melding", "Du må velge en type forsikring for å gå videre. ");
+                    break;
+                case "Bilforsikring":
+                    vindu.leggTilNyFane( new BilforsikringPanel(kunde, vindu), "Ny Bilforsikring");
+                    break;
+                case "Båtforsikring":
+                    vindu.leggTilNyFane( new BatforsikringPanel(kunde, vindu), "Ny Båtforsikring");
+                    break;
+                case "Husforsikring":
+                    vindu.leggTilNyFane( new HusforsikringPanel(kunde, vindu), "Ny Husforsikring");   
+                    break;
+                case "Fritidsboligforsikring":
+                    vindu.leggTilNyFane( new FritidsboligforsikringPanel(kunde, vindu), "Ny Fritidsboligforsikring");
+                    break;
+                case "Reiseforsikring":
+                    vindu.leggTilNyFane( new ReiseforsikringPanel(kunde, vindu), "Ny Reiseforsikring");
+                    break;
+            }
         }
     }
 }
