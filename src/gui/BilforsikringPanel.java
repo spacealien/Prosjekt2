@@ -306,10 +306,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         int a = bilforsikring.getAntallAr();
         for (int i = 1; i< bonus.length; i++)
         {
-            if (bonus[i].matches(".+" + j + ".*"))
+            if (bonus[i].matches(j + ".*"))
             {
-                if(j>0)
-                {
+                
                     if (j == 70)
                     {
                         if (bonus[i].matches(".+" + a + " år" + ".*"))
@@ -328,11 +327,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     {
                         bonusvelger.setSelectedItem(bonusvelger.getItemAt(i)); 
                     }
-                }
-                else
-                {
-                    bonusvelger.setSelectedItem(bonusvelger.getItemAt(i));
-                }
+                
+                
             }
             else
             {
