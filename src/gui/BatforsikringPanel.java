@@ -145,6 +145,8 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         batGiTilbud.addActionListener(this);
         annenEier.addActionListener(this);
         beregnPris.addActionListener(this);
+        rediger.addActionListener(this);
+        lagreNy.addActionListener(this);
     }
     private Component[] getKomponenter(Component pane)
      {

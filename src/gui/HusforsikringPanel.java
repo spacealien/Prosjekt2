@@ -129,6 +129,8 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         
         husGiTilbud.addActionListener(this);
         beregnPris.addActionListener(this);
+        rediger.addActionListener(this);
+        lagreNyInfo.addActionListener(this);
     }
     private Component[] getKomponenter(Component pane)
      {

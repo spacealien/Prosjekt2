@@ -7,13 +7,15 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.*;
 import objekter.*;
 import register.*;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Thomas, Marthe //MARTHE! FIKS ALARM i hentInfo()
  */
 public class FritidsboligforsikringPanel extends JPanel implements ActionListener
 {
@@ -28,10 +30,13 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
     private final JTextField fritidTilbud;
     private final JTextField fritidKvm;
     private final JTextField fritidAr;
+    private JLabel tilbudLabel;
     private final JButton fritidGiTilbud;
     private final JButton beregnPris;
     private final JRadioButton utleidJa;
     private final JRadioButton utleidNei;
+    private final JRadioButton alarmJa;
+    private final JRadioButton alarmNei;
     JComboBox<String> fritidtypevelger;
     private final String[] fritidtype = {"","Hus/Hytte", "Rekkehus", "Leilighet"};
     JComboBox<String> fritidmaterialevelger;
@@ -54,6 +59,9 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
     private int belopInnbo;
     
     private final Kunde kunde;
+    private JPanel knappePanel = new JPanel();
+    private JButton rediger = new JButton("Rediger forsikring");
+    private JButton lagreNyInfo = new JButton("Lagre forsikring");
     
     public FritidsboligforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -66,14 +74,18 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         belopFritid = new JTextField( 7 );
         belopFritidInnbo = new JTextField( 7 );
         fritidTilbud = new JTextField( 7 );
+        tilbudLabel = new JLabel("Foreslått tilbud: ");
         fritidtypevelger = new JComboBox<>(fritidtype);
         fritidmaterialevelger = new JComboBox<>(fritidmateriale);
         fritidstandardvelger = new JComboBox<>(fritidstandard);
         egenandelsvelger = new JComboBox<>(egenandel);
+        alarmJa = new JRadioButton("Ja");
+        alarmNei = new JRadioButton("Nei");
+        ButtonGroup alarm = new ButtonGroup();
+        alarm.add(alarmJa);
+        alarm.add(alarmNei);
         utleidJa = new JRadioButton("Ja");
-        utleidJa.setMnemonic(KeyEvent.VK_J);
         utleidNei = new JRadioButton("Nei");
-        utleidNei.setMnemonic(KeyEvent.VK_N);
         ButtonGroup utleid = new ButtonGroup();
         utleid.add(utleidJa);
         utleid.add(utleidNei);
@@ -82,9 +94,12 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         
         JPanel tegnFritidPanel1 = new JPanel();
         JPanel utleie = new JPanel();
+        JPanel alarmPanel = new JPanel();
         tegnFritidPanel1.setLayout(new GridLayout(7,4,1,5));
         utleie.add(utleidJa);
         utleie.add(utleidNei);
+        alarmPanel.add(alarmJa);
+        alarmPanel.add(alarmNei);
         tegnFritidPanel1.add(new JLabel("Adresse: "));
         tegnFritidPanel1.add(fritidAdresse);
         tegnFritidPanel1.add(new JLabel("Byggeår: "));
@@ -106,13 +121,38 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         tegnFritidPanel1.add(new JLabel("Forsikringsbeløp innbo: "));
         tegnFritidPanel1.add(belopFritidInnbo);
         tegnFritidPanel1.add(beregnPris);
-        tegnFritidPanel1.add(new JLabel("Foreslått tilbud: "));
+        tegnFritidPanel1.add(tilbudLabel);
         tegnFritidPanel1.add(fritidTilbud);
         tegnFritidPanel1.add(fritidGiTilbud);
         add(tegnFritidPanel1);
         
         fritidGiTilbud.addActionListener(this);
         beregnPris.addActionListener(this);
+        rediger.addActionListener(this);
+        lagreNyInfo.addActionListener(this);
+    }
+    
+    private Component[] getKomponenter(Component pane)
+     {
+        ArrayList<Component> liste = null;
+
+        try
+        {
+            liste = new ArrayList<Component>(Arrays.asList(
+                  ((Container) pane).getComponents()));
+            for (int i = 0; i < liste.size(); i++)
+            {
+            for (Component currentComponent : getKomponenter(liste.get(i)))
+            {
+                liste.add(currentComponent);
+            }
+            }
+        } catch (ClassCastException e) {
+            liste = new ArrayList<Component>();
+        }
+
+        return liste.toArray(new Component[liste.size()]);
+        
     }
     
     // ikke fjern, ikke ferdig
@@ -122,8 +162,43 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         fritidAdresse.setText(forsikring.getAdresse());
         fritidAr.setText(String.valueOf(forsikring.getByggeAr()));
         fritidKvm.setText(String.valueOf(forsikring.getKvadratmeter()));
+        fritidmaterialevelger.setSelectedItem(forsikring.getMateriale());
+        fritidtypevelger.setSelectedItem(forsikring.getBoligtype());
+        fritidstandardvelger.setSelectedItem(forsikring.getStandard());
+        egenandelsvelger.setSelectedItem(String.valueOf(forsikring.getEgenandel()));
         belopFritid.setText(String.valueOf(forsikring.getForsikringsbelopBygning()));
         belopFritidInnbo.setText(String.valueOf(forsikring.getForsikringsbelopInnbo()));
+        if (forsikring.getAlarm())
+            alarmJa.setSelected(true);
+        else
+            alarmNei.setSelected(true);
+        
+        if (forsikring.getUtleie())
+            utleidJa.setSelected(true);
+        else
+            utleidNei.setSelected(true);
+        
+        knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
+        knappePanel.add(rediger);
+        add(knappePanel);
+        tilbudLabel.setText("Årlig premie: ");
+        tilbudLabel.setVisible(true);
+        fritidTilbud.setVisible(true);
+        revalidate();
+        repaint();
+        
+        for(Component component : getKomponenter(this))
+                {
+                    if((component instanceof JTextField))
+                    {
+                        JTextField tf = (JTextField)component;
+                        tf.setEditable(false);
+                    }
+                    else if (component.equals(fritidGiTilbud))
+                            {
+                                component.setVisible(false);
+                            }
+                }
     }
     
     public void beregnPris()
@@ -142,7 +217,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
             int materiale_n = fritidmaterialevelger.getSelectedIndex();
             int standard_n = fritidstandardvelger.getSelectedIndex();
             int egenandel_n = egenandelsvelger.getSelectedIndex();
-            if (type_n == 0 || materiale_n == 0 || standard_n == 0 || egenandel_n == 0 || (!utleidJa.isSelected() && !utleidNei.isSelected()))
+            if (type_n == 0 || materiale_n == 0 || standard_n == 0 || egenandel_n == 0 || (!alarmJa.isSelected() && !alarmNei.isSelected()) || (!utleidJa.isSelected() && !utleidNei.isSelected()))
             {
                 String ut = "Det mangler informasjon om:\n";
                     if (type_n == 0)
@@ -153,6 +228,8 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
                     {ut += "Standard\n";}
                     if (egenandel_n == 0)
                     {ut += "Egenandel\n";}
+                    if (!alarmJa.isSelected() && !alarmNei.isSelected())
+                    {ut += "Alarmvalg\n";}
                     if (!utleidJa.isSelected() && !utleidNei.isSelected())
                     {ut += "Utleievalg\n";}
                     
@@ -167,6 +244,11 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
                     utleid_b = true;
                 else if (!utleidJa.isSelected() && utleidNei.isSelected())
                     utleid_b = false;
+                
+                if (alarmJa.isSelected() && !alarmNei.isSelected())
+                    alarm_b = true;
+                else if (!alarmJa.isSelected() && alarmNei.isSelected())
+                    alarm_b = false;
                 
                 egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
                 typevalget = fritidtypevelger.getItemAt(type_n); 
@@ -218,6 +300,39 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         else if (e.getSource() == beregnPris)
         {
             beregnPris();
+        }
+        else if(e.getSource() == rediger)
+        {
+            for(Component component : getKomponenter(this))
+                {
+                    if((component instanceof JTextField))
+                    {
+                        JTextField tf = (JTextField)component;
+                        tf.setEditable(true);
+                    }
+                }
+            knappePanel.add(lagreNyInfo);
+            tilbudLabel.setText("Foreslått tilbud: ");
+            beregnPris.setText("Beregn ny pris");
+            revalidate();
+            repaint();
+        }
+        else if (e.getSource() == lagreNyInfo)
+        {
+            forsikring.setAdresse(adr);
+            forsikring.setAlarm(alarm_b);
+            forsikring.setUtleie(utleid_b);
+            forsikring.setMateriale(materialevalget);
+            forsikring.setKvadratmeter(kvm);
+            forsikring.setBoligtype(typevalget);
+            forsikring.setStandard(standardvalget);
+            forsikring.setForsikringsbelopBygning(belop);
+            forsikring.setForsikringsbelopInnbo(belopInnbo);
+            forsikring.setEgenandel(egenandelvalget);
+            forsikring.setByggeAr(ar);
+            
+            //Må beregne pris på nytt!
+            
         }
     }
 }

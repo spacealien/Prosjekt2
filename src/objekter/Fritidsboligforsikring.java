@@ -20,6 +20,17 @@ public class Fritidsboligforsikring extends Eiendomsforsikring
     super( k, e_andel, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, alarmen);
     utleie = utl;
     }
+
+    public boolean getUtleie()
+    {
+        return utleie;
+    }
+
+    public void setUtleie(boolean u)
+    {
+        utleie = u;
+    }
+
     
     @Override
     public void beregnPris()
