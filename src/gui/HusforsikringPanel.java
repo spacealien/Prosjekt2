@@ -164,7 +164,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         hustypevelger.setSelectedItem(forsikring.getBoligtype());
         husmaterialevelger.setSelectedItem(forsikring.getMateriale());
         husstandardvelger.setSelectedItem(forsikring.getStandard());
-        egenandelsvelger.setSelectedItem(forsikring.getEgenandel());
+        egenandelsvelger.setSelectedItem(String.valueOf(forsikring.getEgenandel()));
         belopHus.setText(String.valueOf(forsikring.getForsikringsbelopBygning()));
         belopHusInnbo.setText(String.valueOf(forsikring.getForsikringsbelopInnbo()));
         if (forsikring.getAlarm())
