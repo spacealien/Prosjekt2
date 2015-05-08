@@ -13,15 +13,7 @@ import java.io.ObjectOutputStream;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import objekter.Ansatt;
-import objekter.BatForsikring;
-import objekter.Bilforsikring;
-import objekter.Forsikring;
-import objekter.Fritidsboligforsikring;
-import objekter.Husforsikring;
-import objekter.Kunde;
-import objekter.Reiseforsikring;
-import objekter.Skademelding;
+import objekter.*;
 
 /**
  *
@@ -42,10 +34,14 @@ public class HovedRegister
         Kunde kunde_2 = kunderegister.finnKundeEtterPersonnummer("01258446816");
         Kunde kunde_3 = kunderegister.finnKundeEtterPersonnummer("02029449964");
         
+        
         Forsikring forsikring_1 = new Bilforsikring( kunde_1, 4000, "DH12345", 1600000, 
                                                     "Volvo", "XC90", "SUV", 340, 
                                                     2014, 30000, "Bilfører < 23 år", 0.50, 1, 
                                                     false, false, false, false, 12000 );
+        Eier eier = new Eier("Hans", "Hansen", "Heiveien 3", "97612312");
+        Kjoretoyforsikring forsikring1 = (Kjoretoyforsikring)forsikring_1;
+        forsikring1.setEier(eier);
         Forsikring forsikring_2 = new BatForsikring( kunde_1, 20000, "DK54321", 600000, 
                                                     "Tresfjord", "Ultra 360 FB", 
                                                     "Cabin cruiser", 120, 2014, false, 30 );

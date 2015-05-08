@@ -35,8 +35,13 @@ public abstract class Kjoretoyforsikring extends Forsikring
 
     
 
-    public Eier getEier() 
+    public Person getEier() 
     {
+        if (eier == null)
+        {
+            return super.getKunde();
+        }
+        else
         return eier;
     }
 

@@ -23,7 +23,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
  
     private AnsattVindu vindu;
     private HovedRegister register;
-    private Eier eier;
+    private Person eieren;
     private Bilforsikring bilforsikring;
     
     private final JTextField eierFornavn;
@@ -98,7 +98,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private String forer;
     private final JButton rediger = new JButton("Rediger forsikringinfo");
     private final JButton lagreNyInfo = new JButton("Lagre forsikring");
-    JPanel knappePanel = new JPanel();
+    private JPanel knappePanel = new JPanel();
+    private JPanel eierPanel;
     
     public BilforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -110,7 +111,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         eierTlf = new JTextField(8);
         eierAdresse = new JTextField(15);
         
-        JPanel eierPanel = new JPanel();
+        eierPanel = new JPanel();
+        eierPanel.setLayout(new GridLayout(4,2,1,1));
         eierPanel.add(new JLabel("Fornavn: "));
         eierPanel.add(eierFornavn);
         eierPanel.add(new JLabel("Etternavn: "));
@@ -135,9 +137,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         garasjeNei = new JRadioButton("Nei");
         garasjeJa.setMnemonic(KeyEvent.VK_J);
         garasjeNei.setMnemonic(KeyEvent.VK_N);
-        ButtonGroup garasje = new ButtonGroup();
-        garasje.add(garasjeJa);
-        garasje.add(garasjeNei);
+        ButtonGroup garasjen = new ButtonGroup();
+        garasjen.add(garasjeJa);
+        garasjen.add(garasjeNei);
         espJa = new JRadioButton("Ja");
         espNei = new JRadioButton("Nei");
         espJa.setMnemonic(KeyEvent.VK_J);
@@ -174,7 +176,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         bonusvelger = new JComboBox<>(bonus);
         
     
-        JPanel garasjen = new JPanel();
+        JPanel garasjePanel = new JPanel();
         JPanel alarmPanel = new JPanel();
         JPanel espPanel = new JPanel();
         JPanel gjenkjenningPanel = new JPanel();
@@ -183,8 +185,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         JPanel hovedPanel = new JPanel();
         tegnBilPanel1.setLayout(new GridLayout(11,2,1,1));
         tegnBilPanel2.setLayout(new GridLayout(10,2,1,1));
-        garasjen.add(garasjeJa);
-        garasjen.add(garasjeNei);
+        garasjePanel.add(garasjeJa);
+        garasjePanel.add(garasjeNei);
         alarmPanel.add(alarmJa);
         alarmPanel.add(alarmNei);
         espPanel.add(espJa);
@@ -214,7 +216,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel1.add(beregnPris);
         tegnBilPanel1.add(new JLabel());
         tegnBilPanel2.add(new JLabel("Garasje: "));
-        tegnBilPanel2.add(garasjen);
+        tegnBilPanel2.add(garasjePanel);
         tegnBilPanel2.add(new JLabel("FG-godkjent alarm: "));
         tegnBilPanel2.add(alarmPanel);
         tegnBilPanel2.add(new JLabel("ESP antiskrens: "));
@@ -241,29 +243,11 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         hovedPanel.add(new JSeparator(SwingConstants.VERTICAL));
         add(hovedPanel);
         
-        annenEier.addActionListener(new ActionListener()
-        {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            if (e.getSource() == annenEier)
-            {
-                int result = JOptionPane.showConfirmDialog(null, eierPanel, 
-                                        "Vennligst fyll ut bileiers kontaktinformasjon:",
-                                        JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.OK_OPTION)
-        {
-         //Her skal det endres
-            System.out.println("Fornavn: " + eierFornavn.getText());
-            System.out.println("Etternavn: " + eierEtternavn.getText());
-            System.out.println("Telefonnummer: " + eierTlf.getText());
-            System.out.println("Addresse: " + eierAdresse.getText());
-            eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), eierAdresse.getText(), eierTlf.getText());
-        }        
-            }}});
+        
         
         bilGiTilbud.addActionListener(this);
         beregnPris.addActionListener(this);
+        annenEier.addActionListener(this);
         rediger.addActionListener(this);
         lagreNyInfo.addActionListener(this);
         
@@ -326,6 +310,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             gjenkjenningJa.setSelected(true);
         else
             gjenkjenningNei.setSelected(true);
+        
+        annenEier.setText("Vis eier");
         
         
         double d = bilforsikring.getBonus();
@@ -607,7 +593,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                                     kmstand, forer, bonusen, antAr, garasje, alarm_b, esp_b, gjenkjenning_b, lengdevalget ); 
             
             kunde.leggTilNøkkel(forsikring.getForsikringsnummer());
-            Kjoretoyforsikring forsikringen =(Kjoretoyforsikring)forsikring;
+            Bilforsikring forsikringen =(Bilforsikring)forsikring;
+            Eier eier = (Eier)eieren;
             forsikringen.setEier(eier);
             System.out.println(forsikringen);
             JOptionPane.showMessageDialog(null, "Du har nå tegnet bilforsikring med nummer " 
@@ -629,6 +616,25 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         {
             beregnPris();
         }
+        else if (e.getSource() == annenEier)
+        {
+            if (annenEier.getText().equals("Trykk her for annen eier"))
+            {
+                int result = JOptionPane.showConfirmDialog(null, eierPanel, 
+                             "Vennligst fyll ut bileiers kontaktinformasjon:",
+                                        JOptionPane.OK_CANCEL_OPTION);
+                if (result == JOptionPane.OK_OPTION)
+                {
+                    eieren = new Eier(eierFornavn.getText(), eierEtternavn.getText(), 
+                    eierAdresse.getText(), eierTlf.getText());
+                }  
+            }
+            else if (annenEier.getText().equals("Vis eier"))
+            {
+               JOptionPane.showMessageDialog( null, bilforsikring.getEier().toString(), 
+                      "Kjøretøyets regisrerte eier:", JOptionPane.PLAIN_MESSAGE);
+            }
+        }
         else if( e.getSource() == rediger)
         {
             for(Component component : getKomponenter(this))
@@ -641,6 +647,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     knappePanel.add(lagreNyInfo);
                     tilbudLabel.setText("Foreslått tilbud: ");
                     beregnPris.setText("Beregn ny pris");
+                    annenEier.setText("Trykk her for annen eier");
                     revalidate();
                     repaint();
                     
@@ -656,7 +663,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                 bilforsikring.setGarasje(garasje);
                 bilforsikring.setKmstand(kmstand);
                 bilforsikring.setForerAlder(forer);
-                bilforsikring.setEier(eier);
+                bilforsikring.setEier((Eier)eieren);
                 bilforsikring.setHestekrefter(hk);
                 bilforsikring.setRegistreringsnummer(regnr);
                 bilforsikring.setEgenandel(egenandelvalget);
