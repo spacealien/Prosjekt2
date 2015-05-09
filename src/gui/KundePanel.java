@@ -17,8 +17,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -28,13 +26,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
-import objekter.BatForsikring;
-import objekter.Bilforsikring;
 import objekter.Forsikring;
-import objekter.Fritidsboligforsikring;
-import objekter.Husforsikring;
 import objekter.Kunde;
-import objekter.Reiseforsikring;
 import objekter.Skademelding;
 
 /**
@@ -228,7 +221,7 @@ public class KundePanel extends JPanel implements ActionListener
     {
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
         Forsikring forsikring = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
-        vindu.leggTilFane(forsikring);
+        vindu.leggTilForsikringsFane(forsikring);
     }
     
     @Override

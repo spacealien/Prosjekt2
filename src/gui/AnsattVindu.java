@@ -32,6 +32,7 @@ import objekter.Fritidsboligforsikring;
 import objekter.Husforsikring;
 import objekter.Kunde;
 import objekter.Reiseforsikring;
+import objekter.Skademelding;
 import register.HovedRegister;
 
 /**
@@ -153,7 +154,7 @@ public class AnsattVindu extends JFrame
         repaint();
     }
     
-    public void leggTilFane( Forsikring forsikring )
+    public void leggTilForsikringsFane( Forsikring forsikring )
     {
         if( forsikring.getClass() == Bilforsikring.class)
         {
@@ -247,6 +248,15 @@ public class AnsattVindu extends JFrame
         {
             int forsikringsnummer = Integer.parseInt(søkeord);
             Forsikring forsikring = register.getForsikringrsliste().getForsikring(forsikringsnummer);
+            leggTilForsikringsFane( forsikring );
+            tomSøkefelter();
+        }
+        else if( søkeord.matches("\\d{9}"))
+        {
+            int skadenummer = Integer.parseInt(søkeord);
+            Skademelding skademelding = register.getSkademeldingsregister().getSkademelding(skadenummer);
+            leggTilNyFane( new SkademeldingPanel( skademelding.getForsikring(), this), "Skadenummer: " + skademelding.getSkadenummer());
+            tomSøkefelter();
         }
         else if( etternavn.matches("\\D+") && fornavn.matches("\\D+"))
         {
