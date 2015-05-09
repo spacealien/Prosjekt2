@@ -151,7 +151,7 @@ public class KundePanel extends JPanel implements ActionListener
     
     public void disableFelter( Container pane )
     {
-        Component[] liste = pane.getComponents() ;
+        Component[] liste = pane.getComponents();
         for( Component komponent: liste )
         {
             if(komponent instanceof JTextField)
@@ -164,7 +164,7 @@ public class KundePanel extends JPanel implements ActionListener
     
     public void enableFelter( Container pane )
     {
-        Component[] liste = pane.getComponents() ;
+        Component[] liste = pane.getComponents();
         for( Component komponent: liste )
         {
             if(komponent instanceof JTextField)

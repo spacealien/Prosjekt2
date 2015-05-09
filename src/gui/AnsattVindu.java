@@ -244,7 +244,7 @@ public class AnsattVindu extends JFrame
             oppdaterTabell(nyListe);
             tomSøkefelter();
         }
-        else if( søkeord.matches("\\d{7"))
+        else if( søkeord.matches("\\d{7}"))
         {
             int forsikringsnummer = Integer.parseInt(søkeord);
             Forsikring forsikring = register.getForsikringrsliste().getForsikring(forsikringsnummer);

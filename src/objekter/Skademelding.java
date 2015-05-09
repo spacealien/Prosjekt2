@@ -21,7 +21,7 @@ public class Skademelding
     private Date dato;
     private GregorianCalendar opprettetdato;
     private final int skadenummer;
-    private static int nestenr = 20000;
+    private static int nestenr = 200000000;
     private String skadetype;
     //private String skademeldingsskjema;
     private String beskrivelse;

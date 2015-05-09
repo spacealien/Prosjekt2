@@ -261,9 +261,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
                 belopInnbo = Integer.parseInt(belopFritidInnbo.getText());
                 return true;
                     
-            }
-            
-            
+            } 
     }
     
     public void tegnNy()

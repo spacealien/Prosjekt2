@@ -73,10 +73,17 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                      "20%", "30%", "40%", "50%", "60%", "70%", "70% 2 år",
                      "70% 3 år", "70% 4 år", "70% 5 år", "75%", "75% 2 år",
                      "75% 3 år", "75% 4 år", "75% 5 år", "75% >5 år"};
-    
-    
     JComboBox<String> bonusvelger;
     private final Kunde kunde;
+    private final JButton vilkårKnapp;
+    
+    
+    
+    
+    
+    
+    
+    
     
     private String regnr;
     private String modell;
@@ -174,7 +181,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         dekningvelger = new JComboBox<>(dekning);
         aldervelger = new JComboBox<>(foreralder);
         bonusvelger = new JComboBox<>(bonus);
-        
+        vilkårKnapp = new JButton("Vilkår");
     
         JPanel garasjePanel = new JPanel();
         JPanel alarmPanel = new JPanel();
@@ -250,6 +257,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         annenEier.addActionListener(this);
         rediger.addActionListener(this);
         lagreNyInfo.addActionListener(this);
+        vilkårKnapp.addActionListener(this);
         
     } // slutt på konstuktør
     
