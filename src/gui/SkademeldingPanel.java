@@ -167,14 +167,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         }
         else if( e.getSource() == visBilde )
         {
-            try 
-            {
-                desktop.open(bilder[0]);
-            } 
-            catch (IOException ex) 
-            {
-                
-            }
+            BildeVindu bildeVindu = new BildeVindu( bilder , "Skadenummer: " );
         }
         else if( e.getSource() == vitneKnapp )
         {

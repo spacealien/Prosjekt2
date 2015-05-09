@@ -98,6 +98,7 @@ public class LoginVindu extends JFrame
             if( e.getSource() == loginKnapp )
             {
                 login();
+                dispose();
             }
             else if( e.getSource() == avsluttKnapp )
             {

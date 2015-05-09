@@ -27,7 +27,7 @@ public class HovedRegister
     private Ansattregister ansattregister = new Ansattregister();
     private GregorianCalendar kalender;
 
-    public HovedRegister( )
+    public HovedRegister()
     {
         kalender = new GregorianCalendar();
         Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer("08206049937");
@@ -289,6 +289,11 @@ public class HovedRegister
                 return arbeidstaker;
         }
         return null;
+    }
+    
+    public void leggTilLytter()
+    {
+        
     }
     
     public void skrivTilFIl()

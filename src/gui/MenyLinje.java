@@ -20,6 +20,7 @@ public class MenyLinje extends MenuBar
     private final MenyLytter lytter = new MenyLytter();
     private final Menu filMeny = new Menu("Fil");
     private final Menu vinduMeny = new Menu("Vindu");
+    private final Menu adminMeny = new Menu("Admin");
     private final MenuItem loggUtKnapp = new MenuItem("Logg Ut");
     private final MenuItem avsluttKnapp = new MenuItem("Avslutt");
     private final AnsattVindu vindu;
@@ -33,8 +34,8 @@ public class MenyLinje extends MenuBar
         this.add(filMeny);
         this.add(vinduMeny);
         
-        
         loggUtKnapp.addActionListener(lytter);
+        
     }
     
     

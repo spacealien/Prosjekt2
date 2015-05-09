@@ -61,7 +61,8 @@ public class KundePanel extends JPanel implements ActionListener
     private final JButton visSkademeldinger = new JButton("Vis Alle Skademeldinger");
     private final JButton nyForsikring = new JButton("Ny forsikring");
     private final JButton nySkademelding = new JButton("Ny Skademelding");
-    private final JButton rediger = new JButton("Rediger informasjon");
+    private JButton rediger = new JButton("Rediger informasjon");
+    private JButton lagreEndringerKnapp = new JButton("Lagre");
     private Kunde kunde = null;
     private final String[] forsikringsvalg = {"", "Bilforsikring", "Båtforsikring", "Husforsikring", "Fritidsboligforsikring", "Reiseforsikring"};
     private final JComboBox<String> forsikringsDropDown;
@@ -156,14 +157,14 @@ public class KundePanel extends JPanel implements ActionListener
         nyForsikring.addActionListener(this);
         
         for(Component component : getKomponenter(kundeInfo_1))
-                {
-                    if((component instanceof JTextField))
-                    {
-                        JTextField tf = (JTextField)component;
-                        tf.setEditable(false);
-                    }
-                }
+        {
+            if((component instanceof JTextField))
+            {
+                JTextField tf = (JTextField)component;
+                tf.setEditable(false);
+            }
         }
+    }
     
     private Component[] getKomponenter( Component pane)
      {
@@ -258,6 +259,9 @@ public class KundePanel extends JPanel implements ActionListener
             vindu.leggTilNyFane(panel, "Reise " + forsikring.getKunde().getEtternavn());
         }
     }
+    
+
+        
     
     @Override
     public void actionPerformed(ActionEvent e) 

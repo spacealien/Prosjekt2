@@ -259,7 +259,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
 
         try
         {
-            liste = new ArrayList<Component>(Arrays.asList(
+            liste = new ArrayList<>(Arrays.asList(
                   ((Container) pane).getComponents()));
             for (int i = 0; i < liste.size(); i++)
             {
@@ -269,7 +269,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             }
             }
         } catch (ClassCastException e) {
-            liste = new ArrayList<Component>();
+            liste = new ArrayList<>();
         }
 
         return liste.toArray(new Component[liste.size()]);

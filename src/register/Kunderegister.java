@@ -6,14 +6,12 @@
 package register;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import objekter.Ansatt;
 import objekter.Kunde;
+import objekter.Personsammenlikner;
 
 
 /**
@@ -23,11 +21,11 @@ import objekter.Kunde;
  */
 public class Kunderegister
 {
-    private Set<Kunde> kunderegister;  
+    private List<Kunde> kunderegister;  
     
     public Kunderegister()
     {
-        kunderegister = new HashSet<>();
+        kunderegister = new ArrayList<>();
         
         GregorianCalendar fdato = new GregorianCalendar(91,6,6);
         Kunde test_1 = new Kunde("Rolf", "Hestman", "Kongleknaggen 18", "22260906", fdato, "hesterolf@yahoo.no", "08206049937");
@@ -88,6 +86,9 @@ public class Kunderegister
         kunderegister.add(test_26);
         kunderegister.add(test_27);
         kunderegister.add(test_28);
+        
+        
+        sorter();
     }
     
     public List<Kunde> getAnsattesKunder( Ansatt ansatt )
@@ -171,6 +172,12 @@ public class Kunderegister
     public List<Kunde> alleKunder()
     {
         return kunderegister.stream().filter( x -> x != null ).collect(Collectors.toList());
+    }
+    
+    public void sorter()
+    {
+        Personsammenlikner test = new Personsammenlikner();
+        kunderegister.sort(test);
     }
     
     @Override

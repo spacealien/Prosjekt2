@@ -57,7 +57,7 @@ public class AnsattVindu extends JFrame
     private final JButton mineKunder;
     private final JToggleButton lukkeknapp;
     
-    private HovedRegister register;
+    private final HovedRegister register;
     private Ansatt ansatt;
     
     public AnsattVindu()
@@ -92,9 +92,6 @@ public class AnsattVindu extends JFrame
         mineKunder.addActionListener(knappeLytter);
         
         
-       /* Deler hele JFrame boksen i 3, en container til venstre,
-        en top og en på bunn.
-       */
         
         mainContainer.setLayout( new BorderLayout() );
         mainContainer.add( menyPanel, BorderLayout.LINE_START);
@@ -257,6 +254,7 @@ public class AnsattVindu extends JFrame
     {
         JOptionPane.showMessageDialog(null, melding, tittel, JOptionPane.INFORMATION_MESSAGE);
     }
+    
     
     private class KnappeLytter implements ActionListener
     {
