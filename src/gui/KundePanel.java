@@ -66,8 +66,6 @@ public class KundePanel extends JPanel implements ActionListener
     private final String[] forsikringsvalg = {"", "Bilforsikring", "Båtforsikring", "Husforsikring", "Fritidsboligforsikring", "Reiseforsikring"};
     private final JComboBox<String> forsikringsDropDown;
     
-    
-    
     private final KundeDataTabell tabell;
     private final AbstractTableModel tabellModell;
     
@@ -163,7 +161,7 @@ public class KundePanel extends JPanel implements ActionListener
         Component[] liste = pane.getComponents() ;
         for( Component komponent: liste )
         {
-            if((komponent instanceof JTextField))
+            if(komponent instanceof JTextField)
             {
                 JTextField tf = (JTextField)komponent;
                 tf.setEditable(false);
@@ -176,15 +174,13 @@ public class KundePanel extends JPanel implements ActionListener
         Component[] liste = pane.getComponents() ;
         for( Component komponent: liste )
         {
-            if((komponent instanceof JTextField))
+            if(komponent instanceof JTextField)
             {
                 JTextField tf = (JTextField)komponent;
                 tf.setEditable(true);
             }
         }
     }
-    
-    
     
     public void visForsikringensSkademeldnger()
     {
@@ -232,36 +228,7 @@ public class KundePanel extends JPanel implements ActionListener
     {
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
         Forsikring forsikring = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
-        if( forsikring.getClass() == Bilforsikring.class)
-        {
-            BilforsikringPanel panel = new BilforsikringPanel(forsikring.getKunde(), vindu);
-            panel.visForsikring(forsikring);
-            vindu.leggTilNyFane( panel, "Bil " + forsikring.getKunde().getEtternavn());
-        }
-        else if( forsikring.getClass() == BatForsikring.class )
-        {
-            BatforsikringPanel panel = new BatforsikringPanel(forsikring.getKunde(),vindu);
-            panel.visForsikring(forsikring);
-            vindu.leggTilNyFane(panel, "Båt " + forsikring.getKunde().getEtternavn());
-        }
-        else if( forsikring.getClass() == Husforsikring.class)
-        {
-            HusforsikringPanel panel = new HusforsikringPanel( forsikring.getKunde(), vindu);
-            panel.visForsikring(forsikring);
-            vindu.leggTilNyFane(panel, "Hus " + forsikring.getKunde().getEtternavn()); //endre navn på tabs 
-        }
-        else if( forsikring.getClass() == Fritidsboligforsikring.class)
-        {
-            FritidsboligforsikringPanel panel = new FritidsboligforsikringPanel( forsikring.getKunde(), vindu);
-            panel.visForsikring(forsikring);
-            vindu.leggTilNyFane(panel, "Fritidsbolig " + forsikring.getKunde().getEtternavn());
-        }
-        else if( forsikring.getClass() == Reiseforsikring.class)
-        {
-            ReiseforsikringPanel panel = new ReiseforsikringPanel(forsikring.getKunde(), vindu);
-            panel.visForsikring( forsikring );
-            vindu.leggTilNyFane(panel, "Reise " + forsikring.getKunde().getEtternavn());
-        }
+        vindu.leggTilFane(forsikring);
     }
     
     @Override
@@ -286,12 +253,10 @@ public class KundePanel extends JPanel implements ActionListener
         {
             switch (rediger.getText()) {
                 case "Rediger":
-                    
                     enableFelter(kundeInfo_1);
                     rediger.setText("Lagre");
                     break;
                 case "Lagre":
-                    
                     if( JOptionPane.showConfirmDialog(vindu, "Er du sikker på at du ønsker å lagre endringene?", "Bekreftelse " ,
                                                       JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION )
                     {
@@ -306,7 +271,7 @@ public class KundePanel extends JPanel implements ActionListener
         }
         else if( e.getSource() == visForsikringer)
         {
-            if( kunde.getNøkkelliste().size() > 0)
+            if( kunde.getNøkkelliste().size() > 0 )
             {
                 List<Forsikring> kundeForsikringer = vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde);
                 TabellModellForsikring forsikringsTabell = new TabellModellForsikring(kundeForsikringer, this);

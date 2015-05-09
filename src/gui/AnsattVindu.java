@@ -25,8 +25,13 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import objekter.Ansatt;
+import objekter.BatForsikring;
+import objekter.Bilforsikring;
 import objekter.Forsikring;
+import objekter.Fritidsboligforsikring;
+import objekter.Husforsikring;
 import objekter.Kunde;
+import objekter.Reiseforsikring;
 import register.HovedRegister;
 
 /**
@@ -146,6 +151,42 @@ public class AnsattVindu extends JFrame
         fanekort.setSelectedIndex(fanekort.getTabCount() - 1);
         revalidate();
         repaint();
+    }
+    
+    public void leggTilFane( Forsikring forsikring )
+    {
+        if( forsikring.getClass() == Bilforsikring.class)
+        {
+            BilforsikringPanel panel = new BilforsikringPanel(forsikring.getKunde(), this);
+            panel.visForsikring(forsikring);
+            leggTilNyFane( panel, "Bil " + forsikring.getKunde().getEtternavn());
+        }
+        else if( forsikring.getClass() == BatForsikring.class )
+        {
+            BatforsikringPanel panel = new BatforsikringPanel(forsikring.getKunde(), this);
+            panel.visForsikring(forsikring);
+            leggTilNyFane(panel, "Båt " + forsikring.getKunde().getEtternavn());
+        }
+        else if( forsikring.getClass() == Husforsikring.class)
+        {
+            HusforsikringPanel panel = new HusforsikringPanel( forsikring.getKunde(), this);
+            panel.visForsikring(forsikring);
+            leggTilNyFane(panel, "Hus " + forsikring.getKunde().getEtternavn()); //endre navn på tabs 
+        }
+        else if( forsikring.getClass() == Fritidsboligforsikring.class)
+        {
+            FritidsboligforsikringPanel panel = new FritidsboligforsikringPanel( forsikring.getKunde(), this);
+            panel.visForsikring(forsikring);
+            leggTilNyFane(panel, "Fritidsbolig " + forsikring.getKunde().getEtternavn());
+        }
+        else if( forsikring.getClass() == Reiseforsikring.class)
+        {
+            ReiseforsikringPanel panel = new ReiseforsikringPanel(forsikring.getKunde(), this);
+            panel.visForsikring( forsikring );
+            leggTilNyFane(panel, "Reise " + forsikring.getKunde().getEtternavn());
+        }
+        
+        
     }
     
     public void visTabellPanel( TabellModell modell)
