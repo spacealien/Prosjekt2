@@ -186,8 +186,6 @@ public class AnsattVindu extends JFrame
             panel.visForsikring( forsikring );
             leggTilNyFane(panel, "Reise " + forsikring.getKunde().getEtternavn());
         }
-        
-        
     }
     
     public void visTabellPanel( TabellModell modell)

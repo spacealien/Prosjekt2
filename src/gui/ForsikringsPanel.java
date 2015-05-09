@@ -5,20 +5,39 @@
  */
 package gui;
 
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
+import java.awt.Component;
+import java.awt.Container;
+import javax.swing.JTextField;
 
 /**
  *
  * @author Odd, Thomas, Marthe
  */
-public class ForsikringsPanel extends JPanel
+public interface ForsikringsPanel
 {
-    private final String[] forsikringsvalg = {"", "Bilforsikring", "Båtforsikring", "Husforsikring", "Fritidsboligforsikring", "Reiseforsikring"};
-    private final JComboBox<String> forsikringsDropDown;
-    public ForsikringsPanel()
+    default void disableFelter( Container pane )
     {
-        forsikringsDropDown = new JComboBox<>(forsikringsvalg);
-        add(forsikringsDropDown);
+        Component[] liste = pane.getComponents();
+        for( Component komponent: liste )
+        {
+            if(komponent instanceof JTextField)
+            {
+                JTextField tf = (JTextField)komponent;
+                tf.setEditable(false);
+            }
+        }
+    }
+    
+    default void enableFelter( Container pane )
+    {
+        Component[] liste = pane.getComponents();
+        for( Component komponent: liste )
+        {
+            if(komponent instanceof JTextField)
+            {
+                JTextField tf = (JTextField)komponent;
+                tf.setEditable(true);
+            }
+        }
     }
 }

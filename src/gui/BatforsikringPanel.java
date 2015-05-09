@@ -21,7 +21,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
     private AnsattVindu vindu;
     private HovedRegister register;
     private Eier eier;
-    private BatForsikring forsikring;
+    private BatForsikring forsikring = null;
     
     private final JTextField eierFornavn;
     private final JTextField eierEtternavn;
@@ -276,18 +276,17 @@ public class BatforsikringPanel extends JPanel implements ActionListener
                 register.getKundeliste().leggTil(kunde);
             }
             
-            Forsikring forsikringen = register.nyBatForsikring(kunde, egenandelvalget, reg, belop,
+            Forsikring forsikringen = new BatForsikring(kunde, egenandelvalget, reg, belop,
                                  merke, modell, typevalget, hk, 
                                  ar, vekter_b, lengde);
             
-            kunde.leggTilNøkkel(forsikringen.getForsikringsnummer());
-            Kjoretoyforsikring forsikring = (Kjoretoyforsikring)forsikringen;
+            vindu.getRegister().nyForsikring(forsikringen);
             
             if (eier != null)
                 forsikring.setEier(eier);
             
             JOptionPane.showMessageDialog(null, "Du har nå tegnet båtforsikring med nummer "
-                                          + forsikring.getForsikringsnummer() + " på " + kunde.getFornavn() 
+                                          + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() 
                                           + " " + kunde.getEtternavn() , "Bekreftelse", JOptionPane.INFORMATION_MESSAGE);
             System.out.println(forsikring);
         }

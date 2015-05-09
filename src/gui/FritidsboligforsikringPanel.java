@@ -274,7 +274,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
                 register.getKundeliste().leggTil(kunde);
             }
             
-            Forsikring forsikringen = register.nyFritidsboligforsikring(kunde, egenandelvalget, adr, ar, 
+            Forsikring forsikringen = new Fritidsboligforsikring(kunde, egenandelvalget, adr, ar, 
                        typevalget, materialevalget, standardvalget, kvm, belop, belopInnbo, alarm_b, utleid_b);
             
             kunde.leggTilNøkkel(forsikringen.getForsikringsnummer());

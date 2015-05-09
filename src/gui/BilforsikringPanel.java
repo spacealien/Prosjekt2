@@ -595,17 +595,18 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                 register.getKundeliste().leggTil(kunde);
             }
             
-            Forsikring forsikring = register.nyBilForsikring( kunde, egenandelvalget, regnr, belop,
+            Bilforsikring forsikring = new Bilforsikring(kunde, egenandelvalget, regnr, belop,
                                     merkevalget,modell, typevalget, hk, ar,
-                                    kmstand, forer, bonusen, antAr, garasje, alarm_b, esp_b, gjenkjenning_b, lengdevalget ); 
+                                    kmstand, forer, bonusen, antAr, garasje, alarm_b, esp_b, gjenkjenning_b, lengdevalget);
             
-            kunde.leggTilNøkkel(forsikring.getForsikringsnummer());
-            Bilforsikring forsikringen =(Bilforsikring)forsikring;
+            vindu.getRegister().nyForsikring(forsikring);
+            
             Eier eier = (Eier)eieren;
-            forsikringen.setEier(eier);
-            System.out.println(forsikringen);
+            forsikring.setEier(eier);
+
+            
             JOptionPane.showMessageDialog(null, "Du har nå tegnet bilforsikring med nummer " 
-                                          + forsikringen.getForsikringsnummer() 
+                                          + forsikring.getForsikringsnummer() 
                                           + " på " + kunde.getFornavn() + " " 
                                           + kunde.getEtternavn() , "Bekreftelse", 
                                             JOptionPane.INFORMATION_MESSAGE);

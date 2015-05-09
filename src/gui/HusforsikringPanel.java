@@ -266,7 +266,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
                     register.getKundeliste().leggTil(kunde);
                 }
                 
-            Forsikring forsikringen = register.nyHusforsikring(kunde, 
+            Forsikring forsikringen = new Husforsikring(kunde, 
                     egenandelvalget, adr, ar, hustypevalget, husmaterialevalget, 
                     husstandardvalget, kvm, belop, belopInnbo, alarm_b);
             

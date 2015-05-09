@@ -111,7 +111,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         skadeForsikring.setText(skademelding.getForsikring().getForsikringsType());
         //skadeType.setText();
         skadeTakst.setText(String.valueOf(skademelding.getTakseringsbelop()));
-        //skadeBeskrivelse.setText();
+        skadeBeskrivelse.setText( skademelding.getBeskrivelse());
         
     }
     
@@ -132,9 +132,11 @@ public class SkademeldingPanel extends JPanel implements ActionListener
             int takst = Integer.parseInt(skadeTakst.getText());
             int belop = Integer.parseInt(erstatningsBeløp.getText());
             
-            skademelding = register.nySkademelding(forsikring, dato, type, beskrivelse, takst, belop );
+            Skademelding nySkademelding = new Skademelding(forsikring, dato, type, beskrivelse, takst, belop );
             if( bilder != null)
                 skademelding.setBilder(bilder);
+            
+            vindu.getRegister().getSkademeldingsregister().leggTil(forsikring, skademelding);
         } 
         catch (ParseException e)
         {
