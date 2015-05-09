@@ -20,10 +20,10 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -61,8 +61,7 @@ public class KundePanel extends JPanel implements ActionListener
     private final JButton visSkademeldinger = new JButton("Vis Alle Skademeldinger");
     private final JButton nyForsikring = new JButton("Ny forsikring");
     private final JButton nySkademelding = new JButton("Ny Skademelding");
-    private JButton rediger = new JButton("Rediger informasjon");
-    private JButton lagreEndringerKnapp = new JButton("Lagre");
+    private JButton rediger = new JButton("Rediger");
     private Kunde kunde = null;
     private final String[] forsikringsvalg = {"", "Bilforsikring", "Båtforsikring", "Husforsikring", "Fritidsboligforsikring", "Reiseforsikring"};
     private final JComboBox<String> forsikringsDropDown;
@@ -156,38 +155,36 @@ public class KundePanel extends JPanel implements ActionListener
         rediger.addActionListener(this);
         nyForsikring.addActionListener(this);
         
-        for(Component component : getKomponenter(kundeInfo_1))
+        disableFelter(kundeInfo_1);
+    }
+    
+    public void disableFelter( Container pane )
+    {
+        Component[] liste = pane.getComponents() ;
+        for( Component komponent: liste )
         {
-            if((component instanceof JTextField))
+            if((komponent instanceof JTextField))
             {
-                JTextField tf = (JTextField)component;
+                JTextField tf = (JTextField)komponent;
                 tf.setEditable(false);
             }
         }
     }
     
-    private Component[] getKomponenter( Component pane)
-     {
-        ArrayList<Component> liste = null;
-
-        try
+    public void enableFelter( Container pane )
+    {
+        Component[] liste = pane.getComponents() ;
+        for( Component komponent: liste )
         {
-            liste = new ArrayList<Component>(Arrays.asList(
-                  ((Container) pane).getComponents()));
-            for (int i = 0; i < liste.size(); i++)
+            if((komponent instanceof JTextField))
             {
-                for (Component currentComponent : getKomponenter(liste.get(i)))
-                {
-                    liste.add(currentComponent);
-                }
+                JTextField tf = (JTextField)komponent;
+                tf.setEditable(true);
             }
-        } 
-        catch (ClassCastException e) 
-        {
-            liste = new ArrayList<Component>();
         }
-        return liste.toArray(new Component[liste.size()]);
     }
+    
+    
     
     public void visForsikringensSkademeldnger()
     {
@@ -220,6 +217,13 @@ public class KundePanel extends JPanel implements ActionListener
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
         Forsikring forsirking = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
         vindu.leggTilNyFane( new SkademeldingPanel(forsirking, vindu), "Skade " + forsirking.getKunde().getEtternavn() );
+    }
+    
+    public void lagreEndringer()
+    {
+        kunde.setAdresse(regAdresse.getText());
+        kunde.setEpost(regEpost.getText());
+        kunde.setTlfnr(regTlfnr.getText());
     }
     
     //skal flyttes
@@ -260,9 +264,6 @@ public class KundePanel extends JPanel implements ActionListener
         }
     }
     
-
-        
-    
     @Override
     public void actionPerformed(ActionEvent e) 
     {
@@ -283,14 +284,25 @@ public class KundePanel extends JPanel implements ActionListener
         }
         else if( e.getSource() == rediger)
         {
-            for(Component component : getKomponenter(this))
-                {
-                    if((component instanceof JTextField))
+            switch (rediger.getText()) {
+                case "Rediger":
+                    
+                    enableFelter(kundeInfo_1);
+                    rediger.setText("Lagre");
+                    break;
+                case "Lagre":
+                    
+                    if( JOptionPane.showConfirmDialog(vindu, "Er du sikker på at du ønsker å lagre endringene?", "Bekreftelse " ,
+                                                      JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION )
                     {
-                        JTextField tf = (JTextField)component;
-                        tf.setEditable(true);
+                        lagreEndringer();
                     }
-                }
+                    rediger.setText("Rediger");
+                    disableFelter(kundeInfo_1);
+                    revalidate();
+                    repaint();
+                    break;
+            }
         }
         else if( e.getSource() == visForsikringer)
         {
