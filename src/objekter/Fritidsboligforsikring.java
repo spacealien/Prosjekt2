@@ -5,6 +5,8 @@
  */
 package objekter;
 
+import java.util.Calendar;
+
 /**
  *
  * @author Odd, Thomas, Marthe
@@ -13,12 +15,23 @@ public class Fritidsboligforsikring extends Eiendomsforsikring
 {
     private boolean utleie;
     private String utleid = "";
+    private int takst;
+    private int egenandel;
+    private int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
+    private int byggear;
+    private String byggeMateriale;
+    private boolean alarmert;
     public Fritidsboligforsikring(Kunde k, int e_andel, String hadresse, int byggar,
                                   String bt, String mat, String stand, int kvm,
                                   int belopByg, int belopInn, boolean alarmen, boolean utl)
     {
     super( k, e_andel, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, alarmen);
     utleie = utl;
+    takst = belopByg;
+    egenandel = e_andel;
+    byggear = byggar;
+    byggeMateriale = mat;
+    alarmert = alarmen;
     }
 
     public boolean getUtleie()
@@ -35,6 +48,115 @@ public class Fritidsboligforsikring extends Eiendomsforsikring
     @Override
     public void beregnPris()
     {
+        int bpTakst = 0; //takst
+        double bpEgenandel = 0; //egenandel
+        double bpHusAlder = 0; //bpHusAlderBeregn
+        int bpHusAlderBeregn = innevarendeAr - byggear;
+        double bpByggeMateriale = 0; //byggeMateriale
+        double bpAlarm = 0; //alarmert
+        double bpTilbud;
+        
+        // Henter faktor for husets takst. 
+        if (takst > 0 && takst <= 800000)
+        {
+            bpTakst = 5000;
+        }
+        else if (takst > 800000 && takst <= 1500000)
+        {
+            bpTakst = 10000;
+        }
+        else if (takst > 1500000 && takst <= 2500000)
+        {
+            bpTakst = 18000;
+        }
+        else if (takst > 2500000 && takst <= 3000000)
+        {
+            bpTakst = 26000;
+        }
+        else if (takst > 3000000)
+        {
+            bpTakst = 33000;
+        }
+        
+        // Henter faktor for egenandel.
+        if (egenandel == 2000)
+        {
+            bpEgenandel = 1;
+        }
+        else if (egenandel == 4000)
+        {
+            bpEgenandel = 0.85;
+        }
+        else if (egenandel == 8000)
+        {
+            bpEgenandel = 0.7;
+        }
+        else if (egenandel == 12000)
+        {
+            bpEgenandel = 0.55;
+        }
+        else if (egenandel == 16000)
+        {
+            bpEgenandel = 0.4;
+        }
+        else if (egenandel == 20000)
+        {
+            bpEgenandel = 0.25;
+        }
+        else if (egenandel == 30000)
+        {
+            bpEgenandel = 0.1;
+        }
+        
+        // Henter faktor for husets alder.
+        if (bpHusAlderBeregn > 0 && bpHusAlderBeregn <= 2)
+        {
+            bpHusAlder = 0.1;
+        }
+        else if (bpHusAlderBeregn > 2 && bpHusAlderBeregn <= 5)
+        {
+            bpHusAlder = 0.2;
+        }
+        else if (bpHusAlderBeregn > 5 && bpHusAlderBeregn <= 10)
+        {
+            bpHusAlder = 0.3;
+        }
+        else if (bpHusAlderBeregn > 10 && bpHusAlderBeregn <= 25)
+        {
+            bpHusAlder = 0.4;
+        }
+        else if (bpHusAlderBeregn > 25)
+        {
+            bpHusAlder = 0.5;
+        }
+        
+        // Henter faktor for byggemateriale.
+        switch (byggeMateriale) {
+            case "Brannfast":
+                bpByggeMateriale = 0.1;
+                break;
+            case "Mur":
+                bpByggeMateriale = 0.2;
+                break;
+            case "Tre":
+                bpByggeMateriale = 0.4;
+                break;
+            case "Laftet tømmer":
+                bpByggeMateriale = 0.5;
+                break;
+        }
+        
+        // Henter faktor for om huset er alarmert.
+        if (alarmert == true)
+        {
+            bpAlarm = 0.0;
+        }
+        else
+        {
+            bpAlarm = 0.2;
+        }
+        
+        bpTilbud = bpTakst*(bpEgenandel+bpHusAlder+bpByggeMateriale+bpAlarm);
         
     }
     
