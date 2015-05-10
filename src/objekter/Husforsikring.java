@@ -38,7 +38,7 @@ public class Husforsikring extends Eiendomsforsikring
         double bpEgenandel = 0; //egenandel
         double bpHusAlder = 0; //bpHusAlderBeregn
         int bpHusAlderBeregn = innevarendeAr - byggear;
-        double bpByggeMateriale; //byggeMateriale
+        double bpByggeMateriale = 0; //byggeMateriale
         double bpAlarm = 0; //alarmert
         double bpTilbud;
         
