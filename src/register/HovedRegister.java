@@ -19,7 +19,7 @@ import objekter.*;
  *
  * @author Odd, Thomas, Marthe
  */
-public class HovedRegister
+public class HovedRegister 
 {
     private Kunderegister kunderegister = new Kunderegister();
     private Forsikringsliste forsikringsregister = new Forsikringsliste();
@@ -27,7 +27,7 @@ public class HovedRegister
     private Ansattregister ansattregister = new Ansattregister();
     private GregorianCalendar kalender;
 
-    public HovedRegister()
+    public HovedRegister() 
     {
         kalender = new GregorianCalendar();
         Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer("08206049937");
@@ -218,67 +218,21 @@ public class HovedRegister
         }
     }
     
-    public Forsikring nyBilForsikring( Kunde k, int e_andel, String registreringsnummer, int belop,
-                                 String fabrikant, String modell, String type, int hestekrefter, 
-                                 int arsmodell, int kilometerstand, String forer, double bonus, int antAr, 
-                                 boolean garasje, boolean alarm, boolean esp, boolean gjenkjenning, int km)
+    public boolean nyForsikring( Forsikring nyForsikring  )
     {
-        Forsikring nyForsikring = new Bilforsikring( k, e_andel, registreringsnummer, belop,
-                                                     fabrikant,modell, type, hestekrefter, arsmodell,
-                                                     kilometerstand, forer, bonus, antAr, garasje, 
-                                                     alarm, esp, gjenkjenning, km );
-        
-        forsikringsregister.leggTil( k, nyForsikring);
-        return nyForsikring;
+        forsikringsregister.leggTil( nyForsikring.getKunde(), nyForsikring);
+        return true;
     }
     
-    public Forsikring nyBatForsikring( Kunde k, int e_andel, String registreringsnummer, int belop,
-                                 String fabrikant, String modell, String type, int hestekrefter, 
-                                 int arsmodell, 
-                                 boolean vekter, int lengde)
+    public boolean nySkademelding( Skademelding nySkademelding )
     {
-        Forsikring nyForsikring = new BatForsikring( k, e_andel, registreringsnummer, belop,
-                                                     fabrikant,modell, type, hestekrefter, arsmodell, vekter, lengde);
-        
-        forsikringsregister.leggTil( k, nyForsikring);
-        return nyForsikring;
-    }
-    
-    public Forsikring nyHusforsikring( Kunde k, int e_andel, String adresse, int byggar, String bt, String mat, String stand,int kvm, int belopByg, int belopInn, boolean alarm)
-    {
-        Forsikring nyForsikring = new Husforsikring( k , e_andel, adresse,
-                                                     byggar, bt, mat, stand, 
-                                                     kvm, belopByg, belopInn, alarm );
-        forsikringsregister.leggTil( k, nyForsikring);
-        return nyForsikring;
-    }
-    
-    public Forsikring nyFritidsboligforsikring( Kunde k, int e_andel, String hadresse, int byggar,
-                                          String bt, String mat, String stand, int kvm,
-                                          int belopByg, int belopInn, boolean alarm, boolean utl)
-    {
-        Forsikring nyForsikring = new Fritidsboligforsikring(k, e_andel, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, alarm, utl);
-        forsikringsregister.leggTil( k, nyForsikring);
-        return nyForsikring;
-    }
-    
-    public Forsikring nyReiseforsikring(Kunde k, int e_andel, boolean forsorger, int antBarn, int belop, int sone)
-    {
-        Forsikring nyForsikring = new Reiseforsikring(k, e_andel, forsorger, antBarn, belop, sone);
-        forsikringsregister.leggTil( k, nyForsikring);
-        return nyForsikring;
-    }
-    
-    public Skademelding nySkademelding( Forsikring forsikring, Date dato, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )
-    {
-        Skademelding nySkademedling = new Skademelding( forsikring, dato, skadetype, beskrivelse, takseringsbelop, erstatingsbelop );
-        skademeldingsregister.leggTil( forsikring, nySkademedling );
-        if (forsikring instanceof Bilforsikring)
+        skademeldingsregister.leggTil( nySkademelding.getForsikring(), nySkademelding );
+        if ( nySkademelding.getForsikring() instanceof Bilforsikring )
         {
-            Bilforsikring bilforsikring = (Bilforsikring)forsikring;
+            Bilforsikring bilforsikring = (Bilforsikring) nySkademelding.getForsikring();
             bilforsikring.korrigerBonusVedSkade();
         }
-        return nySkademedling;
+        return true;
     }
     
     public Ansatt login( String brukernavn, String passord )
@@ -289,11 +243,6 @@ public class HovedRegister
                 return arbeidstaker;
         }
         return null;
-    }
-    
-    public void leggTilLytter()
-    {
-        
     }
     
     public void skrivTilFIl()

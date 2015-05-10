@@ -76,15 +76,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     JComboBox<String> bonusvelger;
     private final Kunde kunde;
     private final JButton vilkårKnapp;
-    
-    
-    
-    
-    
-    
-    
-    
-    
     private String regnr;
     private String modell;
     private int hk;
@@ -347,9 +338,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     else
                     {
                         bonusvelger.setSelectedItem(bonusvelger.getItemAt(i)); 
-                    }
-                
-                
+                    } 
             }
             
         }
@@ -374,7 +363,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                                 component.setVisible(false);
                             }
                 }
-
     }
     // ikke ferdig
     

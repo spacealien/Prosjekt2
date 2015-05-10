@@ -5,7 +5,6 @@
  */
 package objekter;
 
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -24,6 +23,7 @@ public class Bilforsikring extends Kjoretoyforsikring
     private int antallAr;
     private String foreralder;
     private int kmst;
+    private int bilensVerdi;
     //---test for på beregnPris
     private int belopet;
     private int ar;

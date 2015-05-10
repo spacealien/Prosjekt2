@@ -55,6 +55,11 @@ public class Skademelding
         return forsikring;
     }
     
+    public String getBeskrivelse()
+    {
+        return beskrivelse;
+    }
+    
     public boolean getAktiv()
     {
         return aktiv;

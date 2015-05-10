@@ -41,7 +41,7 @@ import register.HovedRegister;
  */
 public class AnsattVindu extends JFrame
 {
-    private GregorianCalendar kalender;
+    private final GregorianCalendar kalender;
     private final Container mainContainer;
     private final JPanel hovedPanel;
     private final JPanel hovedPanelTop;
@@ -114,6 +114,8 @@ public class AnsattVindu extends JFrame
         visTabellPanel(tabellModell);
         visLogin();
         pack();
+        
+
     }
     
     public GregorianCalendar getKalender()

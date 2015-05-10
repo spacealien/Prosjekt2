@@ -34,10 +34,9 @@ import objekter.Skademelding;
  *
  * @author Odd, Thomas, Marthe
  */
-public class KundePanel extends JPanel implements ActionListener
+public class KundePanel extends JPanel implements ActionListener, ForsikringsPanel
 {
     private final JPanel kundeInfo_1;
-    private final JPanel kundeInfo_2;
     private final JPanel knappeWrapper;
     private final JPanel forsikringsVelger;
     private final JPanel bunnWrapper;
@@ -53,7 +52,6 @@ public class KundePanel extends JPanel implements ActionListener
     private final JButton visForsikringer = new JButton("Vis Alle Forsikringer");
     private final JButton visSkademeldinger = new JButton("Vis Alle Skademeldinger");
     private final JButton nyForsikring = new JButton("Ny forsikring");
-    private final JButton nySkademelding = new JButton("Ny Skademelding");
     private JButton rediger = new JButton("Rediger");
     private Kunde kunde = null;
     private final String[] forsikringsvalg = {"", "Bilforsikring", "Båtforsikring", "Husforsikring", "Fritidsboligforsikring", "Reiseforsikring"};
@@ -70,7 +68,6 @@ public class KundePanel extends JPanel implements ActionListener
         this.vindu = vindu;
         this.kunde = kunde;
         kundeInfo_1 = new JPanel();
-        kundeInfo_2 = new JPanel();
         knappeWrapper = new JPanel();
         forsikringsVelger = new JPanel();
         bunnWrapper = new JPanel();
@@ -108,7 +105,6 @@ public class KundePanel extends JPanel implements ActionListener
         knappeWrapper.setLayout( new FlowLayout() );
         knappeWrapper.add(visForsikringer);
         knappeWrapper.add(visSkademeldinger);
-        knappeWrapper.add(nySkademelding);
         knappeWrapper.add(kontaktKunde);
         knappeWrapper.add(rediger);
 
@@ -116,9 +112,6 @@ public class KundePanel extends JPanel implements ActionListener
         infobox.setLayout( new BorderLayout() );
         infobox.add( kundeInfo_1, BorderLayout.PAGE_START );
         infobox.add( knappeWrapper, BorderLayout.PAGE_END);
-        //infobox.add(  Box.createRigidArea(new Dimension(14,20)) );
-        //infobox.add( kundeInfo_2 );
-        
         
         forsikringsVelger.setLayout( new FlowLayout() );
         forsikringsVelger.add( new JLabel("Velg Forsikringstype"));
@@ -149,31 +142,6 @@ public class KundePanel extends JPanel implements ActionListener
         disableFelter(kundeInfo_1);
     }
     
-    public void disableFelter( Container pane )
-    {
-        Component[] liste = pane.getComponents();
-        for( Component komponent: liste )
-        {
-            if(komponent instanceof JTextField)
-            {
-                JTextField tf = (JTextField)komponent;
-                tf.setEditable(false);
-            }
-        }
-    }
-    
-    public void enableFelter( Container pane )
-    {
-        Component[] liste = pane.getComponents();
-        for( Component komponent: liste )
-        {
-            if(komponent instanceof JTextField)
-            {
-                JTextField tf = (JTextField)komponent;
-                tf.setEditable(true);
-            }
-        }
-    }
     
     public void visForsikringensSkademeldnger()
     {
