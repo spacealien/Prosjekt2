@@ -142,6 +142,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         hovedPanel.add(Box.createHorizontalStrut(5));
         hovedPanel.add(new JSeparator(SwingConstants.VERTICAL));
         hovedPanel.add(Box.createHorizontalStrut(5));
+        tegnFritidPanel2.setPreferredSize(tegnFritidPanel1.getPreferredSize());
         hovedPanel.add(tegnFritidPanel2);
         add(hovedPanel);
         

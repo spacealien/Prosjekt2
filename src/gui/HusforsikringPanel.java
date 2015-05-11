@@ -133,6 +133,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         hovedPanel.add(Box.createHorizontalStrut(5));
         hovedPanel.add(new JSeparator(SwingConstants.VERTICAL));
         hovedPanel.add(Box.createHorizontalStrut(5));
+        tegnHusPanel2.setPreferredSize(tegnHusPanel1.getPreferredSize());
         hovedPanel.add(tegnHusPanel2);
         add(hovedPanel);
         

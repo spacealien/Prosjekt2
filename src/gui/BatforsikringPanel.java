@@ -149,6 +149,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         hovedPanel.add(Box.createHorizontalStrut(5));
         hovedPanel.add(new JSeparator(SwingConstants.VERTICAL));
         hovedPanel.add(Box.createHorizontalStrut(5));
+        tegnBatPanel2.setPreferredSize(tegnBatPanel1.getPreferredSize());
         hovedPanel.add(tegnBatPanel2);
         add(hovedPanel);
         
