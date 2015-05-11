@@ -69,6 +69,9 @@ public class HovedRegister
         forsikringsregister.leggTil(kunde_3, forsikring_5);
         forsikringsregister.leggTil(kunde_3, forsikring_6);
         
+        System.out.println(forsikring_1.getArligPremie());
+        
+        
         Skademelding test_1 = new Skademelding( forsikring_1, new Date() , "Skadetype" , "Beskrivelse", 2000, 30000 );
         skademeldingsregister.leggTil(forsikring_1, test_1);
         sjekkTid();
@@ -170,8 +173,34 @@ public class HovedRegister
     {
         return ansattregister;
     }
+    
+    public int getUtgifter( Kunde kunde )
+    {
+        int sum = 0;
+        
+        List <Skademelding> skademeldinger = skademeldingsregister.getKundensSkademeldinger( forsikringsregister.getKundensForsikringer(kunde));
+        for( Skademelding skademelding: skademeldinger )
+            sum+= skademelding.getErstatningsbelop();
+        
+        return sum;
+    }
+    
+    public double getInntekter( Kunde kunde )
+    {
+        double sum = 0 ;
+        List<Forsikring> forsikringsliste = forsikringsregister.getKundensForsikringer(kunde);
+        
+        for(Forsikring forsikring : forsikringsliste )
+            sum += forsikring.getArligPremie();
+        
+        return sum;
+    }
+    
+    
+    
+    
 
-    public double  getInntekter()
+    public double getInntekter()
     {
         double totalSum = 0.0;
         

@@ -55,12 +55,12 @@ public abstract class Forsikring
             return "Bilforsikring";
         else if( this instanceof BatForsikring)
             return "Båtforsikring";
-        else if( this instanceof Eiendomsforsikring)
-            return "Eiendomsforsikring";
+        else if( this instanceof Husforsikring)
+            return "Husforsikring";
         else if( this instanceof Fritidsboligforsikring)
             return "Fritidsboligforsikring";
         else
-            return "Husforsikring";
+            return "Reiseforsikring";
     }
     
     public Kunde getKunde()

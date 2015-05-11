@@ -6,8 +6,6 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -46,6 +44,8 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
     private final JTextField regTlfnr;
     private final JTextField regAdresse;
     private final JTextField regEpost;
+    private final JTextField utgifter;
+    private final JTextField inntekter;
     private final JButton regKunde;
     private final JButton kontaktKunde;
     private final AnsattVindu vindu;
@@ -78,10 +78,13 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         regTlfnr = new JTextField( 8 );
         regAdresse = new JTextField( 15 );
         regEpost = new JTextField(20);
+        utgifter = new JTextField(20);
+        inntekter = new JTextField(20);
+        
         regKunde = new JButton("Registrer kunde" );
         kontaktKunde = new JButton("Kontakt");
         forsikringsDropDown = new JComboBox<>(forsikringsvalg);
-        kundeInfo_1.setLayout(new GridLayout(6,2,5,10));
+        kundeInfo_1.setLayout(new GridLayout(8,2,5,10));
         kundeInfo_1.add(new JLabel("Fornavn: "));
         kundeInfo_1.add(regFornavn);
         kundeInfo_1.add(new JLabel("Etternavn: "));
@@ -94,6 +97,10 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         kundeInfo_1.add(regAdresse);
         kundeInfo_1.add( new JLabel("Epost: "));
         kundeInfo_1.add(regEpost);
+        kundeInfo_1.add( new JLabel("Total Utbetalt "));
+        kundeInfo_1.add( utgifter );
+        kundeInfo_1.add( new JLabel("Total Inntjening: "));
+        kundeInfo_1.add( inntekter );
         
         regFornavn.setText(kunde.getFornavn());
         regEtternavn.setText(kunde.getEtternavn());
@@ -129,8 +136,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         setLayout( new BorderLayout()  );
         add( infobox, BorderLayout.NORTH );
         add( bunnWrapper, BorderLayout.CENTER);
-        add( forsikringsVelger, BorderLayout.SOUTH);
-        
+        add( forsikringsVelger, BorderLayout.SOUTH);        
         
         kontaktKunde.addActionListener(this);
         regKunde.addActionListener(this);
@@ -138,6 +144,10 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         visSkademeldinger.addActionListener(this);
         rediger.addActionListener(this);
         nyForsikring.addActionListener(this);
+        
+        
+        utgifter.setText(String.valueOf(vindu.getRegister().getUtgifter(kunde)));
+        inntekter.setText(String.valueOf(vindu.getRegister().getInntekter(kunde)));
         
         disableFelter(kundeInfo_1);
     }
