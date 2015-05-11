@@ -195,6 +195,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel1.add(bilRegAr);
         tegnBilPanel1.add(new JLabel("Verdi: "));
         tegnBilPanel1.add(bilVerdi);
+        tegnBilPanel1.add(new JLabel("Velg fabrikant: "));
+        tegnBilPanel1.add(bilMerke);
         tegnBilPanel1.add(new JLabel("Modell: "));
         tegnBilPanel1.add(bilModell);
         tegnBilPanel1.add(new JLabel("Hestekrefter: "));
@@ -203,14 +205,12 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel1.add(bilKmstand);
         tegnBilPanel1.add(new JLabel("Velg biltype: "));
         tegnBilPanel1.add(biltypevelger);
-        tegnBilPanel1.add(new JLabel("Velg fabrikant: "));
-        tegnBilPanel1.add(bilMerke);
         tegnBilPanel1.add(new JLabel("Årlig forventet kjørelengde: "));
         tegnBilPanel1.add(kjorelengdevelger);
         tegnBilPanel1.add(new JLabel("Yngste bilførers alder: "));
         tegnBilPanel1.add(aldervelger);
-        tegnBilPanel1.add(beregnPris);
-        tegnBilPanel1.add(new JLabel());
+        tegnBilPanel2.add(new JLabel("Er eier annen enn kunde?"));
+        tegnBilPanel2.add(annenEier);
         tegnBilPanel2.add(new JLabel("Garasje: "));
         tegnBilPanel2.add(garasjePanel);
         tegnBilPanel2.add(new JLabel("FG-godkjent alarm: "));
@@ -225,8 +225,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel2.add(bonusvelger);
         tegnBilPanel2.add(new JLabel("Velg egenandel: "));
         tegnBilPanel2.add(egenandelsvelger);
-        tegnBilPanel2.add(new JLabel("Er eier annen enn kunde?"));
-        tegnBilPanel2.add(annenEier);
+        tegnBilPanel1.add(new JLabel());
+        tegnBilPanel1.add(beregnPris);
         tegnBilPanel2.add(tilbudLabel);
         tegnBilPanel2.add(bilTilbud);
         tegnBilPanel2.add(new JLabel());

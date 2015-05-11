@@ -144,12 +144,14 @@ public class HusforsikringPanel extends JPanel implements ActionListener
                     husmaterialevelger.setEnabled(false);
                     husAr.setEnabled(false);
                     belopHus.setEnabled(false);
+                    husstandardvelger.setEnabled(false);
                 }
                 else if (hustypevelger.getSelectedItem() != "Leilighet")
                 {
                     husmaterialevelger.setEnabled(true);
                     husAr.setEnabled(true);
                     belopHus.setEnabled(true);
+                    husstandardvelger.setEnabled(true);
                 } 
             }
         });
