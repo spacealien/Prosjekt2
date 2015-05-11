@@ -22,6 +22,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
     private AnsattVindu vindu;
     private HovedRegister register;
     private Fritidsboligforsikring forsikring;
+    private KundePanel kundePanel;
     
     
     private final JTextField fritidAdresse;
@@ -301,6 +302,11 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
                 return true;
                     
             } 
+    }
+    
+    public void leggTilKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
     }
     
     public void tegnNy()

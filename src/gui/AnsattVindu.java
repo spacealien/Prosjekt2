@@ -156,35 +156,45 @@ public class AnsattVindu extends JFrame
         repaint();
     }
     
-    public void leggTilForsikringsFane( Forsikring forsikring )
+    public void leggTilForsikringsFane( Forsikring forsikring, KundePanel kundePanel )
     {
         if( forsikring.getClass() == Bilforsikring.class)
         {
             BilforsikringPanel panel = new BilforsikringPanel(forsikring.getKunde(), this);
+            if( kundePanel != null)
+                panel.leggTilKundePanel(kundePanel);
             panel.visForsikring(forsikring);
             leggTilNyFane( panel, "Bil " + forsikring.getKunde().getEtternavn());
         }
         else if( forsikring.getClass() == BatForsikring.class )
         {
             BatforsikringPanel panel = new BatforsikringPanel(forsikring.getKunde(), this);
+            if( kundePanel != null)
+                panel.leggTilKundePanel(kundePanel);
             panel.visForsikring(forsikring);
             leggTilNyFane(panel, "Båt " + forsikring.getKunde().getEtternavn());
         }
         else if( forsikring.getClass() == Husforsikring.class)
         {
             HusforsikringPanel panel = new HusforsikringPanel( forsikring.getKunde(), this);
+            if( kundePanel != null)
+                panel.leggTilKundePanel(kundePanel);
             panel.visForsikring(forsikring);
             leggTilNyFane(panel, "Hus " + forsikring.getKunde().getEtternavn()); //endre navn på tabs 
         }
         else if( forsikring.getClass() == Fritidsboligforsikring.class)
         {
             FritidsboligforsikringPanel panel = new FritidsboligforsikringPanel( forsikring.getKunde(), this);
+            if( kundePanel != null)
+                panel.leggTilKundePanel(kundePanel);
             panel.visForsikring(forsikring);
             leggTilNyFane(panel, "Fritidsbolig " + forsikring.getKunde().getEtternavn());
         }
         else if( forsikring.getClass() == Reiseforsikring.class)
         {
             ReiseforsikringPanel panel = new ReiseforsikringPanel(forsikring.getKunde(), this);
+            if( kundePanel != null)
+                panel.leggTilKundePanel(kundePanel);
             panel.visForsikring( forsikring );
             leggTilNyFane(panel, "Reise " + forsikring.getKunde().getEtternavn());
         }
@@ -244,7 +254,7 @@ public class AnsattVindu extends JFrame
         {
             int forsikringsnummer = Integer.parseInt(søkeord);
             Forsikring forsikring = register.getForsikringrsliste().getForsikring(forsikringsnummer);
-            leggTilForsikringsFane( forsikring );
+            leggTilForsikringsFane( forsikring, null );
             tomSøkefelter();
         }
         else if( søkeord.matches("\\d{9}"))

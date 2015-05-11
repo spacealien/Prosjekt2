@@ -22,6 +22,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
     private HovedRegister register;
     private Eier eier;
     private BatForsikring forsikring = null;
+    private KundePanel kundePanel;
     
     private final JTextField eierFornavn;
     private final JTextField eierEtternavn;
@@ -293,6 +294,11 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         {
             //Beregner pris
         }
+    }
+    
+    public void leggTilKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
     }
             
     public void tegnNy()

@@ -23,6 +23,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
     private AnsattVindu vindu;
     private HovedRegister register;
     private Husforsikring forsikring;
+    private KundePanel kundePanel;
     
     private final JTextField husAdresse;
     private final JTextField husAr;
@@ -305,8 +306,13 @@ public class HusforsikringPanel extends JPanel implements ActionListener
       {
             //Beregner prisen
       }
-             
     }
+    
+    public void leggTilKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
+    }
+    
     public void tegnNy()
     {
             if (hentInfo())

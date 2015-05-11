@@ -22,6 +22,8 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     private AnsattVindu vindu;
     private HovedRegister register;
     private Reiseforsikring forsikring;
+    private KundePanel kundePanel;
+    
     private final JTextField reiseBelop;
     private final JTextField reiseTilbud;
     private final JTextField antbarn;
@@ -252,6 +254,11 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         {
            //Beregn pris
         }
+    }
+    
+    public void leggTilKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
     }
     
     public void tegnNy()
