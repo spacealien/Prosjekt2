@@ -96,7 +96,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         JPanel tegnFritidPanel1 = new JPanel();
         JPanel utleie = new JPanel();
         JPanel alarmPanel = new JPanel();
-        tegnFritidPanel1.setLayout(new GridLayout(7,4,1,5));
+        tegnFritidPanel1.setLayout(new GridLayout(8,4,1,5));
         utleie.add(utleidJa);
         utleie.add(utleidNei);
         alarmPanel.add(alarmJa);
@@ -113,6 +113,8 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         tegnFritidPanel1.add(fritidmaterialevelger);
         tegnFritidPanel1.add(new JLabel("Standard: "));
         tegnFritidPanel1.add(fritidstandardvelger);
+        tegnFritidPanel1.add(new JLabel("Alarm: "));
+        tegnFritidPanel1.add(alarmPanel);
         tegnFritidPanel1.add(new JLabel("Utleid: "));
         tegnFritidPanel1.add(utleie);
         tegnFritidPanel1.add(new JLabel("Egenandel: "));
