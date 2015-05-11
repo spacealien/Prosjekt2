@@ -99,7 +99,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         kundeInfo_1.add(regEpost);
         kundeInfo_1.add( new JLabel("Total Utbetalt "));
         kundeInfo_1.add( utgifter );
-        kundeInfo_1.add( new JLabel("Total Inntjening: "));
+        kundeInfo_1.add( new JLabel("Total Inntjening: wee "));
         kundeInfo_1.add( inntekter );
         
         regFornavn.setText(kunde.getFornavn());
