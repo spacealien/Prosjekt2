@@ -195,6 +195,16 @@ public class HusforsikringPanel extends JPanel implements ActionListener
                         JTextField tf = (JTextField)component;
                         tf.setEditable(false);
                     }
+                    else if(component instanceof JComboBox)
+                    {
+                        JComboBox cb = (JComboBox)component;
+                        cb.setEnabled(false);
+                    }
+                    else if(component instanceof JRadioButton)
+                    {
+                        JRadioButton rb = (JRadioButton)component;
+                        rb.setEnabled(false);
+                    }
                     else if (component.equals(husGiTilbud))
                             {
                                 component.setVisible(false);
@@ -283,6 +293,11 @@ public class HusforsikringPanel extends JPanel implements ActionListener
             
             kunde.leggTilNøkkel(forsikringen.getForsikringsnummer());
             
+            JOptionPane.showMessageDialog(null, "Du har nå tegnet husforsikring med nummer " 
+                                          + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() 
+                                          + " " + kunde.getEtternavn() , "Bekreftelse", 
+                                            JOptionPane.INFORMATION_MESSAGE);
+            
             System.out.println(forsikringen);
             }
     }
@@ -306,6 +321,16 @@ public class HusforsikringPanel extends JPanel implements ActionListener
                     {
                         JTextField tf = (JTextField)component;
                         tf.setEditable(true);
+                    }
+                    else if(component instanceof JComboBox)
+                    {
+                        JComboBox cb = (JComboBox)component;
+                        cb.setEnabled(true);
+                    }
+                    else if(component instanceof JRadioButton)
+                    {
+                        JRadioButton rb = (JRadioButton)component;
+                        rb.setEnabled(true);
                     }
                     else if (component.equals(beregnPris))
                             {

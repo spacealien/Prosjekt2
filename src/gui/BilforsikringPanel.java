@@ -361,6 +361,16 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                         JTextField tf = (JTextField)component;
                         tf.setEditable(false);
                     }
+                    else if(component instanceof JComboBox)
+                    {
+                        JComboBox cb = (JComboBox)component;
+                        cb.setEnabled(false);
+                    }
+                    else if(component instanceof JRadioButton)
+                    {
+                        JRadioButton rb = (JRadioButton)component;
+                        rb.setEnabled(false);
+                    }
                     else if (component.equals(bilGiTilbud))
                     {
                         component.setVisible(false);
@@ -648,6 +658,16 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     {
                         JTextField tf = (JTextField)component;
                         tf.setEditable(true);
+                    }
+                    else if(component instanceof JComboBox)
+                    {
+                        JComboBox cb = (JComboBox)component;
+                        cb.setEnabled(true);
+                    }
+                    else if(component instanceof JRadioButton)
+                    {
+                        JRadioButton rb = (JRadioButton)component;
+                        rb.setEnabled(true);
                     }
                     else if (component.equals(beregnPris))
                     {
