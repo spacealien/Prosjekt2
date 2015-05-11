@@ -288,14 +288,13 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
             Forsikring forsikringen = new Fritidsboligforsikring(kunde, egenandelvalget, "Vilkår 1", adr, ar, 
                        typevalget, materialevalget, standardvalget, kvm, belop, belopInnbo, alarm_b, utleid_b);
             
-            kunde.leggTilNøkkel(forsikringen.getForsikringsnummer());
+            vindu.getRegister().nyForsikring(forsikring);
             
             JOptionPane.showMessageDialog(null, "Du har nå tegnet fritidsboligforsikring med nummer " 
                                           + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() 
                                           + " " + kunde.getEtternavn() , "Bekreftelse", 
                                             JOptionPane.INFORMATION_MESSAGE);
-        
-            System.out.println(forsikringen);
+
         }
     }
     

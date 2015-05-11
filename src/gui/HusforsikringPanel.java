@@ -281,9 +281,8 @@ public class HusforsikringPanel extends JPanel implements ActionListener
                     egenandelvalget, "Vilkår 1", adr, ar, hustypevalget, husmaterialevalget, 
                     husstandardvalget, kvm, belop, belopInnbo, alarm_b);
             
-            kunde.leggTilNøkkel(forsikringen.getForsikringsnummer());
+            vindu.getRegister().nyForsikring(forsikring);
             
-            System.out.println(forsikringen);
             }
     }
     
