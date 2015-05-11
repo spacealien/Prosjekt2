@@ -72,7 +72,7 @@ public class AnsattVindu extends JFrame
         setVisible(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         kalender = new GregorianCalendar();
-        register = new HovedRegister();
+        register = new HovedRegister(this);
         KnappeLytter knappeLytter = new KnappeLytter();
         mainContainer = getContentPane();
         fanekort =  new JTabbedPane();

@@ -5,12 +5,12 @@
  */
 package register;
 
+import gui.AnsattVindu;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import objekter.*;
@@ -26,9 +26,11 @@ public class HovedRegister
     private SkademeldingRegister skademeldingsregister = new SkademeldingRegister();
     private Ansattregister ansattregister = new Ansattregister();
     private GregorianCalendar kalender;
+    private AnsattVindu vindu;
 
-    public HovedRegister() 
+    public HovedRegister(AnsattVindu v) 
     {
+        vindu = v;
         /**
         kalender = new GregorianCalendar();
         Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer("08206049937");
@@ -83,7 +85,6 @@ public class HovedRegister
     public List<Skademelding> getAlleKundensSkademeldinger( Kunde kunde )
     {
         return skademeldingsregister.getKundensSkademeldinger(forsikringsregister.getKundensForsikringer(kunde));
-       
     }
     
     public List<Forsikring> getAlleKundensForsikringer(Kunde kunde)
@@ -116,15 +117,10 @@ public class HovedRegister
         return kunderegister.getAnsattesKunder(ansatt);
     }
     
-    public Kunde nyKunde( String fnavn, String enavn, String adr, String tlf, String email, String persnummer)
-    {
-        
-        GregorianCalendar fd = new GregorianCalendar();
-        // sette fødselsdato fødselsdato.set();
-        Kunde nyKunde = new Kunde( fnavn,  enavn,  adr, tlf, fd ,
-                                   email, persnummer);
-        
-        return kunderegister.leggTil(nyKunde);
+    public void nyKunde( Kunde nyKunde )
+    {   
+        kunderegister.leggTil(nyKunde);
+        vindu.oppdaterTabell( kunderegister.alleKunder() );
     }
     
     public Kunde finnKunde()
