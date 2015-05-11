@@ -107,7 +107,6 @@ public class HovedRegister
                     {
                         forsikring.beregnPris();
                     }*/
-               
             }
             
         }  
@@ -195,10 +194,6 @@ public class HovedRegister
         return sum;
     }
     
-    
-    
-    
-
     public double getInntekter()
     {
         double totalSum = 0.0;
@@ -244,10 +239,23 @@ public class HovedRegister
         }
     }
     
-    public boolean nyForsikring( Forsikring nyForsikring  )
+    public void nyForsikring( Forsikring nyForsikring  )
     {
         forsikringsregister.leggTil( nyForsikring.getKunde(), nyForsikring);
-        return true;
+        if(forsikringsregister.tellKundensAktiveForsikringer(nyForsikring.getKunde()) >= 3)
+            nyForsikring.getKunde().setTotalKunde(true);
+    }
+    
+    public void deaktiverForsikring( Integer forsikringsnummer )
+    {
+        Forsikring forsikring = forsikringsregister.getForsikring(forsikringsnummer);
+        forsikring.setAktiver(false);
+        if( forsikringsregister.tellKundensAktiveForsikringer(forsikring.getKunde()) <  3 )
+        {
+            forsikring.getKunde().setTotalKunde(false);
+        }
+        
+        vindu.visInformasjon("Beskjed", "Forsikringen er deaktivert. ");
     }
     
     public boolean nySkademelding( Skademelding nySkademelding )

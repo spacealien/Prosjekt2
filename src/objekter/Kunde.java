@@ -18,13 +18,18 @@ import java.util.List;
 public class Kunde extends Bruker
 {
     private final List<Integer> forsikringsnøkkel = new ArrayList<>();
-    private final boolean totalkunde = false;
+    private boolean totalkunde = false;
     private double årligForsikringsPremie = 0;
     
     public Kunde(String fnavn, String enavn, String adr, String tlf, GregorianCalendar fd,
                  String email, String persnummer)
     {
         super( fnavn,  enavn,  adr,  tlf,  fd, email, persnummer);
+    }
+    
+    public void setTotalKunde( boolean total )
+    {
+        totalkunde = total;
     }
     
     public void leggTilÅrligForsikringsPremie(double beløp)

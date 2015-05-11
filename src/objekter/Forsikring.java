@@ -103,8 +103,6 @@ public abstract class Forsikring
     {
         Forsikring.løpenummer = løpenummer;
     }
-
-
     
     public void setAktiver( boolean ok )
     {
