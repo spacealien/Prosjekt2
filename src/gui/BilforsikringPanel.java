@@ -564,6 +564,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         else if (!gjenkjenningJa.isSelected() && gjenkjenningNei.isSelected())
                     gjenkjenning_b = false;
             
+            try
+            {
                 forer = aldervelger.getItemAt(alder_n);
                 belop = Integer.parseInt(bilVerdi.getText());
                 typevalget = biltypevelger.getItemAt(type_n);
@@ -575,9 +577,15 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                 merke = bilMerke.getText();
                 hk = Integer.parseInt(bilHk.getText());
                 ar = Integer.parseInt(bilRegAr.getText());
-                kmstand = Integer.parseInt(bilKmstand.getText());  
+                kmstand = Integer.parseInt(bilKmstand.getText());
                 return true;
             }
+            catch( NumberFormatException e )
+            {
+                vindu.visFeilmelding("Feilmelding", "Feil format i et av tekstfeltene. ");
+                return false;
+            }    
+        }
     }
     
     public void beregnPris()
