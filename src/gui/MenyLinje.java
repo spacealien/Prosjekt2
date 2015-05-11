@@ -10,6 +10,7 @@ import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 /**
  *
@@ -23,22 +24,25 @@ public class MenyLinje extends MenuBar
     private final Menu adminMeny = new Menu("Admin");
     private final MenuItem loggUtKnapp = new MenuItem("Logg Ut");
     private final MenuItem avsluttKnapp = new MenuItem("Avslutt");
-    private final AnsattVindu vindu;
+    private final AnsattVindu ansattVindu;
     
     
     public MenyLinje(AnsattVindu vindu )
     {
-        this.vindu = vindu;
+        ansattVindu = vindu;
         filMeny.add(loggUtKnapp);
         filMeny.add(avsluttKnapp);
         this.add(filMeny);
         this.add(vinduMeny);
         
         loggUtKnapp.addActionListener(lytter);
-        
+        avsluttKnapp.addActionListener(lytter);
     }
     
-    
+    public void avslutt()
+    {
+        ansattVindu.dispatchEvent(new WindowEvent( ansattVindu,WindowEvent.WINDOW_CLOSING));
+    }
     
     private class MenyLytter implements ActionListener
     {
@@ -47,9 +51,13 @@ public class MenyLinje extends MenuBar
         {
             if( e.getSource() == loggUtKnapp)
             {
-                vindu.setAnsatt(null);
-                vindu.setVisible(false);
-                vindu.visLogin();
+                ansattVindu.setAnsatt(null);
+                ansattVindu.setVisible(false);
+                ansattVindu.visLogin();
+            }
+            else if( e.getSource() == avsluttKnapp )
+            {
+                avslutt();
             }
         }
         

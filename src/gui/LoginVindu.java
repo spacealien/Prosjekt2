@@ -14,15 +14,11 @@ package gui;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -87,7 +83,13 @@ public class LoginVindu extends JFrame
             vindu.leggTilNyFane( new AnsattPanel(), "Min Side");
             vindu.oppdaterTabell( vindu.getRegister().getKundeliste().alleKunder()    );
             vindu.setAnsatt(ansatt);
+            this.dispose();
         }
+    }
+    
+    private void avslutt()
+    {
+        vindu.dispatchEvent(new WindowEvent(vindu, WindowEvent.WINDOW_CLOSING));
     }
     
     private class KnappeLytter implements ActionListener
@@ -98,11 +100,10 @@ public class LoginVindu extends JFrame
             if( e.getSource() == loginKnapp )
             {
                 login();
-                dispose();
             }
             else if( e.getSource() == avsluttKnapp )
             {
-                //this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+                avslutt();
             }
         }  
     }

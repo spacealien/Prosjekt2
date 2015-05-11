@@ -423,8 +423,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     return false;
             }
             else
-            {
-                
+            {     
                 switch (bonus_n)
                 {
                     case 1:
@@ -547,6 +546,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     gjenkjenning_b = true;
         else if (!gjenkjenningJa.isSelected() && gjenkjenningNei.isSelected())
                     gjenkjenning_b = false;
+            
                 forer = aldervelger.getItemAt(alder_n);
                 belop = Integer.parseInt(bilVerdi.getText());
                 typevalget = biltypevelger.getItemAt(type_n);

@@ -534,7 +534,7 @@ public class Bilforsikring extends Kjoretoyforsikring
         }
         
         bpTilbud = bpTakst*(bpBilAlder+bpKjorelengde+bpHk+bpGarasje+bpEgenandel+bpForerAlder+bpEsp+bpAlarm+bpGps);
-        
+        System.out.println("FAEN");
     }
     
     @Override
