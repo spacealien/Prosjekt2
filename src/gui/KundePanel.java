@@ -205,14 +205,12 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
     public void deaktiverForsikring()
     {
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
-        Forsikring forsikring = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
-        int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
+        int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + forsikringsnummer , JOptionPane.YES_NO_OPTION);
         if (svar == JOptionPane.YES_OPTION)
         {
-            forsikring.setAktiver(false);
+            vindu.getRegister().deaktiverForsikring(forsikringsnummer);
             tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde), this);
             tabell.setModel(tabellModell);
-            JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
         }
     }        
     

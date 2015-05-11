@@ -53,7 +53,7 @@ public class Forsikringsliste
         return funnetForsikringer;
     }
     
-    public int tellKundensForsikringer( Kunde kunde )
+    public int tellKundensAktiveForsikringer( Kunde kunde )
     {
         List<Forsikring> forsikringer =  getKundensForsikringer( kunde );
         

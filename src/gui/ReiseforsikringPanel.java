@@ -125,7 +125,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     }
     
     private Component[] getKomponenter(Component pane)
-     {
+    {
         ArrayList<Component> liste = null;
 
         try

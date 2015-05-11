@@ -27,6 +27,11 @@ public class Kunde extends Bruker
         super( fnavn,  enavn,  adr,  tlf,  fd, email, persnummer);
     }
     
+    public void setTotalKunde( boolean total )
+    {
+        totalkunde = total;
+    }
+    
     public void leggTilÅrligForsikringsPremie(double beløp)
     {
         årligForsikringsPremie += beløp;
