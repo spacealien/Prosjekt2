@@ -67,17 +67,17 @@ public class Forsikringsliste
         return teller;
     }
     
-    public boolean erTotalKunde( Kunde kunde )
+    public Set<String> antallAktiveForsikringer( Kunde kunde )
     {
         List<Forsikring> kundeForsikringer = getKundensForsikringer( kunde );
         Set<String> set = new HashSet<>();
         for( Forsikring forsikring :  kundeForsikringer)
-            set.add(forsikring.getForsikringsType());
+        {
+            if(forsikring.erAktiv())
+                set.add(forsikring.getForsikringsType());
+        }
         
-        if(set.size() >= 3 )
-            return true;
-        else 
-            return false;
+        return set;
     }
     
     public List<Forsikring> alleForsikringer()

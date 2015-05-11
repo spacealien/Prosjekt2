@@ -42,15 +42,19 @@ public class HusforsikringPanel extends JPanel implements ActionListener
     JComboBox<String> husstandardvelger;
     String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
     JComboBox<String> egenandelsvelger;
+    String[] dekning = {"", "Hus", "Hus Pluss"};
+    JComboBox<String> dekningvelger;
     private final JRadioButton alarmJa, alarmNei;
     private final JButton husGiTilbud;
     private final JButton beregnPris;
+    private final JButton vilkar;
     private final Kunde kunde;
     
     private String hustypevalget;
     private String husmaterialevalget;
     private String husstandardvalget;
     private int egenandelvalget;
+    private String dekningvalget;
     private String adr;
     private int ar;
     private int kvm;
@@ -80,6 +84,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         husmaterialevelger = new JComboBox<>(husmateriale);
         husstandardvelger = new JComboBox<>(husstandard);
         egenandelsvelger = new JComboBox<>(egenandel);
+        dekningvelger = new JComboBox<>(dekning);
         alarmJa = new JRadioButton("Ja");
         alarmJa.setMnemonic(KeyEvent.VK_J);
         alarmNei = new JRadioButton("Nei");
@@ -89,6 +94,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         utleid.add(alarmNei);
         beregnPris = new JButton("Beregn pris");
         husGiTilbud = new JButton("Tegn forsikring");
+        vilkar = new JButton("Vis vilkår");
         
         JPanel tegnHusPanel1 = new JPanel();
         JPanel tegnHusPanel2 = new JPanel();
@@ -97,7 +103,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         alarmPanel.add(alarmJa);
         alarmPanel.add(alarmNei);
         tegnHusPanel1.setLayout(new GridLayout(8,2,5,10));
-        tegnHusPanel2.setLayout(new GridLayout(7,2,5,10));
+        tegnHusPanel2.setLayout(new GridLayout(8,2,5,10));
         hovedPanel.setLayout(new BoxLayout(hovedPanel, BoxLayout.LINE_AXIS));
         tegnHusPanel1.add(new JLabel("Adresse: "));
         tegnHusPanel1.add(husAdresse);
@@ -119,10 +125,12 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         tegnHusPanel2.add(belopHus);
         tegnHusPanel2.add(new JLabel("Forskringsbeløp innbo: "));
         tegnHusPanel2.add(belopHusInnbo);
+        tegnHusPanel2.add(new JLabel());
+        tegnHusPanel2.add(vilkar);
+        tegnHusPanel2.add(new JLabel("Velg dekning: "));
+        tegnHusPanel2.add(dekningvelger);
         tegnHusPanel2.add(new JLabel("Egenandel: "));
         tegnHusPanel2.add(egenandelsvelger);
-        tegnHusPanel2.add(new JLabel());
-        tegnHusPanel2.add(new JLabel());
         tegnHusPanel2.add(new JLabel());
         tegnHusPanel2.add(beregnPris);
         tegnHusPanel2.add(tilbudLabel);
@@ -134,12 +142,12 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         hovedPanel.add(Box.createHorizontalStrut(5));
         hovedPanel.add(new JSeparator(SwingConstants.VERTICAL));
         hovedPanel.add(Box.createHorizontalStrut(5));
-        tegnHusPanel2.setPreferredSize(tegnHusPanel1.getPreferredSize());
         hovedPanel.add(tegnHusPanel2);
         add(hovedPanel);
         
         husGiTilbud.addActionListener(this);
         beregnPris.addActionListener(this);
+        vilkar.addActionListener(this);
         rediger.addActionListener(this);
         lagreNyInfo.addActionListener(this);
         deaktiver.addActionListener(this);
@@ -155,6 +163,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
                     husAr.setEnabled(false);
                     belopHus.setEnabled(false);
                     husstandardvelger.setEnabled(false);
+                    dekningvelger.setEnabled(false);
                 }
                 else if (hustypevelger.getSelectedItem() != "Leilighet")
                 {
@@ -162,6 +171,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
                     husAr.setEnabled(true);
                     belopHus.setEnabled(true);
                     husstandardvelger.setEnabled(true);
+                    dekningvelger.setEnabled(true);
                 } 
             }
         });
@@ -255,29 +265,43 @@ public class HusforsikringPanel extends JPanel implements ActionListener
             int materiale_n = husmaterialevelger.getSelectedIndex();
             int husstandard_n = husstandardvelger.getSelectedIndex();
             int egenandel_n = egenandelsvelger.getSelectedIndex();
+            int dekning_n = dekningvelger.getSelectedIndex();
             
-            if (hustype_n == 0 || materiale_n == 0 || husstandard_n == 0 || egenandel_n == 0 || (!alarmJa.isSelected() && !alarmNei.isSelected()))
+            if (hustype_n == 0 || materiale_n == 0 || husstandard_n == 0 || egenandel_n == 0 || dekning_n == 0 || (!alarmJa.isSelected() && !alarmNei.isSelected()))
             {
                 String ut = "Det mangler informasjon om:\n";
             
                 if (hustype_n == 0)
-                {ut += "Hustype\n";}
+                {
+                    ut += "Hustype\n";
+                }
                 
                 if (materiale_n == 0)
-                {ut += "Byggemateriale\n";}
+                {
+                    ut += "Byggemateriale\n";
+                }
                 
                 if (husstandard_n == 0)
-                    {ut += "Husstandard\n";}
+                    {
+                        ut += "Husstandard\n";
+                    }
                 if (egenandel_n == 0)
-                    {ut += "Egenandel\n";}
+                    {
+                        ut += "Egenandel\n";
+                    }
+                if (dekning_n == 0)
+                    {
+                        ut += "Dekning\n";
+                    }
                 if (!alarmJa.isSelected() && !alarmNei.isSelected())
                 {
                     ut += "Alarmvalg\n";
                 }
+                
                 ut += "\nVennligst fyll ut denne informasjonen og prøv igjen.";
-            JOptionPane.showMessageDialog(null, ut, "Feilmelding",
+                JOptionPane.showMessageDialog(null, ut, "Feilmelding",
                                                 JOptionPane.ERROR_MESSAGE);
-            return false;
+                return false;
             }
             else
             {
@@ -286,6 +310,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
             husmaterialevalget = husmaterialevelger.getItemAt(materiale_n);
             husstandardvalget = husstandardvelger.getItemAt(husstandard_n);
             egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
+            dekningvalget = dekningvelger.getItemAt(dekning_n);
             adr = husAdresse.getText();
             ar = Integer.parseInt(husAr.getText());
             kvm = Integer.parseInt(husKvm.getText());
@@ -325,7 +350,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
                 }
                 
             Forsikring forsikringen = new Husforsikring(kunde, 
-                    egenandelvalget, "Vilkår 1", adr, ar, hustypevalget, husmaterialevalget, 
+                    egenandelvalget, dekningvalget, adr, ar, hustypevalget, husmaterialevalget, 
                     husstandardvalget, kvm, belop, belopInnbo, alarm_b);
             
             vindu.getRegister().nyForsikring(forsikringen);
@@ -352,6 +377,10 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         else if(e.getSource() == beregnPris)
         {
             beregnPris();
+        }
+        else if (e.getSource() == vilkar)
+        {
+            //Vis vilkår
         }
         else if(e.getSource() == rediger)
         {

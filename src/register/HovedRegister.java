@@ -242,7 +242,7 @@ public class HovedRegister
     public void nyForsikring( Forsikring nyForsikring  )
     {
         forsikringsregister.leggTil( nyForsikring.getKunde(), nyForsikring);
-        if(forsikringsregister.erTotalKunde(nyForsikring.getKunde()))
+        if(forsikringsregister.antallAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
         {
             nyForsikring.getKunde().setTotalKunde(true);
             vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
@@ -254,7 +254,7 @@ public class HovedRegister
     {
         Forsikring forsikring = forsikringsregister.getForsikring(forsikringsnummer);
         forsikring.setAktiver(false);
-        if( forsikringsregister.erTotalKunde(forsikring.getKunde()) )
+        if( forsikringsregister.antallAktiveForsikringer(forsikring.getKunde()).size() == 3)
         {
             forsikring.getKunde().setTotalKunde(false);
         }

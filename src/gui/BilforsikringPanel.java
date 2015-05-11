@@ -170,7 +170,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         dekningvelger = new JComboBox<>(dekning);
         aldervelger = new JComboBox<>(foreralder);
         bonusvelger = new JComboBox<>(bonus);
-        vilkårKnapp = new JButton("Vilkår");
+        vilkårKnapp = new JButton("Vis vilkår");
         
     
         JPanel garasjePanel = new JPanel();
@@ -181,7 +181,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         JPanel tegnBilPanel2 = new JPanel();
         JPanel hovedPanel = new JPanel();
         tegnBilPanel1.setLayout(new GridLayout(11,2,1,1));
-        tegnBilPanel2.setLayout(new GridLayout(10,2,1,1));
+        tegnBilPanel2.setLayout(new GridLayout(11,2,1,1));
         garasjePanel.add(garasjeJa);
         garasjePanel.add(garasjeNei);
         alarmPanel.add(alarmJa);
@@ -220,6 +220,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel2.add(espPanel);
         tegnBilPanel2.add(new JLabel("<html>FG-godkjent søk- og<br> gj.kjenningssystem: </html>"));
         tegnBilPanel2.add(gjenkjenningPanel);
+        tegnBilPanel2.add(new JLabel());
+        tegnBilPanel2.add(vilkårKnapp);
         tegnBilPanel2.add(new JLabel("Dekning: "));
         tegnBilPanel2.add(dekningvelger);
         tegnBilPanel2.add(new JLabel("Bonus: "));
@@ -661,6 +663,10 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                JOptionPane.showMessageDialog( null, bilforsikring.getEier().toString(), 
                       "Kjøretøyets registrerte eier:", JOptionPane.PLAIN_MESSAGE);
             }
+        }
+        else if ( e.getSource() == vilkårKnapp)
+        {
+            //Vis vilkår
         }
         else if( e.getSource() == rediger)
         {

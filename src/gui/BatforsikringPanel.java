@@ -46,9 +46,12 @@ public class BatforsikringPanel extends JPanel implements ActionListener
     JComboBox<String> battypevelger;
     String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
     JComboBox<String> egenandelsvelger;
+    String[] dekning = {"", "Ansvar", "Delkasko", "Kasko", "Båt Pluss"};
+    JComboBox<String> dekningvelger;
     private final JButton annenEier;
     private final JButton beregnPris;
     private final JButton batGiTilbud;
+    private final JButton vilkar;
     private final Kunde kunde;
     
     private String reg;
@@ -59,6 +62,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
     private int lengde;
     private String typevalget;
     private int egenandelvalget;
+    private String dekningvalget;
     private boolean vekter_b;
     private int belop;
     private JPanel knappePanel = new JPanel();
@@ -90,9 +94,11 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         vektere.add(vekterNei);
         battypevelger = new JComboBox<>(battype);
         egenandelsvelger = new JComboBox<>(egenandel);
+        dekningvelger = new JComboBox<>(dekning);
         annenEier = new JButton("Trykk her");
         batGiTilbud = new JButton("Tegn forsikring");
         beregnPris = new JButton("Beregn pris");
+        vilkar = new JButton("Vis vilkår");
         
         eierFornavn = new JTextField(20);
         eierEtternavn = new JTextField(20);
@@ -113,15 +119,17 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         JPanel tegnBatPanel1 = new JPanel();
         JPanel tegnBatPanel2 = new JPanel();
         JPanel hovedPanel = new JPanel();
-        tegnBatPanel1.setLayout(new GridLayout(7,2,2,10));
-        tegnBatPanel2.setLayout(new GridLayout(7,2,2,10));
+        tegnBatPanel1.setLayout(new GridLayout(8,2,2,10));
+        tegnBatPanel2.setLayout(new GridLayout(8,2,2,10));
         hovedPanel.setLayout(new BoxLayout(hovedPanel, BoxLayout.LINE_AXIS));
         vekt.add(vekterJa);
         vekt.add(vekterNei);
         tegnBatPanel1.add(new JLabel("Reg.nummer: "));
         tegnBatPanel1.add(batRegnr);
-        tegnBatPanel2.add(new JLabel("Verdi "));
-        tegnBatPanel2.add(batVerdi);
+        tegnBatPanel2.add(new JLabel());
+        tegnBatPanel2.add(vilkar);
+        tegnBatPanel2.add(new JLabel("Velg dekning: "));
+        tegnBatPanel2.add(dekningvelger);
         tegnBatPanel1.add(new JLabel("Merke: "));
         tegnBatPanel1.add(batMerke);
         tegnBatPanel2.add(new JLabel("Vekter: "));
@@ -144,6 +152,8 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         tegnBatPanel2.add(batTilbud);
         tegnBatPanel1.add(new JLabel("Type båt: "));
         tegnBatPanel1.add(battypevelger);
+        tegnBatPanel1.add(new JLabel("Verdi "));
+        tegnBatPanel1.add(batVerdi);
         tegnBatPanel2.add(new JLabel());
         tegnBatPanel2.add(batGiTilbud);
         hovedPanel.add(tegnBatPanel1);
@@ -157,6 +167,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         batGiTilbud.addActionListener(this);
         annenEier.addActionListener(this);
         beregnPris.addActionListener(this);
+        vilkar.addActionListener(this);
         rediger.addActionListener(this);
         lagreNy.addActionListener(this);
         deaktiver.addActionListener(this);
@@ -195,6 +206,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         batHk.setText(String.valueOf(forsikring.getHestekrefter()));
         egenandelsvelger.setSelectedItem(String.valueOf(forsikring.getEgenandel()));
         battypevelger.setSelectedItem(String.valueOf(forsikring.getType()));
+        dekningvelger.setSelectedItem(forsikring.getVilkar());
         if (forsikring.getVekter())
             vekterJa.setSelected(true);
         else
@@ -248,26 +260,31 @@ public class BatforsikringPanel extends JPanel implements ActionListener
               
             int type_n = battypevelger.getSelectedIndex();
             int egenandel_n = egenandelsvelger.getSelectedIndex();
+            int dekning_n = dekningvelger.getSelectedIndex();
             
-            if (type_n == 0 || egenandel_n == 0 || (!vekterJa.isSelected() && !vekterNei.isSelected()) )
+            if (type_n == 0 || egenandel_n == 0 || (!vekterJa.isSelected() && !vekterNei.isSelected()) || dekning_n == 0 )
             {
                 String ut = "Det mangler informasjon om:\n";
                 if (type_n == 0)
-            {
-              ut += "Båttype\n";
-            }
-                   if (egenandel_n == 0)
-            {
-              ut += "Egenandel\n";
-            }
-            if(!vekterJa.isSelected() && !vekterNei.isSelected())
-            {
-             ut += "Vektervalg\n";
-            }
-            ut += "\nVennligst fyll ut denne informasjonen og prøv igjen.";
-            JOptionPane.showMessageDialog(null, ut, "Feilmelding",
+                {
+                    ut += "Båttype\n";
+                }
+                if (egenandel_n == 0)
+                {
+                    ut += "Egenandel\n";
+                }
+                if (dekning_n == 0)
+                {
+                    ut += "Dekning\n";
+                }
+                if(!vekterJa.isSelected() && !vekterNei.isSelected())
+                {
+                        ut += "Vektervalg\n";
+                }
+                ut += "\nVennligst fyll ut denne informasjonen og prøv igjen.";
+                JOptionPane.showMessageDialog(null, ut, "Feilmelding",
                                                 JOptionPane.ERROR_MESSAGE);
-            return false;
+                return false;
             }
             else
             {  
@@ -285,6 +302,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
             lengde = Integer.parseInt(batLengde.getText());
             typevalget = battypevelger.getItemAt(type_n);
             egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
+            dekningvalget = dekningvelger.getItemAt(dekning_n);
             return true;
             }
     }
@@ -312,7 +330,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
                 register.getKundeliste().leggTil(kunde);
             }
             
-            Forsikring forsikringen = new BatForsikring(kunde, egenandelvalget, "Vilkår 2", reg, belop,
+            Forsikring forsikringen = new BatForsikring(kunde, egenandelvalget, dekningvalget, reg, belop,
                                  merke, modell, typevalget, hk, 
                                  ar, vekter_b, lengde);
             
@@ -344,10 +362,10 @@ public class BatforsikringPanel extends JPanel implements ActionListener
             if (annenEier.getText().equals("Trykk for annen eier"))
             {
                 int result = JOptionPane.showConfirmDialog(null, eierPanel, 
-               "Vennligst fyll ut bileiers kontaktinformasjon:", JOptionPane.OK_CANCEL_OPTION);
+                "Vennligst fyll ut bileiers kontaktinformasjon:", JOptionPane.OK_CANCEL_OPTION);
                 if (result == JOptionPane.OK_OPTION)
                 {
-                eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), eierAdresse.getText(), eierTlf.getText());
+                    eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), eierAdresse.getText(), eierTlf.getText());
                 }
             }
             else if(annenEier.getText().equals("Vis eier"))
@@ -355,6 +373,10 @@ public class BatforsikringPanel extends JPanel implements ActionListener
                   JOptionPane.showMessageDialog( null, forsikring.getEier().toString(), 
                       "Kjøretøyets registrerte eier:", JOptionPane.PLAIN_MESSAGE);
                 }
+        }
+        else if (e.getSource() == vilkar)
+        {
+            //Vis vilkår
         }
         else if (e.getSource() == rediger)
         {
