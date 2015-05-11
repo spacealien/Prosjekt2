@@ -27,6 +27,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private HovedRegister register;
     private Person eieren;
     private Bilforsikring bilforsikring;
+    private KundePanel kundePanel;
     
     private final JTextField eierFornavn;
     private final JTextField eierEtternavn;
@@ -595,6 +596,11 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         }
     }
     
+    public void leggTilKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
+    }
+    
     public void tegnNy()
     {
         if (hentInfo())
@@ -610,6 +616,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                                     kmstand, forer, bonusen, antAr, garasje, alarm_b, esp_b, gjenkjenning_b, lengdevalget);
             
             vindu.getRegister().nyForsikring(forsikring);
+            
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
             
             Eier eier = (Eier)eieren;
             forsikring.setEier(eier);

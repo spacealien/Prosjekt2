@@ -102,12 +102,6 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         kundeInfo_1.add( new JLabel("Total Inntjening pr år: "));
         kundeInfo_1.add( inntekter );
         
-        regFornavn.setText(kunde.getFornavn());
-        regEtternavn.setText(kunde.getEtternavn());
-        regPersnr.setText(kunde.getPersonnummer());
-        regTlfnr.setText(kunde.getTlfnr());
-        regAdresse.setText(kunde.getAdresse());
-        regEpost.setText(kunde.getEpost());
         
         knappeWrapper.setLayout( new FlowLayout() );
         knappeWrapper.add(visForsikringer);
@@ -145,13 +139,23 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         rediger.addActionListener(this);
         nyForsikring.addActionListener(this);
         
-        
-        utgifter.setText(String.valueOf(vindu.getRegister().getUtgifter(kunde)));
-        inntekter.setText(String.valueOf(vindu.getRegister().getInntekter(kunde)));
-        
+        oppdaterVindu();
         disableFelter(kundeInfo_1);
     }
     
+    public void oppdaterVindu()
+    {
+        regFornavn.setText(kunde.getFornavn());
+        regEtternavn.setText(kunde.getEtternavn());
+        regPersnr.setText(kunde.getPersonnummer());
+        regTlfnr.setText(kunde.getTlfnr());
+        regAdresse.setText(kunde.getAdresse());
+        regEpost.setText(kunde.getEpost());
+        utgifter.setText(String.valueOf(vindu.getRegister().getUtgifter(kunde)));
+        inntekter.setText(String.valueOf(vindu.getRegister().getInntekter(kunde)));
+        TabellModellForsikring nyModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde), this);
+        tabell.setModel(nyModell);
+    }
     
     public void visForsikringensSkademeldnger()
     {
@@ -199,7 +203,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
     {
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
         Forsikring forsikring = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
-        vindu.leggTilForsikringsFane(forsikring);
+        vindu.leggTilForsikringsFane(forsikring, this);
     }
     
     public void deaktiverForsikring()
@@ -279,19 +283,29 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
                     vindu.visFeilmelding("Melding", "Du må velge en type forsikring for å gå videre. ");
                     break;
                 case "Bilforsikring":
-                    vindu.leggTilNyFane( new BilforsikringPanel(kunde, vindu), "Ny Bilforsikring");
+                    BilforsikringPanel bilforsikringspanel = new BilforsikringPanel(kunde,vindu);
+                    bilforsikringspanel.leggTilKundePanel(this);
+                    vindu.leggTilNyFane( bilforsikringspanel, "Ny Bilforsikring");
                     break;
                 case "Båtforsikring":
-                    vindu.leggTilNyFane( new BatforsikringPanel(kunde, vindu), "Ny Båtforsikring");
+                    BatforsikringPanel båtforsikringspanel = new BatforsikringPanel(kunde, vindu);
+                    båtforsikringspanel.leggTilKundePanel(this);
+                    vindu.leggTilNyFane( båtforsikringspanel, "Ny Båtforsikring");
                     break;
                 case "Husforsikring":
-                    vindu.leggTilNyFane( new HusforsikringPanel(kunde, vindu), "Ny Husforsikring");   
+                    HusforsikringPanel husforsikringspanel = new HusforsikringPanel(kunde, vindu);
+                    husforsikringspanel.leggTilKundePanel(this);
+                    vindu.leggTilNyFane( husforsikringspanel, "Ny Husforsikring");   
                     break;
                 case "Fritidsboligforsikring":
+                    FritidsboligforsikringPanel fritidsboligpanel = new FritidsboligforsikringPanel(kunde,vindu);
+                    fritidsboligpanel.leggTilKundePanel(this);
                     vindu.leggTilNyFane( new FritidsboligforsikringPanel(kunde, vindu), "Ny Fritidsboligforsikring");
                     break;
                 case "Reiseforsikring":
-                    vindu.leggTilNyFane( new ReiseforsikringPanel(kunde, vindu), "Ny Reiseforsikring");
+                    ReiseforsikringPanel reiseforsikringspanel =  new ReiseforsikringPanel(kunde, vindu);
+                    reiseforsikringspanel.leggTilKundePanel(this);
+                    vindu.leggTilNyFane( reiseforsikringspanel, "Ny Reiseforsikring");
                     break;
             }
         }

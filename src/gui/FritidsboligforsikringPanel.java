@@ -22,6 +22,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
     private AnsattVindu vindu;
     private HovedRegister register;
     private Fritidsboligforsikring forsikring;
+    private KundePanel kundePanel;
     
     
     private final JTextField fritidAdresse;
@@ -304,6 +305,11 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
             } 
     }
     
+    public void leggTilKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
+    }
+    
     public void tegnNy()
     {
         if (hentInfo())
@@ -318,6 +324,9 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
                        typevalget, materialevalget, standardvalget, kvm, belop, belopInnbo, alarm_b, utleid_b);
             
             vindu.getRegister().nyForsikring(forsikringen);
+            
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
             
             JOptionPane.showMessageDialog(null, "Du har nå tegnet fritidsboligforsikring med nummer " 
                                           + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() 

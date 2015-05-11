@@ -22,6 +22,8 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     private AnsattVindu vindu;
     private HovedRegister register;
     private Reiseforsikring forsikring;
+    private KundePanel kundePanel;
+    
     private final JTextField reiseBelop;
     private final JTextField reiseTilbud;
     private final JTextField antbarn;
@@ -254,6 +256,11 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         }
     }
     
+    public void leggTilKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
+    }
+    
     public void tegnNy()
     {
         if (hentInfo())
@@ -266,6 +273,9 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
             
             Reiseforsikring nyForsikring = new Reiseforsikring(kunde, egenandelvalget, "", forsorger_b, antBarn, sonevalget, belop);
             register.nyForsikring(nyForsikring);
+            
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
             
             vindu.visInformasjon("Beskjed", "Du har nå tegnet en ny forsikring på " + nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn());
         }
