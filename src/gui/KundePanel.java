@@ -153,8 +153,8 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         regEpost.setText(kunde.getEpost());
         utgifter.setText(String.valueOf(vindu.getRegister().getUtgifter(kunde)));
         inntekter.setText(String.valueOf(vindu.getRegister().getInntekter(kunde)));
-        TabellModellForsikring nyModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde), this);
-        tabell.setModel(nyModell);
+        tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde), this);
+        tabell.setModel(tabellModell);
     }
     
     public void visForsikringensSkademeldnger()
