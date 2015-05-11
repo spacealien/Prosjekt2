@@ -259,6 +259,7 @@ public class HovedRegister
             forsikring.getKunde().setTotalKunde(false);
         }
         
+        vindu.oppdaterTabell( kunderegister.alleKunder() );
         vindu.visInformasjon("Beskjed", "Forsikringen er deaktivert. ");
     }
     
