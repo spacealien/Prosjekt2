@@ -34,7 +34,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
     private final JTextField prisenmnd;
     private JLabel tilbudLabel;
     JComboBox<String> hustypevelger;
-    private final String[] hustype = {"","Enebolig", "Tomannsbolig", "Tremannsbolig", "Firemannsbolig", "Rekkehus"};
+    private final String[] hustype = {"","Enebolig", "Tomannsbolig", "Tremannsbolig", "Firemannsbolig", "Rekkehus", "Leilighet"};
     JComboBox<String> husmaterialevelger;
     private final String[] husmateriale = {"","Mur", "Tre", "Brannfast", "Laftet tømmer"};
     private final String[] husstandard = {"","Normal standard", "Bedre standard", "Høy standard"};
@@ -133,6 +133,26 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         rediger.addActionListener(this);
         lagreNyInfo.addActionListener(this);
         deaktiver.addActionListener(this);
+        
+        hustypevelger.addItemListener(new ItemListener()
+        {
+            @Override
+            public void itemStateChanged(ItemEvent e)
+            {
+                if (hustypevelger.getSelectedItem() == "Leilighet")
+                {
+                    husmaterialevelger.setEnabled(false);
+                    husAr.setEnabled(false);
+                    belopHus.setEnabled(false);
+                }
+                else if (hustypevelger.getSelectedItem() != "Leilighet")
+                {
+                    husmaterialevelger.setEnabled(true);
+                    husAr.setEnabled(true);
+                    belopHus.setEnabled(true);
+                } 
+            }
+        });
     }
     private Component[] getKomponenter(Component pane)
      {
