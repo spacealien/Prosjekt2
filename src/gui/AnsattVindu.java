@@ -225,10 +225,6 @@ public class AnsattVindu extends JFrame
             tabellModell = new TabellModell(liste);
             tabell.setModel(tabellModell);
         }
-        else
-        {
-            visInformasjon("Beskjed", "Søket ga ingen funn");
-        }  
     }
     
     public void visSøkeresltat()
@@ -275,6 +271,10 @@ public class AnsattVindu extends JFrame
             List<Kunde> nyListe = register.getKundeliste().finnKundeEtterFornavn(fornavn);
             oppdaterTabell(nyListe);
             tomSøkefelter();
+        }
+        else
+        {
+            visFeilmelding("Feilmelding", "Søket ga ingen funn.");
         }
     }
 

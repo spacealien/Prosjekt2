@@ -29,6 +29,7 @@ public class HovedRegister
 
     public HovedRegister() 
     {
+        /**
         kalender = new GregorianCalendar();
         Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer("08206049937");
         Kunde kunde_2 = kunderegister.finnKundeEtterPersonnummer("01258446816");
@@ -75,6 +76,7 @@ public class HovedRegister
         Skademelding test_1 = new Skademelding( forsikring_1, new Date() , "Skadetype" , "Beskrivelse", 2000, 30000 );
         skademeldingsregister.leggTil(forsikring_1, test_1);
         sjekkTid();
+        * */
     }
     
     
