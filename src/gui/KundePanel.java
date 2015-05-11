@@ -84,7 +84,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         regKunde = new JButton("Registrer kunde" );
         kontaktKunde = new JButton("Kontakt");
         forsikringsDropDown = new JComboBox<>(forsikringsvalg);
-        kundeInfo_1.setLayout(new GridLayout(8,2,5,10));
+        kundeInfo_1.setLayout(new GridLayout(4,4,5,10));
         kundeInfo_1.add(new JLabel("Fornavn: "));
         kundeInfo_1.add(regFornavn);
         kundeInfo_1.add(new JLabel("Etternavn: "));
