@@ -46,21 +46,21 @@ public class HovedRegister
         Eier eier = new Eier("Hans", "Hansen", "Heiveien 3", "97612312");
         Kjoretoyforsikring forsikring1 = (Kjoretoyforsikring)forsikring_1;
         forsikring1.setEier(eier);
-        Forsikring forsikring_2 = new BatForsikring( kunde_1, 20000, "Vilkår 1", "DK54321", 600000, 
+        Forsikring forsikring_2 = new BatForsikring( kunde_1, 20000, "Båt Pluss", "DK54321", 600000, 
                                                     "Tresfjord", "Ultra 360 FB", 
                                                     "Cabin cruiser", 120, 2014, false, 30 );
         Forsikring forsikring_3 = new Bilforsikring( kunde_2, 4000, "Ansvar", "CD67890", 270000, 
                                                     "Volvo", "Sonett", "Personbil", 
                                                     800, 1968, 300000, "Bilfører < 23 år", -0.10, 1, 
                                                     true, true, true, false, 8000 );
-        Forsikring forsikring_4 = new Husforsikring( kunde_2, 8000, "Vilkår 1", "Fjollesvingen 32", 
+        Forsikring forsikring_4 = new Husforsikring( kunde_2, 8000, "Hus", "Fjollesvingen 32", 
                                                     1970, "Tremannsbolig", 
                                                     "Laftet tømmer", 
                                                     "Høy standard", 320, 
                                                     4500000, 1200000, false);
-        Forsikring forsikring_5 = new Reiseforsikring( kunde_3, 4000, "Vilkår 1", false, 0, "Norden", 
+        Forsikring forsikring_5 = new Reiseforsikring( kunde_3, 4000, "Reise Pluss", false, 0, "Norden", 
                                                     40000 );
-        Forsikring forsikring_6 = new Fritidsboligforsikring( kunde_3, 4000, "Vilkår 1", 
+        Forsikring forsikring_6 = new Fritidsboligforsikring( kunde_3, 4000, "Fritidsbolig", 
                                                     "Hardangervidda", 1899, 
                                                     "Hus/Hytte", "Tre", 
                                                     "Normal standard", 13, 
