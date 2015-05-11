@@ -27,6 +27,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
 {
     private final AnsattVindu vindu;
     private final HovedRegister register;
+    private KundePanel kundePanel;
     private final JTextField skadeDato;
     private final JTextArea skadeBeskrivelse;
     private final JTextField skadeTakst;
@@ -168,6 +169,11 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         {
             vindu.visFeilmelding("FeildMelding", "Skjekk at takst og beløp er av riktig format.");
         }
+    }
+    
+    public void setKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
     }
     
     @Override

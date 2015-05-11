@@ -180,14 +180,19 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
     {
         Integer skademeldingnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
         Skademelding skademelding = vindu.getRegister().getSkademeldingsregister().getSkademelding(skademeldingnummer);
-        //vindu.leggTilNyFane( new SkademeldingPanel(kunde,skademelding.getForsikring(),vindu) "skademelding");
+        SkademeldingPanel skademeldingsPanel = new SkademeldingPanel(skademelding.getForsikring(), vindu);
+        skademeldingsPanel.visSkademelding(skademelding);
+        skademeldingsPanel.setKundePanel(this);
+        vindu.leggTilNyFane( skademeldingsPanel, "skademelding");
     }
     
     public void visNySkademeldingsTab()
     {
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
         Forsikring forsirking = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
-        vindu.leggTilNyFane( new SkademeldingPanel(forsirking, vindu), "Skade " + forsirking.getKunde().getEtternavn() );
+        SkademeldingPanel skademeldingsPanel = new SkademeldingPanel(forsirking, vindu);
+        skademeldingsPanel.setKundePanel(this);
+        vindu.leggTilNyFane( skademeldingsPanel, "Skade " + forsirking.getKunde().getEtternavn() );
     }
     
     public void lagreEndringer()
