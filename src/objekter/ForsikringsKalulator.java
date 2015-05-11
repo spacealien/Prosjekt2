@@ -11,7 +11,7 @@ import java.util.Calendar;
  *
  * @author Odd
  */
-/*public class ForsikringsKalulator 
+public class ForsikringsKalulator 
 {
     
     public ForsikringsKalulator()
@@ -681,7 +681,7 @@ import java.util.Calendar;
     {
         //Henter testvariablene fra forsikringsklassen.
         boolean reiseForsorger = reiseforsikring.isForsorger();
-        int reiseSone = reiseforsikring.getSone();
+        String reiseSone = reiseforsikring.getSone();
         double reiseForsikringsbelop = reiseforsikring.getBelopet();
         
         //Initialiserer variablene som skal brukes til beregningen.
@@ -703,14 +703,14 @@ import java.util.Calendar;
             
         switch (reiseSone)
         {
-            case 1: beregnReiseSone = 1.0;//Hva man skal gange prisen med
+            case "Norden": beregnReiseSone = 1.0;//Hva man skal gange prisen med
                     break;
-            case 2: beregnReiseSone = 1.10;//Hva man skal gange prisen med
+            case "Europa": beregnReiseSone = 1.10;//Hva man skal gange prisen med
                     break;
-            case 3: beregnReiseSone = 1.20;//Hva man skal gange prisen med
+            case "Verden": beregnReiseSone = 1.20;//Hva man skal gange prisen med
                     break;
         }
         beregnReiseTilbud = beregnReiseForsikringsbelop*(beregnReiseSone+beregnReiseForsorger);
         return beregnReiseTilbud;
     }
-}*/
+}
