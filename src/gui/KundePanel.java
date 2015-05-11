@@ -119,7 +119,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         forsikringsVelger.add(forsikringsDropDown);
         forsikringsVelger.add(nyForsikring);
         
-        tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde), this);
+        tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde));
         tabell = new KundeDataTabell(tabellModell,this);
         tabell.setPreferredScrollableViewportSize(new Dimension(500,50));
         JScrollPane scrollTabell = new JScrollPane(tabell);
@@ -153,7 +153,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         regEpost.setText(kunde.getEpost());
         utgifter.setText(String.valueOf(vindu.getRegister().getUtgifter(kunde)));
         inntekter.setText(String.valueOf(vindu.getRegister().getInntekter(kunde)));
-        tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde), this);
+        tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde));
         tabell.setModel(tabellModell);
     }
     
@@ -181,8 +181,8 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         Integer skademeldingnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
         Skademelding skademelding = vindu.getRegister().getSkademeldingsregister().getSkademelding(skademeldingnummer);
         SkademeldingPanel skademeldingsPanel = new SkademeldingPanel(skademelding.getForsikring(), vindu);
-        skademeldingsPanel.visSkademelding(skademelding);
         skademeldingsPanel.setKundePanel(this);
+        skademeldingsPanel.visSkademelding(skademelding);
         vindu.leggTilNyFane( skademeldingsPanel, "skademelding");
     }
     
@@ -218,7 +218,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         if (svar == JOptionPane.YES_OPTION)
         {
             vindu.getRegister().deaktiverForsikring(forsikringsnummer);
-            tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde), this);
+            tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde));
             tabell.setModel(tabellModell);
         }
     }        
@@ -266,7 +266,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
             if( kunde.getNøkkelliste().size() > 0 )
             {
                 List<Forsikring> kundeForsikringer = vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde);
-                TabellModellForsikring forsikringsTabell = new TabellModellForsikring(kundeForsikringer, this);
+                TabellModellForsikring forsikringsTabell = new TabellModellForsikring(kundeForsikringer);
                 tabell.setModel(forsikringsTabell);    
                 tabell.brukForsikringsPopup();
             }
