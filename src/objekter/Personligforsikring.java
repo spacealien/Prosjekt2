@@ -27,15 +27,18 @@ public abstract class Personligforsikring extends Forsikring
         return forsorger;
     }
 
-    public void setForsorger(boolean f) {
+    public void setForsorger(boolean f)
+    {
         forsorger = f;
     }
 
-    public int getAntBarn() {
+    public int getAntBarn()
+    {
         return antBarn;
     }
 
-    public void setAntBarn(int a) {
+    public void setAntBarn(int a)
+    {
         antBarn = a;
     }
     @Override

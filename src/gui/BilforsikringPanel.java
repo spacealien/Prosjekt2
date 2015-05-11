@@ -64,7 +64,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     String[] foreralder = {"", "Bilfører < 23 år", "Bilfører mellom 23 - 25 år", 
                            "Bilfører > 25 år"};
     JComboBox<String> aldervelger;
-    String[] dekning = {"", "Delkasko", "Kasko", "Superkasko"};
+    String[] dekning = {"", "Ansvar", "Delkasko", "Kasko", "Superkasko"};
     JComboBox<String> dekningvelger;
     String[] egenandel = {"", "4000", "8000", "12000", "16000", "20000", 
                             "30000"};

@@ -58,7 +58,7 @@ public class Bilforsikring extends Kjoretoyforsikring
         hk = hestekrefter;
         kmlengde = km;
         garasjen = garasje;
-        fAlder = Integer.parseInt(foreralder);
+        //fAlder = foreralder;
         egenAndel = e_andel;
         arsModellen = arsmodell;
     }
@@ -310,7 +310,6 @@ public class Bilforsikring extends Kjoretoyforsikring
      * @param kunde 
      */
     
-    @Override
     @Override
     public void beregnPris()
     {

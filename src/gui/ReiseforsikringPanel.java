@@ -7,6 +7,8 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.*;
 import objekter.*;
 import register.*;
@@ -15,10 +17,11 @@ import register.*;
  *
  * @author Odd, Thomas, Marthe
  */
-public class ReiseforsikringPanel extends JPanel implements ActionListener
+public class ReiseforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
     private AnsattVindu vindu;
     private HovedRegister register;
+    private Reiseforsikring forsikring;
     private final JTextField reiseBelop;
     private final JTextField reiseTilbud;
     private final JTextField antbarn;
@@ -37,16 +40,23 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
     private int belop;
     private boolean forsorger_b;
     private int sone_n;
+    private String sonevalget;
     private int egenandelvalget;
+    private JButton rediger = new JButton("Rediger forsikring");
+    private JButton lagreNyInfo = new JButton("Lagre forsikring");
+    private JPanel knappePanel = new JPanel();
+    private JLabel tilbudLabel;
     
     public ReiseforsikringPanel(Kunde k, AnsattVindu v)
     {
         vindu = v;
         register = vindu.getRegister();
         kunde = k;
+        //forsikringsPanel implements ForsikringsPanel();
         reiseBelop = new JTextField( 7 );
         reiseTilbud = new JTextField( 7 );
         antbarn = new JTextField(2);
+        tilbudLabel = new JLabel("Foreslått tilbud: ");
         antbarnLabel = new JLabel("Forsørger antall barn: ");
         antbarn.setEnabled(false);
         antbarnLabel.setEnabled(false);
@@ -83,7 +93,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
         tegnReisePanel1.add(reiseBelop);
         tegnReisePanel1.add(new JLabel());
         tegnReisePanel1.add(beregnPris);
-        tegnReisePanel1.add(new JLabel("Foreslått tilbud: "));
+        tegnReisePanel1.add(tilbudLabel);
         tegnReisePanel1.add(reiseTilbud);
         tegnReisePanel1.add(new JLabel());
         tegnReisePanel1.add(reiseGiTilbud);
@@ -91,6 +101,8 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
         
         reiseGiTilbud.addActionListener(this);
         beregnPris.addActionListener(this);
+        rediger.addActionListener(this);
+        lagreNyInfo.addActionListener(this);
         
         forsorgerJa.addItemListener(new ItemListener()
         {
@@ -110,11 +122,59 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
         }});
     }
     
+    private Component[] getKomponenter(Component pane)
+     {
+        ArrayList<Component> liste = null;
+
+        try
+        {
+            liste = new ArrayList<Component>(Arrays.asList(
+                  ((Container) pane).getComponents()));
+            for (int i = 0; i < liste.size(); i++)
+            {
+            for (Component currentComponent : getKomponenter(liste.get(i)))
+            {
+                liste.add(currentComponent);
+            }
+            }
+        } catch (ClassCastException e) {
+            liste = new ArrayList<Component>();
+        }
+
+        return liste.toArray(new Component[liste.size()]);
+        
+    }
     
     // ikke fjern, ikke ferdig
     public void visForsikring( Forsikring f)
     {
+       this.forsikring = (Reiseforsikring)f;
+        sonevelger.setSelectedItem(forsikring.getSone());
+        reiseBelop.setText(String.valueOf(forsikring.getBelop()));
+        egenandelsvelger.setSelectedItem(String.valueOf(forsikring.getEgenandel()));
+        if (forsikring.isForsorger())
+        {
+            forsorgerJa.setSelected(true);
+            antbarn.setText(String.valueOf(forsikring.getAntBarn()));
+        }
+        else
+            forsorgerNei.setSelected(true);
         
+        knappePanel.add(rediger);
+        add(knappePanel);
+        
+        for(Component component : getKomponenter(this))
+                {
+                    if((component instanceof JTextField))
+                    {
+                        JTextField tf = (JTextField)component;
+                        tf.setEditable(false);
+                    }
+                    else if (component.equals(reiseGiTilbud))
+                            {
+                                component.setVisible(false);
+                            }
+                }
     }
     
     
@@ -153,6 +213,8 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
                     antBarn = 0;
                 }
                 
+                egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
+                sonevalget = sonevelger.getItemAt(sone_n);
                 belop = Integer.parseInt(reiseBelop.getText());
                 return true;
                 }
@@ -179,7 +241,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
                 register.getKundeliste().leggTil(kunde);
             }
             
-            Reiseforsikring nyForsikring = new Reiseforsikring(kunde, egenandelvalget, forsorger_b, antBarn, sone_n, belop);
+            Reiseforsikring nyForsikring = new Reiseforsikring(kunde, egenandelvalget, forsorger_b, antBarn, sonevalget, belop);
             register.nyForsikring(nyForsikring);
         }
     }
@@ -194,6 +256,42 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener
         else if (e.getSource() == beregnPris)
         {
             beregnPris();
+        }
+        else if (e.getSource() == rediger)
+        {
+            for(Component component : getKomponenter(this))
+                {
+                    if((component instanceof JTextField))
+                    {
+                        JTextField tf = (JTextField)component;
+                        tf.setEditable(true);
+                    }
+                }
+            knappePanel.add(lagreNyInfo);
+            tilbudLabel.setText("Foreslått tilbud: ");
+            beregnPris.setText("Beregn ny pris");
+            for(Component component : getKomponenter(this))
+                {
+                    if((component instanceof JTextField))
+                    {
+                        JTextField tf = (JTextField)component;
+                        tf.setEditable(true);
+                    }
+                }
+            revalidate();
+            repaint();
+        }
+        else if (e.getSource() == lagreNyInfo)
+        {
+            if (hentInfo())
+            {
+            forsikring.setForsorger(forsorger_b);
+            forsikring.setAntBarn(antBarn);
+            forsikring.setSone(sonevalget);
+            forsikring.setEgenandel(egenandelvalget);
+            forsikring.setBelop(belop);
+            //Må beregne ny pris også
+            }
         }
     }
 }

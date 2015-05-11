@@ -54,7 +54,7 @@ public class HovedRegister
                                                     "Laftet tømmer", 
                                                     "Høy standard", 320, 
                                                     4500000, 1200000, false);
-        Forsikring forsikring_5 = new Reiseforsikring( kunde_3, 4000, false, 0, 1, 
+        Forsikring forsikring_5 = new Reiseforsikring( kunde_3, 4000, false, 0, "Norden", 
                                                     40000 );
         Forsikring forsikring_6 = new Fritidsboligforsikring( kunde_3, 4000, 
                                                     "Hardangervidda", 1899, 
