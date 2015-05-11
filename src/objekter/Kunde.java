@@ -18,7 +18,7 @@ import java.util.List;
 public class Kunde extends Bruker
 {
     private final List<Integer> forsikringsnøkkel = new ArrayList<>();
-    private final boolean totalkunde = false;
+    private boolean totalkunde = false;
     private double årligForsikringsPremie = 0;
     
     public Kunde(String fnavn, String enavn, String adr, String tlf, GregorianCalendar fd,
@@ -60,6 +60,17 @@ public class Kunde extends Bruker
     public boolean erTotalkunde()
     {
         return totalkunde;
+    }
+    public String erTotalkundeTekst()
+    {
+        if (totalkunde)
+            return "Ja";
+        else
+            return "Nei";
+    }
+    public void setTotalkunde(boolean tk)
+    {
+        totalkunde = tk;
     }
     
     @Override

@@ -20,10 +20,10 @@ public class Husforsikring extends Eiendomsforsikring
     private String byggeMateriale;
     private boolean alarmert;
     
-    public Husforsikring( Kunde k, int e_andel, String hadresse, int byggar, String bt, String mat, String stand, int kvm, int belopByg,
+    public Husforsikring( Kunde k, int e_andel, String vilkar, String hadresse, int byggar, String bt, String mat, String stand, int kvm, int belopByg,
                              int belopInn, boolean alarmen)
     {
-    super( k, e_andel, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, alarmen);
+    super( k, e_andel, vilkar, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, alarmen);
     takst = belopByg;
     egenandel = e_andel;
     byggear = byggar;

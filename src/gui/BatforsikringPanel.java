@@ -286,7 +286,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
                 register.getKundeliste().leggTil(kunde);
             }
             
-            Forsikring forsikringen = new BatForsikring(kunde, egenandelvalget, reg, belop,
+            Forsikring forsikringen = new BatForsikring(kunde, egenandelvalget, "Vilkår 2", reg, belop,
                                  merke, modell, typevalget, hk, 
                                  ar, vekter_b, lengde);
             

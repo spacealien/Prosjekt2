@@ -21,10 +21,10 @@ public abstract class Eiendomsforsikring extends Forsikring
     private int forsikringsbelopBygning;
     private int forsikringsbelopInnbo;
     
-    public Eiendomsforsikring( Kunde k, int e_andel, String hadresse, int byggar, String bt, String mat, String stand, int kvm, int belopByg,
+    public Eiendomsforsikring( Kunde k, int e_andel, String vilkar, String hadresse, int byggar, String bt, String mat, String stand, int kvm, int belopByg,
                              int belopInn, boolean alarmen )
     {
-        super(k, e_andel);
+        super(k, e_andel, vilkar);
         husadresse = hadresse;
         alarm = alarmen;
         byggear = byggar;

@@ -21,11 +21,11 @@ public class Fritidsboligforsikring extends Eiendomsforsikring
     private int byggear;
     private String byggeMateriale;
     private boolean alarmert;
-    public Fritidsboligforsikring(Kunde k, int e_andel, String hadresse, int byggar,
+    public Fritidsboligforsikring(Kunde k, int e_andel, String vilkar, String hadresse, int byggar,
                                   String bt, String mat, String stand, int kvm,
                                   int belopByg, int belopInn, boolean alarmen, boolean utl)
     {
-    super( k, e_andel, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, alarmen);
+    super( k, e_andel, vilkar, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, alarmen);
     utleie = utl;
     takst = belopByg;
     egenandel = e_andel;

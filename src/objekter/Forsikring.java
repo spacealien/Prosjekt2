@@ -29,7 +29,7 @@ public abstract class Forsikring
     private Calendar sluttdato;
     private double arligPremie = 0;
     private double totalbelop = 0;
-    private String vilkår;
+    private String vilkar;
     private final int forsikringsnummer;
     private static int løpenummer = 1000000;
     private final List<Integer> skademeldingsnøkkler = new ArrayList<>();
@@ -39,11 +39,12 @@ public abstract class Forsikring
     private Date stDato;
                    //lokalitetsobjekt for norsk standard
     
-    public Forsikring( Kunde k, int e_andel )
+    public Forsikring( Kunde k, int e_andel, String vilkar )
     {
         egenandel = e_andel;
         startdato = Calendar.getInstance(norge);
         stDato = startdato.getTime();
+        this.vilkar = vilkar;
         forsikringsnummer =  løpenummer++;
         //this.vilkår = vilkår;
         kunde = k;
@@ -73,6 +74,13 @@ public abstract class Forsikring
         return aktiv;
     }
     
+    public String erAktivTekst()
+    {
+        if (aktiv)
+            return "Ja";
+        else
+            return "Nei";
+    }
     
     public int getEgenandel()
     {
@@ -104,7 +112,15 @@ public abstract class Forsikring
         Forsikring.løpenummer = løpenummer;
     }
 
+    public String getVilkar()
+    {
+        return vilkar;
+    }
 
+    public void setVilkar(String v)
+    {
+        vilkar = v;
+    }
     
     public void setAktiver( boolean ok )
     {
@@ -126,10 +142,6 @@ public abstract class Forsikring
         this.totalbelop = beløp;
     }
     
-    public void setVilkår( String vilkår )
-    {
-        this.vilkår = vilkår;
-    }
     
     public double getArligPremie()
     {
@@ -186,7 +198,7 @@ public abstract class Forsikring
                     "\nÅrlig Premie: " + arligPremie + 
                    "\nTotal beløp: " + totalbelop +
                    "\nForsikringsnummer: " + forsikringsnummer + 
-                   "\nVilkår: " + vilkår;
+                   "\nVilkår: " + vilkar;
         return utskrift;
     }
     

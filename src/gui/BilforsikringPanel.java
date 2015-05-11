@@ -37,6 +37,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private final JTextField bilRegAr;
     private final JTextField bilHk;
     private final JTextField bilVerdi;
+    private final JTextField bilMerke;
     private final JTextField bilModell;
     private final JTextField bilKmstand;
     private final JLabel tilbudLabel;
@@ -54,11 +55,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private final JButton beregnPris;
     String[] biltype = {"", "Personbil", "Lastebil", "Vogntog", "Varebil", "SUV"};
     JComboBox<String> biltypevelger;
-
-    String[] bilmerke = {"", "Mercedes", "Toyota", "BMW", "Volkswagen", "Ford",
-                        "Audi", "Opel", "Citroën", "Alfa Romeo", "Porsche",
-                        "Lamborghini"};
-    JComboBox<String> bilmerkevelger;
     
     String[] kjorelengde = {"", "8000", "12000", "16000", "20000", "25000", "30000",
                             "Ubegrenset"};
@@ -80,11 +76,11 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private final JButton vilkårKnapp;
     private String regnr;
     private String modell;
+    private String merke;
     private int hk;
     private int ar;
     private int kmstand;  
     private String typevalget;
-    private String merkevalget;
     private int lengdevalget;
     private String bonusTekst;
     private double bonusen;
@@ -96,6 +92,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private int antAr = 1;
     private int belop;
     private String forer;
+    private String dekningvalget;
     private final JButton rediger = new JButton("Rediger forsikringinfo");
     private final JButton lagreNyInfo = new JButton("Lagre forsikring");
     private final JButton deaktiver = new JButton("Si opp forsikring");
@@ -127,6 +124,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         bilRegnr = new JTextField( 7 );
         bilRegAr = new JTextField( 4 );
         bilVerdi = new JTextField(8);
+        bilMerke = new JTextField( 14 );
         bilModell = new JTextField( 10 );
         bilHk = new JTextField( 7 );
         bilKmstand = new JTextField( 6 );
@@ -166,16 +164,13 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         beregnPris = new JButton("Beregn pris");
         annenEier = new JButton("Trykk her for annen eier");
         biltypevelger = new JComboBox<>(biltype);
-        //biltypevelger.setSelectedIndex(4);
-        bilmerkevelger = new JComboBox<>(bilmerke);
-        //bilmerkevelger.setSelectedIndex(10);
         kjorelengdevelger = new JComboBox<>(kjorelengde);
-        //kjorelengdevelger.setSelectedIndex(0);
         egenandelsvelger = new JComboBox<>(egenandel);
         dekningvelger = new JComboBox<>(dekning);
         aldervelger = new JComboBox<>(foreralder);
         bonusvelger = new JComboBox<>(bonus);
         vilkårKnapp = new JButton("Vilkår");
+        
     
         JPanel garasjePanel = new JPanel();
         JPanel alarmPanel = new JPanel();
@@ -209,7 +204,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel1.add(new JLabel("Velg biltype: "));
         tegnBilPanel1.add(biltypevelger);
         tegnBilPanel1.add(new JLabel("Velg fabrikant: "));
-        tegnBilPanel1.add(bilmerkevelger);
+        tegnBilPanel1.add(bilMerke);
         tegnBilPanel1.add(new JLabel("Årlig forventet kjørelengde: "));
         tegnBilPanel1.add(kjorelengdevelger);
         tegnBilPanel1.add(new JLabel("Yngste bilførers alder: "));
@@ -286,13 +281,14 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         bilRegAr.setText(String.valueOf(bilforsikring.getArsmodell()));
         bilVerdi.setText("");
         bilModell.setText(bilforsikring.getModell());
+        bilMerke.setText(bilforsikring.getFabrikant());
         bilHk.setText(String.valueOf(bilforsikring.getHestekrefter()));
         bilKmstand.setText(String.valueOf(bilforsikring.getKmstand()));
         egenandelsvelger.setSelectedItem(String.valueOf(bilforsikring.getEgenandel()));
         kjorelengdevelger.setSelectedItem(String.valueOf(bilforsikring.getMaxKjorelengde()));
         biltypevelger.setSelectedItem(bilforsikring.getType());
         aldervelger.setSelectedItem(bilforsikring.getForerAlder());
-        //dekningvelger.setSelectedItem(bilforsikring.getDekning());
+        dekningvelger.setSelectedItem(bilforsikring.getVilkar());
         //bilTilbud.setText(bilforsikring.getArligPremie());
         if(bilforsikring.getGarasje())
             garasjeJa.setSelected(true);
@@ -380,7 +376,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     public boolean hentInfo()
     {
             int type_n = biltypevelger.getSelectedIndex();
-            int merke_n = bilmerkevelger.getSelectedIndex();
             int lengde_n = kjorelengdevelger.getSelectedIndex();
             int bonus_n = bonusvelger.getSelectedIndex();
             int egenandel_n = egenandelsvelger.getSelectedIndex();
@@ -388,7 +383,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
             int dekning_n = dekningvelger.getSelectedIndex();
             
             
-            if (lengde_n == 0 || merke_n == 0 || type_n == 0 || egenandel_n == 0 
+            if (lengde_n == 0 || type_n == 0 || egenandel_n == 0 
                || alder_n == 0 || dekning_n == 0 || bonus_n == 0 || 
                     (!garasjeJa.isSelected() && !garasjeNei.isSelected()) || 
                     (!alarmJa.isSelected() && !alarmNei.isSelected()) || 
@@ -398,9 +393,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                 String ut = "Det mangler informasjon om:\n";
                 if (lengde_n == 0)
                 {ut += "Maximum kjørelengde\n";}
-                
-                    if (merke_n == 0)
-                    {ut += "Fabrikant\n";}
                 
                     if (type_n == 0)
                     {ut += "Biltype\n";}
@@ -561,11 +553,12 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                 forer = aldervelger.getItemAt(alder_n);
                 belop = Integer.parseInt(bilVerdi.getText());
                 typevalget = biltypevelger.getItemAt(type_n);
-                merkevalget = bilmerkevelger.getItemAt(merke_n);
                 bonusTekst = bonusvelger.getItemAt(bonus_n);
+                dekningvalget = dekningvelger.getItemAt(dekning_n);
                 egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
                 regnr = bilRegnr.getText();
                 modell = bilModell.getText();
+                merke = bilMerke.getText();
                 hk = Integer.parseInt(bilHk.getText());
                 ar = Integer.parseInt(bilRegAr.getText());
                 kmstand = Integer.parseInt(bilKmstand.getText());  
@@ -577,8 +570,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     {
         if (hentInfo())
         {
-            Bilforsikring forsikring = new Bilforsikring(kunde, egenandelvalget, regnr, belop,
-                                    merkevalget,modell, typevalget, hk, ar,
+            Bilforsikring forsikring = new Bilforsikring(kunde, egenandelvalget, dekningvalget, regnr, belop,
+                                    merke,modell, typevalget, hk, ar,
                                     kmstand, forer, bonusen, antAr, garasje, alarm_b, esp_b, gjenkjenning_b, lengdevalget);
             
             
@@ -599,8 +592,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                 register.nyKunde(kunde);
             }
             
-            Bilforsikring forsikring = new Bilforsikring(kunde, egenandelvalget, regnr, belop,
-                                    merkevalget,modell, typevalget, hk, ar,
+            Bilforsikring forsikring = new Bilforsikring(kunde, egenandelvalget, dekningvalget, regnr, belop,
+                                    merke,modell, typevalget, hk, ar,
                                     kmstand, forer, bonusen, antAr, garasje, alarm_b, esp_b, gjenkjenning_b, lengdevalget);
             
             vindu.getRegister().nyForsikring(forsikring);
@@ -684,13 +677,14 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                 bilforsikring.setRegistreringsnummer(regnr);
                 bilforsikring.setEgenandel(egenandelvalget);
                 bilforsikring.setAlarm(alarm_b);
-                bilforsikring.setFabrikant(merkevalget);
+                bilforsikring.setFabrikant(merke);
                 bilforsikring.setType(typevalget);
                 bilforsikring.setModell(modell);
                 bilforsikring.setBelop(belop);
                 bilforsikring.setMaxKjorelengde(lengdevalget);
                 bilforsikring.setBonus(bonusen);
                 bilforsikring.setArsmodell(ar);
+                bilforsikring.setVilkar(dekningvalget);
                 
                 //Må beregne pris på nytt!
             }

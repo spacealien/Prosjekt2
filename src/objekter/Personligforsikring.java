@@ -15,9 +15,9 @@ public abstract class Personligforsikring extends Forsikring
     private int antBarn;
     private String forsorgeren;
     //private enum sivilstatus
-    public Personligforsikring(Kunde k, int e_andel, boolean fs, int antallBarn)
+    public Personligforsikring(Kunde k, int e_andel, String vilkar, boolean fs, int antallBarn)
     {
-        super( k, e_andel );
+        super( k, e_andel, vilkar );
         forsorger = fs;
         antBarn = antallBarn;
     }

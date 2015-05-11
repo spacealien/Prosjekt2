@@ -264,7 +264,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
                 register.getKundeliste().leggTil(kunde);
             }
             
-            Reiseforsikring nyForsikring = new Reiseforsikring(kunde, egenandelvalget, forsorger_b, antBarn, sonevalget, belop);
+            Reiseforsikring nyForsikring = new Reiseforsikring(kunde, egenandelvalget, "", forsorger_b, antBarn, sonevalget, belop);
             register.nyForsikring(nyForsikring);
         }
     }

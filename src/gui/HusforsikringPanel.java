@@ -278,7 +278,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
                 }
                 
             Forsikring forsikringen = new Husforsikring(kunde, 
-                    egenandelvalget, adr, ar, hustypevalget, husmaterialevalget, 
+                    egenandelvalget, "Vilkår 1", adr, ar, hustypevalget, husmaterialevalget, 
                     husstandardvalget, kvm, belop, belopInnbo, alarm_b);
             
             kunde.leggTilNøkkel(forsikringen.getForsikringsnummer());

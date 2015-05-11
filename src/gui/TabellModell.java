@@ -16,7 +16,7 @@ import objekter.Kunde;
  */
 public class TabellModell extends AbstractTableModel
 {
-    private String[] kolonnenavn = { "Personnummer", "Fornavn", "Etternavn", "Adresse", "Telefonnummer", "Opprettet","fødselsdato"};
+    private String[] kolonnenavn = { "Personnummer", "Fornavn", "Etternavn", "Adresse", "Telefonnummer", "Opprettet","Fødselsdato", "Totalkunde"};
     private Object[][] innhold;
     private List<Kunde> kunder;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
@@ -37,6 +37,7 @@ public class TabellModell extends AbstractTableModel
             innhold[teller][4] = kunde.getTlfnr();
             innhold[teller][5] = sdf.format(kunde.getStartdato());
             innhold[teller][6] = sdf.format(kunde.getFodtdato());
+            innhold[teller][7] = kunde.erTotalkundeTekst();
             teller++;
         }
     }
