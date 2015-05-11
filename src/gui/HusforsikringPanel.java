@@ -209,6 +209,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         husmaterialevelger.setSelectedItem(forsikring.getMateriale());
         husstandardvelger.setSelectedItem(forsikring.getStandard());
         egenandelsvelger.setSelectedItem(String.valueOf(forsikring.getEgenandel()));
+        dekningvelger.setSelectedItem(forsikring.getVilkar());
         belopHus.setText(String.valueOf(forsikring.getForsikringsbelopBygning()));
         belopHusInnbo.setText(String.valueOf(forsikring.getForsikringsbelopInnbo()));
         if (forsikring.getAlarm())
@@ -414,16 +415,20 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         }
         else if (e.getSource() == lagreNyInfo)
         {
-            forsikring.setAdresse(adr);
-            forsikring.setAlarm(alarm_b);
-            forsikring.setMateriale(husmaterialevalget);
-            forsikring.setKvadratmeter(kvm);
-            forsikring.setBoligtype(hustypevalget);
-            forsikring.setStandard(husstandardvalget);
-            forsikring.setForsikringsbelopBygning(belop);
-            forsikring.setForsikringsbelopInnbo(belopInnbo);
-            forsikring.setEgenandel(egenandelvalget);
-            forsikring.setByggeAr(ar);
+            if (hentInfo())
+            {
+                forsikring.setAdresse(adr);
+                forsikring.setAlarm(alarm_b);
+                forsikring.setMateriale(husmaterialevalget);
+                forsikring.setKvadratmeter(kvm);
+                forsikring.setBoligtype(hustypevalget);
+                forsikring.setStandard(husstandardvalget);
+                forsikring.setForsikringsbelopBygning(belop);
+                forsikring.setForsikringsbelopInnbo(belopInnbo);
+                forsikring.setEgenandel(egenandelvalget);
+                forsikring.setByggeAr(ar);
+                forsikring.setVilkar(dekningvalget);
+            }
             
             //Må beregne pris på nytt!
             

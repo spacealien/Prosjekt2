@@ -195,6 +195,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         fritidtypevelger.setSelectedItem(forsikring.getBoligtype());
         fritidstandardvelger.setSelectedItem(forsikring.getStandard());
         egenandelsvelger.setSelectedItem(String.valueOf(forsikring.getEgenandel()));
+        dekningvelger.setSelectedItem(forsikring.getVilkar());
         belopFritid.setText(String.valueOf(forsikring.getForsikringsbelopBygning()));
         belopFritidInnbo.setText(String.valueOf(forsikring.getForsikringsbelopInnbo()));
         if (forsikring.getAlarm())
@@ -421,6 +422,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
                 forsikring.setForsikringsbelopInnbo(belopInnbo);
                 forsikring.setEgenandel(egenandelvalget);
                 forsikring.setByggeAr(ar);
+                forsikring.setVilkar(dekningvalget);
             
             //Må beregne pris på nytt!
             }

@@ -423,6 +423,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
                 forsikring.setArsmodell(ar);
                 forsikring.setBelop(belop);
                 forsikring.setEier(eier);
+                forsikring.setVilkar(dekningvalget);
                 
                 //Må beregne pris på nytt!
             }
