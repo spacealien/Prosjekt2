@@ -63,6 +63,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
     private JPanel knappePanel = new JPanel();
     private JButton rediger = new JButton("Rediger forsikring");
     private JButton lagreNy = new JButton("Lagre forsikring");
+    private JButton deaktiver = new JButton("Si opp forsikring");
     
     public BatforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -147,6 +148,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         beregnPris.addActionListener(this);
         rediger.addActionListener(this);
         lagreNy.addActionListener(this);
+        deaktiver.addActionListener(this);
     }
     private Component[] getKomponenter(Component pane)
      {
@@ -188,9 +190,13 @@ public class BatforsikringPanel extends JPanel implements ActionListener
             vekterNei.setSelected(true);
         
         annenEier.setText("Vis eier");
-        knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
-        knappePanel.add(rediger);
-        add(knappePanel);
+        if(forsikring.erAktiv())
+        {
+            knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
+            knappePanel.add(rediger);
+            knappePanel.add(deaktiver);
+            add(knappePanel);
+        }
         tilbudLabel.setText("Årlig premie: ");
         tilbudLabel.setVisible(true);
         batTilbud.setVisible(true);
@@ -205,9 +211,13 @@ public class BatforsikringPanel extends JPanel implements ActionListener
                         tf.setEditable(false);
                     }
                     else if (component.equals(batGiTilbud))
-                            {
-                                component.setVisible(false);
-                            }
+                    {
+                        component.setVisible(false);
+                    }
+                    else if (component.equals(beregnPris))
+                    {
+                        component.setVisible(false);
+                    }
                 }
     }
     
@@ -330,6 +340,10 @@ public class BatforsikringPanel extends JPanel implements ActionListener
                         JTextField tf = (JTextField)component;
                         tf.setEditable(true);
                     }
+                    else if (component.equals(beregnPris))
+                    {
+                        component.setVisible(true);
+                    }
                     
                 }
             beregnPris.setText("Beregn ny pris");
@@ -340,9 +354,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         else if (e.getSource() == lagreNy)
         {
             if(hentInfo())
-            {/*egenandelvalget, reg, belop,
-                                 merke, modell, typevalget, hk, 
-                                 ar, vekter_b, lengde*/
+            {
                 forsikring.setRegistreringsnummer(reg);
                 forsikring.setLengde(lengde);
                 forsikring.setEgenandel(egenandelvalget);
@@ -358,6 +370,21 @@ public class BatforsikringPanel extends JPanel implements ActionListener
                 //Må beregne pris på nytt!
             }
             
+        }
+        else if (e.getSource() == deaktiver)
+        {
+           
+            int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
+            if (svar == JOptionPane.YES_OPTION)
+            {
+                knappePanel.remove(rediger);
+                knappePanel.remove(lagreNy);
+                knappePanel.remove(beregnPris);
+                forsikring.setAktiver(false);
+                JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
+                repaint();
+                revalidate();
+            }
         }
     }
 }

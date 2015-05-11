@@ -62,6 +62,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
     private JPanel knappePanel = new JPanel();
     private JButton rediger = new JButton("Rediger forsikring");
     private JButton lagreNyInfo = new JButton("Lagre forsikring");
+    private JButton deaktiver = new JButton("Si opp forsikring");
     
     public FritidsboligforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -130,6 +131,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         beregnPris.addActionListener(this);
         rediger.addActionListener(this);
         lagreNyInfo.addActionListener(this);
+        deaktiver.addActionListener(this);
     }
     
     private Component[] getKomponenter(Component pane)
@@ -178,9 +180,14 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         else
             utleidNei.setSelected(true);
         
-        knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
-        knappePanel.add(rediger);
-        add(knappePanel);
+        if (forsikring.erAktiv())
+        {
+            knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
+            knappePanel.add(rediger);
+            knappePanel.add(deaktiver);
+            add(knappePanel);
+        }
+        
         tilbudLabel.setText("Årlig premie: ");
         tilbudLabel.setVisible(true);
         fritidTilbud.setVisible(true);
@@ -195,6 +202,10 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
                         tf.setEditable(false);
                     }
                     else if (component.equals(fritidGiTilbud))
+                            {
+                                component.setVisible(false);
+                            }
+                    else if (component.equals(beregnPris))
                             {
                                 component.setVisible(false);
                             }
@@ -308,6 +319,10 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
                         JTextField tf = (JTextField)component;
                         tf.setEditable(true);
                     }
+                    else if (component.equals(beregnPris))
+                            {
+                                component.setVisible(true);
+                            }
                 }
             knappePanel.add(lagreNyInfo);
             tilbudLabel.setText("Foreslått tilbud: ");
@@ -317,20 +332,38 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         }
         else if (e.getSource() == lagreNyInfo)
         {
-            forsikring.setAdresse(adr);
-            forsikring.setAlarm(alarm_b);
-            forsikring.setUtleie(utleid_b);
-            forsikring.setMateriale(materialevalget);
-            forsikring.setKvadratmeter(kvm);
-            forsikring.setBoligtype(typevalget);
-            forsikring.setStandard(standardvalget);
-            forsikring.setForsikringsbelopBygning(belop);
-            forsikring.setForsikringsbelopInnbo(belopInnbo);
-            forsikring.setEgenandel(egenandelvalget);
-            forsikring.setByggeAr(ar);
+            if (hentInfo())
+            {
+                forsikring.setAdresse(adr);
+                forsikring.setAlarm(alarm_b);
+                forsikring.setUtleie(utleid_b);
+                forsikring.setMateriale(materialevalget);
+                forsikring.setKvadratmeter(kvm);
+                forsikring.setBoligtype(typevalget);
+                forsikring.setStandard(standardvalget);
+                forsikring.setForsikringsbelopBygning(belop);
+                forsikring.setForsikringsbelopInnbo(belopInnbo);
+                forsikring.setEgenandel(egenandelvalget);
+                forsikring.setByggeAr(ar);
             
             //Må beregne pris på nytt!
-            
+            }
         }
+        else if (e.getSource() == deaktiver)
+        {
+           
+            int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
+            if (svar == JOptionPane.YES_OPTION)
+            {
+                knappePanel.remove(rediger);
+                knappePanel.remove(lagreNyInfo);
+                knappePanel.remove(beregnPris);
+                forsikring.setAktiver(false);
+                JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
+                repaint();
+                revalidate();
+            }
+        }
+        
     }
 }

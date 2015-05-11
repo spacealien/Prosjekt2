@@ -57,8 +57,8 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
     private final String[] forsikringsvalg = {"", "Bilforsikring", "Båtforsikring", "Husforsikring", "Fritidsboligforsikring", "Reiseforsikring"};
     private final JComboBox<String> forsikringsDropDown;
     
-    private final KundeDataTabell tabell;
-    private final AbstractTableModel tabellModell;
+    private KundeDataTabell tabell;
+    private AbstractTableModel tabellModell;
     
     private final Desktop desktop = Desktop.getDesktop();
     private final Desktop.Action action = Desktop.Action.OPEN;
@@ -191,6 +191,20 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         Forsikring forsikring = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
         vindu.leggTilForsikringsFane(forsikring);
     }
+    
+    public void deaktiverForsikring()
+    {
+        Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
+        Forsikring forsikring = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
+        int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
+        if (svar == JOptionPane.YES_OPTION)
+        {
+            forsikring.setAktiver(false);
+            tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde), this);
+            tabell.setModel(tabellModell);
+            JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
+        }
+    }        
     
     @Override
     public void actionPerformed(ActionEvent e) 

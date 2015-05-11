@@ -59,6 +59,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
     private JPanel knappePanel = new JPanel();
     private JButton rediger = new JButton("Rediger forsikring");
     private JButton lagreNyInfo = new JButton("Lagre forsikring");
+    private JButton deaktiver = new JButton("Si opp forsikring");
     
     public HusforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -131,6 +132,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         beregnPris.addActionListener(this);
         rediger.addActionListener(this);
         lagreNyInfo.addActionListener(this);
+        deaktiver.addActionListener(this);
     }
     private Component[] getKomponenter(Component pane)
      {
@@ -172,9 +174,14 @@ public class HusforsikringPanel extends JPanel implements ActionListener
         else
             alarmNei.setSelected(true);
         
-        knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
-        knappePanel.add(rediger);
-        add(knappePanel);
+        if (forsikring.erAktiv())
+        {
+            knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
+            knappePanel.add(rediger);
+            knappePanel.add(deaktiver);
+            add(knappePanel);
+        }
+        
         tilbudLabel.setText("Årlig premie: ");
         tilbudLabel.setVisible(true);
         husTilbud.setVisible(true);
@@ -189,6 +196,10 @@ public class HusforsikringPanel extends JPanel implements ActionListener
                         tf.setEditable(false);
                     }
                     else if (component.equals(husGiTilbud))
+                            {
+                                component.setVisible(false);
+                            }
+                    else if (component.equals(beregnPris))
                             {
                                 component.setVisible(false);
                             }
@@ -296,6 +307,10 @@ public class HusforsikringPanel extends JPanel implements ActionListener
                         JTextField tf = (JTextField)component;
                         tf.setEditable(true);
                     }
+                    else if (component.equals(beregnPris))
+                            {
+                                component.setVisible(true);
+                            }
                 }
             knappePanel.add(lagreNyInfo);
             tilbudLabel.setText("Foreslått tilbud: ");
@@ -318,6 +333,21 @@ public class HusforsikringPanel extends JPanel implements ActionListener
             
             //Må beregne pris på nytt!
             
+        }
+        else if (e.getSource() == deaktiver)
+        {
+           
+            int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
+            if (svar == JOptionPane.YES_OPTION)
+            {
+                knappePanel.remove(rediger);
+                knappePanel.remove(lagreNyInfo);
+                knappePanel.remove(beregnPris);
+                forsikring.setAktiver(false);
+                JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
+                repaint();
+                revalidate();
+            }
         }
     }
 }

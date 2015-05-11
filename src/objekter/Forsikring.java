@@ -104,15 +104,7 @@ public abstract class Forsikring
         Forsikring.løpenummer = løpenummer;
     }
 
-    public boolean isAktiv() 
-    {
-        return aktiv;
-    }
 
-    public void setAktiv(boolean aktiv) 
-    {
-        this.aktiv = aktiv;
-    }
     
     public void setAktiver( boolean ok )
     {

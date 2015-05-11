@@ -9,7 +9,7 @@ package objekter;
  *
  * @author Odd
  */
-public class ForsikringsKalulator 
+/*public class ForsikringsKalulator 
 {
     
     public ForsikringsKalulator()
@@ -30,7 +30,8 @@ public class ForsikringsKalulator
         double bpAlarm = 0;
         double bpGps = 0;
         double bpTilbud = 0;
-        int bpFalder = Integer.parseInt(fAlder);
+        //int bpFalder = Integer.parseInt(fAlder);
+        int belopet = 50;
         
         //Henter faktor for bilens grunnbeløp.
         if (belopet > 0 && belopet <= 50000) 
@@ -230,7 +231,7 @@ public class ForsikringsKalulator
             bpAlarm = 0.2;
         }
         
-        // Henter faktor for om bilen har GPS tracking. 
+       /* // Henter faktor for om bilen har GPS tracking. 
         if (gjenkjenningen == true)
         {
             bpGps = 0.0;
@@ -243,4 +244,4 @@ public class ForsikringsKalulator
         bpTilbud = bpTakst*(bpBilAlder+bpKjorelengde+bpHk+bpGarasje+bpEgenandel+bpForerAlder+bpEsp+bpAlarm+bpGps);
         return bpTilbud;
     }
-}
+}*/

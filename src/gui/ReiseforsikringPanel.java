@@ -44,6 +44,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     private int egenandelvalget;
     private JButton rediger = new JButton("Rediger forsikring");
     private JButton lagreNyInfo = new JButton("Lagre forsikring");
+    private JButton deaktiver = new JButton("Si opp forsikring");
     private JPanel knappePanel = new JPanel();
     private JLabel tilbudLabel;
     
@@ -103,6 +104,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         beregnPris.addActionListener(this);
         rediger.addActionListener(this);
         lagreNyInfo.addActionListener(this);
+        deaktiver.addActionListener(this);
         
         forsorgerJa.addItemListener(new ItemListener()
         {
@@ -160,8 +162,15 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         else
             forsorgerNei.setSelected(true);
         
-        knappePanel.add(rediger);
-        add(knappePanel);
+        if (forsikring.erAktiv())
+        {
+            knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
+            knappePanel.add(rediger);
+            knappePanel.add(deaktiver);
+            add(knappePanel);
+        }
+        
+        tilbudLabel.setText("Årlig premie: ");
         
         for(Component component : getKomponenter(this))
                 {
@@ -170,7 +179,21 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
                         JTextField tf = (JTextField)component;
                         tf.setEditable(false);
                     }
+                    else if(component instanceof JComboBox)
+                    {
+                          JComboBox cb = (JComboBox)component;
+                          cb.setEnabled(false);
+                    }
+                    else if(component instanceof JRadioButton)
+                    {
+                          JRadioButton rb = (JRadioButton)component;
+                          rb.setEnabled(false);
+                    }
                     else if (component.equals(reiseGiTilbud))
+                            {
+                                component.setVisible(false);
+                            }
+                    else if (component.equals(beregnPris))
                             {
                                 component.setVisible(false);
                             }
@@ -291,6 +314,21 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
             forsikring.setEgenandel(egenandelvalget);
             forsikring.setBelop(belop);
             //Må beregne ny pris også
+            }
+        }
+        else if (e.getSource() == deaktiver)
+        {
+           
+            int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
+            if (svar == JOptionPane.YES_OPTION)
+            {
+                knappePanel.remove(rediger);
+                knappePanel.remove(lagreNyInfo);
+                knappePanel.remove(beregnPris);
+                forsikring.setAktiver(false);
+                JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
+                repaint();
+                revalidate();
             }
         }
     }

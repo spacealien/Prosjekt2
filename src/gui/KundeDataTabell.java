@@ -10,9 +10,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import objekter.Forsikring;
 
 /**
  *
@@ -27,6 +29,7 @@ public class KundeDataTabell extends JTable
     private final JMenuItem nySkademelding;
     private final JMenuItem åpneSkademelding;
     private final JMenuItem åpneForsikring;
+    private final JMenuItem deaktiverForsikring;
     private final JMenuItem visSkademeldingensForsikring;
     private final JMenuItem visSkademeldinger;
     private final KundePanel panel;
@@ -39,9 +42,11 @@ public class KundeDataTabell extends JTable
         // popup for Forsikringer
         popupForsikring = new JPopupMenu();
         åpneForsikring = new JMenuItem("Åpne");
+        deaktiverForsikring = new JMenuItem("Deaktiver");
         visSkademeldinger = new JMenuItem("Vis Skademeldinger");
         nySkademelding = new JMenuItem("Ny Skademelding");
         popupForsikring.add(åpneForsikring);
+        popupForsikring.add(deaktiverForsikring);
         popupForsikring.add(nySkademelding);
         popupForsikring.add(visSkademeldinger);
         
@@ -54,6 +59,7 @@ public class KundeDataTabell extends JTable
         
         MenyLytter menyLytter = new MenyLytter();
         åpneForsikring.addActionListener(menyLytter);
+        deaktiverForsikring.addActionListener(menyLytter);
         åpneSkademelding.addActionListener(menyLytter);
         visSkademeldinger.addActionListener(menyLytter);
         nySkademelding.addActionListener(menyLytter);
@@ -119,6 +125,10 @@ public class KundeDataTabell extends JTable
             else if( e.getSource() == åpneForsikring )
             {
                 panel.åpneForsikringsTab();
+            }
+            else if( e.getSource() == deaktiverForsikring )
+            {
+                panel.deaktiverForsikring();
             }
             else if( e.getSource() == visSkademeldinger)
             {
