@@ -153,27 +153,27 @@ public class KundeTabell extends JTable
             else if( e.getSource() == nyBilforsikring )
             {
                 Kunde kunde = getKunde();
-                vindu.leggTilNyFane( new BilforsikringPanel(kunde, vindu), kunde.getEtternavn() + "Bilforsikring" );
+                vindu.leggTilNyFane( new BilforsikringPanel(kunde, vindu), kunde.getEtternavn() + "-Bilforsikring" );
             }
             else if( e.getSource() == nyBåtforsikring)
             {
                 Kunde kunde = getKunde();
-                vindu.leggTilNyFane(new BatforsikringPanel(kunde, vindu), kunde.getEtternavn() + "Båtforsikring");
+                vindu.leggTilNyFane(new BatforsikringPanel(kunde, vindu), kunde.getEtternavn() + "-Båtforsikring");
             }
             else if( e.getSource() == nyHusforsikring)
             {
                 Kunde kunde = getKunde();
-                vindu.leggTilNyFane(new HusforsikringPanel(kunde, vindu), kunde.getEtternavn() + "Husforsikring");
+                vindu.leggTilNyFane(new HusforsikringPanel(kunde, vindu), kunde.getEtternavn() + "-Husforsikring");
             }
             else if( e.getSource() == nyFritidsboligforsikring)
             {
                 Kunde kunde = getKunde();
-                vindu.leggTilNyFane(new FritidsboligforsikringPanel(kunde, vindu), kunde.getEtternavn() + "Fritidsboligforsikring");
+                vindu.leggTilNyFane(new FritidsboligforsikringPanel(kunde, vindu), kunde.getEtternavn() + "-Fritidsboligforsikring");
             }
             else if( e.getSource() == nyReiseforsikring )
             {
                 Kunde kunde = getKunde();
-                vindu.leggTilNyFane(new ReiseforsikringPanel(kunde, vindu), kunde.getEtternavn() + "Reiseforsikring");
+                vindu.leggTilNyFane(new ReiseforsikringPanel(kunde, vindu), kunde.getEtternavn() + "-Reiseforsikring");
             }
         }
     }
