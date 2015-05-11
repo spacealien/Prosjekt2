@@ -7,8 +7,10 @@ package register;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import objekter.Forsikring;
 import objekter.Kunde;
@@ -63,6 +65,19 @@ public class Forsikringsliste
                 teller++;
         
         return teller;
+    }
+    
+    public boolean erTotalKunde( Kunde kunde )
+    {
+        List<Forsikring> kundeForsikringer = getKundensForsikringer( kunde );
+        Set<String> set = new HashSet<>();
+        for( Forsikring forsikring :  kundeForsikringer)
+            set.add(forsikring.getForsikringsType());
+        
+        if(set.size() >= 3 )
+            return true;
+        else 
+            return false;
     }
     
     public List<Forsikring> alleForsikringer()

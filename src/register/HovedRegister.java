@@ -242,7 +242,7 @@ public class HovedRegister
     public void nyForsikring( Forsikring nyForsikring  )
     {
         forsikringsregister.leggTil( nyForsikring.getKunde(), nyForsikring);
-        if(forsikringsregister.tellKundensAktiveForsikringer(nyForsikring.getKunde()) >= 3)
+        if(forsikringsregister.erTotalKunde(nyForsikring.getKunde()))
             nyForsikring.getKunde().setTotalKunde(true);
     }
     
@@ -250,7 +250,7 @@ public class HovedRegister
     {
         Forsikring forsikring = forsikringsregister.getForsikring(forsikringsnummer);
         forsikring.setAktiver(false);
-        if( forsikringsregister.tellKundensAktiveForsikringer(forsikring.getKunde()) <  3 )
+        if( forsikringsregister.erTotalKunde(forsikring.getKunde()) )
         {
             forsikring.getKunde().setTotalKunde(false);
         }
