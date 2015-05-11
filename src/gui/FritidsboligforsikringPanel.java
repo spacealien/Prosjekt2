@@ -123,9 +123,11 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         tegnFritidPanel1.add(belopFritid);
         tegnFritidPanel1.add(new JLabel("Forsikringsbeløp innbo: "));
         tegnFritidPanel1.add(belopFritidInnbo);
+        tegnFritidPanel1.add(new JLabel());
         tegnFritidPanel1.add(beregnPris);
         tegnFritidPanel1.add(tilbudLabel);
         tegnFritidPanel1.add(fritidTilbud);
+        tegnFritidPanel1.add(new JLabel());
         tegnFritidPanel1.add(fritidGiTilbud);
         add(tegnFritidPanel1);
         
