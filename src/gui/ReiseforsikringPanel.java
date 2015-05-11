@@ -266,6 +266,8 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
             
             Reiseforsikring nyForsikring = new Reiseforsikring(kunde, egenandelvalget, "", forsorger_b, antBarn, sonevalget, belop);
             register.nyForsikring(nyForsikring);
+            
+            vindu.visInformasjon("Beskjed", "Du har nå tegnet en ny forsikring på " + nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn());
         }
     }
     
