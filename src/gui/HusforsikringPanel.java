@@ -291,7 +291,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener
                     egenandelvalget, "Vilkår 1", adr, ar, hustypevalget, husmaterialevalget, 
                     husstandardvalget, kvm, belop, belopInnbo, alarm_b);
             
-            kunde.leggTilNøkkel(forsikringen.getForsikringsnummer());
+            vindu.getRegister().nyForsikring(forsikring);
             
             JOptionPane.showMessageDialog(null, "Du har nå tegnet husforsikring med nummer " 
                                           + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() 

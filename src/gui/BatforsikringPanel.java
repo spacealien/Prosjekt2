@@ -308,7 +308,6 @@ public class BatforsikringPanel extends JPanel implements ActionListener
             JOptionPane.showMessageDialog(null, "Du har nå tegnet båtforsikring med nummer "
                                           + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() 
                                           + " " + kunde.getEtternavn() , "Bekreftelse", JOptionPane.INFORMATION_MESSAGE);
-            System.out.println(forsikring);
         }
     }
     
