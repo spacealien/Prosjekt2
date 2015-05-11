@@ -163,17 +163,17 @@ public class KundeTabell extends JTable
             else if( e.getSource() == nyHusforsikring)
             {
                 Kunde kunde = getKunde();
-                vindu.leggTilNyFane(new HusforsikringPanel(kunde, vindu), "Båtforsikring");
+                vindu.leggTilNyFane(new HusforsikringPanel(kunde, vindu), "Husforsikring");
             }
             else if( e.getSource() == nyFritidsboligforsikring)
             {
                 Kunde kunde = getKunde();
-                vindu.leggTilNyFane(new FritidsboligforsikringPanel(kunde, vindu), "Båtforsikring");
+                vindu.leggTilNyFane(new FritidsboligforsikringPanel(kunde, vindu), "Fritidsboligforsikring");
             }
             else if( e.getSource() == nyReiseforsikring )
             {
                 Kunde kunde = getKunde();
-                vindu.leggTilNyFane(new ReiseforsikringPanel(kunde, vindu), "Båtforsikring");
+                vindu.leggTilNyFane(new ReiseforsikringPanel(kunde, vindu), "Reiseforsikring");
             }
         }
     }
