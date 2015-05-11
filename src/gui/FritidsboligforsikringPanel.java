@@ -7,6 +7,8 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
@@ -255,7 +257,14 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         if(hentInfo())
         {
             //Beregn pris
-            //fritidTilbud.setText();
+            Fritidsboligforsikring forsikring = new Fritidsboligforsikring(kunde, egenandelvalget, "Vilkår 1", adr, ar, 
+                       typevalget, materialevalget, standardvalget, kvm, belop, belopInnbo, alarm_b, utleid_b);
+            
+            
+            double foreslåttPris = ForsikringsKalulator.beregnFritidsboligforsikring(forsikring);
+            NumberFormat formatter = new DecimalFormat("#0.00"); 
+            fritidTilbud.setVisible(true);
+            fritidTilbud.setText(formatter.format(foreslåttPris) + " Kr/År");
         }
     }
     

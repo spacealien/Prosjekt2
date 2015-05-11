@@ -7,6 +7,8 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
@@ -273,6 +275,13 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         if (hentInfo())
         {
            //Beregn pris
+            Reiseforsikring forsikring = new Reiseforsikring(kunde, egenandelvalget, "", forsorger_b, antBarn, sonevalget, belop);
+            
+            
+            double foreslåttPris = ForsikringsKalulator.beregnReiseforsikring(forsikring);
+            NumberFormat formatter = new DecimalFormat("#0.00"); 
+            reiseTilbud.setVisible(true);
+            reiseTilbud.setText(formatter.format(foreslåttPris) + " Kr/År");
         }
     }
     

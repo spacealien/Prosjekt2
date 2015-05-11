@@ -9,6 +9,8 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
@@ -332,6 +334,15 @@ public class HusforsikringPanel extends JPanel implements ActionListener
       if (hentInfo())
       {
             //Beregner prisen
+          Husforsikring forsikring = new Husforsikring(kunde, 
+                    egenandelvalget, "Vilkår 1", adr, ar, hustypevalget, husmaterialevalget, 
+                    husstandardvalget, kvm, belop, belopInnbo, alarm_b);
+            
+            
+            double foreslåttPris = ForsikringsKalulator.beregnHusforsikring(forsikring);
+            NumberFormat formatter = new DecimalFormat("#0.00"); 
+            husTilbud.setVisible(true);
+            husTilbud.setText(formatter.format(foreslåttPris) + " Kr/År");
       }
     }
     
