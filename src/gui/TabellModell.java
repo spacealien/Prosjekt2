@@ -62,6 +62,6 @@ public class TabellModell extends AbstractTableModel
     @Override
     public int getColumnCount() 
     {
-        return innhold[0].length;
+        return kolonnenavn.length;
     }
 }

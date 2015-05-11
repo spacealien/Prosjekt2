@@ -17,9 +17,7 @@ public class Reiseforsikring extends Personligforsikring
     private double forsorgerpris = 1;
     private double premie;
     private double sum;
-    
-    
-    
+        
     public Reiseforsikring(Kunde k, int e_andel, boolean fs, int antallBarn, String son, int belop )
     {
         
@@ -36,16 +34,6 @@ public class Reiseforsikring extends Personligforsikring
     public void setSone(String s)
     {
         sone = s;
-    }
-    
-    public int getBelop()
-    {
-        return belopet;
-    }
-    
-    public void setBelop(int b)
-    {
-        belopet = b;
     }
 
     public double getSoneBeregn()
@@ -76,6 +64,15 @@ public class Reiseforsikring extends Personligforsikring
     public void setPremie(double p)
     {
         premie = p;
+    }
+
+    public int getBelopet()
+    {
+        return belopet;
+    }
+    public void setBelopet(int b)
+    {
+        belopet = b;
     }
     
     @Override

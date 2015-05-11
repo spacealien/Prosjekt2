@@ -5,6 +5,8 @@
  */
 package objekter;
 
+import java.util.Calendar;
+
 /**
  *
  * @author Odd
@@ -19,229 +21,696 @@ package objekter;
     
     public static double beregnBilforsikring( Bilforsikring bilforsikring )
     {        
-        int bpTakst = 0;
-        double bpBilAlder = 0;
-        double bpKjorelengde = 0;
-        double bpHk = 0;
-        double bpGarasje = 0;
-        double bpEgenandel = 0;
-        double bpForerAlder = 0;
-        double bpEsp = 0;
-        double bpAlarm = 0;
-        double bpGps = 0;
-        double bpTilbud = 0;
-        //int bpFalder = Integer.parseInt(fAlder);
-        int belopet = 50;
+        //Henter testvariablene fra forsikringsklassen.
+        int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
+        int bilTakst = bilforsikring.getBelopet();
+        int bilArsModell = bilforsikring.getArsModell();
+        int bilAlder = innevarendeAr - bilArsModell;
+        int bilForventetKjorelengde = bilforsikring.getKmlengde();
+        int bilHK = bilforsikring.getHk();
+        boolean bilGarasje = bilforsikring.getGarasje();
+        int bilEgenandel = bilforsikring.getEgenAndel();
+        String bilForerAlder = bilforsikring.getForerAlder();
+        boolean bilESP = bilforsikring.getESP();
+        boolean bilAlarmert = bilforsikring.getAlarm();
+        boolean bilGPS = bilforsikring.getGjenkjenning();
+        
+        //Initialiserer variablene som skal brukes til beregningen.
+        int beregnetBilTakst = 0;
+        double beregnetBilAlder = 0;
+        double beregnetBilKjorelengde = 0;
+        double beregnetBilHK = 0;
+        double beregnetBilGarasje = 0;
+        double beregnetBilEgenandel = 0;
+        double beregnetBilForerAlder = 0;
+        double beregnetBilESP = 0;
+        double beregnetBilAlarm = 0;
+        double beregnetBilGPS = 0;
+        double beregnetBilTilbud = 0;
         
         //Henter faktor for bilens grunnbeløp.
-        if (belopet > 0 && belopet <= 50000) 
+        if (bilTakst > 0 && bilTakst <= 50000) 
         {
-            bpTakst = 3500;
+            beregnetBilTakst = 3500;
         }
-        else if (belopet > 50000 && belopet <= 100000)
+        else if (bilTakst > 50000 && bilTakst <= 100000)
         {
-            bpTakst = 4000;
+            beregnetBilTakst = 4000;
         }
-        else if (belopet > 100000 && belopet <= 150000)
+        else if (bilTakst > 100000 && bilTakst <= 150000)
         {
-            bpTakst = 4500;
+            beregnetBilTakst = 4500;
         }
-        else if (belopet > 150000 && belopet <= 200000)
+        else if (bilTakst > 150000 && bilTakst <= 200000)
         {
-            bpTakst = 5000;
+            beregnetBilTakst = 5000;
         }
-        else if (belopet > 200000 && belopet <= 250000)
+        else if (bilTakst > 200000 && bilTakst <= 250000)
         {
-            bpTakst = 5500;
+            beregnetBilTakst = 5500;
         }
-        else if (belopet > 250000 && belopet <= 300000)
+        else if (bilTakst > 250000 && bilTakst <= 300000)
         {
-            bpTakst = 6000;
+            beregnetBilTakst = 6000;
         }
-        else if (belopet > 300000 && belopet <= 400000)
+        else if (bilTakst > 300000 && bilTakst <= 400000)
         {
-            bpTakst = 7000;
+            beregnetBilTakst = 7000;
         }
-        else if (belopet > 400000 && belopet <= 500000)
+        else if (bilTakst > 400000 && bilTakst <= 500000)
         {
-            bpTakst = 8000;
+            beregnetBilTakst = 8000;
         }
-        else if (belopet > 500000 && belopet <= 600000)
+        else if (bilTakst > 500000 && bilTakst <= 600000)
         {
-            bpTakst = 9000;
+            beregnetBilTakst = 9000;
         }
-        else if (belopet > 600000 && belopet <= 600000)
+        else if (bilTakst > 600000 && bilTakst <= 600000)
         {
-            bpTakst = 10500;
+            beregnetBilTakst = 10500;
         }
-        else if (belopet > 750000 && belopet <= 1000000)
+        else if (bilTakst > 750000 && bilTakst <= 1000000)
         {
-            bpTakst = 13000;
+            beregnetBilTakst = 13000;
         }
-        else if (belopet > 1000000 && belopet <= 1500000)
+        else if (bilTakst > 1000000 && bilTakst <= 1500000)
         {
-            bpTakst = 18000;
+            beregnetBilTakst = 18000;
         }
-        else if (belopet > 1500000 && belopet <= 2000000)
+        else if (bilTakst > 1500000 && bilTakst <= 2000000)
         {
-            bpTakst = 23000;
+            beregnetBilTakst = 23000;
         }
-        else if (belopet > 2000000)
+        else if (bilTakst > 2000000)
         {
-            bpTakst = 33000;
+            beregnetBilTakst = 33000;
         }
         
         // Henter faktor for bilens alder.
-        if (ar > 0 && ar <= 8)
+        if (bilAlder > 0 && bilAlder <= 8)
         {
-            bpBilAlder = 0.2;
+            beregnetBilAlder = 0.2;
         }
-        else if (ar > 8 && ar <= 16)
+        else if (bilAlder > 8 && bilAlder <= 16)
         {
-            bpBilAlder = 0.3;
+            beregnetBilAlder = 0.3;
         }
-        else if (ar > 16)
+        else if (bilAlder > 16)
         {
-            bpBilAlder = 0.5;
+            beregnetBilAlder = 0.5;
         }
         
         // Henter faktor for forventet kjørelengde.
-        if (kmlengde == 8000)
+        if (bilForventetKjorelengde == 8000)
         {
-            bpKjorelengde = 0.2;
+            beregnetBilKjorelengde = 0.2;
         }
-        else if (kmlengde == 12000)
+        else if (bilForventetKjorelengde == 12000)
         {
-            bpKjorelengde = 0.3;
+            beregnetBilKjorelengde = 0.3;
         }
-        else if (kmlengde == 16000)
+        else if (bilForventetKjorelengde == 16000)
         {
-            bpKjorelengde = 0.4;
+            beregnetBilKjorelengde = 0.4;
         }
-        else if (kmlengde == 20000)
+        else if (bilForventetKjorelengde == 20000)
         {
-            bpKjorelengde = 0.5;
+            beregnetBilKjorelengde = 0.5;
         }
-        else if (kmlengde == 25000)
+        else if (bilForventetKjorelengde == 25000)
         {
-            bpKjorelengde = 0.6;
+            beregnetBilKjorelengde = 0.6;
         }
-        else if (kmlengde == 30000)
+        else if (bilForventetKjorelengde == 30000)
         {
-            bpKjorelengde = 0.7;
+            beregnetBilKjorelengde = 0.7;
         }
         
         // Henter faktor for bilens hestekrefter.
-        if (hk > 0 && hk <= 100)
+        if (bilHK > 0 && bilHK <= 100)
         {
-            bpHk = 0.2;
+            beregnetBilHK = 0.2;
         }
-        else if (hk > 100 && hk <= 200)
+        else if (bilHK > 100 && bilHK <= 200)
         {
-            bpHk = 0.4;
+            beregnetBilHK = 0.4;
         }
-        else if (hk > 200 && hk <= 300)
+        else if (bilHK > 200 && bilHK <= 300)
         {
-            bpHk = 0.6;
+            beregnetBilHK = 0.6;
         }
-        else if (hk > 300 && hk <= 400)
+        else if (bilHK > 300 && bilHK <= 400)
         {
-            bpHk = 0.8;
+            beregnetBilHK = 0.8;
         }
-        else if (hk > 400 && hk <= 500)
+        else if (bilHK > 400 && bilHK <= 500)
         {
-            bpHk = 1.0;
+            beregnetBilHK = 1.0;
         }
-        else if (hk > 500)
+        else if (bilHK > 500)
         {
-            bpHk = 1.2;
+            beregnetBilHK = 1.2;
         }
         
         //Henter faktor for garasje.
-        if (garasje == true)
+        if (bilGarasje == true)
         {
-            bpGarasje = 0.0;
+            beregnetBilGarasje = 0.0;
         }
         else
         {
-            bpGarasje = 0.2;
+            beregnetBilGarasje = 0.2;
         }
         
         //Henter faktor for egenandel.
-        if (egenAndel == 2000)
+        if (bilEgenandel == 2000)
         {
-            bpEgenandel = 1.0;
+            beregnetBilEgenandel = 1.0;
         }
-        else if (egenAndel == 4000)
+        else if (bilEgenandel == 4000)
         {
-            bpEgenandel = 0.85;
+            beregnetBilEgenandel = 0.85;
         }
-        else if (egenAndel == 8000)
+        else if (bilEgenandel == 8000)
         {
-            bpEgenandel = 0.7;
+            beregnetBilEgenandel = 0.7;
         }
-        else if (egenAndel == 12000)
+        else if (bilEgenandel == 12000)
         {
-            bpEgenandel = 0.55;
+            beregnetBilEgenandel = 0.55;
         }
-        else if (egenAndel == 16000)
+        else if (bilEgenandel == 16000)
         {
-            bpEgenandel = 0.4;
+            beregnetBilEgenandel = 0.4;
         }
-        else if (egenAndel == 20000)
+        else if (bilEgenandel == 20000)
         {
-            bpEgenandel = 0.25;
+            beregnetBilEgenandel = 0.25;
         }
-        else if (egenAndel == 30000)
+        else if (bilEgenandel == 30000)
         {
-            bpEgenandel = 0.1;
+            beregnetBilEgenandel = 0.1;
         }
         
-        // Henter faktor for førers alder. 
-        if (bpFalder >= 18 && bpFalder <= 23)
-        {
-            bpForerAlder = 0.6;
-        }
-        else if (bpFalder > 23 && bpFalder <= 30)
-        {
-            bpForerAlder = 0.3;
-        }
-        else if (bpFalder > 30)
-        {
-            bpForerAlder = 0.1;
+        // Henter faktor for førers alder.
+        switch (bilForerAlder) {
+            case "Bilfører < 23 år":
+                beregnetBilForerAlder = 0.6;
+                break;
+            case "Bilfører mellom 23 - 30 år":
+                beregnetBilForerAlder = 0.3;
+                break;
+            case "Bilfører > 30 år":
+                beregnetBilForerAlder = 0.1;
+                break;
         }
         
         // Henter faktor for om bilen har Antiskrens/ESP.
-        if (esp == true)
+        if (bilESP == true)
         {
-            bpEsp = 0.0;
+            beregnetBilESP = 0.0;
         }
         else
         {
-            bpEsp = 0.2;
+            beregnetBilESP = 0.2;
         }
         
         // Henter faktor for om bilen har godkjent alarm. 
-        if (alarmen == true)
+        if (bilAlarmert == true)
         {
-            bpAlarm = 0.0;
+            beregnetBilAlarm = 0.0;
         }
         else
         {
-            bpAlarm = 0.2;
+            beregnetBilAlarm = 0.2;
         }
         
-       /* // Henter faktor for om bilen har GPS tracking. 
-        if (gjenkjenningen == true)
+        // Henter faktor for om bilen har GPS tracking. 
+        if (bilGPS == true)
         {
-            bpGps = 0.0;
+            beregnetBilGPS = 0.0;
         }
         else
         {
-            bpGps = 0.2;
+            beregnetBilGPS = 0.2;
         }
         
-        bpTilbud = bpTakst*(bpBilAlder+bpKjorelengde+bpHk+bpGarasje+bpEgenandel+bpForerAlder+bpEsp+bpAlarm+bpGps);
-        return bpTilbud;
+        beregnetBilTilbud = beregnetBilTakst*(beregnetBilAlder+
+                beregnetBilKjorelengde+beregnetBilHK+beregnetBilGarasje+
+                beregnetBilEgenandel+beregnetBilForerAlder+beregnetBilESP+
+                beregnetBilAlarm+beregnetBilGPS);
+        return beregnetBilTilbud;
+    }
+    
+    public static double beregnBatforsikring( BatForsikring batforsikring )
+    {
+        //Henter testvariablene fra forsikringsklassen.
+        int batTakst = batforsikring.getTakst();
+        int batEgenandel = batforsikring.getEgenandel();
+        int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
+        int batArsModell = batforsikring.getArsModell();
+        int batHK = batforsikring.getHk();
+        boolean batVekter = batforsikring.getVekter();
+        int batAlderBeregn = innevarendeAr - batArsModell;
+        
+        //Initialiserer variablene som skal brukes til beregningen.
+        int beregnetBatTakst = 0;
+        double beregnetBatEgenandel = 0;
+        double beregnetBatAlder = 0;
+        double beregnetBatHestekrefter = 0;
+        double beregnetBatVekter = 0;
+        double beregnetBatTilbud = 0;
+        
+        // Henter faktor for taksert verdi.
+        if (batTakst > 0 && batTakst <= 10000)
+        {
+            beregnetBatTakst = 3500;
+        }
+        else if (batTakst > 10000 && batTakst <= 50000)
+        {
+            beregnetBatTakst = 4000;
+        }
+        else if (batTakst > 50000 && batTakst <= 200000)
+        {
+            beregnetBatTakst = 4500;
+        }
+        else if (batTakst > 200000 && batTakst <= 300000)
+        {
+            beregnetBatTakst = 5000;
+        }
+        else if (batTakst > 300000 && batTakst <= 400000)
+        {
+            beregnetBatTakst = 6000;
+        }
+        else if (batTakst > 400000 && batTakst <= 500000)
+        {
+            beregnetBatTakst = 7000;
+        }
+        else if (batTakst > 500000 && batTakst <= 600000)
+        {
+            beregnetBatTakst = 8000;
+        }
+        else if (batTakst > 600000 && batTakst <= 750000)
+        {
+            beregnetBatTakst = 9000;
+        }
+        else if (batTakst > 750000 && batTakst <= 1000000)
+        {
+            beregnetBatTakst = 10500;
+        }
+        else if (batTakst > 1000000 && batTakst <= 1500000)
+        {
+            beregnetBatTakst = 13000;
+        }
+        else if (batTakst > 1500000 && batTakst <= 2000000)
+        {
+            beregnetBatTakst = 18000;
+        }
+        else if (batTakst > 2000000 && batTakst <= 5000000)
+        {
+            beregnetBatTakst = 23000;
+        }
+        else if (batTakst > 5000000)
+        {
+            beregnetBatTakst = 33000;
+        }
+        
+        // Henter faktor for egenandel. 
+        if (batEgenandel == 2000)
+        {
+            beregnetBatEgenandel = 1;
+        }
+        else if (batEgenandel == 4000)
+        {
+            beregnetBatEgenandel = 0.85;
+        }
+        else if (batEgenandel == 8000)
+        {
+            beregnetBatEgenandel = 0.7;
+        }
+        else if (batEgenandel == 12000)
+        {
+            beregnetBatEgenandel = 0.55;
+        }
+        else if (batEgenandel == 16000)
+        {
+            beregnetBatEgenandel = 0.4;
+        }
+        else if (batEgenandel == 20000)
+        {
+            beregnetBatEgenandel = 0.25;
+        }
+        else if (batEgenandel == 30000)
+        {
+            beregnetBatEgenandel = 0.1;
+        }
+        
+        // Henter faktor for båtens alder. 
+        if (batAlderBeregn > 0 && batAlderBeregn <= 8)
+        {
+            beregnetBatAlder = 0.2;
+        }
+        else if (batAlderBeregn > 8 && batAlderBeregn <= 16)
+        {
+            beregnetBatAlder = 0.3;
+        }
+        else if (batAlderBeregn > 17)
+        {
+            beregnetBatAlder = 0.5;
+        }
+        
+        // Henter faktor for hestekrefter. 
+        if (batHK > 0 && batHK <= 50)
+        {
+            beregnetBatHestekrefter = 0.2;
+        }
+        else if (batHK > 50 && batHK <= 100)
+        {
+            beregnetBatHestekrefter = 0.4;
+        }
+        else if (batHK > 100 && batHK <= 200)
+        {
+            beregnetBatHestekrefter = 0.6;
+        }
+        else if (batHK > 200 && batHK <= 300)
+        {
+            beregnetBatHestekrefter = 0.8;
+        }
+        else if (batHK > 300 && batHK <= 500)
+        {
+            beregnetBatHestekrefter = 1.0;
+        }
+        else if (batHK > 500)
+        {
+            beregnetBatHestekrefter = 1.2;
+        }
+        
+        // Henter faktor for om båtplass er bevoktet.
+        if (batVekter == true)
+        {
+            beregnetBatVekter = 0.0;
+        }
+        else
+        {
+            beregnetBatVekter = 0.2;
+        }
+        
+        beregnetBatTilbud = beregnetBatTakst*(beregnetBatEgenandel+
+                beregnetBatAlder+beregnetBatHestekrefter+beregnetBatVekter);
+        return beregnetBatTilbud;
+    }
+    
+    public static double beregnHusforsikring( Husforsikring husforsikring )
+    {
+        //Henter testvariablene fra forsikringsklassen.
+        int husTakst = husforsikring.getTakst();
+        int husEgenandel = husforsikring.getEgenandel();
+        int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
+        int husByggeAr = husforsikring.getByggear();
+        int husAlderBeregn = innevarendeAr - husByggeAr;
+        String husByggeMateriale = husforsikring.getByggeMateriale();
+        boolean husAlarmert = husforsikring.isAlarmert();
+        
+        //Initialiserer variablene som skal brukes til beregningen.
+        int beregnetHusTakst = 0;
+        double beregnetHusEgenandel = 0;
+        double beregnetHusAlder = 0;
+        double beregnetHusByggeMateriale = 0;
+        double beregnetHusAlarm = 0;
+        double beregnetHusTilbud;
+        
+        // Henter faktor for husets takst. 
+        if (husTakst > 0 && husTakst <= 1000000)
+        {
+            beregnetHusTakst = 5000;
+        }
+        else if (husTakst > 1000000 && husTakst <= 1500000)
+        {
+            beregnetHusTakst = 10000;
+        }
+        else if (husTakst > 1500000 && husTakst <= 2000000)
+        {
+            beregnetHusTakst = 15600;
+        }
+        else if (husTakst > 2000000 && husTakst <= 3000000)
+        {
+            beregnetHusTakst = 21200;
+        }
+        else if (husTakst > 3000000 && husTakst <= 4000000)
+        {
+            beregnetHusTakst = 26800;
+        }
+        else if (husTakst > 4000000 && husTakst <= 7000000)
+        {
+            beregnetHusTakst = 33000;
+        }
+        else if (husTakst > 7000000)
+        {
+            beregnetHusTakst = 38600;
+        }
+        
+        // Henter faktor for egenandel.
+        if (husEgenandel == 2000)
+        {
+            beregnetHusEgenandel = 1;
+        }
+        else if (husEgenandel == 4000)
+        {
+            beregnetHusEgenandel = 0.85;
+        }
+        else if (husEgenandel == 8000)
+        {
+            beregnetHusEgenandel = 0.7;
+        }
+        else if (husEgenandel == 12000)
+        {
+            beregnetHusEgenandel = 0.55;
+        }
+        else if (husEgenandel == 16000)
+        {
+            beregnetHusEgenandel = 0.4;
+        }
+        else if (husEgenandel == 20000)
+        {
+            beregnetHusEgenandel = 0.25;
+        }
+        else if (husEgenandel == 30000)
+        {
+            beregnetHusEgenandel = 0.1;
+        }
+        
+        // Henter faktor for husets alder.
+        if (husAlderBeregn > 0 && husAlderBeregn <= 2)
+        {
+            beregnetHusAlder = 0.1;
+        }
+        else if (husAlderBeregn > 2 && husAlderBeregn <= 5)
+        {
+            beregnetHusAlder = 0.2;
+        }
+        else if (husAlderBeregn > 5 && husAlderBeregn <= 10)
+        {
+            beregnetHusAlder = 0.3;
+        }
+        else if (husAlderBeregn > 10 && husAlderBeregn <= 25)
+        {
+            beregnetHusAlder = 0.4;
+        }
+        else if (husAlderBeregn > 25)
+        {
+            beregnetHusAlder = 0.5;
+        }
+        
+        // Henter faktor for byggemateriale.
+        switch (husByggeMateriale) {
+            case "Brannfast":
+                beregnetHusByggeMateriale = 0.1;
+                break;
+            case "Mur":
+                beregnetHusByggeMateriale = 0.2;
+                break;
+            case "Tre":
+                beregnetHusByggeMateriale = 0.4;
+                break;
+            case "Laftet tømmer":
+                beregnetHusByggeMateriale = 0.5;
+                break;
+        }
+        
+        // Henter faktor for om huset er alarmert.
+        if (husAlarmert == true)
+        {
+            beregnetHusAlarm = 0.0;
+        }
+        else
+        {
+            beregnetHusAlarm = 0.2;
+        }
+        
+        beregnetHusTilbud = beregnetHusTakst*(beregnetHusEgenandel+
+                beregnetHusAlder+beregnetHusByggeMateriale+beregnetHusAlarm);
+        return beregnetHusTilbud;
+    }
+    
+    public static double beregnFritidsboligforsikring( Fritidsboligforsikring fritidsboligforsikring )
+    {
+        //Henter testvariablene fra forsikringsklassen.
+        int fritidsTakst = fritidsboligforsikring.getTakst();
+        int fritidsEgenandel = fritidsboligforsikring.getEgenandel();
+        int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
+        int fritidsByggeAr = fritidsboligforsikring.getByggear();
+        int FritidsAlderBeregn = innevarendeAr - fritidsByggeAr;
+        String fritidsByggeMateriale = fritidsboligforsikring.getByggeMateriale();
+        boolean fritidsAlarmert = fritidsboligforsikring.isAlarmert();
+        
+        //Initialiserer variablene som skal brukes til beregningen.
+        int beregnetFritidsTakst = 0;
+        double beregnetFritidsEgenandel = 0;
+        double beregnetFritidsHusAlder = 0;
+        double beregnetFritidsByggeMateriale = 0;
+        double beregnetFritidsAlarm = 0;
+        double beregnetFritidsTilbud;
+        
+        // Henter faktor for husets takst. 
+        if (fritidsTakst > 0 && fritidsTakst <= 800000)
+        {
+            beregnetFritidsTakst = 5000;
+        }
+        else if (fritidsTakst > 800000 && fritidsTakst <= 1500000)
+        {
+            beregnetFritidsTakst = 10000;
+        }
+        else if (fritidsTakst > 1500000 && fritidsTakst <= 2500000)
+        {
+            beregnetFritidsTakst = 18000;
+        }
+        else if (fritidsTakst > 2500000 && fritidsTakst <= 3000000)
+        {
+            beregnetFritidsTakst = 26000;
+        }
+        else if (fritidsTakst > 3000000)
+        {
+            beregnetFritidsTakst = 33000;
+        }
+        
+        // Henter faktor for egenandel.
+        if (fritidsEgenandel == 2000)
+        {
+            beregnetFritidsEgenandel = 1;
+        }
+        else if (fritidsEgenandel == 4000)
+        {
+            beregnetFritidsEgenandel = 0.85;
+        }
+        else if (fritidsEgenandel == 8000)
+        {
+            beregnetFritidsEgenandel = 0.7;
+        }
+        else if (fritidsEgenandel == 12000)
+        {
+            beregnetFritidsEgenandel = 0.55;
+        }
+        else if (fritidsEgenandel == 16000)
+        {
+            beregnetFritidsEgenandel = 0.4;
+        }
+        else if (fritidsEgenandel == 20000)
+        {
+            beregnetFritidsEgenandel = 0.25;
+        }
+        else if (fritidsEgenandel == 30000)
+        {
+            beregnetFritidsEgenandel = 0.1;
+        }
+        
+        // Henter faktor for husets alder.
+        if (FritidsAlderBeregn > 0 && FritidsAlderBeregn <= 2)
+        {
+            beregnetFritidsHusAlder = 0.1;
+        }
+        else if (FritidsAlderBeregn > 2 && FritidsAlderBeregn <= 5)
+        {
+            beregnetFritidsHusAlder = 0.2;
+        }
+        else if (FritidsAlderBeregn > 5 && FritidsAlderBeregn <= 10)
+        {
+            beregnetFritidsHusAlder = 0.3;
+        }
+        else if (FritidsAlderBeregn > 10 && FritidsAlderBeregn <= 25)
+        {
+            beregnetFritidsHusAlder = 0.4;
+        }
+        else if (FritidsAlderBeregn > 25)
+        {
+            beregnetFritidsHusAlder = 0.5;
+        }
+        
+        // Henter faktor for byggemateriale.
+        switch (fritidsByggeMateriale) {
+            case "Brannfast":
+                beregnetFritidsByggeMateriale = 0.1;
+                break;
+            case "Mur":
+                beregnetFritidsByggeMateriale = 0.2;
+                break;
+            case "Tre":
+                beregnetFritidsByggeMateriale = 0.4;
+                break;
+            case "Laftet tømmer":
+                beregnetFritidsByggeMateriale = 0.5;
+                break;
+        }
+        
+        // Henter faktor for om huset er alarmert.
+        if (fritidsAlarmert == true)
+        {
+            beregnetFritidsAlarm = 0.0;
+        }
+        else
+        {
+            beregnetFritidsAlarm = 0.2;
+        }
+        
+        beregnetFritidsTilbud = beregnetFritidsTakst*(beregnetFritidsEgenandel+
+                beregnetFritidsHusAlder+beregnetFritidsByggeMateriale+
+                beregnetFritidsAlarm);
+        return beregnetFritidsTilbud;
+    }
+    
+    public static double beregnReiseforsikring( Reiseforsikring reiseforsikring )
+    {
+        //Henter testvariablene fra forsikringsklassen.
+        boolean reiseForsorger = reiseforsikring.isForsorger();
+        int reiseSone = reiseforsikring.getSone();
+        double reiseForsikringsbelop = reiseforsikring.getBelopet();
+        
+        //Initialiserer variablene som skal brukes til beregningen.
+        double beregnReiseForsikringsbelop = 0;
+        double beregnReiseForsorger = 0;
+        double beregnReiseSone = 0;
+        double beregnReiseTilbud = 0;
+        
+        if (reiseForsikringsbelop != 0)
+        {
+            beregnReiseForsikringsbelop = reiseForsikringsbelop*0.20;
+        }
+        
+        if (reiseForsorger)
+        {
+           beregnReiseForsorger = 0.5;//Multiplikator for familie -> Kan gjøres i Personligforsikring?
+          
+        }
+            
+        switch (reiseSone)
+        {
+            case 1: beregnReiseSone = 1.0;//Hva man skal gange prisen med
+                    break;
+            case 2: beregnReiseSone = 1.10;//Hva man skal gange prisen med
+                    break;
+            case 3: beregnReiseSone = 1.20;//Hva man skal gange prisen med
+                    break;
+        }
+        beregnReiseTilbud = beregnReiseForsikringsbelop*(beregnReiseSone+beregnReiseForsorger);
+        return beregnReiseTilbud;
     }
 }*/

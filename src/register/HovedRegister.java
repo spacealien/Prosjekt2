@@ -5,6 +5,7 @@
  */
 package register;
 
+import gui.AnsattVindu;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,9 +27,12 @@ public class HovedRegister
     private SkademeldingRegister skademeldingsregister = new SkademeldingRegister();
     private Ansattregister ansattregister = new Ansattregister();
     private GregorianCalendar kalender;
+    private AnsattVindu vindu;
 
-    public HovedRegister() 
+    public HovedRegister(AnsattVindu v) 
     {
+        vindu = v;
+        
         kalender = new GregorianCalendar();
         Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer("08206049937");
         Kunde kunde_2 = kunderegister.finnKundeEtterPersonnummer("01258446816");
@@ -69,16 +73,19 @@ public class HovedRegister
         forsikringsregister.leggTil(kunde_3, forsikring_5);
         forsikringsregister.leggTil(kunde_3, forsikring_6);
         
+        System.out.println(forsikring_1.getArligPremie());
+        
+        
         Skademelding test_1 = new Skademelding( forsikring_1, new Date() , "Skadetype" , "Beskrivelse", 2000, 30000 );
         skademeldingsregister.leggTil(forsikring_1, test_1);
         sjekkTid();
+        
     }
     
     
     public List<Skademelding> getAlleKundensSkademeldinger( Kunde kunde )
     {
         return skademeldingsregister.getKundensSkademeldinger(forsikringsregister.getKundensForsikringer(kunde));
-       
     }
     
     public List<Forsikring> getAlleKundensForsikringer(Kunde kunde)
@@ -111,15 +118,10 @@ public class HovedRegister
         return kunderegister.getAnsattesKunder(ansatt);
     }
     
-    public Kunde nyKunde( String fnavn, String enavn, String adr, String tlf, String email, String persnummer)
-    {
-        
-        GregorianCalendar fd = new GregorianCalendar();
-        // sette fødselsdato fødselsdato.set();
-        Kunde nyKunde = new Kunde( fnavn,  enavn,  adr, tlf, fd ,
-                                   email, persnummer);
-        
-        return kunderegister.leggTil(nyKunde);
+    public void nyKunde( Kunde nyKunde )
+    {   
+        kunderegister.leggTil(nyKunde);
+        vindu.oppdaterTabell( kunderegister.alleKunder() );
     }
     
     public Kunde finnKunde()
@@ -170,8 +172,34 @@ public class HovedRegister
     {
         return ansattregister;
     }
+    
+    public int getUtgifter( Kunde kunde )
+    {
+        int sum = 0;
+        
+        List <Skademelding> skademeldinger = skademeldingsregister.getKundensSkademeldinger( forsikringsregister.getKundensForsikringer(kunde));
+        for( Skademelding skademelding: skademeldinger )
+            sum+= skademelding.getErstatningsbelop();
+        
+        return sum;
+    }
+    
+    public double getInntekter( Kunde kunde )
+    {
+        double sum = 0 ;
+        List<Forsikring> forsikringsliste = forsikringsregister.getKundensForsikringer(kunde);
+        
+        for(Forsikring forsikring : forsikringsliste )
+            sum += forsikring.getArligPremie();
+        
+        return sum;
+    }
+    
+    
+    
+    
 
-    public double  getInntekter()
+    public double getInntekter()
     {
         double totalSum = 0.0;
         

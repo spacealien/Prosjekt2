@@ -8,8 +8,6 @@ package gui;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import static javax.swing.Box.*;
-import objekter.*;
 import register.*;
 
 /**
@@ -60,6 +58,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
     private final JTextField slDatoMnd;
     private final JTextField slDatoAr;
     private final JButton sokKnapp;
+    //private final StatistikkVindu statestikkVindu;
     private int sok;
     private int utgift;
     private int inntekt;
@@ -69,6 +68,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
  public StatistikkPanel(AnsattVindu v)
  {
         vindu = v;
+      //  statestikkVindu = new StatistikkVindu(vindu);
         register = vindu.getRegister();
         sokevelger = new JComboBox<>(soket);
         utgiftsvelger = new JComboBox<>(utgifter);
@@ -221,14 +221,12 @@ public class StatistikkPanel extends JPanel implements ActionListener
                     utgiftsvelger.setEnabled(true);
                     inntektsvelger.setEnabled(true);
                 }
-        }});
-        
-        
+        }});     
  }
  
  public void alleKunderMedForsikring()
  {
-     
+    //statestikkVindu.alleKunderMedForsikring();
  }
  public void antSkademeldinger()
  {

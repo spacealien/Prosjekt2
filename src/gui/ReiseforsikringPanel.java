@@ -152,7 +152,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     {
        this.forsikring = (Reiseforsikring)f;
         sonevelger.setSelectedItem(forsikring.getSone());
-        reiseBelop.setText(String.valueOf(forsikring.getBelop()));
+        reiseBelop.setText(String.valueOf(forsikring.getBelopet()));
         egenandelsvelger.setSelectedItem(String.valueOf(forsikring.getEgenandel()));
         if (forsikring.isForsorger())
         {
@@ -312,7 +312,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
             forsikring.setAntBarn(antBarn);
             forsikring.setSone(sonevalget);
             forsikring.setEgenandel(egenandelvalget);
-            forsikring.setBelop(belop);
+            forsikring.setBelopet(belop);
             //Må beregne ny pris også
             }
         }

@@ -44,122 +44,22 @@ public class Fritidsboligforsikring extends Eiendomsforsikring
         utleie = u;
     }
 
-    
-    @Override
-    public void beregnPris()
-    {
-        int bpTakst = 0; //takst
-        double bpEgenandel = 0; //egenandel
-        double bpHusAlder = 0; //bpHusAlderBeregn
-        int bpHusAlderBeregn = innevarendeAr - byggear;
-        double bpByggeMateriale = 0; //byggeMateriale
-        double bpAlarm = 0; //alarmert
-        double bpTilbud;
-        
-        // Henter faktor for husets takst. 
-        if (takst > 0 && takst <= 800000)
-        {
-            bpTakst = 5000;
-        }
-        else if (takst > 800000 && takst <= 1500000)
-        {
-            bpTakst = 10000;
-        }
-        else if (takst > 1500000 && takst <= 2500000)
-        {
-            bpTakst = 18000;
-        }
-        else if (takst > 2500000 && takst <= 3000000)
-        {
-            bpTakst = 26000;
-        }
-        else if (takst > 3000000)
-        {
-            bpTakst = 33000;
-        }
-        
-        // Henter faktor for egenandel.
-        if (egenandel == 2000)
-        {
-            bpEgenandel = 1;
-        }
-        else if (egenandel == 4000)
-        {
-            bpEgenandel = 0.85;
-        }
-        else if (egenandel == 8000)
-        {
-            bpEgenandel = 0.7;
-        }
-        else if (egenandel == 12000)
-        {
-            bpEgenandel = 0.55;
-        }
-        else if (egenandel == 16000)
-        {
-            bpEgenandel = 0.4;
-        }
-        else if (egenandel == 20000)
-        {
-            bpEgenandel = 0.25;
-        }
-        else if (egenandel == 30000)
-        {
-            bpEgenandel = 0.1;
-        }
-        
-        // Henter faktor for husets alder.
-        if (bpHusAlderBeregn > 0 && bpHusAlderBeregn <= 2)
-        {
-            bpHusAlder = 0.1;
-        }
-        else if (bpHusAlderBeregn > 2 && bpHusAlderBeregn <= 5)
-        {
-            bpHusAlder = 0.2;
-        }
-        else if (bpHusAlderBeregn > 5 && bpHusAlderBeregn <= 10)
-        {
-            bpHusAlder = 0.3;
-        }
-        else if (bpHusAlderBeregn > 10 && bpHusAlderBeregn <= 25)
-        {
-            bpHusAlder = 0.4;
-        }
-        else if (bpHusAlderBeregn > 25)
-        {
-            bpHusAlder = 0.5;
-        }
-        
-        // Henter faktor for byggemateriale.
-        switch (byggeMateriale) {
-            case "Brannfast":
-                bpByggeMateriale = 0.1;
-                break;
-            case "Mur":
-                bpByggeMateriale = 0.2;
-                break;
-            case "Tre":
-                bpByggeMateriale = 0.4;
-                break;
-            case "Laftet tømmer":
-                bpByggeMateriale = 0.5;
-                break;
-        }
-        
-        // Henter faktor for om huset er alarmert.
-        if (alarmert == true)
-        {
-            bpAlarm = 0.0;
-        }
-        else
-        {
-            bpAlarm = 0.2;
-        }
-        
-        bpTilbud = bpTakst*(bpEgenandel+bpHusAlder+bpByggeMateriale+bpAlarm);
-        
+    public int getTakst() {
+        return takst;
     }
-    
+
+    public int getByggear() {
+        return byggear;
+    }
+
+    public String getByggeMateriale() {
+        return byggeMateriale;
+    }
+
+    public boolean isAlarmert() {
+        return alarmert;
+    }
+
     @Override
     public String toString()
     {
