@@ -14,11 +14,6 @@ package gui;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -88,6 +83,7 @@ public class LoginVindu extends JFrame
             vindu.leggTilNyFane( new AnsattPanel(), "Min Side");
             vindu.oppdaterTabell( vindu.getRegister().getKundeliste().alleKunder()    );
             vindu.setAnsatt(ansatt);
+            this.dispose();
         }
     }
     
@@ -104,7 +100,6 @@ public class LoginVindu extends JFrame
             if( e.getSource() == loginKnapp )
             {
                 login();
-                dispose();
             }
             else if( e.getSource() == avsluttKnapp )
             {
