@@ -9,6 +9,8 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
@@ -294,6 +296,15 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         if (hentInfo())
         {
             //Beregner pris
+            BatForsikring forsikring = new BatForsikring(kunde, egenandelvalget, "Vilkår 2", reg, belop,
+                                 merke, modell, typevalget, hk, 
+                                 ar, vekter_b, lengde);
+            
+            
+            double foreslåttPris = ForsikringsKalulator.beregnBatforsikring(forsikring);
+            NumberFormat formatter = new DecimalFormat("#0.00"); 
+            batTilbud.setVisible(true);
+            batTilbud.setText(formatter.format(foreslåttPris) + " Kr/År");
         }
     }
     
