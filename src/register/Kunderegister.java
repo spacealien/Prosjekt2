@@ -26,7 +26,7 @@ public class Kunderegister
     public Kunderegister()
     {
         kunderegister = new ArrayList<>();
-        /**
+      
         GregorianCalendar fdato = new GregorianCalendar(1991,6,6);
         Kunde test_1 = new Kunde("Rolf", "Hestman", "Kongleknaggen 18", "22260906", fdato, "hesterolf@yahoo.no", "08206049937");
         Kunde test_2 = new Kunde("Bjørn", "Dæhlie", "Trysil 23B", "22260906", fdato, "epost@epost.no", "12048449997");
@@ -87,7 +87,7 @@ public class Kunderegister
         kunderegister.add(test_27);
         kunderegister.add(test_28);
         sorter();
-        */
+        
         
     }
     

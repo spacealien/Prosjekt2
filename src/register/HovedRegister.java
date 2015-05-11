@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import objekter.*;
@@ -31,7 +32,7 @@ public class HovedRegister
     public HovedRegister(AnsattVindu v) 
     {
         vindu = v;
-        /**
+        
         kalender = new GregorianCalendar();
         Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer("08206049937");
         Kunde kunde_2 = kunderegister.finnKundeEtterPersonnummer("01258446816");
@@ -57,7 +58,7 @@ public class HovedRegister
                                                     "Laftet tømmer", 
                                                     "Høy standard", 320, 
                                                     4500000, 1200000, false);
-        Forsikring forsikring_5 = new Reiseforsikring( kunde_3, 4000, false, 0, "Norden", 
+        Forsikring forsikring_5 = new Reiseforsikring( kunde_3, 4000, false, 0, 1, 
                                                     40000 );
         Forsikring forsikring_6 = new Fritidsboligforsikring( kunde_3, 4000, 
                                                     "Hardangervidda", 1899, 
@@ -78,7 +79,7 @@ public class HovedRegister
         Skademelding test_1 = new Skademelding( forsikring_1, new Date() , "Skadetype" , "Beskrivelse", 2000, 30000 );
         skademeldingsregister.leggTil(forsikring_1, test_1);
         sjekkTid();
-        * */
+        
     }
     
     

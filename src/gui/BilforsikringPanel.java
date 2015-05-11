@@ -7,6 +7,8 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
@@ -128,9 +130,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         bilHk = new JTextField( 7 );
         bilKmstand = new JTextField( 6 );
         bilTilbud = new JTextField( 6 );
-        bilTilbud.setVisible(false);
+        bilTilbud.setVisible(true);
         tilbudLabel = new JLabel("Foreslått tilbud: ");
-        tilbudLabel.setVisible(false);
+        tilbudLabel.setVisible(true);
         garasjeJa = new JRadioButton("Ja");
         garasjeNei = new JRadioButton("Nei");
         garasjeJa.setMnemonic(KeyEvent.VK_J);
@@ -280,7 +282,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         System.out.println(bilforsikring.getMaxKjorelengde());
         bilRegnr.setText(bilforsikring.getRegistreringsnmmer());
         bilRegAr.setText(String.valueOf(bilforsikring.getArsmodell()));
-        bilVerdi.setText("ikke ferdig?");
+        bilVerdi.setText("");
         bilModell.setText(bilforsikring.getModell());
         bilHk.setText(String.valueOf(bilforsikring.getHestekrefter()));
         bilKmstand.setText(String.valueOf(bilforsikring.getKmstand()));
@@ -566,10 +568,15 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     {
         if (hentInfo())
         {
+            Bilforsikring forsikring = new Bilforsikring(kunde, egenandelvalget, regnr, belop,
+                                    merkevalget,modell, typevalget, hk, ar,
+                                    kmstand, forer, bonusen, antAr, garasje, alarm_b, esp_b, gjenkjenning_b, lengdevalget);
+            
+            
+            double foreslåttPris = ForsikringsKalulator.beregnBilforsikring(forsikring);
+            NumberFormat formatter = new DecimalFormat("#0.00"); 
             bilTilbud.setVisible(true);
-            tilbudLabel.setVisible(true);
-            //Beregn pris
-            //bilTilbud.setText();
+            bilTilbud.setText(formatter.format(foreslåttPris) + " Kr/År");
         }
     }
     
