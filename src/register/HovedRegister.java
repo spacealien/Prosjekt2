@@ -243,7 +243,10 @@ public class HovedRegister
     {
         forsikringsregister.leggTil( nyForsikring.getKunde(), nyForsikring);
         if(forsikringsregister.erTotalKunde(nyForsikring.getKunde()))
+        {
             nyForsikring.getKunde().setTotalKunde(true);
+            vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + "er nå totalkunde. ");
+        }
     }
     
     public void deaktiverForsikring( Integer forsikringsnummer )
