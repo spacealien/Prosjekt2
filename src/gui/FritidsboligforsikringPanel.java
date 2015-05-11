@@ -352,7 +352,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
             if( vindu.getRegister().getKundeliste().erKunde(kunde) == false )
             {
                 vindu.getAnsatt().leggTilKundenøkel(kunde.getPersonnummer());
-                register.getKundeliste().leggTil(kunde);
+                register.nyKunde(kunde);
             }
             
             Forsikring forsikringen = new Fritidsboligforsikring(kunde, egenandelvalget, dekningvalget, adr, ar, 

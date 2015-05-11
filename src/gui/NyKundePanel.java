@@ -34,6 +34,7 @@ public class NyKundePanel extends JPanel implements ActionListener
     private final JTextField regTlfnr;
     private final JTextField regAdresse;
     private final JTextField regEpost;
+    private final JTextField regFødselsår;
     private final JButton regKunde;
     private final String[] forsikringsvalg = {"", "Bilforsikring", "Båtforsikring", "Husforsikring", "Fritidsboligforsikring", "Reiseforsikring"};
     private final JComboBox<String> forsikringsDropDown = new JComboBox<>(forsikringsvalg);
@@ -51,20 +52,23 @@ public class NyKundePanel extends JPanel implements ActionListener
         regTlfnr = new JTextField( 8 );
         regAdresse = new JTextField( 15 );
         regEpost = new JTextField(20);
+        regFødselsår = new JTextField(15);
         regKunde = new JButton("Videre" );
-        kundeInfo_1.setLayout(new GridLayout(6,2,5,10));
+        kundeInfo_1.setLayout(new GridLayout(7,2,5,10));
         kundeInfo_1.add(new JLabel("Fornavn: "));
         kundeInfo_1.add(regFornavn);
         kundeInfo_1.add(new JLabel("Etternavn: "));
         kundeInfo_1.add(regEtternavn);
         kundeInfo_1.add(new JLabel("Personnummer: "));
         kundeInfo_1.add(regPersnr);
+        kundeInfo_1.add( new JLabel("Fødselsår: "));
+        kundeInfo_1.add(regFødselsår);
         kundeInfo_1.add(new JLabel("Telefonnummer: "));
         kundeInfo_1.add(regTlfnr);
-        kundeInfo_1.add(new JLabel("Fakturaadresse: "));
-        kundeInfo_1.add(regAdresse);
         kundeInfo_1.add( new JLabel("Epost: "));
         kundeInfo_1.add(regEpost);
+        kundeInfo_1.add(new JLabel("Fakturaadresse: "));
+        kundeInfo_1.add(regAdresse);
         
         setLayout( new BorderLayout() );
         knappeWrapper.setLayout( new FlowLayout() );
@@ -87,13 +91,14 @@ public class NyKundePanel extends JPanel implements ActionListener
             String telefonnummer = regTlfnr.getText();
             String epost = regEpost.getText();
             String personnummer = regPersnr.getText();
-            //int fødselsår = Integer.parseInt(epost);
-            //int fødselsmåned = Integer.parseInt(epost);
-            //int fødselsdato = Integer.parseInt(epost);
-
-            GregorianCalendar fødelsdato = new GregorianCalendar();
+            
+            int dato = Integer.parseInt(personnummer.substring(0, 2));
+            int måned = Integer.parseInt(personnummer.substring(2, 4));
+            int år = Integer.parseInt(regFødselsår.getText()); 
+            GregorianCalendar fødselsdato = new GregorianCalendar(år, måned, dato);
+            
             Kunde kunde = new Kunde( fornavn, etternavn, adresse, telefonnummer,
-            fødelsdato, epost, personnummer );
+            fødselsdato, epost, personnummer );
             return kunde;
         }
         catch( NumberFormatException e)
