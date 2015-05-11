@@ -324,6 +324,9 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
             
             vindu.getRegister().nyForsikring(forsikringen);
             
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
+            
             JOptionPane.showMessageDialog(null, "Du har nå tegnet fritidsboligforsikring med nummer " 
                                           + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() 
                                           + " " + kunde.getEtternavn() , "Bekreftelse", 

@@ -329,6 +329,9 @@ public class HusforsikringPanel extends JPanel implements ActionListener
             
             vindu.getRegister().nyForsikring(forsikringen);
             
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
+            
             JOptionPane.showMessageDialog(null, "Du har nå tegnet husforsikring med nummer " 
                                           + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() 
                                           + " " + kunde.getEtternavn() , "Bekreftelse", 
