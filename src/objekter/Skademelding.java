@@ -5,6 +5,7 @@
  */
 package objekter;
 
+import java.awt.Image;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +26,7 @@ public class Skademelding
     private String skadetype;
     //private String skademeldingsskjema;
     private String beskrivelse;
-    private File[] bilder;
+    private Image[] bilder;
     private Vitne vitne;
     private int takseringsbelop;
     private int erstatningsbelop;
@@ -100,7 +101,7 @@ public class Skademelding
         this.beskrivelse = input;
     }
     
-    public void setBilder( File[] photo )
+    public void setBilder( Image[] photo )
     {
         bilder = photo;
     }

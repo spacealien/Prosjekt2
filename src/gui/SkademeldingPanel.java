@@ -8,9 +8,13 @@ package gui;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import objekter.*;
 import register.*;
@@ -35,7 +39,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     private final JButton visBilde;
     private final Kunde kunde;
     private final Forsikring forsikring;
-    private File[] bilder;
+    private Image[] bilder;
     private SimpleDateFormat sdf;
     private Skademelding skademelding;
     
@@ -157,13 +161,23 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         }
         else if( e.getSource() == lastOppBildeKnapp)
         {
-            JFileChooser fil = new JFileChooser();
-            fil.setMultiSelectionEnabled(true);
-            fil.setCurrentDirectory( new File (".") );
-            if( JFileChooser.APPROVE_OPTION == fil.showOpenDialog( vindu ))
+            JFileChooser filer = new JFileChooser();
+            filer.setMultiSelectionEnabled(true);
+            filer.setCurrentDirectory( new File (".") );
+            if( JFileChooser.APPROVE_OPTION == filer.showOpenDialog( vindu ))
             {
-                File[] foto = fil.getSelectedFiles();
-                this.bilder = foto;
+                try
+                {
+                    File[] foto = filer.getSelectedFiles();
+                    int teller = 0;
+                    for( File fil : foto)
+                    {
+                        this.bilder[teller++] = ImageIO.read(foto[teller++]);
+                    }
+                } catch (IOException ex) 
+                {
+                    Logger.getLogger(SkademeldingPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         else if( e.getSource() == visBilde )
