@@ -233,7 +233,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         tegnBilPanel2.add(bilGiTilbud);
         hovedPanel.setLayout(new BoxLayout(hovedPanel, BoxLayout.LINE_AXIS));
         hovedPanel.add(tegnBilPanel1);
+        hovedPanel.add(Box.createHorizontalStrut(5));
         hovedPanel.add(new JSeparator(SwingConstants.VERTICAL));
+        hovedPanel.add(Box.createHorizontalStrut(5));
         hovedPanel.add(tegnBilPanel2);
         setLayout(new BoxLayout(this,BoxLayout.LINE_AXIS));
         hovedPanel.add(new JSeparator(SwingConstants.VERTICAL));
