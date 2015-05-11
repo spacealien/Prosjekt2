@@ -28,7 +28,6 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     private final AnsattVindu vindu;
     private final HovedRegister register;
     private final JTextField skadeDato;
-    private final JTextField skadeType;
     private final JTextArea skadeBeskrivelse;
     private final JTextField skadeTakst;
     private final JTextField skadeForsikring;
@@ -37,11 +36,14 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     private final JButton lastOppBildeKnapp;
     private final JButton vitneKnapp;
     private final JButton visBilde;
+    String[] skadetype = {"", "Brann", "Tyveri/Hærverk", "Ulykke", "Tap", "Annet"};
+    JComboBox<String> skadetypevelger;
     private final Kunde kunde;
     private final Forsikring forsikring;
     private Image[] bilder;
     private SimpleDateFormat sdf;
     private Skademelding skademelding;
+    private String skadetypevalget;
     
     private final Desktop desktop = Desktop.getDesktop();
     private final Desktop.Action action = Desktop.Action.OPEN;
@@ -55,9 +57,9 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         vindu = v;
         register = vindu.getRegister();
         skadeDato = new JTextField( 7 );
-        skadeType = new JTextField( 7 );
         skadeBeskrivelse = new JTextArea( 20, 30);
         skadeTakst = new JTextField( 7 );
+        skadetypevelger = new JComboBox<>(skadetype);
         sendInnSkade = new JButton("Send inn skade");  
         lastOppBildeKnapp = new JButton("Last Opp Bilde");
         skadeForsikring = new JTextField(16);
@@ -70,13 +72,13 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         layout_1.setHgap(6);
         layout_1.setVgap(6);
         wrapper_1.setLayout(  layout_1 );        
-        wrapper_1.add( new JLabel("Skadens Dato: (ddmmåååå)"));
+        wrapper_1.add( new JLabel("Dato skaden inntraff: (ddmmåååå)"));
         wrapper_1.add( skadeDato );
         wrapper_1.add( new JLabel("Skadens forsikring: "));
         wrapper_1.add( skadeForsikring );
         wrapper_1.add( new JLabel("Skadetype: "));
-        wrapper_1.add( skadeType );
-        wrapper_1.add( new JLabel("Skadens Takst: "));
+        wrapper_1.add( skadetypevelger );
+        wrapper_1.add( new JLabel("Skadens takst: "));
         wrapper_1.add( skadeTakst );
         
         JPanel wrapper_2 = new JPanel();
@@ -113,7 +115,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         this.skademelding = skade;
         skadeDato.setText(skademelding.getSkadeDato().toString());
         skadeForsikring.setText(skademelding.getForsikring().getForsikringsType());
-        //skadeType.setText();
+        skadetypevelger.setSelectedItem(forsikring.getVilkar());
         skadeTakst.setText(String.valueOf(skademelding.getTakseringsbelop()));
         skadeBeskrivelse.setText( skademelding.getBeskrivelse());
         
@@ -127,16 +129,17 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     
     public void nySkademelding()
     {
+        int skadetype_n = skadetypevelger.getSelectedIndex();
         try
         {
             String sd = skadeDato.getText();
             Date dato = sdf.parse(sd);
-            String type = skadeType.getText();
             String beskrivelse = skadeBeskrivelse.getText();
             int takst = Integer.parseInt(skadeTakst.getText());
             int belop = Integer.parseInt(erstatningsBeløp.getText());
+            skadetypevalget = skadetypevelger.getItemAt(skadetype_n);
             
-            Skademelding nySkademelding = new Skademelding(forsikring, dato, type, beskrivelse, takst, belop );
+            Skademelding nySkademelding = new Skademelding(forsikring, dato, skadetypevalget, beskrivelse, takst, belop );
             if( bilder != null)
                 skademelding.setBilder(bilder);
             
