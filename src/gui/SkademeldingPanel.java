@@ -37,6 +37,9 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     private final JButton vitneKnapp;
     private final JButton visBilde;
     String[] skadetype = {"", "Brann", "Tyveri/Hærverk", "Ulykke", "Tap", "Annet"};
+    String[] skadetypeKjoretoy = {"", "Ansvar", "Glasskade", "Vei-/slepehjelp", "Tyveri/Hærverk", "Ulykke", "Annet"};
+    String[] skadetypeEiendom = {"", "Brann", "Innbrudd/tyveri", "Hærverk", "Naturskade", "Vann", "Fryser/matvarer", "Annet"};
+    String[] skadetypeReise = {"", "Tapt/forsinket bagasje", "Tyveri/tap", "Forsinket transport", "Sykdom/ulykke", "Avbestilling", "Annet"};
     JComboBox<String> skadetypevelger;
     private final Kunde kunde;
     private final Forsikring forsikring;
@@ -59,13 +62,25 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         skadeDato = new JTextField( 7 );
         skadeBeskrivelse = new JTextArea( 20, 30);
         skadeTakst = new JTextField( 7 );
-        skadetypevelger = new JComboBox<>(skadetype);
         sendInnSkade = new JButton("Send inn skade");  
         lastOppBildeKnapp = new JButton("Last Opp Bilde");
         skadeForsikring = new JTextField(16);
         vitneKnapp = new JButton("Legg Til Vitner");
         erstatningsBeløp = new JTextField(15);
         visBilde = new JButton("Vis bilder");
+        
+        if (forsikring.getForsikringsType().equals("Bilforsikring") || forsikring.getForsikringsType().equals("Båtforsikring"))
+        {
+            skadetypevelger = new JComboBox<>(skadetypeKjoretoy);
+        }
+        else if (forsikring.getForsikringsType().equals("Husforsikring") || forsikring.getForsikringsType().equals("Fritidsboligforsikring"))
+        {
+            skadetypevelger = new JComboBox<>(skadetypeEiendom);
+        }
+        else if (forsikring.getForsikringsType().equals("Reiseforsikring"))
+        {
+           skadetypevelger = new JComboBox<>(skadetypeReise); 
+        }
         
         JPanel wrapper_1 = new JPanel();
         GridLayout layout_1 = new GridLayout(2,4);
