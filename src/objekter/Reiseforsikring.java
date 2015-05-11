@@ -76,28 +76,6 @@ public class Reiseforsikring extends Personligforsikring
     }
     
     @Override
-    public void beregnPris()
-    {
-        if (super.isForsorger())
-        {
-           forsorgerpris = 1.5;//Multiplikator for familie -> Kan gjøres i Personligforsikring?
-          
-        }
-            
-            
-        /*switch (sone)
-        {
-            case 1: soneBeregn = 1;//Hva man skal gange prisen med
-                    break;
-            case 2: soneBeregn = 1.10;//Hva man skal gange prisen med
-                    break;
-            case 3: soneBeregn = 1.20;//Hva man skal gange prisen med
-                    break;
-        }*/
-        premie = belopet*0.20*soneBeregn*forsorgerpris;
-    }
-    
-    @Override
     public String toString()
     {
         String utskrift = super.toString();
