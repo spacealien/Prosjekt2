@@ -549,23 +549,11 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     lengdevalget = 100000;
                     break;
             } 
-            if (garasjeJa.isSelected() && !garasjeNei.isSelected())
-                    garasje = true;
-        else if (!garasjeJa.isSelected() && garasjeNei.isSelected())
-                    garasje = false;
-            if (espJa.isSelected() && !espNei.isSelected())
-                    esp_b = true;
-        else if (!espJa.isSelected() && espNei.isSelected())
-                    esp_b = false;
-            if (alarmJa.isSelected() && !alarmNei.isSelected())
-                    alarm_b = true;
-        else if (!alarmJa.isSelected() && alarmNei.isSelected())
-                    alarm_b = false;
-            if (gjenkjenningJa.isSelected() && !gjenkjenningNei.isSelected())
-                    gjenkjenning_b = true;
-        else if (!gjenkjenningJa.isSelected() && gjenkjenningNei.isSelected())
-                    gjenkjenning_b = false;
-            
+                    garasje = garasjeJa.isSelected();
+                    esp_b = espJa.isSelected();
+                    alarm_b = alarmJa.isSelected();
+                    gjenkjenning_b = gjenkjenningJa.isSelected();
+      
             try
             {
                 forer = aldervelger.getItemAt(alder_n);
@@ -640,7 +628,21 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                                           + kunde.getEtternavn() , "Bekreftelse", 
                                             JOptionPane.INFORMATION_MESSAGE);
         }
-      }
+    }
+    
+    public void visVilkår()
+    {
+        VilkårVindu vilkårVindu = new VilkårVindu("Vilkår");
+        if( bilforsikring != null )
+        {
+            vilkårVindu.visVilkår(bilforsikring.getVilkar());
+            //vilkårVindu.setOverskrift("Vilkår for" + bilforsikring.getForsikringsnummer());
+        }
+        else
+        {
+            
+        }        
+    }
     
     @Override
     public void actionPerformed(ActionEvent e) 
@@ -674,7 +676,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         }
         else if ( e.getSource() == vilkårKnapp)
         {
-            VilkårVindu vilkårVindu = new VilkårVindu(dekning);
+            visVilkår();
         }
         else if( e.getSource() == rediger)
         {

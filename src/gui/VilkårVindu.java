@@ -10,7 +10,6 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,37 +23,30 @@ import javax.swing.JTextArea;
 public class VilkårVindu extends JFrame
 {
     private final JTextArea utskrift;
-    private final JButton velgKnapp;
-    private final JButton lesKnapp;
-    private final JComboBox<String> dropDown;
     
-    
-    public VilkårVindu( String[] dropDownValg )
+    public VilkårVindu( String vinduTittel )
     {
+        super(vinduTittel);
         setVisible(true);
         setSize(600,600);
         
-        VilkårVinduLytter vilkårLytter = new VilkårVinduLytter();
-        utskrift = new JTextArea();
-        velgKnapp = new JButton("Velg");
-        lesKnapp = new JButton("Les");
-        dropDown = new JComboBox<>(dropDownValg);
-        
+        utskrift = new JTextArea();        
         utskrift.setLineWrap(true);
         JScrollPane scroll = new JScrollPane(utskrift);
         
         JPanel menyPanel = new JPanel();
         menyPanel.add( new JLabel("Velg: ") );
-        menyPanel.add(dropDown);
-        menyPanel.add(lesKnapp);
-        menyPanel.add(velgKnapp);
+
         
         Container c =  getContentPane();
         c.setLayout( new BorderLayout() );
         c.add( menyPanel, BorderLayout.NORTH );
         c.add( scroll, BorderLayout.CENTER );
-        velgKnapp.addActionListener(vilkårLytter);
-        lesKnapp.addActionListener(vilkårLytter);
+    }
+    
+    public void visVilkår( String vilkår )
+    {
+        utskrift.setText(vilkår);
     }
     
     private class VilkårVinduLytter implements ActionListener
@@ -62,14 +54,7 @@ public class VilkårVindu extends JFrame
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            if( e.getSource() == velgKnapp )
-            {
-                
-            }
-            else if( e.getSource() == lesKnapp )
-            {
-                
-            }
-        }   
+        
+        }
     }
 }
