@@ -47,7 +47,7 @@ public class Kunde extends Bruker
         return årligForsikringsPremie;
     }
     
-    public int finnForsikring( int n )
+    public int finnForsikringsNøkkel( int n )
     {
         return Collections.binarySearch(forsikringsnøkkel, n);
     }
@@ -84,29 +84,5 @@ public class Kunde extends Bruker
         String utskrift = super.toString();  //kall på superklassens toString-metode
         return utskrift;
     }    
-/**
-    @Override
-    public int compareTo(Kunde k) 
-    {
-        int personnummer_1 = Integer.parseInt(this.getPersonnummer());
-        int personnummer_2 = Integer.parseInt(k.getPersonnummer());
-        
-        final int STORRE = 1;
-        final int LIK = 0;
-        final int MINDRE = -1;
-        
-        if( personnummer_1 > personnummer_2 )
-        {
-            return STORRE;
-        }
-        else if(personnummer_1 == personnummer_2 )
-        {
-            return LIK;
-        }
-        else
-        {
-            return MINDRE;
-        }
-    }
-   */
+
 }//end of class

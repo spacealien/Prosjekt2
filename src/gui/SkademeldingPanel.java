@@ -27,6 +27,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
 {
     private final AnsattVindu vindu;
     private final HovedRegister register;
+    private KundePanel kundePanel;
     private final JTextField skadeDato;
     private final JTextArea skadeBeskrivelse;
     private final JTextField skadeTakst;
@@ -36,11 +37,11 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     private final JButton lastOppBildeKnapp;
     private final JButton vitneKnapp;
     private final JButton visBilde;
-    String[] skadetype = {"", "Brann", "Tyveri/Hærverk", "Ulykke", "Tap", "Annet"}; //kan fjernes!
-    String[] skadetypeKjoretoy = {"", "Ansvar", "Glasskade", "Vei-/slepehjelp", "Tyveri/Hærverk", "Ulykke", "Annet"};
-    String[] skadetypeEiendom = {"", "Brann", "Innbrudd/tyveri", "Hærverk", "Naturskade", "Vann", "Fryser/matvarer", "Annet"};
-    String[] skadetypeReise = {"", "Tapt/forsinket bagasje", "Tyveri/tap", "Forsinket transport", "Sykdom/ulykke", "Avbestilling", "Annet"};
-    JComboBox<String> skadetypevelger;
+    private final String[] skadetype = {"", "Brann", "Tyveri/Hærverk", "Ulykke", "Tap", "Annet"};
+    private final String[] skadetypeKjoretoy = {"", "Ansvar", "Glasskade", "Vei-/slepehjelp", "Tyveri/Hærverk", "Ulykke", "Annet"};
+    private final String[] skadetypeEiendom = {"", "Brann", "Innbrudd/tyveri", "Hærverk", "Naturskade", "Vann", "Fryser/matvarer", "Annet"};
+    private final String[] skadetypeReise = {"", "Tapt/forsinket bagasje", "Tyveri/tap", "Forsinket transport", "Sykdom/ulykke", "Avbestilling", "Annet"};
+    private final JComboBox<String> skadetypevelger;
     private final Kunde kunde;
     private final Forsikring forsikring;
     private Image[] bilder;
@@ -77,7 +78,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         {
             skadetypevelger = new JComboBox<>(skadetypeEiendom);
         }
-        else if (forsikring.getForsikringsType().equals("Reiseforsikring"))
+        else
         {
            skadetypevelger = new JComboBox<>(skadetypeReise); 
         }
@@ -157,8 +158,13 @@ public class SkademeldingPanel extends JPanel implements ActionListener
             Skademelding nySkademelding = new Skademelding(forsikring, dato, skadetypevalget, beskrivelse, takst, belop );
             if( bilder != null)
                 skademelding.setBilder(bilder);
+
+            if(vindu.getRegister().nySkademelding(nySkademelding));
+                vindu.visInformasjon("Beskjed", "Skademelding registrert.");
             
-            vindu.getRegister().getSkademeldingsregister().leggTil(forsikring, skademelding);
+            if(kundePanel != null )
+                kundePanel.oppdaterVindu();
+
         } 
         catch (ParseException e)
         {
@@ -168,6 +174,11 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         {
             vindu.visFeilmelding("FeildMelding", "Skjekk at takst og beløp er av riktig format.");
         }
+    }
+    
+    public void setKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
     }
     
     @Override

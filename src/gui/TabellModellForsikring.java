@@ -16,15 +16,13 @@ import objekter.Forsikring;
  */
 public class TabellModellForsikring extends AbstractTableModel
 {
-    private String[] kolonnenavn = { "Forsikringsnummer", "Type", "Aktiv", "Dato" };
+    private String[] kolonnenavn = { "Forsikringsnummer", "Type", "Aktiv", "Dato", "Antall skademeldinger"};
     private Object[][] innhold;
     private List<Forsikring> forsikringer;
-    private final KundePanel panel;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     
-    public TabellModellForsikring( List<Forsikring> forsikringer, KundePanel panel)
+    public TabellModellForsikring( List<Forsikring> forsikringer)
     {
-        this.panel = panel;
         this.forsikringer = forsikringer;
         innhold = new Object[this.forsikringer.size()][kolonnenavn.length];
         
@@ -35,6 +33,7 @@ public class TabellModellForsikring extends AbstractTableModel
             innhold[teller][1] = forsikring.getForsikringsType();
             innhold[teller][2] = forsikring.erAktivTekst();
             innhold[teller][3] = sdf.format(forsikring.getStartdato());
+            innhold[teller][4] = forsikring.getNøkkelliste().size();
             teller++;
         }
     }

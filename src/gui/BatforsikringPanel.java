@@ -338,7 +338,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
             if( vindu.getRegister().getKundeliste().erKunde(kunde) == false )
             {
                 vindu.getAnsatt().leggTilKundenøkel(kunde.getPersonnummer());
-                register.getKundeliste().leggTil(kunde);
+                register.nyKunde(kunde);
             }
             
             Forsikring forsikringen = new BatForsikring(kunde, egenandelvalget, dekningvalget, reg, belop,

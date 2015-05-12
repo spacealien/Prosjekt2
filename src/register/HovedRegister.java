@@ -95,7 +95,6 @@ public class HovedRegister
     
     public final void sjekkTid()
     {
-      
        //GregorianCalendar kalender = vindu.getKalender();
       for( Kunde kunde : kunderegister.alleKunder() )
         {

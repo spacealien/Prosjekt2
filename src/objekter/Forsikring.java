@@ -32,7 +32,7 @@ public abstract class Forsikring
     private String vilkar;
     private final int forsikringsnummer;
     private static int løpenummer = 1000000;
-    private final List<Integer> skademeldingsnøkkler = new ArrayList<>();
+    private final List<Integer> skademeldingsnøkkler;
     private boolean aktiv = true;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     java.util.Locale norge = new java.util.Locale( "no" );
@@ -48,6 +48,7 @@ public abstract class Forsikring
         forsikringsnummer =  løpenummer++;
         //this.vilkår = vilkår;
         kunde = k;
+        skademeldingsnøkkler = new ArrayList<>();
     }
     
     public String getForsikringsType()
@@ -166,7 +167,6 @@ public abstract class Forsikring
     public List<Integer> getNøkkelliste()
     {
         return skademeldingsnøkkler;
-        //return forsikringsnøkkel.toArray(new String[forsikringsnøkkel.size()]);
     }
     
     public Date getStartdato()

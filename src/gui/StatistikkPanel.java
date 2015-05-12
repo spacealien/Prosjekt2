@@ -18,6 +18,9 @@ public class StatistikkPanel extends JPanel implements ActionListener
 {
     private AnsattVindu vindu;
     private HovedRegister register;
+    private StatistikkVindu statistikkVindu;
+    
+    
     private final String[] soket = {"", "Alle kunder som har en gitt type forsikring",
                                "Antall skademeldinger innen en gitt tidsperiode", "Antall"
                               + " tegnede forsikringer innen en gitt tidsperiode"};
@@ -226,7 +229,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
  
  public void alleKunderMedForsikring()
  {
-    //statestikkVindu.alleKunderMedForsikring();
+    
  }
  public void antSkademeldinger()
  {
@@ -332,6 +335,9 @@ public boolean sjekkDatoOgForsikringsvelger()
     {
         if (e.getSource() == sokKnapp)
         {
+            StatistikkVindu statistikkVindu = new StatistikkVindu();
+            
+            
             if (sokevelger.isEnabled())
             {
                 switch (sokevelger.getSelectedIndex())
