@@ -26,10 +26,10 @@ public class ForsikringsKalulator
         int bilTakst = bilforsikring.getBelopet();
         int bilArsModell = bilforsikring.getArsModell();
         int bilAlder = innevarendeAr - bilArsModell;
-        int bilForventetKjorelengde = bilforsikring.getKmlengde();
+        int bilForventetKjorelengde = bilforsikring.getMaxKjorelengde();
         int bilHK = bilforsikring.getHk();
         boolean bilGarasje = bilforsikring.getGarasje();
-        int bilEgenandel = bilforsikring.getEgenAndel();
+        int bilEgenandel = bilforsikring.getEgenandel();
         String bilForerAlder = bilforsikring.getForerAlder();
         boolean bilESP = bilforsikring.getESP();
         boolean bilAlarmert = bilforsikring.getAlarm();

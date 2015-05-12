@@ -310,14 +310,6 @@ public class Bilforsikring extends Kjoretoyforsikring
     public int getHk() {
         return hk;
     }
-
-    public int getKmlengde() {
-        return kmlengde;
-    }
-
-    public int getEgenAndel() {
-        return egenAndel;
-    }
     
     @Override
     public String toString()
