@@ -60,6 +60,11 @@ public class VilkårVindu extends JFrame
         utskrift.setText(vilkår);
     }
     
+    public JTextArea getUtskriftområdet()
+    {
+        return utskrift;
+    }
+    
     private class VilkårVinduLytter implements ActionListener
     {
         @Override

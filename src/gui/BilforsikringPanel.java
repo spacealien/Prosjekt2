@@ -640,8 +640,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else
         {
-            vilkår = this.velgVilkår("Bil"+"Ansvar");
-            vilkårVindu.visVilkår(vilkår);
+            this.velgVilkår("Bil"+"Ansvar", vilkårVindu.getUtskriftområdet() );
         }        
     }
     

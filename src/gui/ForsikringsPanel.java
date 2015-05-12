@@ -8,9 +8,15 @@ package gui;
 import java.awt.Component;
 import java.awt.Container;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -45,10 +51,10 @@ public interface ForsikringsPanel
         }
     }
     
-    default String velgVilkår( String filsti )
+    default void velgVilkår( String filsti, JTextArea utskrift ) 
     {
-        
-        try (BufferedReader innfil = new BufferedReader( new FileReader( filsti +".txt")))
+        try (BufferedReader innfil = new BufferedReader( new InputStreamReader ( new FileInputStream(filsti + ".txt"),
+        "UTF8")))
         {
             StringBuilder vilkårBygger = new StringBuilder();
             String vilkår;
@@ -60,15 +66,16 @@ public interface ForsikringsPanel
                     vilkårBygger.append(vilkår).append("\n");
             } while( vilkår != null);
             
-            return vilkårBygger.toString();
-        } 
-        catch (FileNotFoundException ex) 
-        {
-            return "finner ikke fil.";
+            innfil.close();
+            utskrift.append(vilkårBygger.toString());
         }
-        catch( IOException e)
+        catch (UnsupportedEncodingException ex) 
         {
-            return "feil ved lesing av fil";
+            JOptionPane.showMessageDialog(null, "Sørg for at textfield er av riktig format. UTF-8", "Feilmelding", JOptionPane.ERROR_MESSAGE);
+        } 
+        catch (IOException e) 
+        {
+            JOptionPane.showMessageDialog(null, "Feil ved lesing av fil.", "Feilmelding", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
