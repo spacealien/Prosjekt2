@@ -20,7 +20,7 @@ import register.*;
 /**
  * @author Odd, Thomas, Marthe
  */
-public class HusforsikringPanel extends JPanel implements ActionListener
+public class HusforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
     private AnsattVindu vindu;
     private HovedRegister register;
@@ -178,28 +178,8 @@ public class HusforsikringPanel extends JPanel implements ActionListener
             }
         });
     }
-    private Component[] getKomponenter(Component pane)
-     {
-        ArrayList<Component> liste = null;
-
-        try
-        {
-            liste = new ArrayList<Component>(Arrays.asList(
-                  ((Container) pane).getComponents()));
-            for (int i = 0; i < liste.size(); i++)
-            {
-            for (Component currentComponent : getKomponenter(liste.get(i)))
-            {
-                liste.add(currentComponent);
-            }
-            }
-        } catch (ClassCastException e) {
-            liste = new ArrayList<Component>();
-        }
-
-        return liste.toArray(new Component[liste.size()]);
-        
-    }
+    
+    
     // ikke fjern, ikke ferdig....mangler visning for dropdown
     public void visForsikring( Forsikring f)
     {

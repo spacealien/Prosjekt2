@@ -13,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -26,6 +28,28 @@ import objekter.Forsikring;
  */
 public interface ForsikringsPanel
 {
+    
+    default Component[] getKomponenter(Component pane)
+    {
+        ArrayList<Component> liste = null;
+
+        try
+        {
+            liste = new ArrayList<>(Arrays.asList(
+                  ((Container) pane).getComponents()));
+            for (int i = 0; i < liste.size(); i++)
+            {
+            for (Component currentComponent : getKomponenter(liste.get(i)))
+            {
+                liste.add(currentComponent);
+            }
+            }
+        } catch (ClassCastException e) {
+            liste = new ArrayList<>();
+        }
+        return liste.toArray(new Component[liste.size()]);
+    }
+    
     
     default void disableFelter( Container pane )
     {

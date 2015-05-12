@@ -6,19 +6,16 @@
 package gui;
 
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.*;
 import objekter.*;
 import register.*;
 
 
-public class BatforsikringPanel extends JPanel implements ActionListener
+public class BatforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
     private AnsattVindu vindu;
     private HovedRegister register;
@@ -174,28 +171,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         lagreNy.addActionListener(this);
         deaktiver.addActionListener(this);
     }
-    private Component[] getKomponenter(Component pane)
-     {
-        ArrayList<Component> liste = null;
 
-        try
-        {
-            liste = new ArrayList<Component>(Arrays.asList(
-                  ((Container) pane).getComponents()));
-            for (int i = 0; i < liste.size(); i++)
-            {
-            for (Component currentComponent : getKomponenter(liste.get(i)))
-            {
-                liste.add(currentComponent);
-            }
-            }
-        } catch (ClassCastException e) {
-            liste = new ArrayList<Component>();
-        }
-
-        return liste.toArray(new Component[liste.size()]);
-     }
-    
     public void visForsikring( Forsikring f )
     {
         this.forsikring = (BatForsikring) f;

@@ -257,28 +257,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         dekningvelger.addItemListener(vilkårLytter);
         
     } // slutt på konstuktør
-    
-    private Component[] getKomponenter(Component pane)
-    {
-        ArrayList<Component> liste = null;
 
-        try
-        {
-            liste = new ArrayList<>(Arrays.asList(
-                  ((Container) pane).getComponents()));
-            for (int i = 0; i < liste.size(); i++)
-            {
-            for (Component currentComponent : getKomponenter(liste.get(i)))
-            {
-                liste.add(currentComponent);
-            }
-            }
-        } catch (ClassCastException e) {
-            liste = new ArrayList<>();
-        }
-        return liste.toArray(new Component[liste.size()]);
-    }
-    
     public void visForsikring( Forsikring f)
     {
         this.bilforsikring = (Bilforsikring) f;
@@ -555,8 +534,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
                     esp_b = espJa.isSelected();
                     alarm_b = alarmJa.isSelected();
                     gjenkjenning_b = gjenkjenningJa.isSelected();
-
-            
+                    
             try
             {
                 forer = aldervelger.getItemAt(aldervelger.getSelectedIndex());
@@ -729,14 +707,16 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         else if (e.getSource() == deaktiver)
         {
            
-            int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(bilforsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
+            int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " 
+                                                     + String.valueOf(bilforsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
             if (svar == JOptionPane.YES_OPTION)
             {
                 knappePanel.remove(rediger);
                 knappePanel.remove(lagreNyInfo);
                 knappePanel.remove(beregnPris);
                 bilforsikring.setAktiver(false);
-                JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(bilforsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(bilforsikring.getForsikringsnummer()) 
+                                              + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
                 repaint();
                 revalidate();
             }
