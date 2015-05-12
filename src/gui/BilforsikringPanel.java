@@ -63,7 +63,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
     private final String[] foreralder = {"", "Bilfører < 23 år", "Bilfører mellom 23 - 25 år", 
                            "Bilfører > 25 år"};
     private final JComboBox<String> aldervelger;
-    private final String[] dekning = {"", "Ansvar", "Delkasko", "Kasko", "Superkasko"};
+    protected final String[] dekning = {"", "Ansvar", "Delkasko", "Kasko", "Superkasko"};
     private final JComboBox<String> dekningvelger;
     private final String[] egenandel = {"", "4000", "8000", "12000", "16000", "20000", 
                             "30000"};
@@ -83,7 +83,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
     private int ar;
     private int kmstand;  
     private String typevalget;
-    private String vilkår;
+    protected String vilkår;
     private int lengdevalget;
     private double bonusen;
     private int egenandelvalget;
@@ -246,8 +246,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         hovedPanel.add(new JSeparator(SwingConstants.VERTICAL));
         add(hovedPanel);
         
-        
-        
+        VilkårLytter vilkårLytter = new VilkårLytter();
         bilGiTilbud.addActionListener(this);
         beregnPris.addActionListener(this);
         annenEier.addActionListener(this);
@@ -255,6 +254,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         lagreNyInfo.addActionListener(this);
         deaktiver.addActionListener(this);
         vilkårKnapp.addActionListener(this);
+        dekningvelger.addItemListener(vilkårLytter);
         
     } // slutt på konstuktør
     
@@ -559,11 +559,11 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
             
             try
             {
-                forer = aldervelger.getItemAt(alder_n);
+                forer = aldervelger.getItemAt(aldervelger.getSelectedIndex());
                 belop = Integer.parseInt(bilVerdi.getText());
-                typevalget = biltypevelger.getItemAt(type_n);
-                bonusTekst = bonusvelger.getItemAt(bonus_n);
-                dekningvalget = dekningvelger.getItemAt(dekning_n);
+                typevalget = biltypevelger.getItemAt(biltypevelger.getSelectedIndex());
+                bonusTekst = bonusvelger.getItemAt(bonusvelger.getSelectedIndex());
+                dekningvalget = dekningvelger.getItemAt(dekningvelger.getSelectedIndex());
                 egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
                 regnr = bilRegnr.getText();
                 modell = bilModell.getText();
@@ -662,7 +662,10 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else if ( e.getSource() == vilkårKnapp)
         {
-            visVilkår("Bil"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()));
+            if( bilforsikring == null )
+                visForsikringensVilkår("Ny Bilforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
+            else
+                visForsikringensVilkår("Vilkår" + bilforsikring.getForsikringsnummer(), bilforsikring.getVilkar());
         }
         else if( e.getSource() == rediger)
         {
@@ -738,6 +741,14 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
                 revalidate();
             }
         }
-        
+    }
+    
+    private class VilkårLytter implements ItemListener, ForsikringsPanel
+    {
+        @Override
+        public void itemStateChanged(ItemEvent e) 
+        {
+                vilkår = this.velgVilkår( "Bil"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
+        }
     }
 }

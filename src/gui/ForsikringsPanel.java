@@ -9,9 +9,12 @@ import java.awt.Component;
 import java.awt.Container;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -23,6 +26,7 @@ import objekter.Forsikring;
  */
 public interface ForsikringsPanel
 {
+    
     default void disableFelter( Container pane )
     {
         Component[] liste = pane.getComponents();
@@ -49,22 +53,14 @@ public interface ForsikringsPanel
         }
     }
     
-    default void visVilkår( Forsikring forsikring, String filsti )
+    default void visForsikringensVilkår(String overskrift, String vilkårInnhold )
     {
             VilkårVindu vilkårVindu = new VilkårVindu("Vilkår");
-            vilkårVindu.setOverskrift("");
-            this.velgVilkår( filsti, vilkårVindu.getUtskriftområdet() );
+            vilkårVindu.setOverskrift(overskrift);
+            vilkårVindu.getUtskriftområdet().setText(vilkårInnhold);
     }
     
-    default void visVilkår( String filsti )
-    {
-        VilkårVindu vilkårVindu = new VilkårVindu("Vilkår");
-        vilkårVindu.setOverskrift("");
-        this.velgVilkår( filsti, vilkårVindu.getUtskriftområdet() );        
-    }
-    
-    
-    default void velgVilkår( String filsti, JTextArea utskrift ) 
+    default String velgVilkår( String filsti )
     {
         try (BufferedReader innfil = new BufferedReader( new InputStreamReader ( new FileInputStream(filsti + ".txt"),
         "UTF8")))
@@ -79,16 +75,23 @@ public interface ForsikringsPanel
                     vilkårBygger.append(vilkår).append("\n");
             } while( vilkår != null);
             
-            innfil.close();
-            utskrift.append(vilkårBygger.toString());
-        }
+            innfil.close();            
+            return vilkårBygger.toString();
+        } 
+        catch (FileNotFoundException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Feilmelding", "Kunne ikke finne fil", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } 
         catch (UnsupportedEncodingException ex) 
         {
-            JOptionPane.showMessageDialog(null, "Sørg for at textfield er av riktig format. UTF-8", "Feilmelding", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Feilmelding", "Feil filformat. ikke UTF-8.", JOptionPane.ERROR_MESSAGE);
+            return null;
         } 
-        catch (IOException e) 
+        catch (IOException e)
         {
-            JOptionPane.showMessageDialog(null, "Feil ved lesing av fil.", "Feilmelding", JOptionPane.ERROR_MESSAGE);
+             JOptionPane.showMessageDialog(null, "Feilmelding", "Feil under lesing av fil. ", JOptionPane.ERROR_MESSAGE);
+             return null;
         }
     }
 }

@@ -5,7 +5,6 @@
  */
 package objekter;
 
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
@@ -24,7 +23,6 @@ public class Bilforsikring extends Kjoretoyforsikring
     private int antallAr;
     private String foreralder;
     private int kmst;
-    private int bilensVerdi;
     
     
     public Bilforsikring(  Kunde k, int e_andel, String vilkar, String registreringsnummer, int belop,
