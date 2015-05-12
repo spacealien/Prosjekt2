@@ -15,12 +15,8 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import objekter.Forsikring;
 
 /**
  *
@@ -28,11 +24,9 @@ import objekter.Forsikring;
  */
 public interface ForsikringsPanel
 {
-    
     default Component[] getKomponenter(Component pane)
     {
         ArrayList<Component> liste = null;
-
         try
         {
             liste = new ArrayList<>(Arrays.asList(
