@@ -25,12 +25,7 @@ public class Bilforsikring extends Kjoretoyforsikring
     private String foreralder;
     private int kmst;
     private int bilensVerdi;
-    //---test for på beregnPris
-    private int belopet;
-    private int arsModellen;
-    private int hk;
-    private int kmlengde;
-    private final boolean garasjen;
+    
     
     public Bilforsikring(  Kunde k, int e_andel, String vilkar, String registreringsnummer, int belop,
                            String fabrikant, String modell, String type, int hestekrefter, 
@@ -47,13 +42,7 @@ public class Bilforsikring extends Kjoretoyforsikring
         maxKjorelengd = km;
         this.foreralder = foreralder;
         kmst = kilometerstand;
-        //--test for beregnPris
-        belopet = belop;
-        bonusen = bonus;
-        hk = hestekrefter;
-        kmlengde = km;
-        garasjen = garasje;
-        arsModellen = arsmodell;
+        
     }
     
     public String getBonusTekst()
@@ -178,7 +167,7 @@ public class Bilforsikring extends Kjoretoyforsikring
         gjenkjenningen = g;
     }
     public boolean getGarasje() {
-        return garasjen;
+        return garasje;
     }
 
     public String getForerAlder() {
@@ -297,21 +286,6 @@ public class Bilforsikring extends Kjoretoyforsikring
         this.garasje = bekreftelse;
     }
 
-    public int getBelopet() {
-        return belopet;
-    }
-
-    public int getArsModell() {
-        return arsModellen;
-    }
-
-    public int getHk() {
-        return hk;
-    }
-
-    public int getKmlengde() {
-        return kmlengde;
-    }
 
     
     @Override

@@ -23,13 +23,13 @@ public class ForsikringsKalulator
     {        
         //Henter testvariablene fra forsikringsklassen.
         int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
-        int bilTakst = bilforsikring.getBelopet();
-        int bilArsModell = bilforsikring.getArsModell();
+        int bilTakst = bilforsikring.getVerdi();
+        int bilArsModell = bilforsikring.getArsmodell();
         int bilAlder = innevarendeAr - bilArsModell;
-        int bilForventetKjorelengde = bilforsikring.getKmlengde();
-        int bilHK = bilforsikring.getHk();
+        int bilForventetKjorelengde = bilforsikring.getMaxKjorelengde();
+        int bilHK = bilforsikring.getHestekrefter();
         boolean bilGarasje = bilforsikring.getGarasje();
-        int bilEgenandel = bilforsikring.getEgenAndel();
+        int bilEgenandel = bilforsikring.getEgenandel();
         String bilForerAlder = bilforsikring.getForerAlder();
         boolean bilESP = bilforsikring.getESP();
         boolean bilAlarmert = bilforsikring.getAlarm();
@@ -265,11 +265,11 @@ public class ForsikringsKalulator
     public static double beregnBatforsikring( BatForsikring batforsikring )
     {
         //Henter testvariablene fra forsikringsklassen.
-        int batTakst = batforsikring.getTakst();
+        int batTakst = batforsikring.getVerdi();
         int batEgenandel = batforsikring.getEgenandel();
         int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
-        int batArsModell = batforsikring.getArsModell();
-        int batHK = batforsikring.getHk();
+        int batArsModell = batforsikring.getArsmodell();
+        int batHK = batforsikring.getHestekrefter();
         boolean batVekter = batforsikring.getVekter();
         int batAlderBeregn = innevarendeAr - batArsModell;
         
@@ -423,13 +423,14 @@ public class ForsikringsKalulator
     public static double beregnHusforsikring( Husforsikring husforsikring )
     {
         //Henter testvariablene fra forsikringsklassen.
-        int husTakst = husforsikring.getTakst();
+        int husTakst = husforsikring.getForsikringsbelopBygning();
+        int husInnboTakst = husforsikring.getForsikringsbelopInnbo();
         int husEgenandel = husforsikring.getEgenandel();
         int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
-        int husByggeAr = husforsikring.getByggear();
+        int husByggeAr = husforsikring.getByggeAr();
         int husAlderBeregn = innevarendeAr - husByggeAr;
-        String husByggeMateriale = husforsikring.getByggeMateriale();
-        boolean husAlarmert = husforsikring.isAlarmert();
+        String husByggeMateriale = husforsikring.getMateriale();
+        boolean husAlarmert = husforsikring.getAlarm();
         
         //Initialiserer variablene som skal brukes til beregningen.
         int beregnetHusTakst = 0;
@@ -555,13 +556,14 @@ public class ForsikringsKalulator
     public static double beregnFritidsboligforsikring( Fritidsboligforsikring fritidsboligforsikring )
     {
         //Henter testvariablene fra forsikringsklassen.
-        int fritidsTakst = fritidsboligforsikring.getTakst();
+        int fritidsTakst = fritidsboligforsikring.getForsikringsbelopBygning();
+        int fritidsInnboTakst = fritidsboligforsikring.getForsikringsbelopBygning();
         int fritidsEgenandel = fritidsboligforsikring.getEgenandel();
         int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
-        int fritidsByggeAr = fritidsboligforsikring.getByggear();
+        int fritidsByggeAr = fritidsboligforsikring.getByggeAr();
         int FritidsAlderBeregn = innevarendeAr - fritidsByggeAr;
-        String fritidsByggeMateriale = fritidsboligforsikring.getByggeMateriale();
-        boolean fritidsAlarmert = fritidsboligforsikring.isAlarmert();
+        String fritidsByggeMateriale = fritidsboligforsikring.getMateriale();
+        boolean fritidsAlarmert = fritidsboligforsikring.getAlarm();
         
         //Initialiserer variablene som skal brukes til beregningen.
         int beregnetFritidsTakst = 0;

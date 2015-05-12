@@ -18,7 +18,7 @@ public abstract class Kjoretoyforsikring extends Forsikring
     private String type;
     private int hestekrefter;
     private int arsmodell;
-    private int belop;
+    private int verdi;
         
     public Kjoretoyforsikring( Kunde k, int e_andel, String vilkar, String registreringsnummer, int belop, String fabrikant, 
                                String modell, String type, int hestekrefter, int arsmodell)
@@ -30,6 +30,7 @@ public abstract class Kjoretoyforsikring extends Forsikring
         this.hestekrefter = hestekrefter;
         this.arsmodell = arsmodell;  
         this.type = type;
+        verdi = belop;
     }
     
 
@@ -75,9 +76,9 @@ public abstract class Kjoretoyforsikring extends Forsikring
         return arsmodell;
     }
 
-    public int getBelop() 
+    public int getVerdi() 
     {
-        return belop;
+        return verdi;
     }
     
     public void setEier( Eier e )
@@ -112,7 +113,7 @@ public abstract class Kjoretoyforsikring extends Forsikring
     }
     public void setBelop(int b)
     {
-        belop = b;
+        verdi = b;
     }
 
     @Override
