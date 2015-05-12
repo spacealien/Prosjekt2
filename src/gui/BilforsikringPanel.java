@@ -258,7 +258,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     } // slutt på konstuktør
     
     private Component[] getKomponenter(Component pane)
-     {
+    {
         ArrayList<Component> liste = null;
 
         try
@@ -275,10 +275,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         } catch (ClassCastException e) {
             liste = new ArrayList<>();
         }
-
         return liste.toArray(new Component[liste.size()]);
-        
     }
+    
     public void visForsikring( Forsikring f)
     {
         this.bilforsikring = (Bilforsikring) f;
@@ -296,6 +295,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         aldervelger.setSelectedItem(bilforsikring.getForerAlder());
         dekningvelger.setSelectedItem(bilforsikring.getVilkar());
         //bilTilbud.setText(bilforsikring.getArligPremie());
+        
         if(bilforsikring.getGarasje())
             garasjeJa.setSelected(true);
         else
@@ -410,31 +410,31 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                 if (lengde_n == 0)
                 {ut += "Maximum kjørelengde\n";}
                 
-                    if (type_n == 0)
-                    {ut += "Biltype\n";}
+                if (type_n == 0)
+                    ut += "Biltype\n";
                     
-                    if (egenandel_n == 0)
-                    {ut += "Egenandel\n";}
+                if (egenandel_n == 0)
+                    ut += "Egenandel\n";
                     
-                    if (alder_n == 0)
-                    {ut += "Bilførers alder\n";}
+                if (alder_n == 0)
+                    ut += "Bilførers alder\n";
                     
-                    if (dekning_n == 0)
-                    {ut += "Dekning\n";}
+                if (dekning_n == 0)
+                    ut += "Dekning\n";
                     
-                    if (bonus_n == 0)
-                    {ut += "Bonus\n";}
+                if (bonus_n == 0)
+                    ut += "Bonus\n";
                     
-                    if(!garasjeJa.isSelected() && !garasjeNei.isSelected())
-                    {ut += "Garasjevalg\n";}
+                if(!garasjeJa.isSelected() && !garasjeNei.isSelected())
+                    ut += "Garasjevalg\n";
                     
-                    if(!alarmJa.isSelected() && !alarmNei.isSelected())
-                    {ut += "Alarmvalg\n";}
+                if(!alarmJa.isSelected() && !alarmNei.isSelected())
+                    ut += "Alarmvalg\n";
                     
-                    if(!espJa.isSelected() && !espNei.isSelected())
-                    {ut += "ESPvalg\n";}
+                if(!espJa.isSelected() && !espNei.isSelected())
+                    ut += "ESPvalg\n";
                     
-                    if(!gjenkjenningJa.isSelected() && !gjenkjenningNei.isSelected())
+                if(!gjenkjenningJa.isSelected() && !gjenkjenningNei.isSelected())
                     {ut += "Gjenkjenningssystemvalg\n";}
                     ut += "\nVennligst fyll ut denne informasjonen og prøv igjen.";
                     JOptionPane.showMessageDialog(null, ut, "Feilmelding",
@@ -553,7 +553,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     esp_b = espJa.isSelected();
                     alarm_b = alarmJa.isSelected();
                     gjenkjenning_b = gjenkjenningJa.isSelected();
-      
+
+            
             try
             {
                 forer = aldervelger.getItemAt(alder_n);
