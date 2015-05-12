@@ -207,7 +207,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener
         batArsmodell.setText(String.valueOf(forsikring.getArsmodell()));
         batHk.setText(String.valueOf(forsikring.getHestekrefter()));
         egenandelsvelger.setSelectedItem(String.valueOf(forsikring.getEgenandel()));
-        battypevelger.setSelectedItem(String.valueOf(forsikring.getType()));
+        battypevelger.setSelectedItem(String.valueOf(forsikring.getkjøretøytype()));
         dekningvelger.setSelectedItem(forsikring.getVilkar());
         if (forsikring.getVekter())
             vekterJa.setSelected(true);

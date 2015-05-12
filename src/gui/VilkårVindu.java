@@ -23,8 +23,8 @@ import javax.swing.JTextArea;
 public class VilkårVindu extends JFrame
 {
     private final JTextArea utskrift;
-    private JLabel overskrift_1;
-    private JLabel overskrift_2;
+
+    private JLabel overskrift;
     
     public VilkårVindu( String vinduTittel )
     {
@@ -37,12 +37,10 @@ public class VilkårVindu extends JFrame
         JScrollPane scroll = new JScrollPane(utskrift);
         
         
-        overskrift_1 = new JLabel("Vilkår for ");
-        overskrift_2 = new JLabel("");
-        JPanel menyPanel = new JPanel();
-        menyPanel.add(overskrift_1);
-        menyPanel.add( overskrift_2 );
 
+        overskrift = new JLabel("");
+        JPanel menyPanel = new JPanel();
+        menyPanel.add(overskrift);
         
         Container c =  getContentPane();
         c.setLayout( new BorderLayout() );
@@ -50,9 +48,9 @@ public class VilkårVindu extends JFrame
         c.add( scroll, BorderLayout.CENTER );
     }
     
-    public void setOverskrift( String overskrift )
+    public void setOverskrift( String tekst )
     {
-        overskrift_2.setText(overskrift);
+        overskrift.setText(tekst);
     }
     
     public void visVilkår( String vilkår )

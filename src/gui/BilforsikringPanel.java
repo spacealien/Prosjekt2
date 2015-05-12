@@ -292,7 +292,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         bilKmstand.setText(String.valueOf(bilforsikring.getKmstand()));
         egenandelsvelger.setSelectedItem(String.valueOf(bilforsikring.getEgenandel()));
         kjorelengdevelger.setSelectedItem(String.valueOf(bilforsikring.getMaxKjorelengde()));
-        biltypevelger.setSelectedItem(bilforsikring.getType());
+        biltypevelger.setSelectedItem(bilforsikring.getkjøretøytype());
         aldervelger.setSelectedItem(bilforsikring.getForerAlder());
         dekningvelger.setSelectedItem(bilforsikring.getVilkar());
         bilTilbud.setText(String.valueOf(bilforsikring.getArligPremie()));
@@ -632,14 +632,17 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
     
     public void visVilkår()
     {
-        VilkårVindu vilkårVindu = new VilkårVindu("Vilkår");
         if( bilforsikring != null )
         {
+            VilkårVindu vilkårVindu = new VilkårVindu("Vilkår");
+            vilkårVindu.setOverskrift(bilforsikring.getKunde().getFornavn() + " " + bilforsikring.getKunde() + " Bilforsikring: " + bilforsikring.getForsikringsnummer());
             vilkårVindu.visVilkår(bilforsikring.getVilkar());
             vilkårVindu.setOverskrift("Forsikringsnummer " + bilforsikring.getForsikringsnummer() );
         }
         else
         {
+            VilkårVindu vilkårVindu = new VilkårVindu("Vilkår");
+            vilkårVindu.setOverskrift(merke);
             this.velgVilkår("Bil"+"Ansvar", vilkårVindu.getUtskriftområdet() );
         }        
     }

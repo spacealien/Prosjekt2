@@ -15,7 +15,7 @@ public abstract class Kjoretoyforsikring extends Forsikring
     private String registreringsnmmer;
     private String fabrikant;
     private String modell;
-    private String type;
+    private String kjøretøytype;
     private int hestekrefter;
     private int arsmodell;
     private int verdi;
@@ -29,7 +29,7 @@ public abstract class Kjoretoyforsikring extends Forsikring
         this.modell = modell;
         this.hestekrefter = hestekrefter;
         this.arsmodell = arsmodell;  
-        this.type = type;
+        this.kjøretøytype = type;
         verdi = belop;
     }
     
@@ -61,9 +61,9 @@ public abstract class Kjoretoyforsikring extends Forsikring
         return modell;
     }
     
-    public String getType()
+    public String getkjøretøytype()
     {
-        return type;
+        return kjøretøytype;
     }
 
     public int getHestekrefter() 
@@ -105,7 +105,7 @@ public abstract class Kjoretoyforsikring extends Forsikring
     }
     public void setType(String t)
     {
-        type = t;
+        kjøretøytype = t;
     }
     public void setModell(String m)
     {
