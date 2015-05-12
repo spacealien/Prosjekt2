@@ -284,7 +284,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         System.out.println(bilforsikring.getMaxKjorelengde());
         bilRegnr.setText(bilforsikring.getRegistreringsnmmer());
         bilRegAr.setText(String.valueOf(bilforsikring.getArsmodell()));
-        bilVerdi.setText("");
+        bilVerdi.setText(String.valueOf(bilforsikring.getVerdi()) );
         bilModell.setText(bilforsikring.getModell());
         bilMerke.setText(bilforsikring.getFabrikant());
         bilHk.setText(String.valueOf(bilforsikring.getHestekrefter()));
@@ -294,7 +294,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         biltypevelger.setSelectedItem(bilforsikring.getType());
         aldervelger.setSelectedItem(bilforsikring.getForerAlder());
         dekningvelger.setSelectedItem(bilforsikring.getVilkar());
-        //bilTilbud.setText(bilforsikring.getArligPremie());
+        bilTilbud.setText(String.valueOf(bilforsikring.getArligPremie()));
         
         if(bilforsikring.getGarasje())
             garasjeJa.setSelected(true);
@@ -583,13 +583,10 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     public void beregnPris()
     {
         if (hentInfo())
-        {
-            Bilforsikring forsikring = new Bilforsikring(kunde, egenandelvalget, dekningvalget, regnr, belop,
-                                    merke,modell, typevalget, hk, ar,
-                                    kmstand, forer, bonusen, antAr, garasje, alarm_b, esp_b, gjenkjenning_b, lengdevalget);
-            
-            
-            double foreslåttPris = ForsikringsKalulator.beregnBilforsikring(forsikring);
+        {            
+            double foreslåttPris = ForsikringsKalulator.beregnBilforsikring(belop, ar, lengdevalget, 
+            hk, garasje, egenandelvalget, forer, esp_b, alarm_b, gjenkjenning_b);
+                    
             NumberFormat formatter = new DecimalFormat("#0.00"); 
             bilTilbud.setVisible(true);
             bilTilbud.setText(formatter.format(foreslåttPris) + " Kr/År");

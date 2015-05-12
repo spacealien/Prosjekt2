@@ -19,21 +19,23 @@ public class ForsikringsKalulator
         
     }
     
-    public static double beregnBilforsikring( Bilforsikring bilforsikring )
+    public static double beregnBilforsikring(int Takst, int modell_år, int kjørelengde, 
+            int hk, boolean garasje, int egenandel, String 
+                    føreralder, boolean esp, boolean alarm, boolean sporing  )
     {        
         //Henter testvariablene fra forsikringsklassen.
         int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
-        int bilTakst = bilforsikring.getVerdi();
-        int bilArsModell = bilforsikring.getArsmodell();
+        int bilTakst = Takst;
+        int bilArsModell = modell_år;
         int bilAlder = innevarendeAr - bilArsModell;
-        int bilForventetKjorelengde = bilforsikring.getMaxKjorelengde();
-        int bilHK = bilforsikring.getHestekrefter();
-        boolean bilGarasje = bilforsikring.getGarasje();
-        int bilEgenandel = bilforsikring.getEgenandel();
-        String bilForerAlder = bilforsikring.getForerAlder();
-        boolean bilESP = bilforsikring.getESP();
-        boolean bilAlarmert = bilforsikring.getAlarm();
-        boolean bilGPS = bilforsikring.getGjenkjenning();
+        int bilForventetKjorelengde = kjørelengde;
+        int bilHK = hk;
+        boolean bilGarasje = garasje;
+        int bilEgenandel = egenandel;
+        String bilForerAlder = føreralder;
+        boolean bilESP = esp;
+        boolean bilAlarmert = alarm;
+        boolean bilGPS = sporing;
         
         //Initialiserer variablene som skal brukes til beregningen.
         int beregnetBilTakst = 0;
