@@ -423,13 +423,14 @@ public class ForsikringsKalulator
     public static double beregnHusforsikring( Husforsikring husforsikring )
     {
         //Henter testvariablene fra forsikringsklassen.
-        int husTakst = husforsikring.getTakst();
+        int husTakst = husforsikring.getForsikringsbelopBygning();
+        int husInnboTakst = husforsikring.getForsikringsbelopInnbo();
         int husEgenandel = husforsikring.getEgenandel();
         int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
-        int husByggeAr = husforsikring.getByggear();
+        int husByggeAr = husforsikring.getByggeAr();
         int husAlderBeregn = innevarendeAr - husByggeAr;
-        String husByggeMateriale = husforsikring.getByggeMateriale();
-        boolean husAlarmert = husforsikring.isAlarmert();
+        String husByggeMateriale = husforsikring.getMateriale();
+        boolean husAlarmert = husforsikring.getAlarm();
         
         //Initialiserer variablene som skal brukes til beregningen.
         int beregnetHusTakst = 0;
@@ -555,13 +556,14 @@ public class ForsikringsKalulator
     public static double beregnFritidsboligforsikring( Fritidsboligforsikring fritidsboligforsikring )
     {
         //Henter testvariablene fra forsikringsklassen.
-        int fritidsTakst = fritidsboligforsikring.getTakst();
+        int fritidsTakst = fritidsboligforsikring.getForsikringsbelopBygning();
+        int fritidsInnboTakst = fritidsboligforsikring.getForsikringsbelopBygning();
         int fritidsEgenandel = fritidsboligforsikring.getEgenandel();
         int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
-        int fritidsByggeAr = fritidsboligforsikring.getByggear();
+        int fritidsByggeAr = fritidsboligforsikring.getByggeAr();
         int FritidsAlderBeregn = innevarendeAr - fritidsByggeAr;
-        String fritidsByggeMateriale = fritidsboligforsikring.getByggeMateriale();
-        boolean fritidsAlarmert = fritidsboligforsikring.isAlarmert();
+        String fritidsByggeMateriale = fritidsboligforsikring.getMateriale();
+        boolean fritidsAlarmert = fritidsboligforsikring.getAlarm();
         
         //Initialiserer variablene som skal brukes til beregningen.
         int beregnetFritidsTakst = 0;
