@@ -171,9 +171,16 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
     {
         List<Forsikring> kundensForsikringer =   vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde);
         List<Skademelding> nyListe = vindu.getRegister().getSkademeldingsregister().getKundensSkademeldinger(kundensForsikringer);
-        TabellModellSkademeldinger nyModell = new TabellModellSkademeldinger(nyListe, this);
-        tabell.setModel(nyModell);
-        tabell.brukSkademeldingPopup();
+        if( kundensForsikringer.size() > 0 && nyListe.size() > 0 )
+        {
+            TabellModellSkademeldinger nyModell = new TabellModellSkademeldinger(nyListe, this);
+            tabell.setModel(nyModell);
+            tabell.brukSkademeldingPopup();
+        }
+        else
+        {
+            vindu.visInformasjon("Beskjed", "Denne kunden har ingen skademeldinger");
+        }
     }
     
     public void åpneSkademeldingTab()

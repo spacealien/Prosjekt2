@@ -34,31 +34,38 @@ public class BatForsikring extends Kjoretoyforsikring
         takst = belop;
     }
 
-    public boolean getVekter() {
+    public boolean getVekter() 
+    {
         return vekter;
     }
-
+    
     public void setVekter(boolean v) {
+        
         vekter = v;
     }
 
-    public int getLengde() {
+    public int getLengde() 
+    {
         return lengde;
     }
 
-    public void setLengde(int lengde) {
+    public void setLengde(int lengde) 
+    {
         this.lengde = lengde;
     }
 
-    public int getArsModell() {
+    public int getArsModell() 
+    {
         return arsModell;
     }
 
-    public int getInnevarendeAr() {
+    public int getInnevarendeAr() 
+    {
         return innevarendeAr;
     }
 
-    public int getHk() {
+    public int getHk() 
+    {
         return hk;
     }
 

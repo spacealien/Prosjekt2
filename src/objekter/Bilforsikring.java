@@ -30,7 +30,6 @@ public class Bilforsikring extends Kjoretoyforsikring
     private int arsModellen;
     private int hk;
     private int kmlengde;
-    private int egenAndel;
     private final boolean garasjen;
     
     public Bilforsikring(  Kunde k, int e_andel, String vilkar, String registreringsnummer, int belop,
@@ -54,7 +53,6 @@ public class Bilforsikring extends Kjoretoyforsikring
         hk = hestekrefter;
         kmlengde = km;
         garasjen = garasje;
-        egenAndel = e_andel;
         arsModellen = arsmodell;
     }
     
@@ -315,9 +313,6 @@ public class Bilforsikring extends Kjoretoyforsikring
         return kmlengde;
     }
 
-    public int getEgenAndel() {
-        return egenAndel;
-    }
     
     @Override
     public String toString()
