@@ -674,7 +674,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         }
         else if ( e.getSource() == vilkårKnapp)
         {
-            //Vis vilkår
+            VilkårVindu vilkårVindu = new VilkårVindu(dekning);
         }
         else if( e.getSource() == rediger)
         {
