@@ -20,7 +20,7 @@ import register.*;
  *
  * @author Odd, Thomas, Marthe
  */
-public class BilforsikringPanel extends JPanel implements ActionListener
+public class BilforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
  
     private AnsattVindu vindu;
@@ -83,6 +83,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private int ar;
     private int kmstand;  
     private String typevalget;
+    private String vilkår;
     private int lengdevalget;
     private double bonusen;
     private int egenandelvalget;
@@ -608,7 +609,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                 register.nyKunde(kunde);
             }
             
-            Bilforsikring forsikring = new Bilforsikring(kunde, egenandelvalget, dekningvalget, regnr, belop,
+            Bilforsikring forsikring = new Bilforsikring(kunde, egenandelvalget, vilkår, regnr, belop,
                                     merke,modell, typevalget, hk, ar,
                                     kmstand, forer, bonusen, antAr, garasje, alarm_b, esp_b, gjenkjenning_b, lengdevalget);
             
@@ -635,11 +636,12 @@ public class BilforsikringPanel extends JPanel implements ActionListener
         if( bilforsikring != null )
         {
             vilkårVindu.visVilkår(bilforsikring.getVilkar());
-            //vilkårVindu.setOverskrift("Vilkår for" + bilforsikring.getForsikringsnummer());
+            vilkårVindu.setOverskrift("Forsikringsnummer " + bilforsikring.getForsikringsnummer() );
         }
         else
         {
-            
+            vilkår = this.velgVilkår("Bil"+"Ansvar");
+            vilkårVindu.visVilkår(vilkår);
         }        
     }
     
