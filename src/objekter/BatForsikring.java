@@ -15,12 +15,7 @@ public class BatForsikring extends Kjoretoyforsikring
 {
     private boolean vekter;
     private int lengde;
-    private int arsModell;
     private int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
-    private int hk;
-    private int egenandel;
-    private int takst;
-        
     public BatForsikring(  Kunde k, int e_andel, String vilkar, String registreringsnummer, int belop,
                            String fabrikant, String modell, String type, int hestekrefter, 
                            int arsmodell, boolean vekter, int lengde)
@@ -28,10 +23,7 @@ public class BatForsikring extends Kjoretoyforsikring
         super( k, e_andel, vilkar, registreringsnummer, belop, fabrikant, modell, type, hestekrefter, arsmodell );
         this.vekter = vekter;
         this.lengde = lengde;
-        arsModell = arsmodell;
-        hk = hestekrefter;
-        egenandel = e_andel;
-        takst = belop;
+        
     }
 
     public boolean getVekter() {
@@ -50,25 +42,11 @@ public class BatForsikring extends Kjoretoyforsikring
         this.lengde = lengde;
     }
 
-    public int getArsModell() {
-        return arsModell;
-    }
 
     public int getInnevarendeAr() {
         return innevarendeAr;
     }
 
-    public int getHk() {
-        return hk;
-    }
-
-    public int getTakst() {
-        return takst;
-    }
-    
-    public int getEgenandel() {
-        return egenandel;
-    }
     
     public String toString()
     {  

@@ -23,11 +23,11 @@ public class ForsikringsKalulator
     {        
         //Henter testvariablene fra forsikringsklassen.
         int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
-        int bilTakst = bilforsikring.getBelopet();
-        int bilArsModell = bilforsikring.getArsModell();
+        int bilTakst = bilforsikring.getVerdi();
+        int bilArsModell = bilforsikring.getArsmodell();
         int bilAlder = innevarendeAr - bilArsModell;
         int bilForventetKjorelengde = bilforsikring.getMaxKjorelengde();
-        int bilHK = bilforsikring.getHk();
+        int bilHK = bilforsikring.getHestekrefter();
         boolean bilGarasje = bilforsikring.getGarasje();
         int bilEgenandel = bilforsikring.getEgenandel();
         String bilForerAlder = bilforsikring.getForerAlder();
@@ -265,11 +265,11 @@ public class ForsikringsKalulator
     public static double beregnBatforsikring( BatForsikring batforsikring )
     {
         //Henter testvariablene fra forsikringsklassen.
-        int batTakst = batforsikring.getTakst();
+        int batTakst = batforsikring.getVerdi();
         int batEgenandel = batforsikring.getEgenandel();
         int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
-        int batArsModell = batforsikring.getArsModell();
-        int batHK = batforsikring.getHk();
+        int batArsModell = batforsikring.getArsmodell();
+        int batHK = batforsikring.getHestekrefter();
         boolean batVekter = batforsikring.getVekter();
         int batAlderBeregn = innevarendeAr - batArsModell;
         
