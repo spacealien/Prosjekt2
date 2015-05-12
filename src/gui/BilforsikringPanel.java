@@ -54,36 +54,36 @@ public class BilforsikringPanel extends JPanel implements ActionListener
     private final JButton annenEier;
     private final JButton bilGiTilbud;
     private final JButton beregnPris;
-    String[] biltype = {"", "Personbil", "Lastebil", "Vogntog", "Varebil", "SUV"};
-    JComboBox<String> biltypevelger;
+    private final String[] biltype = {"", "Personbil", "Lastebil", "Vogntog", "Varebil", "SUV"};
+    private final JComboBox<String> biltypevelger;
     
-    String[] kjorelengde = {"", "8000", "12000", "16000", "20000", "25000", "30000",
+    private final String[] kjorelengde = {"", "8000", "12000", "16000", "20000", "25000", "30000",
                             "Ubegrenset"};
-    JComboBox<String> kjorelengdevelger;
-    String[] foreralder = {"", "Bilfører < 23 år", "Bilfører mellom 23 - 25 år", 
+    private final JComboBox<String> kjorelengdevelger;
+    private final String[] foreralder = {"", "Bilfører < 23 år", "Bilfører mellom 23 - 25 år", 
                            "Bilfører > 25 år"};
-    JComboBox<String> aldervelger;
-    String[] dekning = {"", "Ansvar", "Delkasko", "Kasko", "Superkasko"};
-    JComboBox<String> dekningvelger;
-    String[] egenandel = {"", "4000", "8000", "12000", "16000", "20000", 
+    private final JComboBox<String> aldervelger;
+    private final String[] dekning = {"", "Ansvar", "Delkasko", "Kasko", "Superkasko"};
+    private final JComboBox<String> dekningvelger;
+    private final String[] egenandel = {"", "4000", "8000", "12000", "16000", "20000", 
                             "30000"};
-    JComboBox<String> egenandelsvelger;
-    String[] bonus = {"", "-50%", "-40%", "-30%", "-20%", "-10%", "0%", "10%", 
+    private final JComboBox<String> egenandelsvelger;
+    private final String[] bonus = {"", "-50%", "-40%", "-30%", "-20%", "-10%", "0%", "10%", 
                      "20%", "30%", "40%", "50%", "60%", "70%", "70% 2 år",
                      "70% 3 år", "70% 4 år", "70% 5 år", "75%", "75% 2 år",
                      "75% 3 år", "75% 4 år", "75% 5 år", "75% >5 år"};
-    JComboBox<String> bonusvelger;
+    private final JComboBox<String> bonusvelger;
     private final Kunde kunde;
     private final JButton vilkårKnapp;
     private String regnr;
     private String modell;
     private String merke;
+    private String bonusTekst;
     private int hk;
     private int ar;
     private int kmstand;  
     private String typevalget;
     private int lengdevalget;
-    private String bonusTekst;
     private double bonusen;
     private int egenandelvalget;
     private boolean garasje;
