@@ -8,7 +8,6 @@ package gui;
 import java.awt.Component;
 import java.awt.Container;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import objekter.Forsikring;
 
 /**
  *
@@ -48,6 +48,21 @@ public interface ForsikringsPanel
             }
         }
     }
+    
+    default void visVilkår( Forsikring forsikring, String filsti )
+    {
+            VilkårVindu vilkårVindu = new VilkårVindu("Vilkår");
+            vilkårVindu.setOverskrift("");
+            this.velgVilkår( filsti, vilkårVindu.getUtskriftområdet() );
+    }
+    
+    default void visVilkår( String filsti )
+    {
+        VilkårVindu vilkårVindu = new VilkårVindu("Vilkår");
+        vilkårVindu.setOverskrift("");
+        this.velgVilkår( filsti, vilkårVindu.getUtskriftområdet() );        
+    }
+    
     
     default void velgVilkår( String filsti, JTextArea utskrift ) 
     {

@@ -630,23 +630,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
-    public void visVilkår()
-    {
-        if( bilforsikring != null )
-        {
-            VilkårVindu vilkårVindu = new VilkårVindu("Vilkår");
-            vilkårVindu.setOverskrift(bilforsikring.getKunde().getFornavn() + " " + bilforsikring.getKunde() + " Bilforsikring: " + bilforsikring.getForsikringsnummer());
-            vilkårVindu.visVilkår(bilforsikring.getVilkar());
-            vilkårVindu.setOverskrift("Forsikringsnummer " + bilforsikring.getForsikringsnummer() );
-        }
-        else
-        {
-            VilkårVindu vilkårVindu = new VilkårVindu("Vilkår");
-            vilkårVindu.setOverskrift(merke);
-            this.velgVilkår("Bil"+"Ansvar", vilkårVindu.getUtskriftområdet() );
-        }        
-    }
-    
     @Override
     public void actionPerformed(ActionEvent e) 
     {
@@ -679,7 +662,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else if ( e.getSource() == vilkårKnapp)
         {
-            visVilkår();
+            visVilkår("Bil"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()));
         }
         else if( e.getSource() == rediger)
         {
