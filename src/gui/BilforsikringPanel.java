@@ -407,8 +407,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener
                     (!gjenkjenningJa.isSelected() && !gjenkjenningNei.isSelected()))
             {
                 String ut = "Det mangler informasjon om:\n";
+                
                 if (lengde_n == 0)
-                {ut += "Maximum kjørelengde\n";}
+                    ut += "Maximum kjørelengde\n";
                 
                 if (type_n == 0)
                     ut += "Biltype\n";
