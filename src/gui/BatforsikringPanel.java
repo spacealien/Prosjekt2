@@ -181,19 +181,21 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         batRegnr.setText(forsikring.getRegistreringsnmmer());
         batMerke.setText(forsikring.getFabrikant());
         batModell.setText(forsikring.getModell());
-        //batVerdi.setText();
+        batVerdi.setText(String.valueOf(forsikring.getVerdi()));
         batLengde.setText(String.valueOf(forsikring.getLengde()));
         batArsmodell.setText(String.valueOf(forsikring.getArsmodell()));
         batHk.setText(String.valueOf(forsikring.getHestekrefter()));
         egenandelsvelger.setSelectedItem(String.valueOf(forsikring.getEgenandel()));
         battypevelger.setSelectedItem(String.valueOf(forsikring.getkjøretøytype()));
         dekningvelger.setSelectedItem(forsikring.getVilkar());
+        
         if (forsikring.getVekter())
             vekterJa.setSelected(true);
         else
             vekterNei.setSelected(true);
         
         annenEier.setText("Vis eier");
+        
         if(forsikring.erAktiv())
         {
             knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
@@ -201,6 +203,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
             knappePanel.add(deaktiver);
             add(knappePanel);
         }
+        
         tilbudLabel.setText("Årlig premie: ");
         tilbudLabel.setVisible(true);
         batTilbud.setVisible(true);

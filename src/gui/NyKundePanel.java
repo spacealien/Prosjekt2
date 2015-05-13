@@ -96,14 +96,13 @@ public class NyKundePanel extends JPanel implements ActionListener
             String epost = regEpost.getText();
             String personnummer = regPersnr.getText();
             
-            int dato = Integer.parseInt(personnummer.substring(0, 2));
-            int måned = Integer.parseInt(personnummer.substring(2, 4));
-            int år = Integer.parseInt(regFødselsår.getText()); 
-            GregorianCalendar fødselsdato = new GregorianCalendar(år, måned, dato);
-            
-            
             if( fornavn.length() > 0 || etternavn.length() > 0 || telefonnummer.matches("\\d{8}") || epost.matches(" ^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$") || personnummer.matches("\\d{11}") )
             {
+                int dato = Integer.parseInt(personnummer.substring(0, 2));
+                int måned = Integer.parseInt(personnummer.substring(2, 4));
+                int år = Integer.parseInt(regFødselsår.getText()); 
+                GregorianCalendar fødselsdato = new GregorianCalendar(år, måned, dato);
+                
                 Kunde kunde = new Kunde( fornavn, etternavn, adresse, telefonnummer,
                                         fødselsdato, epost, personnummer );
                 return kunde;

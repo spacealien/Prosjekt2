@@ -75,10 +75,6 @@ public class AnsattVindu extends JFrame
         this.setLocation(vinduStørelse.width/6, vinduStørelse.height/10);
         
         
-        
-        
-        
-        
         kalender = new GregorianCalendar();
         register = new HovedRegister(this);
         KnappeLytter knappeLytter = new KnappeLytter();
@@ -253,7 +249,6 @@ public class AnsattVindu extends JFrame
         
         if( søkeord.matches("\\d{11}"))
         {
-            System.out.println("test");
             List<Kunde> nyListe = register.getKundeliste().finnAlleKundeEtterPersonnummer(søkeord);
             oppdaterTabell(nyListe);
             tomSøkefelter();
