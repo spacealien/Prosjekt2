@@ -7,6 +7,7 @@ package driver;
 
 import gui.AnsattVindu;
 import java.awt.EventQueue;
+import javax.swing.UIManager;
 
 /**
  *
@@ -15,7 +16,11 @@ import java.awt.EventQueue;
 public class Main 
 {
     public static void main( String[] args)
-    {        
+    {    
+        UIManager.put("OptionPane.cancelButtonText", "Cancel");
+        UIManager.put("OptionPane.noButtonText", "Nei");
+        UIManager.put("OptionPane.okButtonText", "OK");
+        UIManager.put("OptionPane.yesButtonText", "Ja");    
         EventQueue.invokeLater(new Runnable()
         {
             public void run()
