@@ -11,7 +11,7 @@ package objekter;
  */
 public abstract class Kjoretoyforsikring extends Forsikring
 {
-    private Eier eier;
+    private Eier eier = null;
     private String registreringsnmmer;
     private String fabrikant;
     private String modell;

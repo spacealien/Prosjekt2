@@ -96,6 +96,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         utleid.add(alarmNei);
         beregnPris = new JButton("Beregn pris");
         husGiTilbud = new JButton("Tegn forsikring");
+        husGiTilbud.setVisible(false);
         vilkar = new JButton("Vis vilkår");
         
         JPanel tegnHusPanel1 = new JPanel();
@@ -340,6 +341,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         else if(e.getSource() == beregnPris)
         {
             beregnPris();
+            husGiTilbud.setVisible(true);
         }
         else if (e.getSource() == vilkar)
         {

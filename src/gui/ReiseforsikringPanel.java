@@ -70,6 +70,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         antbarn.setEnabled(false);
         antbarnLabel.setEnabled(false);
         reiseGiTilbud = new JButton("Tegn forsikring");
+        reiseGiTilbud.setVisible(false);
         beregnPris = new JButton("Beregn pris");
         vilkar = new JButton("Se vilkår");
         sonevelger = new JComboBox<>(sone);
@@ -270,6 +271,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         else if (e.getSource() == beregnPris)
         {
             beregnPris();
+            reiseGiTilbud.setVisible(true);
         }
         else if (e.getSource() == vilkar)
         {

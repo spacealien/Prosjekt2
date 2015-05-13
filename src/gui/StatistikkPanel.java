@@ -5,10 +5,13 @@
  */
 package gui;
 
-import java.awt.*;
+//import java.awt.*;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
+import objekter.*;
 import register.*;
 
 /**
@@ -33,16 +36,12 @@ public class StatistikkPanel extends JPanel implements ActionListener
     private final String[] utgifter = {"", "Total utbetaling av erstatninger i løpet"
                                         + " av en gitt tidsperiode",
                                 "Total utbetaling av erstatninger for en gitt"
-                                 + " forsikringstype i løpet av en gitt tidsperiode",
-                                "Utbetaling til en gitt forsikringskunde i løpet"
-                                + " av kundeforholdet"};
+                                 + " forsikringstype i løpet av en gitt tidsperiode"};
     private final JComboBox<String> utgiftsvelger;
     private final String[] inntekter = {"", "Total forsikringspremieinntekter i løpet"
                                         + " en gitt tidsperiode", 
                                     "Total forsikringspremieinntekter for en"
-                                    + " gitt forsikringstype i løpet av en gitt tidsperiode",
-                                    "Forsikringspremieinntekter på en gitt "
-                                + "forsikringskunde i løpet av kundeforholdet"};
+                                    + " gitt forsikringstype i løpet av en gitt tidsperiode"};
     private final JComboBox<String> inntektsvelger;
     
     //Statistikk
@@ -241,40 +240,86 @@ public class StatistikkPanel extends JPanel implements ActionListener
  
  public void alleKunderMedForsikring()
  {
+     hentInfo();
      //Ut i tabell
     register.getAlleKunderMedForsikring(forsikringsvalg);
  }
  public void antSkademeldinger()
  {
-     
+     hentInfo();
+     List<Skademelding> skademeldingsliste  = new ArrayList<>();
+     for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
+     {
+        if (skademld.getOpprettetDato().after(startDato) && skademld.getOpprettetDato().before(sluttDato) )
+        {
+            skademeldingsliste.add(skademld);
+        }
+     }
+     //Tabell -> skademeldingsliste
  }
  public void antForsikringer()
  {
-     
+     hentInfo();
+     List<Forsikring> forsikringsliste  = new ArrayList<>();
+     for (Forsikring forsikring : register.getForsikringrsliste().alleForsikringer() )
+     {
+        if (forsikring.getStartdato().after(startDato) && forsikring.getStartdato().before(sluttDato) )
+        {
+            forsikringsliste.add(forsikring);
+        }
+     }
+     //Tabell -> forsikringssliste
  }
  
- public void totalErstatning()
- {
-     
- }
- public void totalErstatningPaForsikring()
- {
-     
- }
- public void totalErstatningPaKunde()
- {
-     
- }
+    public void totalErstatning()
+    {
+     //Total utbetaling av erstatninger i en gitt periode
+     double totalSum = 0.0;
+     int antall = 0;
+     double gjennomsnitt = 0;
+        
+     for( Skademelding skademelding : register.getSkademeldingsregister().alleSkademeldinger() )
+     {
+        if (skademelding.getOpprettetDato().after(startDato) && skademelding.getOpprettetDato().before(sluttDato) )
+        {
+            totalSum += skademelding.getErstatningsbelop();
+            antall++;
+        }
+     }
+     gjennomsnitt = totalSum / antall;
+     //Utskrift av totalsummen og antall skademeldinger og gjennomsnitt. 
+    }
+    public void totalErstatningPaForsikring()
+    {
+     hentInfo(); 
+     //Total utbetaling av erstatninger på forsikring i en gitt periode
+     double totalSum = 0.0;
+     int antall = 0;
+     double gjennomsnitt = 0;
+     for(Skademelding skademelding : register.getSkademeldingsregister().alleSkademeldinger())   
+     {
+         if(skademelding.getForsikring().getForsikringsType().equals(forsikringsvalg))
+         {
+             totalSum += skademelding.getErstatningsbelop();
+             antall++;
+         }
+     }   
+        
+     gjennomsnitt = totalSum / antall;
+        //Utskrift av totalsummen og antall skademeldinger og gjennomsnitt. 
+    }
+ 
  
  public void totalPremieinntekt()
  {
+   //Total utbetaling av erstatninger i en gitt periode
+     double totalSum = 0.0;
+     int antall = 0;
+     double gjennomsnitt = 0;
      
+     gjennomsnitt = totalSum / antall;  
  }
  public void totalPremieinntektPaForsikringstype()
- {
-     
- }
- public void premieInntektPaKunde()
  {
      
  }
@@ -396,10 +441,6 @@ public boolean sjekkDatoOgForsikringsvelger()
                             totalErstatningPaForsikring();
                         
                         break;
-                    case 3:
-                        //Må velge kunde på en eller annen måte
-                        totalErstatningPaKunde();
-                        break;
                 }
             }
             else if (inntektsvelger.isEnabled())
@@ -415,10 +456,6 @@ public boolean sjekkDatoOgForsikringsvelger()
                         if (!sjekkDatoOgForsikringsvelger())
                             totalPremieinntektPaForsikringstype();
                         
-                        break;
-                    case 3:
-                        //Må velge kunde på en eller annen måte
-                        premieInntektPaKunde();
                         break;
                         
                 }

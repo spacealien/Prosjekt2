@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
 public class Bilforsikring extends Kjoretoyforsikring
 {
     private double bonusen;
-    private String bonustekst;
+    private boolean skadefri = true;
     private boolean garasje;
     private boolean alarmen;
     private boolean esp;
@@ -32,7 +32,7 @@ public class Bilforsikring extends Kjoretoyforsikring
                            int antAr, boolean garasje, boolean alarm, boolean esp, boolean gjenkjenning, int km )
     {
         super( k, e_andel, vilkar, registreringsnummer, belop, fabrikant, modell, type, hestekrefter, arsmodell);
-        //this.bonustekst = bonustekst;
+        
         antallAr = antAr;
         this.garasje = garasje;
         alarmen = alarm;
@@ -43,18 +43,9 @@ public class Bilforsikring extends Kjoretoyforsikring
         kmst = kilometerstand;
         
     }
-    
-    public String getBonusTekst()
-    {
-        return bonustekst;
-    }
-    public void setBonusTekst(String bt)
-    {
-        bonustekst = bt;
-    }
-    
     public void korrigerBonusVedSkade()
     {
+        skadefri = false;
         GregorianCalendar dato = new GregorianCalendar();
         if (bonusen < 0.75)
         {
@@ -84,41 +75,45 @@ public class Bilforsikring extends Kjoretoyforsikring
     
     public void korrigerArligBonus()
     {
-        if (bonusen < 0.70)
+        if(skadefri)
         {
-            bonusen += 0.10;
-            antallAr = 1;
-        }
-        else if (bonusen == 0.70)
-        {
-            switch (antallAr)
+            if (bonusen < 0.70)
             {
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                    antallAr++;
-                    break;
-                case 6:
-                    bonusen +=0.05;
-                    antallAr = 1;
-                    break;
+              bonusen += 0.10;
+              antallAr = 1;
+            }
+            else if (bonusen == 0.70)
+            {
+                switch (antallAr)
+                {
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        antallAr++;
+                        break;
+                    case 6:
+                        bonusen +=0.05;
+                        antallAr = 1;
+                        break;
+                }
+            }
+            else if (bonusen == 0.75)
+            {
+                switch (antallAr)
+                {
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        antallAr++;
+                        break;
+                }
             }
         }
-        else if (bonusen == 0.75)
-        {
-            switch (antallAr)
-            {
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                    antallAr++;
-                    break;
-            }
-        }
+        skadefri = true;
         //beregnPris(kunde); For å oppdatere prisen
     }
 

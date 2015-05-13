@@ -24,7 +24,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
  
     private AnsattVindu vindu;
     private HovedRegister register;
-    private Person eieren;
+    private Eier eier;
     private Bilforsikring bilforsikring;
     private KundePanel kundePanel;
     
@@ -77,7 +77,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
     private String regnr;
     private String modell;
     private String merke;
-    private String bonusTekst;
     private int hk;
     private int ar;
     private int kmstand;  
@@ -162,6 +161,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         alarm.add(alarmJa);
         alarm.add(alarmNei);
         bilGiTilbud = new JButton("Tegn forsikring");
+        bilGiTilbud.setVisible(false);
         beregnPris = new JButton("Beregn pris");
         annenEier = new JButton("Trykk her for annen eier");
         biltypevelger = new JComboBox<>(biltype);
@@ -514,7 +514,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
                 forer = aldervelger.getItemAt(aldervelger.getSelectedIndex());
                 belop = Integer.parseInt(bilVerdi.getText());
                 typevalget = biltypevelger.getItemAt(biltypevelger.getSelectedIndex());
-                bonusTekst = bonusvelger.getItemAt(bonusvelger.getSelectedIndex());
                 dekningvalget = dekningvelger.getItemAt(dekningvelger.getSelectedIndex());
                 egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
                 regnr = bilRegnr.getText();
@@ -538,7 +537,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         if (hentInfo())
         {            
             double foreslåttPris = ForsikringsKalulator.beregnBilforsikring(belop, dekningvalget, ar, lengdevalget, 
-            hk, garasje, egenandelvalget, forer, esp_b, alarm_b, gjenkjenning_b);
+            hk, garasje, egenandelvalget, forer, esp_b, alarm_b, gjenkjenning_b, bonusen);
                     
             NumberFormat formatter = new DecimalFormat("#0.00"); 
             bilTilbud.setVisible(true);
@@ -564,14 +563,15 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
             Bilforsikring forsikring = new Bilforsikring(kunde, egenandelvalget, vilkår, regnr, belop,
                                     merke,modell, typevalget, hk, ar,
                                     kmstand, forer, bonusen, antAr, garasje, alarm_b, esp_b, gjenkjenning_b, lengdevalget);
-            
+            forsikring.setArligPremie(Double.parseDouble(bilTilbud.getText()));
             vindu.getRegister().nyForsikring(forsikring);
             
             if(kundePanel != null)
                 kundePanel.oppdaterVindu();
             
-            Eier eier = (Eier)eieren;
-            forsikring.setEier(eier);
+            Kjoretoyforsikring kjForsikring = (Kjoretoyforsikring)forsikring;
+            if (eier != null)
+                kjForsikring.setEier(eier);
 
             
             JOptionPane.showMessageDialog(null, "Du har nå tegnet bilforsikring med nummer " 
@@ -592,6 +592,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         else if( e.getSource() == beregnPris)
         {
             beregnPris();
+            bilGiTilbud.setVisible(true);
         }
         else if (e.getSource() == annenEier)
         {
@@ -602,7 +603,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
                                         JOptionPane.OK_CANCEL_OPTION);
                 if (result == JOptionPane.OK_OPTION)
                 {
-                    eieren = new Eier(eierFornavn.getText(), eierEtternavn.getText(), 
+                    eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), 
                     eierAdresse.getText(), eierTlf.getText());
                 }  
             }
@@ -639,7 +640,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
                 bilforsikring.setGarasje(garasje);
                 bilforsikring.setKmstand(kmstand);
                 bilforsikring.setForerAlder(forer);
-                bilforsikring.setEier((Eier)eieren);
+                bilforsikring.setEier(eier);
                 bilforsikring.setHestekrefter(hk);
                 bilforsikring.setRegistreringsnummer(regnr);
                 bilforsikring.setEgenandel(egenandelvalget);

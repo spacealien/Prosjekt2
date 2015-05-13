@@ -99,6 +99,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         utleid.add(utleidJa);
         utleid.add(utleidNei);
         fritidGiTilbud = new JButton("Tegn forsikring");
+        fritidGiTilbud.setVisible(false);
         beregnPris = new JButton("Beregn pris");
         vilkar = new JButton("Vis vilkår");
         
@@ -330,6 +331,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         else if (e.getSource() == beregnPris)
         {
             beregnPris();
+            fritidGiTilbud.setVisible(true);
         }
         else if (e.getSource() == vilkar)
         {

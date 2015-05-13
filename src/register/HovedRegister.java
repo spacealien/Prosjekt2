@@ -28,6 +28,7 @@ public class HovedRegister
     private Forsikringsliste forsikringsregister = new Forsikringsliste();
     private SkademeldingRegister skademeldingsregister = new SkademeldingRegister();
     private Ansattregister ansattregister = new Ansattregister();
+    List<Inntekt> innbetalinger = new ArrayList<>();
     private GregorianCalendar kalender;
     private AnsattVindu vindu;
 
@@ -111,6 +112,34 @@ public class HovedRegister
             }
             
         }  
+    }
+    
+    public final void sjekkTid2()
+    {
+        
+        for (Forsikring forsikring : getForsikringrsliste().alleForsikringer())
+        {
+            if (Math.abs(( kalender.getTime().getTime() - forsikring.getStartdato().getTime())) > (1000*60*60*24*365) )
+            {
+                if(forsikring.getForsikringsType().equals("Bilforsikring"))
+                {
+                    Bilforsikring bilforsikring = (Bilforsikring)forsikring;
+                    double bonusFør = bilforsikring.getBonus();
+                    double originalPris = bilforsikring.getArligPremie() / bonusFør * 100;
+                    bilforsikring.korrigerArligBonus();
+                    bilforsikring.setArligPremie((originalPris * (100-bilforsikring.getBonus())));
+                    Date dato = new Date();
+                    //forsikring.setArligPremie();
+                    innbetalinger.add(new Inntekt(dato, forsikring.getArligPremie(), forsikring));
+                }
+            }
+        }
+    }
+    
+    public List<Inntekt> getAlleInntekter()
+    {
+        List<Inntekt> innbetalinger = new ArrayList<>();
+        return innbetalinger;
     }
     
     public List<Kunde> getAnsattKunde( Ansatt ansatt )
@@ -221,6 +250,8 @@ public class HovedRegister
         return totalSum;
     }
     
+    
+    
     public double getUtgifter()
     {
         double totalSum = 0.0;
@@ -258,11 +289,17 @@ public class HovedRegister
     public void nyForsikring( Forsikring nyForsikring  )
     {
         forsikringsregister.leggTil( nyForsikring.getKunde(), nyForsikring);
+        Date dato = new Date();
         if(forsikringsregister.antallAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
         {
             nyForsikring.getKunde().setTotalKunde(true);
+            innbetalinger.add(new Inntekt(dato, (nyForsikring.getArligPremie() * 0.9), nyForsikring));
             vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
             vindu.oppdaterTabell(kunderegister.alleKunder());
+        }
+        else
+        {
+            innbetalinger.add(new Inntekt(dato, nyForsikring.getArligPremie(), nyForsikring));
         }
     }
     

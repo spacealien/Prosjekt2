@@ -97,6 +97,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         dekningvelger = new JComboBox<>(dekning);
         annenEier = new JButton("Trykk her");
         batGiTilbud = new JButton("Tegn forsikring");
+        batGiTilbud.setVisible(false);
         beregnPris = new JButton("Beregn pris");
         vilkar = new JButton("Vis vilkår");
         
@@ -291,11 +292,11 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
             Forsikring forsikringen = new BatForsikring(kunde, egenandelvalget, dekningvalget, reg, belop,
                                  merke, modell, typevalget, hk, 
                                  ar, vekter_b, lengde);
-            
+            forsikringen.setArligPremie(Double.parseDouble(batTilbud.getText()));
             vindu.getRegister().nyForsikring(forsikringen);
-            
+            Kjoretoyforsikring kjForsikring = (Kjoretoyforsikring)forsikringen;
             if (eier != null)
-                forsikring.setEier(eier);
+                kjForsikring.setEier(eier);
             
             JOptionPane.showMessageDialog(null, "Du har nå tegnet båtforsikring med nummer "
                                           + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() 
@@ -314,6 +315,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         else if (e.getSource() == beregnPris)
         {
             beregnPris();
+            batGiTilbud.setVisible(true);
         }
         else if (e.getSource() == annenEier)
         {

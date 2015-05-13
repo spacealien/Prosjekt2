@@ -23,7 +23,7 @@ public class ForsikringsKalulator
     public static double beregnBilforsikring(int Takst, String vilkar, 
             int modell_år, int kjørelengde, int hk, boolean garasje, 
             int egenandel, String føreralder, boolean esp, boolean alarm, 
-            boolean sporing  )
+            boolean sporing, double bonus  )
     {        
         // Henter testvariablene fra forsikringsklassen.
         int bilTakst = Takst;
@@ -276,10 +276,10 @@ public class ForsikringsKalulator
             beregnetBilGPS = 0.2;
         }
         
-        beregnetBilTilbud = beregnetBilTakst*(beregnetBilAlder+
-                beregnetBilKjorelengde+beregnetBilHK+beregnetBilGarasje+
-                beregnetBilEgenandel+beregnetBilForerAlder+beregnetBilESP+
-                beregnetBilAlarm+beregnetBilGPS+beregnetBilVilkar);
+        beregnetBilTilbud = beregnetBilTakst * (beregnetBilAlder +
+                beregnetBilKjorelengde + beregnetBilHK+beregnetBilGarasje + 
+                beregnetBilEgenandel + beregnetBilForerAlder + beregnetBilESP + 
+                beregnetBilAlarm + beregnetBilGPS+beregnetBilVilkar) * (1-bonus);
         return beregnetBilTilbud;
     }
     
