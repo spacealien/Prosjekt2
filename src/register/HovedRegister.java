@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -122,10 +123,10 @@ public class HovedRegister
         vindu.oppdaterTabell( kunderegister.alleKunder() );
     }
     
-    public Kunde finnKunde()
+    /*public Kunde finnKunde()
     {
         return null;
-    }
+    }*/
     
     
     public List<Kunde> finnKundeMedNavn(String fornavn, String etternavn)
@@ -154,6 +155,21 @@ public class HovedRegister
     public Kunderegister getKundeliste()
     {
         return kunderegister;
+    }
+    
+    public List<Kunde> getAlleKunderMedForsikring(String f)
+    {
+        List<Kunde> kunderMedForsikring = new ArrayList<>();
+        for (Forsikring forsikring : forsikringsregister.alleForsikringer())
+        {
+            if (forsikring.getForsikringsType().equals(f))
+            {
+                if (!kunderMedForsikring.contains(forsikring.getKunde()))
+                kunderMedForsikring.add(forsikring.getKunde());
+            }
+        }
+       
+        return kunderMedForsikring;
     }
     
     public SkademeldingRegister getSkademeldingsregister()

@@ -7,6 +7,7 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 import javax.swing.*;
 import register.*;
 
@@ -66,6 +67,10 @@ public class StatistikkPanel extends JPanel implements ActionListener
     private int utgift;
     private int inntekt;
     private int statistikken;
+    
+    private String forsikringsvalg;
+    private Date startDato;
+    private Date sluttDato;
     
     
  public StatistikkPanel(AnsattVindu v)
@@ -227,9 +232,17 @@ public class StatistikkPanel extends JPanel implements ActionListener
         }});     
  }
  
+ public void hentInfo()
+ {
+    forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
+    startDato = new Date((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
+    sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
+ }
+ 
  public void alleKunderMedForsikring()
  {
-    
+     //Ut i tabell
+    register.getAlleKunderMedForsikring(forsikringsvalg);
  }
  public void antSkademeldinger()
  {
@@ -316,10 +329,14 @@ public boolean sjekkDatoOgForsikringsvelger()
                             if(stDatoAr.getText().equals("") || stDatoMnd.getText().equals("") || 
                         stDatoDag.getText().equals("") || slDatoAr.getText().equals("") || 
                         slDatoMnd.getText().equals("") || slDatoDag.getText().equals(""))
-                            {feilMelding("Fyll ut alle feltene for dato"); }
+                            {
+                                feilMelding("Fyll ut alle feltene for dato");
+                            }
                             
                             if (forsikringsvelgeren.getSelectedIndex() == 0)
-                            {feilMelding("Du må velge forsikringstype");}
+                            {
+                                feilMelding("Du må velge forsikringstype");
+                            }
                            
                             return false;
                         } 
