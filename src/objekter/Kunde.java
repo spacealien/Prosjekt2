@@ -20,6 +20,7 @@ public class Kunde extends Bruker
     private final List<Integer> forsikringsnøkkel = new ArrayList<>();
     private boolean totalkunde = false;
     private double årligForsikringsPremie = 0;
+    private static final long serialVersionUID = 88811111123L;
     
     public Kunde(String fnavn, String enavn, String adr, String tlf, GregorianCalendar fd,
                  String email, String persnummer)

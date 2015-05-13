@@ -6,7 +6,6 @@
 package objekter;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
  *
  * @author Odd, Thomas, Marthe
  */
-public class Ansatt extends Bruker
+public class Ansatt extends Bruker 
 {
     private final int ansattnr;
     private static int nestenr = 1;
@@ -22,6 +21,8 @@ public class Ansatt extends Bruker
     private final String brukernavn;
     private String passord;
     private List<String> kundenøkler = new ArrayList<>();
+    
+    private static final long serialVersionUID = 23412358910L;
 
     public Ansatt(String fnavn, String enavn, String adr, String tlf, GregorianCalendar fd, String email, String persnummer)
     {   

@@ -114,7 +114,7 @@ public interface ForsikringsPanel
     
     default String velgVilkår( String filsti )
     {
-        try (BufferedReader innfil = new BufferedReader( new InputStreamReader ( new FileInputStream(filsti + ".txt"),
+        try (BufferedReader innfil = new BufferedReader( new InputStreamReader ( new FileInputStream( "Vilkår\\" + filsti + ".txt"),
         "UTF8")))
         {
             StringBuilder vilkårBygger = new StringBuilder();

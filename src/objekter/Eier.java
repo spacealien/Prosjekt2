@@ -11,13 +11,15 @@ package objekter;
  */
 public class Eier extends Person
 {
+    private static final long serialVersionUID = 1123124123154L;
+    
+    
+    
     public Eier(String fnavn, String enavn, String adr, String tlf)
     {
         super(fnavn, enavn, adr, tlf);
     }
     
-    
- 
      @Override
     public String toString()
     {

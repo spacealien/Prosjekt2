@@ -16,6 +16,10 @@ public class Fritidsboligforsikring extends Eiendomsforsikring
     private boolean utleie;
     private String utleid;
     private int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
+    private static final long serialVersionUID = 91123455123L;
+    
+    
+    
     public Fritidsboligforsikring(Kunde k, int e_andel, String vilkar, String hadresse, int byggar,
                                   String bt, String mat, String stand, int kvm,
                                   int belopByg, int belopInn, boolean alarmen, boolean utl)

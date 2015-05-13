@@ -5,6 +5,7 @@
  */
 package objekter;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,7 +18,7 @@ import java.util.List;
  *
  * @author Odd, Thomas, Marthe
  */
-public abstract class Forsikring
+public abstract class Forsikring implements Serializable
 {
     
     //private final Ansatt ansatt;            Legg til datafelt for ansatt.
@@ -36,6 +37,9 @@ public abstract class Forsikring
     java.util.Locale norge = new java.util.Locale( "no" );
     private Date stDato;
                    //lokalitetsobjekt for norsk standard
+    
+    
+    private static final long serialVersionUID = 12345678910L;
     
     public Forsikring( Kunde k, int e_andel, String vilkar )
     {
