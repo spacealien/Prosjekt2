@@ -52,12 +52,12 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
     private final JButton visForsikringer = new JButton("Vis Alle Forsikringer");
     private final JButton visSkademeldinger = new JButton("Vis Alle Skademeldinger");
     private final JButton nyForsikring = new JButton("Ny forsikring");
-    private JButton rediger = new JButton("Rediger");
+    private final JButton rediger = new JButton("Rediger");
     private Kunde kunde = null;
     private final String[] forsikringsvalg = {"", "Bilforsikring", "Båtforsikring", "Husforsikring", "Fritidsboligforsikring", "Reiseforsikring"};
     private final JComboBox<String> forsikringsDropDown;
     
-    private KundeDataTabell tabell;
+    private final KundeDataTabell tabell;
     private AbstractTableModel tabellModell;
     
     private final Desktop desktop = Desktop.getDesktop();
@@ -204,9 +204,22 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
     
     public void lagreEndringer()
     {
-        kunde.setAdresse(regAdresse.getText());
-        kunde.setEpost(regEpost.getText());
-        kunde.setTlfnr(regTlfnr.getText());
+        
+        String fornavn = regFornavn.getText();
+        String etternavn = regEtternavn.getText();
+        String adresse = regAdresse.getText();
+        String telefonnummer = regTlfnr.getText();
+        String epost = regEpost.getText();
+            
+        if( fornavn.length() > 0 || etternavn.length() > 0 || telefonnummer.matches("\\d{8}") 
+                 || epost.matches(" ^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"))
+        {
+            kunde.setFornavn(fornavn);
+            kunde.setEtternavn(etternavn);
+            kunde.setAdresse(adresse);
+            kunde.setTlfnr(telefonnummer);
+            kunde.setEpost(epost);
+        }
     }
     
     public void åpneForsikringsTab()
