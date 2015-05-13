@@ -9,10 +9,11 @@ import java.util.Calendar;
 
 /**
  *
- * @author Odd
+ * @author Odd, Marthe og Thomas.
  */
 public class ForsikringsKalulator 
 {
+    private static int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
     
     public ForsikringsKalulator()
     {
@@ -24,7 +25,6 @@ public class ForsikringsKalulator
                     føreralder, boolean esp, boolean alarm, boolean sporing  )
     {        
         //Henter testvariablene fra forsikringsklassen.
-        int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
         int bilTakst = Takst;
         int bilArsModell = modell_år;
         int bilAlder = innevarendeAr - bilArsModell;
@@ -269,7 +269,6 @@ public class ForsikringsKalulator
         //Henter testvariablene fra forsikringsklassen.
         int batTakst = batforsikring.getVerdi();
         int batEgenandel = batforsikring.getEgenandel();
-        int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
         int batArsModell = batforsikring.getArsmodell();
         int batHK = batforsikring.getHestekrefter();
         boolean batVekter = batforsikring.getVekter();
@@ -428,7 +427,6 @@ public class ForsikringsKalulator
         int husTakst = husforsikring.getForsikringsbelopBygning();
         int husInnboTakst = husforsikring.getForsikringsbelopInnbo();
         int husEgenandel = husforsikring.getEgenandel();
-        int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
         int husByggeAr = husforsikring.getByggeAr();
         int husAlderBeregn = innevarendeAr - husByggeAr;
         String husByggeMateriale = husforsikring.getMateriale();
@@ -593,7 +591,6 @@ public class ForsikringsKalulator
         int fritidsTakst = fritidsboligforsikring.getForsikringsbelopBygning();
         int fritidsInnboTakst = fritidsboligforsikring.getForsikringsbelopBygning();
         int fritidsEgenandel = fritidsboligforsikring.getEgenandel();
-        int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
         int fritidsByggeAr = fritidsboligforsikring.getByggeAr();
         int FritidsAlderBeregn = innevarendeAr - fritidsByggeAr;
         String fritidsByggeMateriale = fritidsboligforsikring.getMateriale();
