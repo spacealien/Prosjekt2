@@ -436,6 +436,7 @@ public class ForsikringsKalulator
         
         //Initialiserer variablene som skal brukes til beregningen.
         int beregnetHusTakst = 0;
+        int beregnetHusInnbo = 0;
         double beregnetHusEgenandel = 0;
         double beregnetHusAlder = 0;
         double beregnetHusByggeMateriale = 0;
@@ -470,6 +471,36 @@ public class ForsikringsKalulator
         else if (husTakst > 7000000)
         {
             beregnetHusTakst = 38600;
+        }
+        
+        // Henter faktor for husets innbo. 
+        if (husInnboTakst > 0 && husInnboTakst <= 150000)
+        {
+            beregnetHusInnbo = 1000;
+        }
+        else if (husInnboTakst > 150000 && husInnboTakst <= 300000)
+        {
+            beregnetHusInnbo = 1500;
+        }
+        else if (husInnboTakst > 300000 && husInnboTakst <= 500000)
+        {
+            beregnetHusInnbo = 2000;
+        }
+        else if (husInnboTakst > 500000 && husInnboTakst <= 750000)
+        {
+            beregnetHusInnbo = 2500;
+        }
+        else if (husInnboTakst > 750000 && husInnboTakst <= 1000000)
+        {
+            beregnetHusInnbo = 3000;
+        }
+        else if (husInnboTakst > 1000000 && husInnboTakst <= 1500000)
+        {
+            beregnetHusInnbo = 3500;
+        }
+        else if (husInnboTakst > 1500000)
+        {
+            beregnetHusInnbo = 4000;
         }
         
         // Henter faktor for egenandel.
@@ -550,8 +581,9 @@ public class ForsikringsKalulator
             beregnetHusAlarm = 0.2;
         }
         
-        beregnetHusTilbud = beregnetHusTakst*(beregnetHusEgenandel+
-                beregnetHusAlder+beregnetHusByggeMateriale+beregnetHusAlarm);
+        beregnetHusTilbud = (beregnetHusTakst+beregnetHusInnbo)*
+                (beregnetHusEgenandel+beregnetHusAlder+
+                beregnetHusByggeMateriale+beregnetHusAlarm);
         return beregnetHusTilbud;
     }
     
@@ -569,6 +601,7 @@ public class ForsikringsKalulator
         
         //Initialiserer variablene som skal brukes til beregningen.
         int beregnetFritidsTakst = 0;
+        int beregnetFritidsInnbo = 0;
         double beregnetFritidsEgenandel = 0;
         double beregnetFritidsHusAlder = 0;
         double beregnetFritidsByggeMateriale = 0;
@@ -595,6 +628,36 @@ public class ForsikringsKalulator
         else if (fritidsTakst > 3000000)
         {
             beregnetFritidsTakst = 33000;
+        }
+        
+        // Henter faktor for husets innbo. 
+        if (fritidsInnboTakst > 0 && fritidsInnboTakst <= 150000)
+        {
+            beregnetFritidsInnbo = 1000;
+        }
+        else if (fritidsInnboTakst > 150000 && fritidsInnboTakst <= 300000)
+        {
+            beregnetFritidsInnbo = 1500;
+        }
+        else if (fritidsInnboTakst > 300000 && fritidsInnboTakst <= 500000)
+        {
+            beregnetFritidsInnbo = 2000;
+        }
+        else if (fritidsInnboTakst > 500000 && fritidsInnboTakst <= 750000)
+        {
+            beregnetFritidsInnbo = 2500;
+        }
+        else if (fritidsInnboTakst > 750000 && fritidsInnboTakst <= 1000000)
+        {
+            beregnetFritidsInnbo = 3000;
+        }
+        else if (fritidsInnboTakst > 1000000 && fritidsInnboTakst <= 1500000)
+        {
+            beregnetFritidsInnbo = 3500;
+        }
+        else if (fritidsInnboTakst > 1500000)
+        {
+            beregnetFritidsInnbo = 4000;
         }
         
         // Henter faktor for egenandel.
@@ -675,9 +738,9 @@ public class ForsikringsKalulator
             beregnetFritidsAlarm = 0.2;
         }
         
-        beregnetFritidsTilbud = beregnetFritidsTakst*(beregnetFritidsEgenandel+
-                beregnetFritidsHusAlder+beregnetFritidsByggeMateriale+
-                beregnetFritidsAlarm);
+        beregnetFritidsTilbud = (beregnetFritidsTakst+beregnetFritidsInnbo)*
+                (beregnetFritidsEgenandel+beregnetFritidsHusAlder+
+                beregnetFritidsByggeMateriale+beregnetFritidsAlarm);
         return beregnetFritidsTilbud;
     }
     
