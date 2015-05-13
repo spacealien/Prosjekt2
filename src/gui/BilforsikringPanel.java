@@ -340,32 +340,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
             tilbudLabel.setVisible(true);
             bilTilbud.setVisible(true);
         
-        for(Component component : getKomponenter(this))
-                {
-                    if((component instanceof JTextField))
-                    {
-                        JTextField tf = (JTextField)component;
-                        tf.setEditable(false);
-                    }
-                    else if(component instanceof JComboBox)
-                    {
-                        JComboBox cb = (JComboBox)component;
-                        cb.setEnabled(false);
-                    }
-                    else if(component instanceof JRadioButton)
-                    {
-                        JRadioButton rb = (JRadioButton)component;
-                        rb.setEnabled(false);
-                    }
-                    else if (component.equals(bilGiTilbud))
-                    {
-                        component.setVisible(false);
-                    }
-                    else if (component.equals(beregnPris))
-                    {
-                        component.setVisible(false);
-                    }
-                }
+        disableFelter( this, bilGiTilbud, beregnPris );
     }
     // ikke ferdig
     
@@ -647,35 +622,13 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else if( e.getSource() == rediger)
         {
-            for(Component component : getKomponenter(this))
-                {
-                    if((component instanceof JTextField))
-                    {
-                        JTextField tf = (JTextField)component;
-                        tf.setEditable(true);
-                    }
-                    else if(component instanceof JComboBox)
-                    {
-                        JComboBox cb = (JComboBox)component;
-                        cb.setEnabled(true);
-                    }
-                    else if(component instanceof JRadioButton)
-                    {
-                        JRadioButton rb = (JRadioButton)component;
-                        rb.setEnabled(true);
-                    }
-                    else if (component.equals(beregnPris))
-                    {
-                        component.setVisible(true);
-                    }
+                    enableFelter( this, beregnPris );
                     knappePanel.add(lagreNyInfo);
                     tilbudLabel.setText("Foreslått tilbud: ");
                     beregnPris.setText("Beregn ny pris");
                     annenEier.setText("Trykk her for annen eier");
                     revalidate();
                     repaint();
-                    
-                }
         }
         else if(e.getSource() == lagreNyInfo)
         {
@@ -711,9 +664,36 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
                                                      + String.valueOf(bilforsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
             if (svar == JOptionPane.YES_OPTION)
             {
+                for(Component component : getKomponenter(this))
+                {
+                    if((component instanceof JTextField))
+                    {
+                        JTextField tf = (JTextField)component;
+                        tf.setEditable(false);
+                    }
+                    else if(component instanceof JComboBox)
+                    {
+                        JComboBox cb = (JComboBox)component;
+                        cb.setEnabled(false);
+                    }
+                    else if(component instanceof JRadioButton)
+                    {
+                        JRadioButton rb = (JRadioButton)component;
+                        rb.setEnabled(false);
+                    }
+                    else if (component.equals(bilGiTilbud))
+                    {
+                        component.setVisible(false);
+                    }
+                    else if (component.equals(beregnPris))
+                    {
+                        component.setVisible(false);
+                    }
+                }
                 knappePanel.remove(rediger);
                 knappePanel.remove(lagreNyInfo);
-                knappePanel.remove(beregnPris);
+                this.remove(beregnPris);
+                knappePanel.remove(deaktiver);
                 bilforsikring.setAktiver(false);
                 JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(bilforsikring.getForsikringsnummer()) 
                                               + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);

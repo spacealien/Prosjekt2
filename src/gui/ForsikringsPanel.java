@@ -15,7 +15,11 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 /**
@@ -45,30 +49,61 @@ public interface ForsikringsPanel
     }
     
     
-    default void disableFelter( Container pane )
+    default void disableFelter( Container pane, JButton knapp1, JButton knapp2 )
     {
-        Component[] liste = pane.getComponents();
-        for( Component komponent: liste )
-        {
-            if(komponent instanceof JTextField)
-            {
-                JTextField tf = (JTextField)komponent;
-                tf.setEditable(false);
-            }
-        }
+        for(Component component : getKomponenter(pane))
+                {
+                    if((component instanceof JTextField))
+                    {
+                        JTextField tf = (JTextField)component;
+                        tf.setEditable(false);
+                    }
+                    else if(component instanceof JComboBox)
+                    {
+                        JComboBox cb = (JComboBox)component;
+                        cb.setEnabled(false);
+                    }
+                    else if(component instanceof JRadioButton)
+                    {
+                        JRadioButton rb = (JRadioButton)component;
+                        rb.setEnabled(false);
+                    }
+                    else if (component.equals(knapp1))
+                    {
+                        component.setVisible(false);
+                    }
+                    else if (component.equals(knapp2))
+                    {
+                        component.setVisible(false);
+                    }
+                }
     }
     
-    default void enableFelter( Container pane )
+    default void enableFelter( Container pane, JButton knapp2 )
     {
-        Component[] liste = pane.getComponents();
-        for( Component komponent: liste )
-        {
-            if(komponent instanceof JTextField)
-            {
-                JTextField tf = (JTextField)komponent;
-                tf.setEditable(true);
-            }
-        }
+        for(Component component : getKomponenter(pane))
+                {
+                    if((component instanceof JTextField))
+                    {
+                        JTextField tf = (JTextField)component;
+                        tf.setEditable(true);
+                    }
+                    else if(component instanceof JComboBox)
+                    {
+                        JComboBox cb = (JComboBox)component;
+                        cb.setEnabled(true);
+                    }
+                    else if(component instanceof JRadioButton)
+                    {
+                        JRadioButton rb = (JRadioButton)component;
+                        rb.setEnabled(true);
+                    }
+                    else if (component.equals(knapp2))
+                    {
+                        component.setVisible(true);
+                    }
+                    
+                }
     }
     
     default void visForsikringensVilkår(String overskrift, String vilkårInnhold )

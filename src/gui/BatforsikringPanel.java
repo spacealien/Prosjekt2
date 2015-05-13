@@ -6,6 +6,7 @@
 package gui;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import java.text.DecimalFormat;
@@ -204,32 +205,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         revalidate();
         repaint();
         
-        for(Component component : getKomponenter(this))
-                {
-                    if((component instanceof JTextField))
-                    {
-                        JTextField tf = (JTextField)component;
-                        tf.setEditable(false);
-                    }
-                    else if(component instanceof JComboBox)
-                    {
-                        JComboBox cb = (JComboBox)component;
-                        cb.setEnabled(false);
-                    }
-                    else if(component instanceof JRadioButton)
-                    {
-                        JRadioButton rb = (JRadioButton)component;
-                        rb.setEnabled(false);
-                    }
-                    else if (component.equals(batGiTilbud))
-                    {
-                        component.setVisible(false);
-                    }
-                    else if (component.equals(beregnPris))
-                    {
-                        component.setVisible(false);
-                    }
-                }
+        disableFelter( this, batGiTilbud, beregnPris );
     }
     
     public boolean hentInfo()
@@ -367,29 +343,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else if (e.getSource() == rediger)
         {
-            for(Component component : getKomponenter(this))
-                {
-                    if((component instanceof JTextField))
-                    {
-                        JTextField tf = (JTextField)component;
-                        tf.setEditable(true);
-                    }
-                    else if(component instanceof JComboBox)
-                    {
-                        JComboBox cb = (JComboBox)component;
-                        cb.setEnabled(true);
-                    }
-                    else if(component instanceof JRadioButton)
-                    {
-                        JRadioButton rb = (JRadioButton)component;
-                        rb.setEnabled(true);
-                    }
-                    else if (component.equals(beregnPris))
-                    {
-                        component.setVisible(true);
-                    }
-                    
-                }
+            enableFelter( this, beregnPris );
             beregnPris.setText("Beregn ny pris");
             tilbudLabel.setText("Foreslått tilbud: ");
             annenEier.setText("Trykk for annen eier");
@@ -424,7 +378,8 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
             {
                 knappePanel.remove(rediger);
                 knappePanel.remove(lagreNy);
-                knappePanel.remove(beregnPris);
+                this.remove(beregnPris);
+                knappePanel.remove(deaktiver);
                 forsikring.setAktiver(false);
                 JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
                 repaint();

@@ -140,7 +140,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         nyForsikring.addActionListener(this);
         
         oppdaterVindu();
-        disableFelter(kundeInfo_1);
+        disableFelter(kundeInfo_1, null, null);
     }
     
     public void oppdaterVindu()
@@ -252,7 +252,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         {
             switch (rediger.getText()) {
                 case "Rediger":
-                    enableFelter(kundeInfo_1);
+                    enableFelter(kundeInfo_1, null);
                     rediger.setText("Lagre");
                     break;
                 case "Lagre":
@@ -262,7 +262,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
                         lagreEndringer();
                     }
                     rediger.setText("Rediger");
-                    disableFelter(kundeInfo_1);
+                    disableFelter(kundeInfo_1, null, null);
                     revalidate();
                     repaint();
                     break;
