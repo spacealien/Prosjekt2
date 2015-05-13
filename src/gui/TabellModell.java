@@ -16,7 +16,7 @@ import objekter.Kunde;
  */
 public class TabellModell extends AbstractTableModel
 {
-    private String[] kolonnenavn = { "Personnummer", "Fornavn", "Etternavn", "Adresse", "Telefonnummer", "Opprettet","Fødselsdato", "Totalkunde"};
+    private String[] kolonnenavn = { "Personnummer", "Fornavn", "Etternavn", "Adresse", "Telefonnummer", "Opprettet","Fødselsdato", ""};
     private Object[][] innhold;
     private List<Kunde> kunder;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");

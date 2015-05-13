@@ -8,6 +8,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -21,12 +22,14 @@ public class StatistikkVindu extends JFrame
     private final Container c;
     private final JPanel hovedPanel;
 
-    public StatistikkVindu() 
+    public StatistikkVindu(String s, JComponent komponent) 
     {
+        super(s);
         setVisible(true);
         setSize(new Dimension(700, 500));
         c = getContentPane();
         hovedPanel = new JPanel();
+        hovedPanel.add(komponent);
         c.setLayout(new BorderLayout());
         c.add(hovedPanel, BorderLayout.CENTER);
     }
