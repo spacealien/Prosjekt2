@@ -70,7 +70,6 @@ public class AnsattVindu extends JFrame
     {
         super("Forsikring Vindu");
         setVisible(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         kalender = new GregorianCalendar();
         register = new HovedRegister(this);
         KnappeLytter knappeLytter = new KnappeLytter();
@@ -303,6 +302,11 @@ public class AnsattVindu extends JFrame
     public Ansatt getAnsatt()
     {
         return ansatt;
+    }
+    
+    public void lagre()
+    {
+        register.skrivTilFil();
     }
     
     // lager en JOptionPane av typen feilmelding.

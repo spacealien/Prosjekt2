@@ -5,14 +5,13 @@
  */
 package objekter;
 
-import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  *
  * @author Odd, Thomas, Marthe
  */
-public class BatForsikring extends Kjoretoyforsikring
+public class BatForsikring extends Kjoretoyforsikring 
 {
     private boolean vekter;
     private int lengde;

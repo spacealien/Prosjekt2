@@ -34,7 +34,7 @@ public class HovedRegister
     public HovedRegister(AnsattVindu v) 
     {
         vindu = v;
-        
+        /*
         kalender = new GregorianCalendar();
         Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer("08206049937");
         Kunde kunde_2 = kunderegister.finnKundeEtterPersonnummer("01258446816");
@@ -80,8 +80,9 @@ public class HovedRegister
         
         Skademelding test_1 = new Skademelding( forsikring_1, new Date() , "Skadetype" , "Beskrivelse", 2000, 30000 );
         skademeldingsregister.leggTil(forsikring_1, test_1);
+        */
         sjekkTid();
-        
+        lesFraFil();
     }
     
     
@@ -97,20 +98,23 @@ public class HovedRegister
     
     public final void sjekkTid()
     {
-       //GregorianCalendar kalender = vindu.getKalender();
-      for( Kunde kunde : kunderegister.alleKunder() )
+        /**
+        List<Kunde> liste = kunderegister.alleKunder();
+        for( Kunde kunde : liste )
         {
-           List<Forsikring> forsikringsliste = getAlleKundensForsikringer( kunde );
-           for( Forsikring forsikring : forsikringsliste )
-            {
-               
+
+             List<Forsikring> forsikringsliste = getAlleKundensForsikringer( kunde );
+                for( Forsikring forsikring : forsikringsliste )
+                {
                     /*if(Math.abs(( kalender.getTime().getTime() - forsikring.getStartdato().getTime().getTime())) > (1000*60*60*24*365.25) ) 
                     {
                         forsikring.beregnPris();
-                    }*/
+                    }    
+                }
             }
-            
-        }  
+            else
+                return;
+        }  */
     }
     
     public List<Kunde> getAnsattKunde( Ansatt ansatt )
@@ -300,7 +304,7 @@ public class HovedRegister
         return null;
     }
     
-    public void skrivTilFIl()
+    public void skrivTilFil()
     {
         try( ObjectOutputStream utfil = new ObjectOutputStream(
                 new FileOutputStream("Data\\ForsikringsData.txt")) )

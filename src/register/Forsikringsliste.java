@@ -5,6 +5,7 @@
  */
 package register;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,7 +20,7 @@ import objekter.Kunde;
  *
  * @author Odd, Thomas, Marthe
  */
-public class Forsikringsliste
+public class Forsikringsliste implements Serializable
 {
     Map<Integer,Forsikring> liste = new HashMap<>();
     

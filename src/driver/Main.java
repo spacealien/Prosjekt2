@@ -7,7 +7,10 @@ package driver;
 
 import gui.AnsattVindu;
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.UIManager;
+import register.HovedRegister;
 
 /**
  *
@@ -26,6 +29,15 @@ public class Main
             public void run()
             {
                 AnsattVindu vindu = new AnsattVindu();
+                vindu.addWindowListener( new WindowAdapter() 
+                {
+                    @Override
+                    public void windowClosing( WindowEvent e )
+                    {
+                        vindu.lagre();
+                        System.exit( 0 );
+                    }
+                });
             }
         });
     }

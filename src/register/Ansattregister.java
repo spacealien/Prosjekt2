@@ -5,6 +5,7 @@
  */
 package register;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -17,7 +18,7 @@ import objekter.Ansatt;
  *
  * @author Odd, Thomas, Marthe
  */
-public class Ansattregister 
+public class Ansattregister implements Serializable
 {
     Set<Ansatt> register = new HashSet<>();
     

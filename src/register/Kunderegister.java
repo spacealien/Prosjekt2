@@ -5,6 +5,7 @@
  */
 package register;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -19,14 +20,15 @@ import objekter.Personsammenlikner;
  * @author Odd, Thomas, Marthe
  * 
  */
-public class Kunderegister
+public class Kunderegister implements Serializable
 {
     private List<Kunde> kunderegister;  
     
     public Kunderegister()
     {
         kunderegister = new ArrayList<>();
-      
+        
+        /**
         GregorianCalendar fdato = new GregorianCalendar(1991,6,6);
         Kunde test_1 = new Kunde("Rolf", "Hestman", "Kongleknaggen 18", "22260906", fdato, "hesterolf@yahoo.no", "08206049937");
         Kunde test_2 = new Kunde("Bjørn", "Dæhlie", "Trysil 23B", "22260906", fdato, "epost@epost.no", "12048449997");
@@ -87,7 +89,7 @@ public class Kunderegister
         kunderegister.add(test_27);
         kunderegister.add(test_28);
         sorter();
-        
+*/
         
     }
     
@@ -171,7 +173,10 @@ public class Kunderegister
     
     public List<Kunde> alleKunder()
     {
-        return kunderegister.stream().filter( x -> x != null ).collect(Collectors.toList());
+        if( kunderegister.size() > 0)
+            return kunderegister.stream().filter( x -> x != null ).collect(Collectors.toList());
+        else
+            return null;
     }
     
     public void sorter()
