@@ -17,9 +17,13 @@ public class BatForsikring extends Kjoretoyforsikring
     private boolean vekter;
     private int lengde;
     private int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
+    private static final long serialVersionUID = 512341235123L;
+    
+    
     public BatForsikring(  Kunde k, int e_andel, String vilkar, String registreringsnummer, int belop,
                            String fabrikant, String modell, String type, int hestekrefter, 
                            int arsmodell, boolean vekter, int lengde)
+            
     {
         super( k, e_andel, vilkar, registreringsnummer, belop, fabrikant, modell, type, hestekrefter, arsmodell );
         this.vekter = vekter;

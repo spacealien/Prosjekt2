@@ -19,6 +19,7 @@ public abstract class Kjoretoyforsikring extends Forsikring
     private int hestekrefter;
     private int arsmodell;
     private int verdi;
+    private static final long serialVersionUID = 51222222223L;
         
     public Kjoretoyforsikring( Kunde k, int e_andel, String vilkar, String registreringsnummer, int belop, String fabrikant, 
                                String modell, String type, int hestekrefter, int arsmodell)

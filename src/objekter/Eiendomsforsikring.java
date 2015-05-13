@@ -22,6 +22,7 @@ public abstract class Eiendomsforsikring extends Forsikring implements Serializa
     private int kvadratmeter;
     private int forsikringsbelopBygning;
     private int forsikringsbelopInnbo;
+    private static final long serialVersionUID = 24512341235123L;
     
     public Eiendomsforsikring( Kunde k, int e_andel, String vilkar, String hadresse, int byggar, String bt, String mat, String stand, int kvm, int belopByg,
                              int belopInn, boolean alarmen )

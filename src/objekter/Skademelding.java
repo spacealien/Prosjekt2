@@ -32,6 +32,7 @@ public class Skademelding implements Serializable
     private int erstatningsbelop;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     private boolean aktiv = true;
+    private static final long serialVersionUID = 512341233333L;
     
     public Skademelding( Forsikring forsikring)
     {

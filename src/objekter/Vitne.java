@@ -11,6 +11,7 @@ package objekter;
  */
 public class Vitne extends Person
 {
+    private static final long serialVersionUID = 1111741235123L;
 
     public Vitne(String fnavn, String enavn, String adr, String tlf)
     {

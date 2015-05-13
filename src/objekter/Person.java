@@ -17,6 +17,7 @@ public abstract class Person implements Serializable
     private String etternavn;
     private String adresse;
     private String telefonnummer;
+    private static final long serialVersionUID = 123512351234L;
     
     public Person(String fnavn, String enavn, String adr, String tlf)
     {
