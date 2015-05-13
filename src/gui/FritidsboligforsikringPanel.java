@@ -209,11 +209,8 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         if(hentInfo())
         {
             //Beregn pris
-            Fritidsboligforsikring forsikring = new Fritidsboligforsikring(kunde, egenandelvalget, "Vilkår 1", adr, ar, 
-                       typevalget, materialevalget, standardvalget, kvm, belop, belopInnbo, alarm_b, utleid_b);
-            
-            
-            double foreslåttPris = ForsikringsKalulator.beregnFritidsboligforsikring(forsikring);
+            double foreslåttPris = ForsikringsKalulator.beregnFritidsboligforsikring(egenandelvalget, dekningvalget, ar, materialevalget, kvm, belop, belopInnbo, alarm_b );
+                    
             NumberFormat formatter = new DecimalFormat("#0.00"); 
             fritidTilbud.setVisible(true);
             fritidTilbud.setText(formatter.format(foreslåttPris) + " Kr/År");

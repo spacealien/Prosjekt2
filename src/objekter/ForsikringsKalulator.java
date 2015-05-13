@@ -20,7 +20,7 @@ public class ForsikringsKalulator
         
     }
     
-    public static double beregnBilforsikring(int Takst, int modell_år, int kjørelengde, 
+    public static double beregnBilforsikring(int Takst, String vilkar, int modell_år, int kjørelengde, 
             int hk, boolean garasje, int egenandel, String 
                     føreralder, boolean esp, boolean alarm, boolean sporing  )
     {        
@@ -264,14 +264,14 @@ public class ForsikringsKalulator
         return beregnetBilTilbud;
     }
     
-    public static double beregnBatforsikring( BatForsikring batforsikring )
+    public static double beregnBatforsikring(int egenandel, String vilkar, int takst, int hk, int modell_år, boolean vekter, int lengde  )
     {
         //Henter testvariablene fra forsikringsklassen.
-        int batTakst = batforsikring.getVerdi();
-        int batEgenandel = batforsikring.getEgenandel();
-        int batArsModell = batforsikring.getArsmodell();
-        int batHK = batforsikring.getHestekrefter();
-        boolean batVekter = batforsikring.getVekter();
+        int batTakst = takst;
+        int batEgenandel = egenandel;
+        int batArsModell = modell_år;
+        int batHK = hk;
+        boolean batVekter = vekter;
         int batAlderBeregn = innevarendeAr - batArsModell;
         
         //Initialiserer variablene som skal brukes til beregningen.
@@ -421,16 +421,17 @@ public class ForsikringsKalulator
         return beregnetBatTilbud;
     }
     
-    public static double beregnHusforsikring( Husforsikring husforsikring )
+    public static double beregnHusforsikring(int egenandel, String vilkar, int byggar, String materiale, int kvm, int belopByg,
+                             int belopInnbo, boolean alarmen)
     {
         //Henter testvariablene fra forsikringsklassen.
-        int husTakst = husforsikring.getForsikringsbelopBygning();
-        int husInnboTakst = husforsikring.getForsikringsbelopInnbo();
-        int husEgenandel = husforsikring.getEgenandel();
-        int husByggeAr = husforsikring.getByggeAr();
+        int husTakst = belopByg;
+        int husInnboTakst = belopInnbo;
+        int husEgenandel = egenandel;
+        int husByggeAr = byggar;
         int husAlderBeregn = innevarendeAr - husByggeAr;
-        String husByggeMateriale = husforsikring.getMateriale();
-        boolean husAlarmert = husforsikring.getAlarm();
+        String husByggeMateriale = materiale;
+        boolean husAlarmert = alarmen;
         
         //Initialiserer variablene som skal brukes til beregningen.
         int beregnetHusTakst = 0;
@@ -585,16 +586,17 @@ public class ForsikringsKalulator
         return beregnetHusTilbud;
     }
     
-    public static double beregnFritidsboligforsikring( Fritidsboligforsikring fritidsboligforsikring )
+    public static double beregnFritidsboligforsikring( int egenandel, String vilkar, int byggeAr, String materiale, int kvm,
+                                  int belopByg, int belopInnbo, boolean alarmen)
     {
         //Henter testvariablene fra forsikringsklassen.
-        int fritidsTakst = fritidsboligforsikring.getForsikringsbelopBygning();
-        int fritidsInnboTakst = fritidsboligforsikring.getForsikringsbelopBygning();
-        int fritidsEgenandel = fritidsboligforsikring.getEgenandel();
-        int fritidsByggeAr = fritidsboligforsikring.getByggeAr();
+        int fritidsTakst = belopByg;
+        int fritidsInnboTakst = belopInnbo;
+        int fritidsEgenandel = egenandel;
+        int fritidsByggeAr = byggeAr;
         int FritidsAlderBeregn = innevarendeAr - fritidsByggeAr;
-        String fritidsByggeMateriale = fritidsboligforsikring.getMateriale();
-        boolean fritidsAlarmert = fritidsboligforsikring.getAlarm();
+        String fritidsByggeMateriale = materiale;
+        boolean fritidsAlarmert = alarmen;
         
         //Initialiserer variablene som skal brukes til beregningen.
         int beregnetFritidsTakst = 0;
@@ -741,12 +743,12 @@ public class ForsikringsKalulator
         return beregnetFritidsTilbud;
     }
     
-    public static double beregnReiseforsikring( Reiseforsikring reiseforsikring )
+    public static double beregnReiseforsikring( int egenandel, String vilkar, boolean forsorger, int antallBarn, String sone, int belop)
     {
         //Henter testvariablene fra forsikringsklassen.
-        boolean reiseForsorger = reiseforsikring.isForsorger();
-        String reiseSone = reiseforsikring.getSone();
-        double reiseForsikringsbelop = reiseforsikring.getBelopet();
+        boolean reiseForsorger = forsorger;
+        String reiseSone = sone;
+        double reiseForsikringsbelop = belop;
         
         //Initialiserer variablene som skal brukes til beregningen.
         double beregnReiseForsikringsbelop = 0;

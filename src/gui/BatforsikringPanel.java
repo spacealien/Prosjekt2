@@ -265,13 +265,8 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     {
         if (hentInfo())
         {
-            //Beregner pris
-            BatForsikring forsikring = new BatForsikring(kunde, egenandelvalget, "Vilkår 2", reg, belop,
-                                 merke, modell, typevalget, hk, 
-                                 ar, vekter_b, lengde);
-            
-            
-            double foreslåttPris = ForsikringsKalulator.beregnBatforsikring(forsikring);
+            double foreslåttPris = ForsikringsKalulator.beregnBatforsikring(egenandelvalget, dekningvalget, belop, hk, ar, vekter_b, lengde  );
+                    
             NumberFormat formatter = new DecimalFormat("#0.00"); 
             batTilbud.setVisible(true);
             batTilbud.setText(formatter.format(foreslåttPris) + " Kr/År");
