@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -706,6 +707,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         @Override
         public void itemStateChanged(ItemEvent e) 
         {
+            if( dekningvelger.getSelectedIndex() != 0)
                 vilkår = this.velgVilkår( "Bil"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
         }
     }
