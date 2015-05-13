@@ -38,6 +38,9 @@ public abstract class Forsikring implements Serializable
     private Date stDato;
                    //lokalitetsobjekt for norsk standard
     
+    
+    private static final long serialVersionUID = 12345678910L;
+    
     public Forsikring( Kunde k, int e_andel, String vilkar )
     {
         egenandel = e_andel;
