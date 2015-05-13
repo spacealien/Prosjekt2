@@ -46,7 +46,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     JComboBox<String> battypevelger;
     String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
     JComboBox<String> egenandelsvelger;
-    String[] dekning = {"", "Ansvar", "Delkasko", "Kasko", "Båt Pluss"};
+    String[] dekning = {"", "Ansvar", "Delkasko", "Kasko", "Båt-Pluss"};
     JComboBox<String> dekningvelger;
     private final JButton annenEier;
     private final JButton beregnPris;

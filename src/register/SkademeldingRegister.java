@@ -7,6 +7,7 @@ package register;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,5 +68,12 @@ public class SkademeldingRegister implements Serializable
     public List<Skademelding> alleSkademeldinger()
     {
         return skademeldinger.values().stream().collect(Collectors.toList());
-    } 
+    }
+    
+    public List<Skademelding> getSkademeldinger( Calendar startdato, Calendar sluttdato )
+    {
+        return skademeldinger.values().stream()
+                .filter( x -> startdato.after(x.getSkadeDato()) && sluttdato.before(x.getSkadeDato()))
+                .collect( Collectors.toList() );
+    }
 }

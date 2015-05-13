@@ -44,7 +44,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
     JComboBox<String> husstandardvelger;
     String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
     JComboBox<String> egenandelsvelger;
-    String[] dekning = {"", "Hus", "Hus Pluss"};
+    String[] dekning = {"", "Hus", "Hus-Pluss"};
     JComboBox<String> dekningvelger;
     private final JRadioButton alarmJa, alarmNei;
     private final JButton husGiTilbud;

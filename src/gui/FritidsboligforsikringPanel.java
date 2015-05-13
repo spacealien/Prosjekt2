@@ -49,7 +49,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
     JComboBox<String> fritidstandardvelger;
     String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
     JComboBox<String> egenandelsvelger;
-    String[] dekning = {"", "Fritidsbolig", "Fritidsbolig Pluss"};
+    String[] dekning = {"", "Fritidsbolig", "Fritidsbolig-Pluss"};
     JComboBox<String> dekningvelger;
     
     private String typevalget;  

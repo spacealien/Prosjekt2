@@ -39,7 +39,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     JComboBox<String> sonevelger;
     String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
     JComboBox<String> egenandelsvelger;
-    String[] dekning = {"", "Reise", "Reise Pluss"};
+    String[] dekning = {"", "Reise", "Reise-Pluss"};
     JComboBox<String> dekningvelger;
     private final Kunde kunde;
     
