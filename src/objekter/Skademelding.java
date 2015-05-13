@@ -6,7 +6,7 @@
 package objekter;
 
 import java.awt.Image;
-import java.io.File;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -15,7 +15,7 @@ import java.util.GregorianCalendar;
  *
  * @author Odd, Thomas, Marthe
  */
-public class Skademelding
+public class Skademelding implements Serializable
 {
     
     private final Forsikring forsikring;
@@ -32,6 +32,7 @@ public class Skademelding
     private int erstatningsbelop;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     private boolean aktiv = true;
+    private static final long serialVersionUID = 512341233333L;
     
     public Skademelding( Forsikring forsikring)
     {

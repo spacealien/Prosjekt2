@@ -43,7 +43,7 @@ public class Reiseforsikring extends Personligforsikring
 
     public void setSoneBeregn(int sb)
     {
-        soneBeregn = soneBeregn;
+        soneBeregn = sb;
     }
 
     public double getForsorgerpris()

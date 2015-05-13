@@ -20,11 +20,12 @@ public class ForsikringsKalulator
         
     }
     
-    public static double beregnBilforsikring(int Takst, String vilkar, int modell_år, int kjørelengde, 
-            int hk, boolean garasje, int egenandel, String 
-                    føreralder, boolean esp, boolean alarm, boolean sporing  )
+    public static double beregnBilforsikring(int Takst, String vilkar, 
+            int modell_år, int kjørelengde, int hk, boolean garasje, 
+            int egenandel, String føreralder, boolean esp, boolean alarm, 
+            boolean sporing  )
     {        
-        //Henter testvariablene fra forsikringsklassen.
+        // Henter testvariablene fra forsikringsklassen.
         int bilTakst = Takst;
         int bilArsModell = modell_år;
         int bilAlder = innevarendeAr - bilArsModell;
@@ -36,6 +37,7 @@ public class ForsikringsKalulator
         boolean bilESP = esp;
         boolean bilAlarmert = alarm;
         boolean bilGPS = sporing;
+        String bilVilkar = vilkar;
         
         //Initialiserer variablene som skal brukes til beregningen.
         int beregnetBilTakst = 0;
@@ -49,6 +51,7 @@ public class ForsikringsKalulator
         double beregnetBilAlarm = 0;
         double beregnetBilGPS = 0;
         double beregnetBilTilbud = 0;
+        double beregnetBilVilkar = 0;
         
         //Henter faktor for bilens grunnbeløp.
         if (bilTakst > 0 && bilTakst <= 50000) 
@@ -227,6 +230,22 @@ public class ForsikringsKalulator
                 break;
         }
         
+        // Henter faktor for vilkårene som er valgt.
+        switch (bilVilkar) {
+            case "Ansvar":
+                beregnetBilVilkar = 0.9;
+                break;
+            case "Delkasko":
+                beregnetBilVilkar = 0.6;
+                break;
+            case "Kasko":
+                beregnetBilVilkar = 0.3;
+                break;
+            case "Superkasko":
+                beregnetBilVilkar = 0.1;
+                break;
+        }
+        
         // Henter faktor for om bilen har Antiskrens/ESP.
         if (bilESP == true)
         {
@@ -260,11 +279,12 @@ public class ForsikringsKalulator
         beregnetBilTilbud = beregnetBilTakst*(beregnetBilAlder+
                 beregnetBilKjorelengde+beregnetBilHK+beregnetBilGarasje+
                 beregnetBilEgenandel+beregnetBilForerAlder+beregnetBilESP+
-                beregnetBilAlarm+beregnetBilGPS);
+                beregnetBilAlarm+beregnetBilGPS+beregnetBilVilkar);
         return beregnetBilTilbud;
     }
     
-    public static double beregnBatforsikring(int egenandel, String vilkar, int takst, int hk, int modell_år, boolean vekter, int lengde  )
+    public static double beregnBatforsikring(int egenandel, String vilkar, 
+            int takst, int hk, int modell_år, boolean vekter, int lengde  )
     {
         //Henter testvariablene fra forsikringsklassen.
         int batTakst = takst;
@@ -273,6 +293,7 @@ public class ForsikringsKalulator
         int batHK = hk;
         boolean batVekter = vekter;
         int batAlderBeregn = innevarendeAr - batArsModell;
+        String batVilkar = vilkar;
         
         //Initialiserer variablene som skal brukes til beregningen.
         int beregnetBatTakst = 0;
@@ -281,6 +302,7 @@ public class ForsikringsKalulator
         double beregnetBatHestekrefter = 0;
         double beregnetBatVekter = 0;
         double beregnetBatTilbud = 0;
+        double beregnetBatVilkar = 0;
         
         // Henter faktor for taksert verdi.
         if (batTakst > 0 && batTakst <= 10000)
@@ -416,13 +438,31 @@ public class ForsikringsKalulator
             beregnetBatVekter = 0.2;
         }
         
+        // Henter faktor for vilkårene som er valgt.
+        switch (batVilkar) {
+            case "Ansvar":
+                beregnetBatVilkar = 0.9;
+                break;
+            case "Delkasko":
+                beregnetBatVilkar = 0.6;
+                break;
+            case "Kasko":
+                beregnetBatVilkar = 0.3;
+                break;
+            case "Superkasko":
+                beregnetBatVilkar = 0.1;
+                break;
+        }
+        
         beregnetBatTilbud = beregnetBatTakst*(beregnetBatEgenandel+
-                beregnetBatAlder+beregnetBatHestekrefter+beregnetBatVekter);
+                beregnetBatAlder+beregnetBatHestekrefter+beregnetBatVekter+
+                beregnetBatVilkar);
         return beregnetBatTilbud;
     }
     
-    public static double beregnHusforsikring(int egenandel, String vilkar, int byggar, String materiale, int kvm, int belopByg,
-                             int belopInnbo, boolean alarmen)
+    public static double beregnHusforsikring(int egenandel, String vilkar, 
+            int byggar, String materiale, int kvm, int belopByg, int belopInnbo, 
+            boolean alarmen, String hustype, String husstandard)
     {
         //Henter testvariablene fra forsikringsklassen.
         int husTakst = belopByg;
@@ -432,6 +472,9 @@ public class ForsikringsKalulator
         int husAlderBeregn = innevarendeAr - husByggeAr;
         String husByggeMateriale = materiale;
         boolean husAlarmert = alarmen;
+        String husType = hustype;
+        String husStandard = husstandard;
+        String husVilkar = vilkar;
         
         //Initialiserer variablene som skal brukes til beregningen.
         int beregnetHusTakst = 0;
@@ -441,6 +484,54 @@ public class ForsikringsKalulator
         double beregnetHusByggeMateriale = 0;
         double beregnetHusAlarm = 0;
         double beregnetHusTilbud;
+        double beregnetHusType = 0;
+        double beregnetHusStandard = 0;
+        double beregnetHusVilkar = 0;
+        
+        // Henter faktor for vilkar.
+        switch (husVilkar) {
+            case "Hus Pluss":
+                beregnetHusVilkar = 0.6;
+                break;
+            case "Hus":
+                beregnetHusVilkar = 0.3;
+                break;
+        }
+
+        // Henter faktor for boligstandard.
+        switch (husStandard) {
+            case "Normal standard":
+                beregnetHusStandard = 0.6;
+                break;
+            case "Bedre standard":
+                beregnetHusStandard = 0.4;
+                break;
+            case "Høy standard":
+                beregnetHusStandard = 0.2;
+                break;
+        }
+
+        // Henter faktor for boligtype.
+        switch (husType) {
+            case "Enebolig":
+                beregnetHusType = 0.9;
+                break;
+            case "Tomannsbolig":
+                beregnetHusType = 0.8;
+                break;
+            case "Tremannsbolig":
+                beregnetHusType = 0.7;
+                break;
+            case "Firemannsbolig":
+                beregnetHusType = 0.6;
+                break;
+            case "Rekkehus":
+                beregnetHusType = 0.5;
+                break;
+            case "Leilighet":
+                beregnetHusType = 0.4;
+                break;
+        }
         
         // Henter faktor for husets takst. 
         if (husTakst > 0 && husTakst <= 1000000)
@@ -582,12 +673,14 @@ public class ForsikringsKalulator
         
         beregnetHusTilbud = (beregnetHusTakst+beregnetHusInnbo)*
                 (beregnetHusEgenandel+beregnetHusAlder+
-                beregnetHusByggeMateriale+beregnetHusAlarm);
+                beregnetHusByggeMateriale+beregnetHusAlarm+beregnetHusType+
+                beregnetHusStandard+beregnetHusVilkar);
         return beregnetHusTilbud;
     }
     
-    public static double beregnFritidsboligforsikring( int egenandel, String vilkar, int byggeAr, String materiale, int kvm,
-                                  int belopByg, int belopInnbo, boolean alarmen)
+    public static double beregnFritidsboligforsikring( int egenandel, 
+            String vilkar, int byggeAr, String materiale, int kvm, int belopByg, 
+            int belopInnbo, boolean alarmen, String type, String standard)
     {
         //Henter testvariablene fra forsikringsklassen.
         int fritidsTakst = belopByg;
@@ -597,6 +690,9 @@ public class ForsikringsKalulator
         int FritidsAlderBeregn = innevarendeAr - fritidsByggeAr;
         String fritidsByggeMateriale = materiale;
         boolean fritidsAlarmert = alarmen;
+        String fritidsType = type;
+        String fritidsStandard = standard;
+        String fritidsVilkar = vilkar;
         
         //Initialiserer variablene som skal brukes til beregningen.
         int beregnetFritidsTakst = 0;
@@ -606,6 +702,45 @@ public class ForsikringsKalulator
         double beregnetFritidsByggeMateriale = 0;
         double beregnetFritidsAlarm = 0;
         double beregnetFritidsTilbud;
+        double beregnetFritidType = 0;
+        double beregnetFritidStandard = 0;
+        double beregnetFritidVilkar = 0;
+        
+        // Henter faktor for vilkar.
+        switch (fritidsVilkar) {
+            case "Fritidsbolig Pluss":
+                beregnetFritidVilkar = 0.6;
+                break;
+            case "Fritidsbolig":
+                beregnetFritidVilkar = 0.3;
+                break;
+        }
+
+        // Henter faktor for boligstandard.
+        switch (fritidsStandard) {
+            case "Normal standard":
+                beregnetFritidStandard = 0.6;
+                break;
+            case "Bedre standard":
+                beregnetFritidStandard = 0.4;
+                break;
+            case "Høy standard":
+                beregnetFritidStandard = 0.2;
+                break;
+        }
+
+        // Henter faktor for boligtype.
+        switch (fritidsType) {
+            case "Hus/Hytte":
+                beregnetFritidType = 0.7;
+                break;
+            case "Rekkehus":
+                beregnetFritidType = 0.5;
+                break;
+            case "Leilighet":
+                beregnetFritidType = 0.3;
+                break;
+        }
         
         // Henter faktor for husets takst. 
         if (fritidsTakst > 0 && fritidsTakst <= 800000)
@@ -739,7 +874,8 @@ public class ForsikringsKalulator
         
         beregnetFritidsTilbud = (beregnetFritidsTakst+beregnetFritidsInnbo)*
                 (beregnetFritidsEgenandel+beregnetFritidsHusAlder+
-                beregnetFritidsByggeMateriale+beregnetFritidsAlarm);
+                beregnetFritidsByggeMateriale+beregnetFritidsAlarm+
+                beregnetFritidType+beregnetFritidStandard+beregnetFritidVilkar);
         return beregnetFritidsTilbud;
     }
     
@@ -749,12 +885,56 @@ public class ForsikringsKalulator
         boolean reiseForsorger = forsorger;
         String reiseSone = sone;
         double reiseForsikringsbelop = belop;
+        int reiseEgenandel = egenandel;
+        String reiseVilkar = vilkar;
         
         //Initialiserer variablene som skal brukes til beregningen.
         double beregnReiseForsikringsbelop = 0;
         double beregnReiseForsorger = 0;
         double beregnReiseSone = 0;
         double beregnReiseTilbud = 0;
+        double beregnetReiseEgenandel = 0;
+        double beregnetReiseVilkar = 0;
+        
+        // Henter faktor for vilkar.
+        switch (reiseVilkar) {
+            case "Reise Pluss":
+                beregnetReiseVilkar = 0.6;
+                break;
+            case "Reise":
+                beregnetReiseVilkar = 0.3;
+                break;
+        }
+        
+        // Henter faktor for egenandel.
+        if (reiseEgenandel == 2000)
+        {
+            beregnetReiseEgenandel = 1;
+        }
+        else if (reiseEgenandel == 4000)
+        {
+            beregnetReiseEgenandel = 0.85;
+        }
+        else if (reiseEgenandel == 8000)
+        {
+            beregnetReiseEgenandel = 0.7;
+        }
+        else if (reiseEgenandel == 12000)
+        {
+            beregnetReiseEgenandel = 0.55;
+        }
+        else if (reiseEgenandel == 16000)
+        {
+            beregnetReiseEgenandel = 0.4;
+        }
+        else if (reiseEgenandel == 20000)
+        {
+            beregnetReiseEgenandel = 0.25;
+        }
+        else if (reiseEgenandel == 30000)
+        {
+            beregnetReiseEgenandel = 0.1;
+        }
         
         if (reiseForsikringsbelop != 0)
         {
@@ -763,20 +943,22 @@ public class ForsikringsKalulator
         
         if (reiseForsorger)
         {
-           beregnReiseForsorger = 0.5;//Multiplikator for familie -> Kan gjøres i Personligforsikring?
+           beregnReiseForsorger = 0.5;
           
         }
             
         switch (reiseSone)
         {
-            case "Norden": beregnReiseSone = 1.0;//Hva man skal gange prisen med
+            case "Norden": beregnReiseSone = 1.0;
                     break;
-            case "Europa": beregnReiseSone = 1.10;//Hva man skal gange prisen med
+            case "Europa": beregnReiseSone = 1.10;
                     break;
-            case "Verden": beregnReiseSone = 1.20;//Hva man skal gange prisen med
+            case "Verden": beregnReiseSone = 1.20;
                     break;
         }
-        beregnReiseTilbud = beregnReiseForsikringsbelop*(beregnReiseSone+beregnReiseForsorger);
+        
+        beregnReiseTilbud = beregnReiseForsikringsbelop*(beregnReiseSone+
+                beregnReiseForsorger+beregnetReiseEgenandel+beregnetReiseVilkar);
         return beregnReiseTilbud;
     }
 }

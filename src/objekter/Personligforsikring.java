@@ -15,6 +15,9 @@ public abstract class Personligforsikring extends Forsikring
     private int antBarn;
     private String forsorgeren;
     //private enum sivilstatus
+    private static final long serialVersionUID = 77741235123L;
+    
+    
     public Personligforsikring(Kunde k, int e_andel, String vilkar, boolean fs, int antallBarn)
     {
         super( k, e_andel, vilkar );

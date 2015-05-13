@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -302,9 +303,15 @@ public class HovedRegister
     public void skrivTilFIl()
     {
         try( ObjectOutputStream utfil = new ObjectOutputStream(
-                new FileOutputStream("")) )
+                new FileOutputStream("Data\\ForsikringsData.txt")) )
         {
+            utfil.writeObject(kunderegister);
+            utfil.writeObject(forsikringsregister);
+            utfil.writeObject(skademeldingsregister);
+            utfil.writeObject(ansattregister);
             
+            
+            utfil.close();
         }
         catch( IOException e )
         {
@@ -315,13 +322,19 @@ public class HovedRegister
     public void lesFraFil()
     {
         try( ObjectInputStream innfil = new ObjectInputStream(
-              new FileInputStream("")))
+              new FileInputStream("Data\\ForsikringsData.txt")))
         {
+            kunderegister = (Kunderegister)innfil.readObject();
+            forsikringsregister = (Forsikringsliste) innfil.readObject();
+            skademeldingsregister = (SkademeldingRegister) innfil.readObject();
+            ansattregister = (Ansattregister) innfil.readObject();
             
+            innfil.close();
         }
-        catch( IOException e )
+        catch( IOException | ClassNotFoundException e )
         {
             
         }
     }
 }
+

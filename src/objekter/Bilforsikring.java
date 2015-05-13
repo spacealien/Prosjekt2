@@ -23,6 +23,7 @@ public class Bilforsikring extends Kjoretoyforsikring
     private int antallAr;
     private String foreralder;
     private int kmst;
+    private static final long serialVersionUID = 5123421325123L;
     
     
     public Bilforsikring(  Kunde k, int e_andel, String vilkar, String registreringsnummer, int belop,

@@ -209,7 +209,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         if(hentInfo())
         {
             //Beregn pris
-            double foreslåttPris = ForsikringsKalulator.beregnFritidsboligforsikring(egenandelvalget, dekningvalget, ar, materialevalget, kvm, belop, belopInnbo, alarm_b );
+            double foreslåttPris = ForsikringsKalulator.beregnFritidsboligforsikring(egenandelvalget, dekningvalget, ar, materialevalget, kvm, belop, belopInnbo, alarm_b, typevalget, standardvalget);
                     
             NumberFormat formatter = new DecimalFormat("#0.00"); 
             fritidTilbud.setVisible(true);

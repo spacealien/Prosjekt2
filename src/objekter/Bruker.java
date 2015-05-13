@@ -21,6 +21,7 @@ public abstract class Bruker extends Person
     private final Date startdato;
     java.util.Locale norge = new java.util.Locale( "no" );
     private Date fDato;
+    private static final long serialVersionUID = 54212334121113L;
     
     public Bruker(String fnavn, String enavn, String adr, String tlf, Calendar fd, String email, String persnummer)
     {
