@@ -247,7 +247,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         if( e.getSource() ==  kontaktKunde)
         {
             String mailTo = kunde.getEpost();
-            URI uriMailTo = null;
+            URI uriMailTo;
        
             try
             {
