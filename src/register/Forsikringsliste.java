@@ -22,7 +22,7 @@ import objekter.Kunde;
  */
 public class Forsikringsliste implements Serializable
 {
-    Map<Integer,Forsikring> liste = new HashMap<>();
+    private Map<Integer,Forsikring> liste = new HashMap<>();
     
     public Forsikringsliste()
     {

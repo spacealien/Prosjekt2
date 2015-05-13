@@ -10,7 +10,6 @@ import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.UIManager;
-import register.HovedRegister;
 
 /**
  *
@@ -26,6 +25,7 @@ public class Main
         UIManager.put("OptionPane.yesButtonText", "Ja");    
         EventQueue.invokeLater(new Runnable()
         {
+            @Override
             public void run()
             {
                 AnsattVindu vindu = new AnsattVindu();

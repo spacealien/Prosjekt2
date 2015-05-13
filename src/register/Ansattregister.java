@@ -6,11 +6,9 @@
 package register;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import objekter.Ansatt;
 
@@ -20,7 +18,7 @@ import objekter.Ansatt;
  */
 public class Ansattregister implements Serializable
 {
-    Set<Ansatt> register = new HashSet<>();
+    private List<Ansatt> register = new ArrayList<>();
     
     public Ansattregister()
     {

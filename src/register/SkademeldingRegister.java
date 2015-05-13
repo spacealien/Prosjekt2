@@ -21,7 +21,7 @@ import objekter.Skademelding;
  */
 public class SkademeldingRegister implements Serializable
 {
-    Map<Integer,Skademelding> skademeldinger = new HashMap<>();
+    private Map<Integer,Skademelding> skademeldinger = new HashMap<>();
     
     public SkademeldingRegister()
     {
