@@ -536,7 +536,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
     {
         if (hentInfo())
         {            
-            double foreslåttPris = ForsikringsKalulator.beregnBilforsikring(belop, ar, lengdevalget, 
+            double foreslåttPris = ForsikringsKalulator.beregnBilforsikring(belop, dekningvalget, ar, lengdevalget, 
             hk, garasje, egenandelvalget, forer, esp_b, alarm_b, gjenkjenning_b);
                     
             NumberFormat formatter = new DecimalFormat("#0.00"); 
