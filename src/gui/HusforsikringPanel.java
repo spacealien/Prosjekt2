@@ -289,7 +289,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
       if (hentInfo())
       {
             //Beregner prisen
-            double foreslåttPris = ForsikringsKalulator.beregnHusforsikring(egenandelvalget, dekningvalget, ar, husmaterialevalget, kvm, belop, belopInnbo, alarm_b );
+            double foreslåttPris = ForsikringsKalulator.beregnHusforsikring(egenandelvalget, dekningvalget, ar, husmaterialevalget, kvm, belop, belopInnbo, alarm_b, hustypevalget, husstandardvalget );
                     
             NumberFormat formatter = new DecimalFormat("#0.00"); 
             husTilbud.setVisible(true);
