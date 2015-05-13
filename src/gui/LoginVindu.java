@@ -15,7 +15,9 @@ package gui;
  * and open the template in the editor.
  */
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -38,17 +40,21 @@ public class LoginVindu extends JFrame
     private final JButton loginKnapp;
     private final JButton avsluttKnapp;
     private final AnsattVindu vindu;
-    private Ansatt ansatt = null;
-    
+    private Ansatt ansatt = null; 
+    private final Toolkit verktøy = Toolkit.getDefaultToolkit();
     private final int VINDU_BREDDE = 500;
     private final int VINDU_HØYDE = 150;
     
     public LoginVindu( AnsattVindu vindu )
     {
+        super("Login");
         setVisible(true);
         setLocation(30,30);
         setSize(VINDU_BREDDE,VINDU_HØYDE);
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        Toolkit verktøy = Toolkit.getDefaultToolkit();
+        Dimension vinduStørelse = verktøy.getScreenSize();
+        this.setLocation(vinduStørelse.width/3, vinduStørelse.height/3);
         
         
         KnappeLytter knappeLytter = new KnappeLytter();

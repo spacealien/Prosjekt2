@@ -110,6 +110,7 @@ public interface ForsikringsPanel
             VilkårVindu vilkårVindu = new VilkårVindu("Vilkår");
             vilkårVindu.setOverskrift(overskrift);
             vilkårVindu.getUtskriftområdet().setText(vilkårInnhold);
+            vilkårVindu.getUtskriftområdet().setCaretPosition(0);
     }
     
     default String velgVilkår( String filsti )

@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
@@ -65,11 +66,19 @@ public class AnsattVindu extends JFrame
     
     private final HovedRegister register;
     private Ansatt ansatt;
-    
     public AnsattVindu()
     {
         super("Forsikring Vindu");
         setVisible(false);
+        Toolkit verktøy = Toolkit.getDefaultToolkit();
+        Dimension vinduStørelse = verktøy.getScreenSize();
+        this.setLocation(vinduStørelse.width/6, vinduStørelse.height/10);
+        
+        
+        
+        
+        
+        
         kalender = new GregorianCalendar();
         register = new HovedRegister(this);
         KnappeLytter knappeLytter = new KnappeLytter();
