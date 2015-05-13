@@ -5,6 +5,7 @@
  */
 package register;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +18,7 @@ import objekter.Skademelding;
  *
  * @author Odd, Thomas, Marthe
  */
-public class SkademeldingRegister 
+public class SkademeldingRegister implements Serializable
 {
     Map<Integer,Skademelding> skademeldinger = new HashMap<>();
     

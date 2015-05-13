@@ -128,9 +128,11 @@ public class HovedRegister
                     double originalPris = bilforsikring.getArligPremie() / bonusFør * 100;
                     bilforsikring.korrigerArligBonus();
                     bilforsikring.setArligPremie((originalPris * (100-bilforsikring.getBonus())));
-                    Date dato = new Date();
-                    //forsikring.setArligPremie();
-                    innbetalinger.add(new Inntekt(dato, forsikring.getArligPremie(), forsikring));
+                    innbetalinger.add(new Inntekt(kalender.getTime(), forsikring.getArligPremie(), forsikring));
+                }
+                else
+                {
+                    innbetalinger.add(new Inntekt(kalender.getTime(), forsikring.getArligPremie(), forsikring));
                 }
             }
         }
@@ -138,7 +140,6 @@ public class HovedRegister
     
     public List<Inntekt> getAlleInntekter()
     {
-        List<Inntekt> innbetalinger = new ArrayList<>();
         return innbetalinger;
     }
     
@@ -337,7 +338,7 @@ public class HovedRegister
         return null;
     }
     
-    public void skrivTilFIl()
+    public void skrivTilFil()
     {
         try( ObjectOutputStream utfil = new ObjectOutputStream(
                 new FileOutputStream("Data\\ForsikringsData.txt")) )
@@ -374,4 +375,5 @@ public class HovedRegister
         }
     }
 }
+
 
