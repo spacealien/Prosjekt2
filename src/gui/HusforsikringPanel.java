@@ -36,22 +36,23 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
     private final JTextField prisenar;
     private final JTextField prisenmnd;
     private JLabel tilbudLabel;
-    JComboBox<String> hustypevelger;
+    private final JComboBox<String> hustypevelger;
     private final String[] hustype = {"","Enebolig", "Tomannsbolig", "Tremannsbolig", "Firemannsbolig", "Rekkehus", "Leilighet"};
     JComboBox<String> husmaterialevelger;
     private final String[] husmateriale = {"","Mur", "Tre", "Brannfast", "Laftet tømmer"};
     private final String[] husstandard = {"","Normal standard", "Bedre standard", "Høy standard"};
-    JComboBox<String> husstandardvelger;
-    String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
-    JComboBox<String> egenandelsvelger;
-    String[] dekning = {"", "Hus", "Hus-Pluss"};
-    JComboBox<String> dekningvelger;
+    private final JComboBox<String> husstandardvelger;
+    private final String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
+    private final JComboBox<String> egenandelsvelger;
+    private final String[] dekning = {"", "Hus", "Hus-Pluss"};
+    private final JComboBox<String> dekningvelger;
     private final JRadioButton alarmJa, alarmNei;
     private final JButton husGiTilbud;
     private final JButton beregnPris;
-    private final JButton vilkar;
+    private final JButton vilkarKnapp;
     private final Kunde kunde;
     
+    private String vilkår;
     private String hustypevalget;
     private String husmaterialevalget;
     private String husstandardvalget;
@@ -97,7 +98,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         beregnPris = new JButton("Beregn pris");
         husGiTilbud = new JButton("Tegn forsikring");
         husGiTilbud.setVisible(false);
-        vilkar = new JButton("Vis vilkår");
+        vilkarKnapp = new JButton("Vis vilkår");
         
         JPanel tegnHusPanel1 = new JPanel();
         JPanel tegnHusPanel2 = new JPanel();
@@ -129,7 +130,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnHusPanel2.add(new JLabel("Forskringsbeløp innbo: "));
         tegnHusPanel2.add(belopHusInnbo);
         tegnHusPanel2.add(new JLabel());
-        tegnHusPanel2.add(vilkar);
+        tegnHusPanel2.add(vilkarKnapp);
         tegnHusPanel2.add(new JLabel("Velg dekning: "));
         tegnHusPanel2.add(dekningvelger);
         tegnHusPanel2.add(new JLabel("Egenandel: "));
@@ -148,12 +149,14 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         hovedPanel.add(tegnHusPanel2);
         add(hovedPanel);
         
+        VilkårLytter vilkårLytter = new VilkårLytter();
         husGiTilbud.addActionListener(this);
         beregnPris.addActionListener(this);
-        vilkar.addActionListener(this);
+        vilkarKnapp.addActionListener(this);
         rediger.addActionListener(this);
         lagreNyInfo.addActionListener(this);
         deaktiver.addActionListener(this);
+        dekningvelger.addItemListener(vilkårLytter);
         
         hustypevelger.addItemListener(new ItemListener()
         {
@@ -343,9 +346,12 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
             beregnPris();
             husGiTilbud.setVisible(true);
         }
-        else if (e.getSource() == vilkar)
+        else if (e.getSource() == vilkarKnapp)
         {
-            //Vis vilkår
+            if( forsikring == null )
+                visForsikringensVilkår("Ny Husforsikring" + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
+            else
+                visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
         }
         else if(e.getSource() == rediger)
         {
@@ -370,11 +376,9 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
                 forsikring.setForsikringsbelopInnbo(belopInnbo);
                 forsikring.setEgenandel(egenandelvalget);
                 forsikring.setByggeAr(ar);
-                forsikring.setVilkar(dekningvalget);
+                forsikring.setVilkar(vilkår);
             }
-            
             //Må beregne pris på nytt!
-            
         }
         else if (e.getSource() == deaktiver)
         {
@@ -391,6 +395,16 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
                 repaint();
                 revalidate();
             }
+        }
+    }
+    
+    private class VilkårLytter implements ItemListener, ForsikringsPanel
+    {
+        @Override
+        public void itemStateChanged(ItemEvent e) 
+        {
+            if( dekningvelger.getSelectedIndex() != 0)
+                vilkår = this.velgVilkår( "Hus"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
         }
     }
 }

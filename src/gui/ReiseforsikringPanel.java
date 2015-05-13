@@ -34,15 +34,16 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     private final JRadioButton forsorgerNei;
     private final JButton reiseGiTilbud;
     private final JButton beregnPris;
-    private final JButton vilkar;
-    String[] sone = {"", "Norden", "Europa", "Verden"};
-    JComboBox<String> sonevelger;
-    String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
-    JComboBox<String> egenandelsvelger;
-    String[] dekning = {"", "Reise", "Reise-Pluss"};
-    JComboBox<String> dekningvelger;
+    private final JButton vilkarKnapp;
+    private final String[] sone = {"", "Norden", "Europa", "Verden"};
+    private final JComboBox<String> sonevelger;
+    private final String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
+    private final JComboBox<String> egenandelsvelger;
+    private final String[] dekning = {"", "Reise", "Reise-Pluss"};
+    private final JComboBox<String> dekningvelger;
     private final Kunde kunde;
     
+    private String vilkår;
     private int antBarn;
     private int belop;
     private boolean forsorger_b;
@@ -72,7 +73,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         reiseGiTilbud = new JButton("Tegn forsikring");
         reiseGiTilbud.setVisible(false);
         beregnPris = new JButton("Beregn pris");
-        vilkar = new JButton("Se vilkår");
+        vilkarKnapp = new JButton("Se vilkår");
         sonevelger = new JComboBox<>(sone);
         egenandelsvelger = new JComboBox<>(egenandel);
         dekningvelger = new JComboBox<>(dekning);
@@ -96,7 +97,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         tegnReisePanel1.add(new JLabel("Forsikringssone: "));
         tegnReisePanel1.add(sonevelger);
         tegnReisePanel1.add(new JLabel());
-        tegnReisePanel1.add(vilkar);
+        tegnReisePanel1.add(vilkarKnapp);
         tegnReisePanel1.add(new JLabel("Egenandel: "));
         tegnReisePanel1.add(egenandelsvelger);
         tegnReisePanel1.add(new JLabel("Velg dekning: "));
@@ -111,12 +112,14 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         tegnReisePanel1.add(reiseGiTilbud);
         add(tegnReisePanel1);
         
+        VilkårLytter vilkårLytter = new VilkårLytter();
         reiseGiTilbud.addActionListener(this);
         beregnPris.addActionListener(this);
-        vilkar.addActionListener(this);
+        vilkarKnapp.addActionListener(this);
         rediger.addActionListener(this);
         lagreNyInfo.addActionListener(this);
         deaktiver.addActionListener(this);
+        dekningvelger.addItemListener(vilkårLytter);
         
         forsorgerJa.addItemListener(new ItemListener()
         {
@@ -273,9 +276,12 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
             beregnPris();
             reiseGiTilbud.setVisible(true);
         }
-        else if (e.getSource() == vilkar)
+        else if (e.getSource() == vilkarKnapp)
         {
-            //Vis vilkår
+            if( forsikring == null )
+                visForsikringensVilkår("Ny Fritidsboligforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
+            else
+                visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
         }
         else if (e.getSource() == rediger)
         {
@@ -317,4 +323,15 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
             }
         }
     }
+    
+    private class VilkårLytter implements ItemListener, ForsikringsPanel
+    {
+        @Override
+        public void itemStateChanged(ItemEvent e) 
+        {
+            if( dekningvelger.getSelectedIndex() != 0)
+                vilkår = this.velgVilkår( "Reise"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
+        }
+    }
+    
 }

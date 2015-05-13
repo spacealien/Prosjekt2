@@ -5,8 +5,6 @@
  */
 package gui;
 
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import java.text.DecimalFormat;
@@ -51,9 +49,10 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     private final JButton annenEier;
     private final JButton beregnPris;
     private final JButton batGiTilbud;
-    private final JButton vilkar;
+    private final JButton vilkarKnapp;
     private final Kunde kunde;
     
+    private String vilkår;
     private String reg;
     private String merke;
     private String modell;
@@ -99,7 +98,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         batGiTilbud = new JButton("Tegn forsikring");
         batGiTilbud.setVisible(false);
         beregnPris = new JButton("Beregn pris");
-        vilkar = new JButton("Vis vilkår");
+        vilkarKnapp = new JButton("Vis vilkår");
         
         eierFornavn = new JTextField(20);
         eierEtternavn = new JTextField(20);
@@ -128,7 +127,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnBatPanel1.add(new JLabel("Reg.nummer: "));
         tegnBatPanel1.add(batRegnr);
         tegnBatPanel2.add(new JLabel());
-        tegnBatPanel2.add(vilkar);
+        tegnBatPanel2.add(vilkarKnapp);
         tegnBatPanel2.add(new JLabel("Velg dekning: "));
         tegnBatPanel2.add(dekningvelger);
         tegnBatPanel1.add(new JLabel("Merke: "));
@@ -165,13 +164,15 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         hovedPanel.add(tegnBatPanel2);
         add(hovedPanel);
         
+        VilkårLytter vilkårLytter = new VilkårLytter();
         batGiTilbud.addActionListener(this);
         annenEier.addActionListener(this);
         beregnPris.addActionListener(this);
-        vilkar.addActionListener(this);
+        vilkarKnapp.addActionListener(this);
         rediger.addActionListener(this);
         lagreNy.addActionListener(this);
         deaktiver.addActionListener(this);
+        dekningvelger.addItemListener(vilkårLytter);
     }
 
     public void visForsikring( Forsikring f )
@@ -289,7 +290,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
                 register.nyKunde(kunde);
             }
             
-            Forsikring forsikringen = new BatForsikring(kunde, egenandelvalget, dekningvalget, reg, belop,
+            Forsikring forsikringen = new BatForsikring(kunde, egenandelvalget, vilkår, reg, belop,
                                  merke, modell, typevalget, hk, 
                                  ar, vekter_b, lengde);
             forsikringen.setArligPremie(Double.parseDouble(batTilbud.getText()));
@@ -334,7 +335,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
                       "Kjøretøyets registrerte eier:", JOptionPane.PLAIN_MESSAGE);
                 }
         }
-        else if (e.getSource() == vilkar)
+        else if (e.getSource() == vilkarKnapp)
         {
             //Vis vilkår
         }
@@ -384,4 +385,16 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
             }
         }
     }
+    
+    private class VilkårLytter implements ItemListener, ForsikringsPanel
+    {
+        @Override
+        public void itemStateChanged(ItemEvent e) 
+        {
+            if( dekningvelger.getSelectedIndex() != 0)
+                vilkår = this.velgVilkår( "Båt"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
+        }
+    }
+    
+    
 }

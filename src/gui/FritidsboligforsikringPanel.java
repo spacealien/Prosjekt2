@@ -9,8 +9,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.*;
 import objekter.*;
 import register.*;
@@ -36,22 +34,23 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
     private JLabel tilbudLabel;
     private final JButton fritidGiTilbud;
     private final JButton beregnPris;
-    private JButton vilkar;
+    private JButton vilkårKnapp;
     private final JRadioButton utleidJa;
     private final JRadioButton utleidNei;
     private final JRadioButton alarmJa;
     private final JRadioButton alarmNei;
-    JComboBox<String> fritidtypevelger;
+    private final JComboBox<String> fritidtypevelger;
     private final String[] fritidtype = {"","Hus/Hytte", "Rekkehus", "Leilighet"};
-    JComboBox<String> fritidmaterialevelger;
+    private final JComboBox<String> fritidmaterialevelger;
     private final String[] fritidmateriale = {"","Mur", "Tre", "Brannfast", "Laftet tømmer"};
     private final String[] fritidstandard = {"","Normal standard", "Bedre standard", "Høy standard"};
-    JComboBox<String> fritidstandardvelger;
-    String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
-    JComboBox<String> egenandelsvelger;
-    String[] dekning = {"", "Fritidsbolig", "Fritidsbolig-Pluss"};
-    JComboBox<String> dekningvelger;
+    private final JComboBox<String> fritidstandardvelger;
+    private final String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
+    private final JComboBox<String> egenandelsvelger;
+    private final String[] dekning = {"", "Fritidsbolig", "Fritidsbolig-Pluss"};
+    private final JComboBox<String> dekningvelger;
     
+    private String vilkår;
     private String typevalget;  
     private String materialevalget;
     private String standardvalget;
@@ -101,7 +100,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         fritidGiTilbud = new JButton("Tegn forsikring");
         fritidGiTilbud.setVisible(false);
         beregnPris = new JButton("Beregn pris");
-        vilkar = new JButton("Vis vilkår");
+        vilkårKnapp = new JButton("Vis vilkår");
         
         JPanel tegnFritidPanel1 = new JPanel();
         JPanel tegnFritidPanel2 = new JPanel();
@@ -137,7 +136,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         tegnFritidPanel2.add(new JLabel("Forsikringsbeløp innbo: "));
         tegnFritidPanel2.add(belopFritidInnbo);
         tegnFritidPanel2.add(new JLabel());
-        tegnFritidPanel2.add(vilkar);
+        tegnFritidPanel2.add(vilkårKnapp);
         tegnFritidPanel2.add(new JLabel("Velg dekning: "));
         tegnFritidPanel2.add(dekningvelger);
         tegnFritidPanel2.add(new JLabel("Egenandel: "));
@@ -156,12 +155,14 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         hovedPanel.add(tegnFritidPanel2);
         add(hovedPanel);
         
+        VilkårLytter vilkårLytter = new VilkårLytter();
         fritidGiTilbud.addActionListener(this);
         beregnPris.addActionListener(this);
-        vilkar.addActionListener(this);
+        vilkårKnapp.addActionListener(this);
         rediger.addActionListener(this);
         lagreNyInfo.addActionListener(this);
         deaktiver.addActionListener(this);
+        dekningvelger.addItemListener(vilkårLytter);
     }
     
     // ikke fjern, ikke ferdig
@@ -333,9 +334,12 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
             beregnPris();
             fritidGiTilbud.setVisible(true);
         }
-        else if (e.getSource() == vilkar)
+        else if (e.getSource() == vilkårKnapp)
         {
-            //Vis vilkår
+            if( forsikring == null )
+                visForsikringensVilkår("Ny Fritidsboligforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
+            else
+                visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
         }
         else if(e.getSource() == rediger)
         {
@@ -383,5 +387,15 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
             }
         }
         
+    }
+    
+    private class VilkårLytter implements ItemListener, ForsikringsPanel
+    {
+        @Override
+        public void itemStateChanged(ItemEvent e) 
+        {
+            if( dekningvelger.getSelectedIndex() != 0)
+                vilkår = this.velgVilkår( "Fritidsbolig"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
+        }
     }
 }
