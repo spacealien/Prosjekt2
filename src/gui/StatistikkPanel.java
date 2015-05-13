@@ -586,22 +586,27 @@ public class StatistikkPanel extends JPanel implements ActionListener
             if (i == bilForsikring)
             {
                 ut += "\nAntall bilforsikringer: " + bilForsikring;
+                bilForsikring = -1;
             }
             else if (i == båtForsikring)
             {
                 ut += "\nAntall båtforsikringer: " + båtForsikring;
+                båtForsikring = -1;
             }
             else if (i == husForsikring)
             {
                 ut += "\nAntall hus- og innboforsikringer: " + husForsikring;
+                husForsikring = -1;
             }
             else if (i == fritidsboligForsikring)
             {
                 ut += "\nAntall fritidsboligforsikringer: " + fritidsboligForsikring;
+                fritidsboligForsikring = -1;
             }
             else if (i == reiseForsikring)
             {
                 ut += "\nAntall båtforsikringer: " + reiseForsikring;
+                reiseForsikring = -1;
             }
         }
         //Utskrift av ut
