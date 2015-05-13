@@ -201,32 +201,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         revalidate();
         repaint();
         
-        for(Component component : getKomponenter(this))
-                {
-                    if((component instanceof JTextField))
-                    {
-                        JTextField tf = (JTextField)component;
-                        tf.setEditable(false);
-                    }
-                    else if(component instanceof JComboBox)
-                    {
-                        JComboBox cb = (JComboBox)component;
-                        cb.setEnabled(false);
-                    }
-                    else if(component instanceof JRadioButton)
-                    {
-                        JRadioButton rb = (JRadioButton)component;
-                        rb.setEnabled(false);
-                    }
-                    else if (component.equals(fritidGiTilbud))
-                            {
-                                component.setVisible(false);
-                            }
-                    else if (component.equals(beregnPris))
-                            {
-                                component.setVisible(false);
-                            }
-                }
+        disableFelter( this, fritidGiTilbud, beregnPris );
     }
     
     public void beregnPris()
@@ -365,28 +340,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         }
         else if(e.getSource() == rediger)
         {
-            for(Component component : getKomponenter(this))
-                {
-                    if((component instanceof JTextField))
-                    {
-                        JTextField tf = (JTextField)component;
-                        tf.setEditable(true);
-                    }
-                    else if(component instanceof JComboBox)
-                    {
-                        JComboBox cb = (JComboBox)component;
-                        cb.setEnabled(true);
-                    }
-                    else if(component instanceof JRadioButton)
-                    {
-                        JRadioButton rb = (JRadioButton)component;
-                        rb.setEnabled(true);
-                    }
-                    else if (component.equals(beregnPris))
-                            {
-                                component.setVisible(true);
-                            }
-                }
+            enableFelter( this, beregnPris );
             knappePanel.add(lagreNyInfo);
             tilbudLabel.setText("Foreslått tilbud: ");
             beregnPris.setText("Beregn ny pris");
@@ -421,7 +375,8 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
             {
                 knappePanel.remove(rediger);
                 knappePanel.remove(lagreNyInfo);
-                knappePanel.remove(beregnPris);
+                this.remove(beregnPris);
+                knappePanel.remove(deaktiver);
                 forsikring.setAktiver(false);
                 JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
                 repaint();
