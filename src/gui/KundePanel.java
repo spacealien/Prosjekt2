@@ -209,8 +209,6 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         kunde.setTlfnr(regTlfnr.getText());
     }
     
-    //skal flyttes
-    // ikke ferdig, gjenstår å endre navnene på tabs til noe informativt og fylle ut alle feltene i planelene, panel.visForsikring();
     public void åpneForsikringsTab()
     {
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);

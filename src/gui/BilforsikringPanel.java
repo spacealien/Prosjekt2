@@ -653,7 +653,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
                 bilforsikring.setBonus(bonusen);
                 bilforsikring.setArsmodell(ar);
                 bilforsikring.setVilkar(dekningvalget);
-                
+                kundePanel.oppdaterVindu();
                 //Må beregne pris på nytt!
             }
         }
@@ -697,6 +697,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
                 bilforsikring.setAktiver(false);
                 JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(bilforsikring.getForsikringsnummer()) 
                                               + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
+                
+                kundePanel.oppdaterVindu();
                 repaint();
                 revalidate();
             }
