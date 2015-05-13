@@ -22,8 +22,8 @@ import register.*;
 public class BilforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
  
-    private AnsattVindu vindu;
-    private HovedRegister register;
+    private final AnsattVindu vindu;
+    private final HovedRegister register;
     private Eier eier;
     private Bilforsikring bilforsikring;
     private KundePanel kundePanel;

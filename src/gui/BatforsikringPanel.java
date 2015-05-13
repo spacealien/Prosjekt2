@@ -16,8 +16,8 @@ import register.*;
 
 public class BatforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
-    private AnsattVindu vindu;
-    private HovedRegister register;
+    private final AnsattVindu vindu;
+    private final HovedRegister register;
     private Eier eier;
     private BatForsikring forsikring = null;
     private KundePanel kundePanel;
@@ -26,7 +26,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     private final JTextField eierEtternavn;
     private final JTextField eierTlf;
     private final JTextField eierAdresse;
-    private JPanel eierPanel;
+    private final JPanel eierPanel;
     
     private final JTextField batRegnr;
     private final JTextField batModell;
