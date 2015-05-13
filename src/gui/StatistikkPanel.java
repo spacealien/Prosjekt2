@@ -558,7 +558,53 @@ public class StatistikkPanel extends JPanel implements ActionListener
  }
  public void typeForsikringPaAntall()
  {
-     
+     int bilForsikring = 0;
+        int båtForsikring = 0;
+        int reiseForsikring = 0;
+        int husForsikring = 0;
+        int fritidsboligForsikring = 0;
+        
+        for( Forsikring forsikring: register.getForsikringrsliste().alleForsikringer() )
+        {
+            if( forsikring instanceof Bilforsikring )
+                bilForsikring++;
+            else if( forsikring instanceof BatForsikring )
+                båtForsikring++;
+            else if( forsikring instanceof Reiseforsikring )
+                reiseForsikring++;
+            else if( forsikring instanceof Husforsikring )
+                husForsikring++;
+            else if( forsikring instanceof Fritidsboligforsikring )
+                fritidsboligForsikring++;
+        }
+        List<Integer> liste = new ArrayList<>();
+        Collections.sort(liste);
+        Collections.reverse(liste);
+        String ut = "";
+        for(int i : liste)
+        {
+            if (i == bilForsikring)
+            {
+                ut += "\nAntall bilforsikringer: " + bilForsikring;
+            }
+            else if (i == båtForsikring)
+            {
+                ut += "\nAntall båtforsikringer: " + båtForsikring;
+            }
+            else if (i == husForsikring)
+            {
+                ut += "\nAntall hus- og innboforsikringer: " + husForsikring;
+            }
+            else if (i == fritidsboligForsikring)
+            {
+                ut += "\nAntall fritidsboligforsikringer: " + fritidsboligForsikring;
+            }
+            else if (i == reiseForsikring)
+            {
+                ut += "\nAntall båtforsikringer: " + reiseForsikring;
+            }
+        }
+        //Utskrift av ut
  }
  
 public void feilMelding(String t)
