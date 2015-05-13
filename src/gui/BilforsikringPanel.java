@@ -706,6 +706,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         @Override
         public void itemStateChanged(ItemEvent e) 
         {
+            if( dekningvelger.getSelectedIndex() != 0)
                 vilkår = this.velgVilkår( "Bil"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
         }
     }
