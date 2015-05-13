@@ -65,10 +65,10 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
     private int belopInnbo;
     
     private final Kunde kunde;
-    private JPanel knappePanel = new JPanel();
-    private JButton rediger = new JButton("Rediger forsikring");
-    private JButton lagreNyInfo = new JButton("Lagre forsikring");
-    private JButton deaktiver = new JButton("Si opp forsikring");
+    private final JPanel knappePanel = new JPanel();
+    private final JButton rediger = new JButton("Rediger forsikring");
+    private final JButton lagreNyInfo = new JButton("Lagre forsikring");
+    private final JButton deaktiver = new JButton("Si opp forsikring");
     
     public FritidsboligforsikringPanel(Kunde k, AnsattVindu v)
     {
