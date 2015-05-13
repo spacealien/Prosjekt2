@@ -5,11 +5,13 @@
  */
 package objekter;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Odd, Thomas, Marthe
  */
-public abstract class Eiendomsforsikring extends Forsikring
+public abstract class Eiendomsforsikring extends Forsikring implements Serializable
 {
     private String husadresse;
     private boolean alarm;

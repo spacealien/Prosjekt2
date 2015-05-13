@@ -5,11 +5,13 @@
  */
 package objekter;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Odd, Thomas, Marthe
  */
-public abstract class Person 
+public abstract class Person implements Serializable
 {
     private String fornavn;
     private String etternavn;

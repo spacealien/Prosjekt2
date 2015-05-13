@@ -5,8 +5,8 @@
  */
 package objekter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Odd, Thomas, Marthe
  */
-public class Ansatt extends Bruker
+public class Ansatt extends Bruker implements Serializable
 {
     private final int ansattnr;
     private static int nestenr = 1;

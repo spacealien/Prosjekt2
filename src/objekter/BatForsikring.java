@@ -5,6 +5,7 @@
  */
 package objekter;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**

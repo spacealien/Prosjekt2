@@ -14,6 +14,8 @@ import java.io.ObjectOutputStream;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import objekter.*;
 
 /**
@@ -286,9 +288,15 @@ public class HovedRegister
     public void skrivTilFIl()
     {
         try( ObjectOutputStream utfil = new ObjectOutputStream(
-                new FileOutputStream("")) )
+                new FileOutputStream("Data\\ForsikringsData.txt")) )
         {
+            utfil.writeObject(kunderegister);
+            utfil.writeObject(forsikringsregister);
+            utfil.writeObject(skademeldingsregister);
+            utfil.writeObject(ansattregister);
             
+            
+            utfil.close();
         }
         catch( IOException e )
         {
@@ -299,11 +307,16 @@ public class HovedRegister
     public void lesFraFil()
     {
         try( ObjectInputStream innfil = new ObjectInputStream(
-              new FileInputStream("")))
+              new FileInputStream("Data\\ForsikringsData.txt")))
         {
+            kunderegister = (Kunderegister)innfil.readObject();
+            forsikringsregister = (Forsikringsliste) innfil.readObject();
+            skademeldingsregister = (SkademeldingRegister) innfil.readObject();
+            ansattregister = (Ansattregister) innfil.readObject();
             
+            innfil.close();
         }
-        catch( IOException e )
+        catch( IOException | ClassNotFoundException e )
         {
             
         }
