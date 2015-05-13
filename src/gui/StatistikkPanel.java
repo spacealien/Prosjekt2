@@ -33,6 +33,11 @@ public class StatistikkPanel extends JPanel implements ActionListener
                             "Hus- og innboforsikring", "Fritidsboligforsikring",
                             "Reiseforsikring", "Alle forsikringstyper"};
     private final JComboBox<String> forsikringsvelgeren;
+    //private final String[] skadetyper = {"", "Brann", "Tyveri/Hærverk", "Ulykke", "Tap", "Annet"};
+    private final String[] skadetypeKjoretoy = {"", "Ansvar", "Glasskade", "Vei-/slepehjelp", "Tyveri/Hærverk", "Ulykke", "Annet"};
+    private final String[] skadetypeEiendom = {"", "Brann", "Innbrudd/tyveri", "Hærverk", "Naturskade", "Vann", "Fryser/matvarer", "Annet"};
+    private final String[] skadetypeReise = {"", "Tapt/forsinket bagasje", "Tyveri/tap", "Forsinket transport", "Sykdom/ulykke", "Avbestilling", "Annet"};
+    private JComboBox<String> skadetypevelgeren;
     private final String[] utgifter = {"", "Total utbetaling av erstatninger i løpet"
                                         + " av en gitt tidsperiode",
                                 "Total utbetaling av erstatninger for en gitt"
@@ -48,8 +53,11 @@ public class StatistikkPanel extends JPanel implements ActionListener
     private final String[] statistikk = {"", "Øking/minking av antall skademeldinger"
                                         + " innenfor en gitt tidsperiode", 
                                         "Øking/minking av skademeldinger av en "
-                                   + "bestemt type innenfor en gitt tidsperiode", 
-                              "Øking/minking av de totale erstatningskostnadene", 
+                                   + "bestemt forsikringstype innenfor en gitt tidsperiode", 
+                                     "Øking/minking av skademeldinger av en bestemt "
+                                    + "skadetype innenfor en gitt tidsperiode",
+                              "Øking/minking av de totale erstatningskostnadene "
+                                + "innenfor en gitt tidsperiode", 
                                 "Øking/minking av erstatningskostnadene for en "
                                 + "gitt skadetype innenfor en gitt tidsperiode", 
                                    "Type forsikringer rangert etter antall"};
@@ -60,6 +68,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
     private final JTextField slDatoDag;
     private final JTextField slDatoMnd;
     private final JTextField slDatoAr;
+    private final JLabel skadetypelabel;
     private final JButton sokKnapp;
     //private final StatistikkVindu statestikkVindu;
     private int sok;
@@ -68,8 +77,13 @@ public class StatistikkPanel extends JPanel implements ActionListener
     private int statistikken;
     
     private String forsikringsvalg;
+    private String skadetypevalg;
     private Date startDato;
     private Date sluttDato;
+    
+    private ComboBoxModel<String> skadetypeModellKjoretoy;
+    private ComboBoxModel<String> skadetypeModellEiendom;
+    private ComboBoxModel<String> skadetypeModellReise;
     
     
  public StatistikkPanel(AnsattVindu v)
@@ -82,6 +96,13 @@ public class StatistikkPanel extends JPanel implements ActionListener
         inntektsvelger = new JComboBox<>(inntekter);
         forsikringsvelgeren = new JComboBox<>(forsikringer);
         statistikkvelger = new JComboBox<>(statistikk);
+        skadetypevelgeren = new JComboBox<>();
+        skadetypevelgeren.setVisible(false);
+        skadetypeModellKjoretoy = new DefaultComboBoxModel(skadetypeKjoretoy);
+        skadetypeModellEiendom = new DefaultComboBoxModel(skadetypeEiendom);
+        skadetypeModellReise = new DefaultComboBoxModel(skadetypeReise);
+        skadetypelabel = new JLabel("Velg skadetype: ");
+        skadetypelabel.setVisible(false);
         stDatoDag = new JTextField(2);
         stDatoMnd = new JTextField(2);
         stDatoAr = new JTextField(4);
@@ -92,6 +113,8 @@ public class StatistikkPanel extends JPanel implements ActionListener
         sokKnapp.setEnabled(false);
         sokKnapp.addActionListener(this);
         
+        
+        
         JPanel avansertSokPanel1 = new JPanel();
         JPanel avansertSokPanel2 = new JPanel();
         JPanel avansertSokPanel3 = new JPanel();
@@ -99,6 +122,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
         avansertSokPanel3.setLayout(new BoxLayout(avansertSokPanel3, BoxLayout.PAGE_AXIS));
         avansertSokPanel1.setLayout(new GridLayout(11,1,2,2));
         avansertSokPanel2.setLayout(new GridLayout(8,3,2,2));
+        avansertSokPanel4.setLayout(new GridLayout(2,2,1,1));
         avansertSokPanel1.add(new JLabel("Søk etter:"));
         avansertSokPanel1.add(sokevelger);
         avansertSokPanel1.add(new JLabel());
@@ -113,6 +137,8 @@ public class StatistikkPanel extends JPanel implements ActionListener
         
         avansertSokPanel4.add(new JLabel("Velg forsikringstype: "));
         avansertSokPanel4.add(forsikringsvelgeren);
+        avansertSokPanel4.add(skadetypelabel);
+        avansertSokPanel4.add(skadetypevelgeren);
         avansertSokPanel2.add(new JLabel("Fra og med: "));
         avansertSokPanel2.add(new JLabel());
         avansertSokPanel2.add(new JLabel());
@@ -140,8 +166,9 @@ public class StatistikkPanel extends JPanel implements ActionListener
         avansertSokPanel3.add(avansertSokPanel4);
         avansertSokPanel3.add(avansertSokPanel2);
         add(avansertSokPanel1);
-        add(Box.createRigidArea(new Dimension(100,1)));
+        add(Box.createRigidArea(new Dimension(50,1)));
         add(avansertSokPanel3);
+        sokKnapp.addActionListener(this);
         
         sokevelger.addItemListener(new ItemListener()
         {
@@ -207,7 +234,6 @@ public class StatistikkPanel extends JPanel implements ActionListener
             statistikkvelger.setEnabled(true);
         }
         }});
-        
         statistikkvelger.addItemListener(new ItemListener()
         {
         @Override
@@ -220,6 +246,43 @@ public class StatistikkPanel extends JPanel implements ActionListener
             utgiftsvelger.setEnabled(false);
             inntektsvelger.setEnabled(false);
             sokKnapp.setEnabled(true);
+            if (statistikkvelger.getSelectedIndex() == 3 || statistikkvelger.getSelectedIndex() == 5)
+            {
+                forsikringsvelgeren.addItemListener(new ItemListener()
+                {
+                @Override
+                public void itemStateChanged(ItemEvent e)
+                {
+                    switch (forsikringsvelgeren.getSelectedIndex())
+                    {
+                        case 0:
+                            sokKnapp.setEnabled(false);
+                            skadetypelabel.setVisible(false);
+                            skadetypevelgeren.setVisible(false);
+                            break;
+                        case 1:
+                        case 2:
+                            skadetypevelgeren.setModel(skadetypeModellKjoretoy);
+                            skadetypelabel.setVisible(true);
+                            skadetypevelgeren.setVisible(true);
+                            sokKnapp.setEnabled(true);
+                            break;
+                        case 3:
+                        case 4:
+                            skadetypevelgeren.setModel(skadetypeModellEiendom);
+                            skadetypelabel.setVisible(true);
+                            skadetypevelgeren.setVisible(true);
+                            sokKnapp.setEnabled(true);
+                            break;
+                        case 5:
+                            skadetypevelgeren.setModel(skadetypeModellReise);
+                            skadetypelabel.setVisible(true);
+                            skadetypevelgeren.setVisible(true);
+                            sokKnapp.setEnabled(true);
+                            break;
+                    }
+                }});
+            }
         }
         else if (statistikkvelger.getSelectedIndex() == 0)
                 {
@@ -228,7 +291,9 @@ public class StatistikkPanel extends JPanel implements ActionListener
                     utgiftsvelger.setEnabled(true);
                     inntektsvelger.setEnabled(true);
                 }
-        }});     
+        }});
+        
+        
  }
  
  public void hentInfo()
@@ -274,6 +339,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
     public void totalErstatning()
     {
      //Total utbetaling av erstatninger i en gitt periode
+     hentInfo();
      double totalSum = 0.0;
      int antall = 0;
      double gjennomsnitt = 0;
@@ -313,32 +379,182 @@ public class StatistikkPanel extends JPanel implements ActionListener
  public void totalPremieinntekt()
  {
    //Total utbetaling av erstatninger i en gitt periode
+     hentInfo();
      double totalSum = 0.0;
      int antall = 0;
      double gjennomsnitt = 0;
-     
+     for (Inntekt inntekt : register.getAlleInntekter())
+     {
+         if (inntekt.getDato().after(startDato) && inntekt.getDato().before(sluttDato) )
+        {
+            totalSum += inntekt.getSum();
+            antall++;
+        }
+     }
      gjennomsnitt = totalSum / antall;  
  }
  public void totalPremieinntektPaForsikringstype()
  {
-     
+     //Total utbetaling av inntekt på forsikringstype i en gitt periode
+     hentInfo();
+     double totalSum = 0.0;
+     int antall = 0;
+     double gjennomsnitt = 0;
+     for (Inntekt inntekt : register.getAlleInntekter())
+     {
+         if (inntekt.getForsikring().getForsikringsType().equals(forsikringsvalg))
+         {
+            if (inntekt.getDato().after(startDato) && inntekt.getDato().before(sluttDato) )
+            {
+            totalSum += inntekt.getSum();
+            antall++;
+            }
+         }
+     }
+     gjennomsnitt = totalSum / antall; 
  }
  
  public void statistikkSkademeldinger()
  {
+     hentInfo();
+     List<Skademelding> skademeldingsliste  = new ArrayList<>();
+     int antallIPerioden = 0;
+     int antallForAlltid = 0;
+     for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
+     {
+        if (skademld.getOpprettetDato().after(startDato) && skademld.getOpprettetDato().before(sluttDato) )
+        {
+            skademeldingsliste.add(skademld);
+            antallIPerioden++;
+        }
+        antallForAlltid++;
+     }
      
+     long periodeIDager = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24;
+     System.out.println(periodeIDager);
+     double gjennomsnittPerioden = antallIPerioden / periodeIDager;
+     Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+     Date programSluttDato = new Date();
+     long alltidIDager = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24;
+     double gjennomsnittAlltid = antallForAlltid / alltidIDager;
+     
+     //ØKING/MINKING: gjennomsnittIPerioden - gjennomsnittAlltid;
  }
  public void statistikkSkademeldingPaForsikring()
  {
+     hentInfo();
+     List<Skademelding> skademeldingsliste  = new ArrayList<>();
+     int antallIPerioden = 0;
+     int antallForAlltid = 0;
+     for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
+     {
+        if (skademld.getForsikring().getForsikringsType().equals(forsikringsvalg))
+        {
+            if (skademld.getOpprettetDato().after(startDato) && skademld.getOpprettetDato().before(sluttDato) )
+            {
+                skademeldingsliste.add(skademld);
+                antallIPerioden++;
+            }
+            antallForAlltid++;
+        }
+     }
      
+     long periodeIDager = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24;
+     System.out.println(periodeIDager);
+     double gjennomsnittPerioden = antallIPerioden / periodeIDager;
+     Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+     Date programSluttDato = new Date();
+     long alltidIDager = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24;
+     double gjennomsnittAlltid = antallForAlltid / alltidIDager;
+     
+     //ØKING/MINKING: gjennomsnittIPerioden - gjennomsnittAlltid;
  }
+ //DENNE ER EKSTRA, blir ikke kallt på noe sted! Skal vi ha den?
+ public void statistikkSkademeldingPaSkadetype()
+ {
+     hentInfo();
+     List<Skademelding> skademeldingsliste  = new ArrayList<>();
+     int antallIPerioden = 0;
+     int antallForAlltid = 0;
+     for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
+     {
+         if(skademld.getForsikring().getForsikringsType().equals(forsikringsvalg))
+         {
+            if (skademld.getSkadetype().equals(skadetypevalg))
+            {
+                if (skademld.getOpprettetDato().after(startDato) && skademld.getOpprettetDato().before(sluttDato) )
+                {
+                    skademeldingsliste.add(skademld);
+                    antallIPerioden++;
+                }
+                antallForAlltid++;
+            }
+        }
+     }
+     
+     long periodeIDager = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24;
+     System.out.println(periodeIDager);
+     double gjennomsnittPerioden = antallIPerioden / periodeIDager;
+     Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+     Date programSluttDato = new Date();
+     long alltidIDager = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24;
+     double gjennomsnittAlltid = antallForAlltid / alltidIDager;
+     
+     //ØKING/MINKING: gjennomsnittIPerioden - gjennomsnittAlltid;
+ }
+ 
  public void statistikkErstatning()
  {
+   hentInfo();
+   double totalSumIPeriode = 0.0;
+   double totalSum = 0.0;
+     for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
+     {
+        if (skademld.getOpprettetDato().after(startDato) && skademld.getOpprettetDato().before(sluttDato) )
+            {
+                totalSumIPeriode += skademld.getErstatningsbelop();
+            }
+            totalSum += skademld.getErstatningsbelop();
+        
+     }
      
+     long periodeIDager = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24;
+     double gjennomsnittPerioden = totalSumIPeriode / periodeIDager;
+     Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+     Date programSluttDato = new Date();
+     long alltidIDager = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24;
+     double gjennomsnittAlltid = totalSum / alltidIDager;
+     
+     //ØKING/MINKING: gjennomsnittIPerioden - gjennomsnittAlltid;  
  }
  public void statistikkErstatningPaSkadetype()
  {
+    hentInfo();
+    double totalSumIPeriode = 0.0;
+    double totalSum = 0.0;
+    for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
+    {
+         if(skademld.getForsikring().getForsikringsType().equals(forsikringsvalg))
+         {
+            if (skademld.getSkadetype().equals(skadetypevalg))
+            {   
+                if (skademld.getOpprettetDato().after(startDato) && skademld.getOpprettetDato().before(sluttDato) )
+                {
+                    totalSumIPeriode += skademld.getErstatningsbelop();
+                }
+                totalSum += skademld.getErstatningsbelop();
+            }
+         }
+    }
      
+     long periodeIDager = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24;
+     double gjennomsnittPerioden = totalSumIPeriode / periodeIDager;
+     Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+     Date programSluttDato = new Date();
+     long alltidIDager = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24;
+     double gjennomsnittAlltid = totalSum / alltidIDager;
+     
+     //ØKING/MINKING: gjennomsnittIPerioden - gjennomsnittAlltid; 
  }
  public void typeForsikringPaAntall()
  {
@@ -463,15 +679,15 @@ public boolean sjekkDatoOgForsikringsvelger()
             }
             
             else if (statistikkvelger.isEnabled())
-            {
+            { System.out.println("hei");
                 switch (statistikkvelger.getSelectedIndex())
                 {
                     case 1:
-                        if (!sjekkDato())
+                        if (sjekkDato())
                         statistikkSkademeldinger();
                         break;
                     case 2:
-                    if (!sjekkDatoOgForsikringsvelger())
+                    if (sjekkDatoOgForsikringsvelger())
                         statistikkSkademeldingPaForsikring();
                         
                         break;
@@ -480,7 +696,7 @@ public boolean sjekkDatoOgForsikringsvelger()
                         statistikkErstatning();
                         break;
                     case 4:
-                    if (!sjekkDatoOgForsikringsvelger())
+                    if (sjekkDatoOgForsikringsvelger())
                         statistikkErstatningPaSkadetype();
                         
                         break;

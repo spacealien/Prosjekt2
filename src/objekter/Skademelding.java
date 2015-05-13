@@ -62,6 +62,11 @@ public class Skademelding implements Serializable
         return beskrivelse;
     }
     
+    public String getSkadetype()
+    {
+        return skadetype;
+    }
+    
     public boolean getAktiv()
     {
         return aktiv;
@@ -100,6 +105,11 @@ public class Skademelding implements Serializable
     public void setBeskrivelse( String input )
     {
         this.beskrivelse = input;
+    }
+    
+    public void setSkadetype(String input)
+    {
+        skadetype = input;
     }
     
     public void setBilder( Image[] photo )
