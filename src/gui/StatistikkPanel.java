@@ -645,6 +645,11 @@ public class StatistikkPanel extends JPanel implements ActionListener
                 fritidsboligForsikring++;
         }
         List<Integer> liste = new ArrayList<>();
+        liste.add(bilForsikring);
+        liste.add(båtForsikring);
+        liste.add(husForsikring);
+        liste.add(fritidsboligForsikring);
+        liste.add(reiseForsikring);
         Collections.sort(liste);
         Collections.reverse(liste);
         String ut = "";
@@ -676,7 +681,9 @@ public class StatistikkPanel extends JPanel implements ActionListener
                 reiseForsikring = -1;
             }
         }
-        //Utskrift av ut
+        JTextArea textArea = new JTextArea(150,100);
+        textArea.setText(ut);
+        statistikkVindu = new StatistikkVindu("Forsikringer sortert på antall", textArea);
  }
  
 public void feilMelding(String t)
@@ -808,14 +815,17 @@ public boolean sjekkDatoOgForsikringsvelger()
                         break;
                     case 3:
                     
-                        statistikkErstatning();
+                         statistikkSkademeldingPaSkadetype();
                         break;
                     case 4:
-                    if (sjekkDatoOgForsikringsvelger())
-                        statistikkErstatningPaSkadetype();
+                        if (sjekkDatoOgForsikringsvelger())
+                        statistikkErstatning();
                         
                         break;
                     case 5:
+                        statistikkErstatningPaSkadetype();
+                        break;
+                    case 6:
                         typeForsikringPaAntall();
                         break;
                 }
