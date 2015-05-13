@@ -31,10 +31,10 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
     private final JTextField fritidTilbud;
     private final JTextField fritidKvm;
     private final JTextField fritidAr;
-    private JLabel tilbudLabel;
+    private final JLabel tilbudLabel;
     private final JButton fritidGiTilbud;
     private final JButton beregnPris;
-    private JButton vilkårKnapp;
+    private final JButton vilkårKnapp;
     private final JRadioButton utleidJa;
     private final JRadioButton utleidNei;
     private final JRadioButton alarmJa;

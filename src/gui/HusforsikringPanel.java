@@ -35,10 +35,10 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
     private final JTextField husTilbud;
     private final JTextField prisenar;
     private final JTextField prisenmnd;
-    private JLabel tilbudLabel;
+    private final JLabel tilbudLabel;
     private final JComboBox<String> hustypevelger;
     private final String[] hustype = {"","Enebolig", "Tomannsbolig", "Tremannsbolig", "Firemannsbolig", "Rekkehus", "Leilighet"};
-    JComboBox<String> husmaterialevelger;
+    private final JComboBox<String> husmaterialevelger;
     private final String[] husmateriale = {"","Mur", "Tre", "Brannfast", "Laftet tømmer"};
     private final String[] husstandard = {"","Normal standard", "Bedre standard", "Høy standard"};
     private final JComboBox<String> husstandardvelger;

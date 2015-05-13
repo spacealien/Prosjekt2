@@ -36,16 +36,16 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     private final JTextField batLengde;
     private final JTextField batHk;
     private final JTextField batArsmodell;
-    private JLabel tilbudLabel;
+    private final JLabel tilbudLabel;
     private final JRadioButton vekterJa;
     private final JRadioButton vekterNei;
     private final String[] battype = {"","Skjærgårdsjeep", "Cabin cruiser", "Rib", "Annen småbåt",
                         "Speedbåt", "Seilbåt", "Snekke"};
-    JComboBox<String> battypevelger;
-    String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
-    JComboBox<String> egenandelsvelger;
-    String[] dekning = {"", "Ansvar", "Delkasko", "Kasko", "Båt-Pluss"};
-    JComboBox<String> dekningvelger;
+    private final JComboBox<String> battypevelger;
+    private final String[] egenandel = {"", "2000", "4000", "8000", "12000", "16000", "20000", "30000"};
+    private final JComboBox<String> egenandelsvelger;
+    private final String[] dekning = {"", "Ansvar", "Delkasko", "Kasko", "Båt-Pluss"};
+    private final JComboBox<String> dekningvelger;
     private final JButton annenEier;
     private final JButton beregnPris;
     private final JButton batGiTilbud;
@@ -395,6 +395,4 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
                 vilkår = this.velgVilkår( "Båt"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
         }
     }
-    
-    
 }
