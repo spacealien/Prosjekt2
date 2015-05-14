@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -46,6 +47,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
     private final JTextField regEpost;
     private final JTextField utgifter;
     private final JTextField inntekter;
+    private final JTextField inntekterTotal;
     private final JButton regKunde;
     private final JButton kontaktKunde;
     private final AnsattVindu vindu;
@@ -80,11 +82,12 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         regEpost = new JTextField(20);
         utgifter = new JTextField(20);
         inntekter = new JTextField(20);
+        inntekterTotal = new JTextField(20);
         
         regKunde = new JButton("Registrer kunde" );
         kontaktKunde = new JButton("Kontakt");
         forsikringsDropDown = new JComboBox<>(forsikringsvalg);
-        kundeInfo_1.setLayout(new GridLayout(4,4,5,10));
+        kundeInfo_1.setLayout(new GridLayout(5,4,5,10));
         kundeInfo_1.add(new JLabel("Fornavn: "));
         kundeInfo_1.add(regFornavn);
         kundeInfo_1.add(new JLabel("Etternavn: "));
@@ -99,8 +102,12 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         kundeInfo_1.add(regEpost);
         kundeInfo_1.add( new JLabel("Total Utbetalt "));
         kundeInfo_1.add( utgifter );
-        kundeInfo_1.add( new JLabel("Total Inntjening pr år: "));
+        kundeInfo_1.add( new JLabel("Inntjening pr år: "));
         kundeInfo_1.add( inntekter );
+        kundeInfo_1.add( Box.createGlue() );
+        kundeInfo_1.add( Box.createGlue() );
+        kundeInfo_1.add( new JLabel("Total innbetaling: "));
+        kundeInfo_1.add( inntekterTotal );
         
         
         knappeWrapper.setLayout( new FlowLayout() );
@@ -139,7 +146,6 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         rediger.addActionListener(this);
         nyForsikring.addActionListener(this);
         
-        oppdaterVindu();
         disableFelter(kundeInfo_1, null, null);
     }
     
@@ -155,6 +161,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         inntekter.setText(String.valueOf(vindu.getRegister().getInntekter(kunde)));
         tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde));
         tabell.setModel(tabellModell);
+        vindu.oppdaterTabell(vindu.getRegister().getKundeliste().alleKunder());
     }
     
     public void visForsikringensSkademeldnger()

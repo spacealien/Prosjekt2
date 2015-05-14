@@ -118,8 +118,8 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnHusPanel1.add(husstandardvelger);
         tegnHusPanel1.add(new JLabel("Alarm "));
         tegnHusPanel1.add(alarmPanel);
-        tegnHusPanel1.add(new JLabel());
-        tegnHusPanel1.add(new JLabel());
+        tegnHusPanel1.add(Box.createGlue());
+        tegnHusPanel1.add(Box.createGlue());
         tegnHusPanel2.add(new JLabel("Forsikringsbeløp bygg: "));
         tegnHusPanel2.add(belopHus);
         tegnHusPanel2.add(new JLabel("Forskringsbeløp innbo: "));
@@ -130,11 +130,11 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnHusPanel2.add(dekningvelger);
         tegnHusPanel2.add(new JLabel("Egenandel: "));
         tegnHusPanel2.add(egenandelsvelger);
-        tegnHusPanel2.add(new JLabel());
+        tegnHusPanel2.add(Box.createGlue());
         tegnHusPanel2.add(beregnPris);
         tegnHusPanel2.add(tilbudLabel);
         tegnHusPanel2.add(husTilbud);
-        tegnHusPanel2.add(new JLabel());
+        tegnHusPanel2.add(Box.createGlue());
         tegnHusPanel2.add(husGiTilbud);
         
         hovedPanel.add(tegnHusPanel1);

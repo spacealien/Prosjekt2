@@ -218,7 +218,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnBilPanel2.add(espPanel);
         tegnBilPanel2.add(new JLabel("<html>FG-godkjent søk- og<br> gj.kjenningssystem: </html>"));
         tegnBilPanel2.add(gjenkjenningPanel);
-        tegnBilPanel2.add(new JLabel());
+        tegnBilPanel2.add(Box.createGlue());
         tegnBilPanel2.add(vilkårKnapp);
         tegnBilPanel2.add(new JLabel("Dekning: "));
         tegnBilPanel2.add(dekningvelger);
@@ -226,11 +226,11 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnBilPanel2.add(bonusvelger);
         tegnBilPanel2.add(new JLabel("Velg egenandel: "));
         tegnBilPanel2.add(egenandelsvelger);
-        tegnBilPanel2.add(new JLabel());
+        tegnBilPanel2.add(Box.createGlue());
         tegnBilPanel2.add(beregnPris);
         tegnBilPanel2.add(tilbudLabel);
         tegnBilPanel2.add(bilTilbud);
-        tegnBilPanel2.add(new JLabel());
+        tegnBilPanel2.add(Box.createGlue());
         tegnBilPanel2.add(bilGiTilbud);
         hovedPanel.setLayout(new BoxLayout(hovedPanel, BoxLayout.LINE_AXIS));
         hovedPanel.add(tegnBilPanel1);

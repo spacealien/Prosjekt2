@@ -229,6 +229,7 @@ public class AnsattVindu extends JFrame
         {
             tabellModell = new TabellModell(liste);
             tabell.setModel(tabellModell);
+            tabell.getRowSorter().toggleSortOrder(6);
         }
     }
     

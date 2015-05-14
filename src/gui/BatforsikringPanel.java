@@ -125,7 +125,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         vekt.add(vekterNei);
         tegnBatPanel1.add(new JLabel("Reg.nummer: "));
         tegnBatPanel1.add(batRegnr);
-        tegnBatPanel2.add(new JLabel());
+        tegnBatPanel2.add(Box.createGlue());
         tegnBatPanel2.add(vilkarKnapp);
         tegnBatPanel2.add(new JLabel("Velg dekning: "));
         tegnBatPanel2.add(dekningvelger);
@@ -143,7 +143,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnBatPanel2.add(annenEier);
         tegnBatPanel1.add(new JLabel("Årsmodell: "));
         tegnBatPanel1.add(batArsmodell);
-        tegnBatPanel2.add(new JLabel());
+        tegnBatPanel2.add(Box.createGlue());
         tegnBatPanel2.add(beregnPris);
         tegnBatPanel1.add(new JLabel("Hestekrefter: "));
         tegnBatPanel1.add(batHk);
@@ -153,7 +153,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnBatPanel1.add(battypevelger);
         tegnBatPanel1.add(new JLabel("Verdi "));
         tegnBatPanel1.add(batVerdi);
-        tegnBatPanel2.add(new JLabel());
+        tegnBatPanel2.add(Box.createGlue());
         tegnBatPanel2.add(batGiTilbud);
         hovedPanel.add(tegnBatPanel1);
         hovedPanel.add(Box.createHorizontalStrut(5));
