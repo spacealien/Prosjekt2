@@ -232,6 +232,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
             double foreslåttPris = ForsikringsKalulator.beregnReiseforsikring(egenandelvalget, dekningvalget, forsorger_b , antBarn, sonevalget, belop );
             reiseTilbud.setVisible(true);
             reiseTilbud.setText(String.valueOf(foreslåttPris));
+            reiseTilbud.setToolTipText("Kan redigeres");
             reiseGiTilbud.setVisible(true);
         }
     }
