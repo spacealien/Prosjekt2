@@ -95,20 +95,28 @@ public class NyKundePanel extends JPanel implements ActionListener
             String telefonnummer = regTlfnr.getText();
             String epost = regEpost.getText();
             String personnummer = regPersnr.getText();
-            String fødeslsår = regFødselsår.getText();
+            String fødselsår = regFødselsår.getText();
             
             if( fornavn.matches("\\D") && etternavn.matches("\\D") && telefonnummer.matches("\\d{8}") 
                     && epost.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") 
-                    && personnummer.matches("\\d{11}") && fødeslsår.matches("\\d{4}") )
+                    && personnummer.matches("\\d{11}") && fødselsår.matches("\\d{4}") )
             {
+                if(!fødselsår.endsWith(personnummer.substring(4, 6)))
+                {
+                    vindu.visInformasjon("Beskjed", "Fødselsår matcher ikke fødselsnummer. Prøv igjen");
+                    return null;
+                }
+                
                 int dato = Integer.parseInt(personnummer.substring(0, 2));
                 int måned = Integer.parseInt(personnummer.substring(2, 4));
-                int år = Integer.parseInt(fødeslsår); 
+                int år = Integer.parseInt(fødselsår); 
                 GregorianCalendar fødselsdato = new GregorianCalendar(år, måned, dato);
                 
                 Kunde kunde = new Kunde( fornavn, etternavn, adresse, telefonnummer,
                                         fødselsdato, epost, personnummer );
+                vindu.visInformasjon("Beskjed", "Ny kunde, " + fornavn + " " + etternavn + ","
+                        + " legges inn i kunderegisteret etter det blir tegnet en forsikring på kunden");
                 return kunde;
             }
             else

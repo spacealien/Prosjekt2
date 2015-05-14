@@ -457,7 +457,7 @@ public class ForsikringsKalulator
         beregnetBatTilbud = beregnetBatTakst*(beregnetBatEgenandel+
                 beregnetBatAlder+beregnetBatHestekrefter+beregnetBatVekter+
                 beregnetBatVilkar);
-        return beregnetBatTilbud;
+        return Math.rint(beregnetBatTilbud);
     }
     
     public static double beregnHusforsikring(int egenandel, String vilkar, 

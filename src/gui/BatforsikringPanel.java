@@ -9,6 +9,9 @@ import java.awt.GridLayout;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import javax.swing.*;
 import objekter.*;
 import register.*;
@@ -245,22 +248,42 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
             }
             else
             {  
-                    if (vekterJa.isSelected() && !vekterNei.isSelected())
-                    vekter_b = true;
-                else if (!vekterJa.isSelected() && vekterNei.isSelected())
-                    vekter_b = false;
-                    
-            reg = batRegnr.getText();
-            belop = Integer.parseInt(batVerdi.getText());
-            merke = batMerke.getText();
-            modell = batModell.getText();
-            hk = Integer.parseInt(batHk.getText());
-            ar = Integer.parseInt(batArsmodell.getText());
-            lengde = Integer.parseInt(batLengde.getText());
-            typevalget = battypevelger.getItemAt(type_n);
-            egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
-            dekningvalget = dekningvelger.getItemAt(dekning_n);
-            return true;
+                if (vekterJa.isSelected() && !vekterNei.isSelected())
+                        vekter_b = true;
+                    else if (!vekterJa.isSelected() && vekterNei.isSelected())
+                        vekter_b = false;
+                try
+                {
+                    if (batRegnr.getText().matches("^([a-zA-Z]){2}([0-9]){5}"))
+                        reg = batRegnr.getText();
+                    else
+                    {
+                        vindu.visFeilmelding("Feilmelding", "Feil format i et av tekstfeltene. ");
+                        return false;
+                    }
+                    belop = Integer.parseInt(batVerdi.getText());
+                    merke = batMerke.getText();
+                    modell = batModell.getText();
+                    hk = Integer.parseInt(batHk.getText());
+                    ar = Integer.parseInt(batArsmodell.getText());
+                    java.util.Locale norge = new java.util.Locale( "no" );
+                    Calendar dato = Calendar.getInstance(norge);
+                    if (ar > dato.get(Calendar.YEAR))
+                    {
+                        vindu.visFeilmelding("Feilmelding", ar + " er ikke et gyldig registreringsår");
+                        return false;
+                    }
+                    lengde = Integer.parseInt(batLengde.getText());
+                    typevalget = battypevelger.getItemAt(type_n);
+                    egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
+                    dekningvalget = dekningvelger.getItemAt(dekning_n);
+                    return true;
+                }
+                catch( NumberFormatException e )
+                {
+                vindu.visFeilmelding("Feilmelding", "Feil format i et av tekstfeltene. ");
+                return false;
+                } 
             }
     }
     
@@ -270,9 +293,9 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         {
             double foreslåttPris = ForsikringsKalulator.beregnBatforsikring(egenandelvalget, dekningvalget, belop, hk, ar, vekter_b, lengde  );
                     
-            NumberFormat formatter = new DecimalFormat("#0.00"); 
             batTilbud.setVisible(true);
-            batTilbud.setText(formatter.format(foreslåttPris));
+            batTilbud.setText(String.valueOf(foreslåttPris));
+            batGiTilbud.setVisible(true);
         }
     }
     
@@ -317,7 +340,6 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         else if (e.getSource() == beregnPris)
         {
             beregnPris();
-            batGiTilbud.setVisible(true);
         }
         else if (e.getSource() == annenEier)
         {

@@ -7,10 +7,7 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.text.*;
 import javax.swing.*;
 import objekter.*;
 import register.*;
@@ -21,7 +18,7 @@ import register.*;
  */
 public class ReiseforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
-    private AnsattVindu vindu;
+    private final AnsattVindu vindu;
     private HovedRegister register;
     private Reiseforsikring forsikring;
     private KundePanel kundePanel;
@@ -178,31 +175,33 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         int dekning_n = dekningvelger.getSelectedIndex();
                 
                 
-                if(egenandel_n == 0 || sone_n == 0 || dekning_n == 0 || (!forsorgerJa.isSelected() && !forsorgerNei.isSelected()))
-                {
-                    String ut = "Det mangler informasjon om:\n";
-                    if (sone_n == 0)
-                    {
-                        ut += "Sone\n";
-                    }
-                    if (egenandel_n == 0)
-                    {
-                        ut += "Egenandel\n";
-                    }
-                    if (dekning_n == 0)
-                    {
-                        ut += "Dekning\n";
-                    }
-                    if (!forsorgerJa.isSelected() && !forsorgerNei.isSelected())
-                    {
-                        ut += "Forsørgervalg\n";
-                    }
-                    ut += "\nVennligst fyll ut denne informasjonen og prøv igjen.";
-                            JOptionPane.showMessageDialog(null, ut, "Feilmelding",
+        if(egenandel_n == 0 || sone_n == 0 || dekning_n == 0 || (!forsorgerJa.isSelected() && !forsorgerNei.isSelected()))
+        {
+            String ut = "Det mangler informasjon om:\n";
+            if (sone_n == 0)
+            {
+                ut += "Sone\n";
+            }
+            if (egenandel_n == 0)
+            {
+                ut += "Egenandel\n";
+            }
+            if (dekning_n == 0)
+            {
+                ut += "Dekning\n";
+            }
+            if (!forsorgerJa.isSelected() && !forsorgerNei.isSelected())
+            {
+                ut += "Forsørgervalg\n";
+            }
+            ut += "\nVennligst fyll ut denne informasjonen og prøv igjen.";
+                          JOptionPane.showMessageDialog(null, ut, "Feilmelding",
                                                 JOptionPane.ERROR_MESSAGE);
-                    return false;
-                }
-                else
+            return false;
+            }
+            else
+            {
+                try
                 {
                     if (forsorgerJa.isSelected() && !forsorgerNei.isSelected())
                     {
@@ -221,6 +220,12 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
                     belop = Integer.parseInt(reiseBelop.getText());
                     return true;
                 }
+                catch( NumberFormatException e )
+                {
+                    vindu.visFeilmelding("Feilmelding", "Feil format i et av tekstfeltene. ");
+                    return false;
+                }
+            }
                 
                 
                
@@ -233,9 +238,9 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
             //Beregner prisen
             double foreslåttPris = ForsikringsKalulator.beregnReiseforsikring(egenandelvalget, dekningvalget, forsorger_b , antBarn, sonevalget, belop );
                     
-            NumberFormat formatter = new DecimalFormat("#0.00"); 
             reiseTilbud.setVisible(true);
-            reiseTilbud.setText(formatter.format(foreslåttPris) + " Kr/År");
+            reiseTilbud.setText(String.valueOf(foreslåttPris));
+            reiseGiTilbud.setVisible(true);
         }
     }
     
@@ -274,7 +279,6 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         else if (e.getSource() == beregnPris)
         {
             beregnPris();
-            reiseGiTilbud.setVisible(true);
         }
         else if (e.getSource() == vilkarKnapp)
         {

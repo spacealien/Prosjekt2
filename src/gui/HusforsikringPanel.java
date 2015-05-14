@@ -11,8 +11,7 @@ import java.awt.GridLayout;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Calendar;
 import javax.swing.*;
 import objekter.*;
 import register.*;
@@ -92,9 +91,9 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         alarmJa.setMnemonic(KeyEvent.VK_J);
         alarmNei = new JRadioButton("Nei");
         alarmNei.setMnemonic(KeyEvent.VK_N);
-        ButtonGroup utleid = new ButtonGroup();
-        utleid.add(alarmJa);
-        utleid.add(alarmNei);
+        ButtonGroup alarm = new ButtonGroup();
+        alarm.add(alarmJa);
+        alarm.add(alarmNei);
         beregnPris = new JButton("Beregn pris");
         husGiTilbud = new JButton("Tegn forsikring");
         husGiTilbud.setVisible(false);
@@ -267,25 +266,39 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
             }
             else
             {
-                
-            hustypevalget = hustypevelger.getItemAt(hustype_n);
-            husmaterialevalget = husmaterialevelger.getItemAt(materiale_n);
-            husstandardvalget = husstandardvelger.getItemAt(husstandard_n);
-            egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
-            dekningvalget = dekningvelger.getItemAt(dekning_n);
-            adr = husAdresse.getText();
-            ar = Integer.parseInt(husAr.getText());
-            kvm = Integer.parseInt(husKvm.getText());
-            belop = Integer.parseInt(belopHus.getText());
-            belopInnbo = Integer.parseInt(belopHusInnbo.getText());
-            
-            if (alarmJa.isSelected() && !alarmNei.isSelected())
+                if (alarmJa.isSelected() && !alarmNei.isSelected())
                     alarm_b = true;
                 else if (!alarmJa.isSelected() && alarmNei.isSelected())
                     alarm_b = false;
-            
-            return true;
-            }    
+                
+                try
+                {
+                    hustypevalget = hustypevelger.getItemAt(hustype_n);
+                    husmaterialevalget = husmaterialevelger.getItemAt(materiale_n);
+                    husstandardvalget = husstandardvelger.getItemAt(husstandard_n);
+                    egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
+                    dekningvalget = dekningvelger.getItemAt(dekning_n);
+                    adr = husAdresse.getText();
+                    java.util.Locale norge = new java.util.Locale( "no" );
+                    Calendar dato = Calendar.getInstance(norge);
+                    if (husAr.getText().matches("\\d{4}") && Integer.parseInt(husAr.getText()) <= dato.get(Calendar.YEAR))
+                        ar = Integer.parseInt(husAr.getText());
+                    else
+                    {
+                        vindu.visFeilmelding("Feilmelding", husAr.getText() + " er ikke et gyldig byggeår");
+                        return false;
+                    }
+                    kvm = Integer.parseInt(husKvm.getText());
+                    belop = Integer.parseInt(belopHus.getText());
+                    belopInnbo = Integer.parseInt(belopHusInnbo.getText());
+                    return true;
+                }
+                catch( NumberFormatException e )
+                {
+                    vindu.visFeilmelding("Feilmelding", "Feil format i et av tekstfeltene. ");
+                    return false;
+                }
+            }
     }
     
     public void beregnPris()
@@ -294,9 +307,9 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
       {
             double foreslåttPris = ForsikringsKalulator.beregnHusforsikring(egenandelvalget, dekningvalget, ar, husmaterialevalget, kvm, belop, belopInnbo, alarm_b, hustypevalget, husstandardvalget );
                     
-            NumberFormat formatter = new DecimalFormat("#0.00"); 
             husTilbud.setVisible(true);
-            husTilbud.setText(formatter.format(foreslåttPris));
+            husTilbud.setText(String.valueOf(foreslåttPris));
+            husGiTilbud.setVisible(true);
       }
     }
     
@@ -343,7 +356,6 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         else if(e.getSource() == beregnPris)
         {
             beregnPris();
-            husGiTilbud.setVisible(true);
         }
         else if (e.getSource() == vilkarKnapp)
         {

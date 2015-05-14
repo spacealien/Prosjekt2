@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Calendar;
 import javax.swing.*;
 import objekter.*;
 import register.*;
@@ -89,11 +90,15 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         dekningvelger = new JComboBox<>(dekning);
         alarmJa = new JRadioButton("Ja");
         alarmNei = new JRadioButton("Nei");
+        alarmJa.setMnemonic(KeyEvent.VK_J);
+        alarmNei.setMnemonic(KeyEvent.VK_N);
         ButtonGroup alarm = new ButtonGroup();
         alarm.add(alarmJa);
         alarm.add(alarmNei);
         utleidJa = new JRadioButton("Ja");
         utleidNei = new JRadioButton("Nei");
+        utleidJa.setMnemonic(KeyEvent.VK_J);
+        utleidNei.setMnemonic(KeyEvent.VK_N);
         ButtonGroup utleid = new ButtonGroup();
         utleid.add(utleidJa);
         utleid.add(utleidNei);
@@ -213,9 +218,9 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
             //Beregn pris
             double foreslåttPris = ForsikringsKalulator.beregnFritidsboligforsikring(egenandelvalget, dekningvalget, ar, materialevalget, kvm, belop, belopInnbo, alarm_b, typevalget, standardvalget);
                     
-            NumberFormat formatter = new DecimalFormat("#0.00"); 
             fritidTilbud.setVisible(true);
-            fritidTilbud.setText( formatter.format(foreslåttPris) );
+            fritidTilbud.setText( String.valueOf(foreslåttPris) );
+            fritidGiTilbud.setVisible(true);
         }
     }
     
@@ -276,18 +281,33 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
                 else if (!alarmJa.isSelected() && alarmNei.isSelected())
                     alarm_b = false;
                 
-                egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
-                typevalget = fritidtypevelger.getItemAt(type_n); 
-                materialevalget = fritidmaterialevelger.getItemAt(materiale_n);
-                standardvalget = fritidstandardvelger.getItemAt(standard_n);
-                dekningvalget = dekningvelger.getItemAt(dekning_n);
-                adr = fritidAdresse.getText();
-                ar = Integer.parseInt(fritidAr.getText());
-                kvm = Integer.parseInt(fritidKvm.getText());
-                belop = Integer.parseInt(belopFritid.getText());
-                belopInnbo = Integer.parseInt(belopFritidInnbo.getText());
-                return true;
-                    
+                try
+                {
+                    egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
+                    typevalget = fritidtypevelger.getItemAt(type_n); 
+                    materialevalget = fritidmaterialevelger.getItemAt(materiale_n);
+                    standardvalget = fritidstandardvelger.getItemAt(standard_n);
+                    dekningvalget = dekningvelger.getItemAt(dekning_n);
+                    adr = fritidAdresse.getText();
+                    java.util.Locale norge = new java.util.Locale( "no" );
+                    Calendar dato = Calendar.getInstance(norge);
+                    if (fritidAr.getText().matches("\\d{4}") && Integer.parseInt(fritidAr.getText()) <= dato.get(Calendar.YEAR))
+                        ar = Integer.parseInt(fritidAr.getText());
+                    else
+                    {
+                        vindu.visFeilmelding("Feilmelding", fritidAr.getText() + " er ikke et gyldig byggeår");
+                        return false;
+                    }
+                    kvm = Integer.parseInt(fritidKvm.getText());
+                    belop = Integer.parseInt(belopFritid.getText());
+                    belopInnbo = Integer.parseInt(belopFritidInnbo.getText());
+                    return true;
+                }
+                catch( NumberFormatException e )
+                {
+                vindu.visFeilmelding("Feilmelding", "Feil format i et av tekstfeltene. ");
+                return false;
+                }     
             } 
     }
     
@@ -332,7 +352,6 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         else if (e.getSource() == beregnPris)
         {
             beregnPris();
-            fritidGiTilbud.setVisible(true);
         }
         else if (e.getSource() == vilkårKnapp)
         {
