@@ -326,7 +326,7 @@ public class HovedRegister
     public void lesFraFil()
     {
         try( ObjectInputStream innfil = new ObjectInputStream(
-              new FileInputStream("Data\\ForsikringsData.dat")))
+              new FileInputStream("Data\\ForsikringsData.txt")))
         {
             kunderegister = (Kunderegister)innfil.readObject();
             forsikringsregister = (Forsikringsliste) innfil.readObject();
