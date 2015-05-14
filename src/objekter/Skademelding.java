@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  *
@@ -19,7 +20,7 @@ public class Skademelding implements Serializable
 {
     
     private final Forsikring forsikring;
-    private Date dato;
+    private GregorianCalendar dato;
     private GregorianCalendar opprettetdato;
     private final int skadenummer;
     private static int nestenr = 200000000;
@@ -28,6 +29,7 @@ public class Skademelding implements Serializable
     private String beskrivelse;
     private Image[] bilder;
     private Vitne vitne;
+    private List<Vitne> vitner;
     private int takseringsbelop;
     private int erstatningsbelop;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
@@ -40,7 +42,7 @@ public class Skademelding implements Serializable
         skadenummer = nestenr;
     }
     
-    public Skademelding( Forsikring forsikring, Date dato, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )
+    public Skademelding( Forsikring forsikring, GregorianCalendar dato, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )
     {
         this.forsikring = forsikring;
         this.dato = dato;
@@ -59,8 +61,15 @@ public class Skademelding implements Serializable
         aktiv = b;
     }
     
+    public List<Vitne> getVitner()
+    {
+        return vitner;
+    }
     
-    
+    public void setVitner(List<Vitne> v)
+    {
+        vitner = v;
+    }
     public Forsikring getForsikring()
     {
         return forsikring;
@@ -107,7 +116,7 @@ public class Skademelding implements Serializable
         return opprettetdato;
     }
     
-    public Date getSkadeDato()
+    public GregorianCalendar getSkadeDato()
     {
         return dato;
     }

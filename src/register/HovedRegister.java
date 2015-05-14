@@ -102,83 +102,36 @@ public class HovedRegister
         return forsikringsregister.getKundensForsikringer(kunde);
     }
     
-    public final void sjekkTid()
-    {
-       //GregorianCalendar kalender = vindu.getKalender();
-      for( Kunde kunde : kunderegister.alleKunder() )
-        {
-           List<Forsikring> forsikringsliste = getAlleKundensForsikringer( kunde );
-           for( Forsikring forsikring : forsikringsliste )
-            {
-               
-                    /*if(Math.abs(( kalender.getTime().getTime() - forsikring.getStartdato().getTime().getTime())) > (1000*60*60*24*365.25) ) 
-                    {
-                        forsikring.beregnPris();
-                    }*/
-            }
-            
-        }  
-    }
-    
     public final void sjekkTid2()
     {
         Calendar ettÅrSiden = Calendar.getInstance();
         ettÅrSiden.set(kalender.get(Calendar.YEAR) - 1, kalender.get(Calendar.MONTH), kalender.get(Calendar.DATE));
         System.out.print(sdf.format(ettÅrSiden.getTime()));
-        for (Forsikring forsikring : getForsikringrsliste().alleForsikringer())
+        if(!getForsikringrsliste().alleForsikringer().isEmpty())
         {
-            if(forsikring.getSistBetalt().before(ettÅrSiden.getTime()));
+            for (Forsikring forsikring : getForsikringrsliste().alleForsikringer())
             {
-                if(forsikring.getForsikringsType().equals("Bilforsikring"))
+                if(forsikring.getSistBetalt().before(ettÅrSiden.getTime()));
                 {
-                    Bilforsikring bilforsikring = (Bilforsikring)forsikring;
-                    double bonusFør = bilforsikring.getBonus();
-                    double originalPris = bilforsikring.getArligPremie() / bonusFør * 100;
-                    bilforsikring.korrigerArligBonus();
-                    bilforsikring.setArligPremie((originalPris * (100-bilforsikring.getBonus())));
-                    innbetalinger.add(new Inntekt(kalender.getTime(), forsikring.getArligPremie(), forsikring));
-                    forsikring.setSistBetalt(kalender.getTime());
-                }
-                else
-                {
-                    innbetalinger.add(new Inntekt(kalender.getTime(), forsikring.getArligPremie(), forsikring));
-                    forsikring.setSistBetalt(kalender.getTime());
+                    if(forsikring.getForsikringsType().equals("Bilforsikring"))
+                    {
+                        Bilforsikring bilforsikring = (Bilforsikring)forsikring;
+                        double bonusFør = bilforsikring.getBonus();
+                        double originalPris = bilforsikring.getArligPremie() / bonusFør * 100;
+                        bilforsikring.korrigerArligBonus();
+                        bilforsikring.setArligPremie((originalPris * (100-bilforsikring.getBonus())));
+                        innbetalinger.add(new Inntekt(kalender.getTime(), forsikring.getArligPremie(), forsikring));
+                        forsikring.setSistBetalt(kalender.getTime());
+                    }
+                    else
+                    {
+                        innbetalinger.add(new Inntekt(kalender.getTime(), forsikring.getArligPremie(), forsikring));
+                        forsikring.setSistBetalt(kalender.getTime());
+                    }
                 }
             }
         }
     }
-            /*if(( ettÅrSiden.getTime().before(forsikring.getStartdato())))
-            {
-                for (Inntekt innbetaling : innbetalinger)
-                {
-                    if(innbetaling.getForsikring().equals(forsikring))
-                    {
-                        //Calendar ettÅrSiden = Calendar.getInstance();
-                        ettÅrSiden.set(kalender.get(Calendar.YEAR) - 1, kalender.get(Calendar.MONTH), kalender.get(Calendar.DATE));
-                        System.out.print(ettÅrSiden);
-                        //ettÅrSiden.add(Calendar.DAY_OF_YEAR, -365);
-                        if(innbetaling.getDato().before(kalender.getTime().getTime() - 1000*60*60*24*365.25))
-                    }*/
-                
-            
-            /*if (Math.abs(( kalender.getTime().getTime() - forsikring.getStartdato().getTime())) > (1000*60*60*24*365.25) )
-            {
-                if(forsikring.getForsikringsType().equals("Bilforsikring"))
-                {
-                    Bilforsikring bilforsikring = (Bilforsikring)forsikring;
-                    double bonusFør = bilforsikring.getBonus();
-                    double originalPris = bilforsikring.getArligPremie() / bonusFør * 100;
-                    bilforsikring.korrigerArligBonus();
-                    bilforsikring.setArligPremie((originalPris * (100-bilforsikring.getBonus())));
-                    innbetalinger.add(new Inntekt(kalender.getTime(), forsikring.getArligPremie(), forsikring));
-                }
-                else
-                {
-                    innbetalinger.add(new Inntekt(kalender.getTime(), forsikring.getArligPremie(), forsikring));
-                }
-            }
-        }*/
-    
     
     public List<Inntekt> getAlleInntekter()
     {
@@ -195,11 +148,6 @@ public class HovedRegister
         kunderegister.leggTil(nyKunde);
         vindu.oppdaterTabell( kunderegister.alleKunder() );
     }
-    
-    /*public Kunde finnKunde()
-    {
-        return null;
-    }*/
     
     
     public List<Kunde> finnKundeMedNavn(String fornavn, String etternavn)

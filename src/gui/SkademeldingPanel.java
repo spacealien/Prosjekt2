@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -28,6 +29,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     private final AnsattVindu vindu;
     private final HovedRegister register;
     private KundePanel kundePanel;
+    private Vitne vitne;
     private final JTextField skadeDato;
     private final JTextArea skadeBeskrivelse;
     private final JTextField skadeTakst;
@@ -48,6 +50,12 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     private SimpleDateFormat sdf;
     private Skademelding skademelding;
     private String skadetypevalget;
+    
+    private final JTextField vitneFornavn;
+    private final JTextField vitneEtternavn;
+    private final JTextField vitneTlf;
+    private final JTextField vitneAdresse;
+    private final JPanel vitnePanel;
     
     private final Desktop desktop = Desktop.getDesktop();
     private final Desktop.Action action = Desktop.Action.OPEN;
@@ -83,6 +91,23 @@ public class SkademeldingPanel extends JPanel implements ActionListener
            skadetypevelger = new JComboBox<>(skadetypeReise); 
         }
         
+        vitneFornavn = new JTextField(20);
+        vitneEtternavn = new JTextField(20);
+        vitneTlf = new JTextField(8);
+        vitneAdresse = new JTextField(15);
+        
+        vitnePanel = new JPanel();
+        vitnePanel.setLayout(new GridLayout(4,2,1,1));
+        vitnePanel.add(new JLabel("Fornavn: "));
+        vitnePanel.add(vitneFornavn);
+        vitnePanel.add(new JLabel("Etternavn: "));
+        vitnePanel.add(vitneEtternavn);
+        vitnePanel.add(new JLabel("Telefonnummer: "));
+        vitnePanel.add(vitneTlf);
+        vitnePanel.add(new JLabel("Adresse: "));
+        vitnePanel.add(vitneAdresse);
+        
+        
         JPanel wrapper_1 = new JPanel();
         GridLayout layout_1 = new GridLayout(2,4);
         layout_1.setHgap(6);
@@ -102,6 +127,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         wrapper_2.add( new JLabel("Beskrivelse av Skaden: "), BorderLayout.PAGE_START);
         skadeBeskrivelse.setLineWrap(true);
         JScrollPane scroll = new JScrollPane(skadeBeskrivelse);
+        scroll.setPreferredSize(new Dimension(70,150));
         wrapper_2.add( scroll, BorderLayout.CENTER );
         
         JPanel wrapper_3 = new JPanel();
@@ -124,6 +150,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         lastOppBildeKnapp.addActionListener(this);
         sendInnSkade.addActionListener(this);
         visBilde.addActionListener(this);
+        vitneKnapp.addActionListener(this);
     }
     
     public void visSkademelding( Skademelding skade )
@@ -149,7 +176,9 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         try
         {
             String sd = skadeDato.getText();
-            Date dato = sdf.parse(sd);
+            GregorianCalendar dato = new GregorianCalendar(Integer.parseInt(sd.substring(4, 8)), Integer.parseInt(sd.substring(2,4)), Integer.parseInt(sd.substring(0, 2)));
+            //Date dato = sdf.parse(sd);
+            System.out.print(dato);
             String beskrivelse = skadeBeskrivelse.getText();
             int takst = Integer.parseInt(skadeTakst.getText());
             int belop = Integer.parseInt(erstatningsBeløp.getText());
@@ -165,14 +194,10 @@ public class SkademeldingPanel extends JPanel implements ActionListener
             if(kundePanel != null )
                 kundePanel.oppdaterVindu();
 
-        } 
-        catch (ParseException e)
-        {
-            JOptionPane.showMessageDialog(null, "Vennligst skriv inn datoen i følgende format: ddmmåååå.", "Feilmelding", JOptionPane.ERROR_MESSAGE);
-	}
+        }
         catch( NumberFormatException e)
         {
-            vindu.visFeilmelding("FeildMelding", "Skjekk at takst og beløp er av riktig format.");
+            vindu.visFeilmelding("Feildmelding", "Skjekk at dato, takst og beløp er av riktig format.");
         }
     }
     
@@ -215,7 +240,23 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         }
         else if( e.getSource() == vitneKnapp )
         {
-            
+            if (vitneKnapp.getText().equals("Legg til vitne"))
+            {
+                Object[] valg = {"Legg til nytt vitne", ""};
+                int result = JOptionPane.showConfirmDialog(null, vitnePanel, 
+                             "Vennligst fyll ut vitnes kontaktinformasjon:",
+                                        JOptionPane.OK_CANCEL_OPTION);
+                if (result == JOptionPane.OK_OPTION)
+                {
+                    vitne = new Vitne(vitneFornavn.getText(), vitneEtternavn.getText(), 
+                    vitneAdresse.getText(), vitneTlf.getText());
+                }  
+            }
+            else if (vitneKnapp.getText().equals("Vis vitner"))
+            {
+               JOptionPane.showMessageDialog( null, skademelding.getVitner().toString(), 
+                      "Vitner:", JOptionPane.PLAIN_MESSAGE);
+            }
         }
     }
 }

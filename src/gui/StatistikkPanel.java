@@ -167,6 +167,7 @@ public StatistikkPanel(AnsattVindu v)
     add(Box.createRigidArea(new Dimension(50,1)));
     add(avansertSokPanel3);
       
+    System.out.print(register.getForsikringrsliste().getForsikring(1000001));
     sokevelger.addItemListener(new ItemListener()
     {
         @Override
@@ -532,26 +533,32 @@ public void statistikkSkademeldinger()
      
     long periodeIMnd = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
     double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
-    Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
-    Date programSluttDato = new Date();
-    long alltidIMnd = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
-    double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
-    String s;
-    double endring = gjennomsnittPerioden - gjennomsnittAlltid;
-    if (endring >= 0)
-        s = "økt";
-    else
+    try
     {
-        s = "minket";
-    }
+        Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+        Date programSluttDato = new Date();
+        double alltidIMnd = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
+        double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
+        String s;
+        double endring = gjennomsnittPerioden - gjennomsnittAlltid;
+        if (endring >= 0)
+            s = "økt";
+        else
+        {
+            s = "minket";
+        }
                  
-    JTextArea textArea = new JTextArea();
-    textArea.setText("Antall skademeldinger har " + s + " med " + endring  + 
+        JTextArea textArea = new JTextArea();
+        textArea.setText("Antall skademeldinger har " + s + " med " + endring  + 
              "månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
-    statistikkVindu = new StatistikkVindu("Økning/Minking i perioden "
+        statistikkVindu = new StatistikkVindu("Økning/Minking i perioden "
                 + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
-     
-    //ØKING/MINKING: gjennomsnittIPerioden - gjennomsnittAlltid;
+    }
+    catch (NullPointerException | ArithmeticException e)
+    {
+        feilMelding("Søket ga ingen treff");
+    }
+    
 }
 
 public void statistikkSkademeldingPaForsikring()
