@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import objekter.*;
 
@@ -36,54 +37,10 @@ public class HovedRegister
 
     public HovedRegister(AnsattVindu v) 
     {
-        vindu = v;
-        
-        kalender = Calendar.getInstance();
-        /**
-        Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer("08206049937");
-        Kunde kunde_2 = kunderegister.finnKundeEtterPersonnummer("01258446816");
-        Kunde kunde_3 = kunderegister.finnKundeEtterPersonnummer("02029449964");
-        
-        
-        Forsikring forsikring_1 = new Bilforsikring( kunde_1, 4000, "Delkasko", "DH12345", 1600000, 
-                                                    "Volvo", "XC90", "SUV", 340, 
-                                                    2014, 30000, "Bilfører < 23 år", 0.50, 1, 
-                                                    false, false, false, false, 12000 );
-        Eier eier = new Eier("Hans", "Hansen", "Heiveien 3", "97612312");
-        Kjoretoyforsikring forsikring1 = (Kjoretoyforsikring)forsikring_1;
-        forsikring1.setEier(eier);
-        Forsikring forsikring_2 = new BatForsikring( kunde_1, 20000, "Båt Pluss", "DK54321", 600000, 
-                                                    "Tresfjord", "Ultra 360 FB", 
-                                                    "Cabin cruiser", 120, 2014, false, 30 );
-        Forsikring forsikring_3 = new Bilforsikring( kunde_2, 4000, "Ansvar", "CD67890", 270000, 
-                                                    "Volvo", "Sonett", "Personbil", 
-                                                    800, 1968, 300000, "Bilfører < 23 år", -0.10, 1, 
-                                                    true, true, true, false, 8000 );
-        Forsikring forsikring_4 = new Husforsikring( kunde_2, 8000, "Hus", "Fjollesvingen 32", 
-                                                    1970, "Tremannsbolig", 
-                                                    "Laftet tømmer", 
-                                                    "Høy standard", 320, 
-                                                    4500000, 1200000, false);
-        Forsikring forsikring_5 = new Reiseforsikring( kunde_3, 4000, "Reise Pluss", false, 0, "Norden", 
-                                                    40000 );
-        Forsikring forsikring_6 = new Fritidsboligforsikring( kunde_3, 4000, "Fritidsbolig", 
-                                                    "Hardangervidda", 1899, 
-                                                    "Hus/Hytte", "Tre", 
-                                                    "Normal standard", 13, 
-                                                    250000, 125000, true, false);
-        
-        forsikringsregister.leggTil(kunde_1, forsikring_1);
-        forsikringsregister.leggTil(kunde_1, forsikring_2);
-        forsikringsregister.leggTil(kunde_2, forsikring_3);
-        forsikringsregister.leggTil(kunde_2, forsikring_4);
-        forsikringsregister.leggTil(kunde_3, forsikring_5);
-        forsikringsregister.leggTil(kunde_3, forsikring_6); 
-        Skademelding test_1 = new Skademelding( forsikring_1, new Date() , "Skadetype" , "Beskrivelse", 2000, 30000 );
-        skademeldingsregister.leggTil(forsikring_1, test_1);
-        sjekkTid();
-        */
-        
+        vindu = v;  
+        kalender = Calendar.getInstance();  
         lesFraFil();
+
         //sjekkTid2();
     }
     
