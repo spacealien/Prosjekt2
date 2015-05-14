@@ -21,7 +21,7 @@ import java.util.List;
 public abstract class Forsikring implements Serializable
 {
     
-    //private final Ansatt ansatt;            Legg til datafelt for ansatt.
+    //private final Ansatt ansatt;            Legg til datafelt for ansatt.?
     private final Kunde kunde;
     private int egenandel;
     private final Calendar startdato;
@@ -193,9 +193,9 @@ public abstract class Forsikring implements Serializable
         return skademeldingsnøkkler;
     }
     
-    public Date getStartdato()
+    public Calendar getStartdato()
     {
-        return stDato;
+        return startdato;
     }
     
     public Calendar getSluttdato()

@@ -180,6 +180,30 @@ public class HovedRegister
         return ansattregister;
     }
     
+    public double getNåværendeInntjening( Kunde kunde )
+    {
+        double sum = 0.0;
+        List<Forsikring> kundeForsikringer = forsikringsregister.getKundensForsikringer(kunde);
+        double prisPrMåned;
+        
+        for(Forsikring forsikring :  kundeForsikringer)
+        {    
+            Calendar startdato = forsikring.getStartdato();
+            Calendar sluttdato = forsikring.getSluttdato();
+            int differanseÅr = 0;
+            int differanseMnd = 0;
+            if( forsikring.getSluttdato() != null)
+            {
+                differanseÅr = sluttdato.get( Calendar.YEAR ) - startdato.get( Calendar.YEAR );
+                differanseMnd = sluttdato.get( Calendar.MONTH ) - startdato.get( Calendar.MONTH );
+            }
+            prisPrMåned= forsikring.getTotalbelop() / 12;
+            differanseMnd += differanseÅr * 12;
+            sum += differanseMnd * prisPrMåned;
+        }
+        return sum;
+    }
+    
     public int getUtgifter( Kunde kunde )
     {
         int sum = 0;
@@ -306,7 +330,7 @@ public class HovedRegister
     public void skrivTilFil()
     {
         try( ObjectOutputStream utfil = new ObjectOutputStream(
-                new FileOutputStream("Data\\ForsikringsData.dat")) )
+                new FileOutputStream("Data\\ForsikringsData.txt")) )
         {
             utfil.writeObject(kunderegister);
             utfil.writeObject(forsikringsregister);
@@ -326,7 +350,7 @@ public class HovedRegister
     public void lesFraFil()
     {
         try( ObjectInputStream innfil = new ObjectInputStream(
-              new FileInputStream("Data\\ForsikringsData.dat")))
+              new FileInputStream("Data\\ForsikringsData.txt")))
         {
             kunderegister = (Kunderegister)innfil.readObject();
             forsikringsregister = (Forsikringsliste) innfil.readObject();
