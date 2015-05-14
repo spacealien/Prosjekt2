@@ -22,7 +22,7 @@ public class Main
         UIManager.put("OptionPane.cancelButtonText", "Cancel");
         UIManager.put("OptionPane.noButtonText", "Nei");
         UIManager.put("OptionPane.okButtonText", "OK");
-        UIManager.put("OptionPane.yesButtonText", "Ja");    
+        UIManager.put("OptionPane.yesButtonText", "Ja"); 
         EventQueue.invokeLater(new Runnable()
         {
             @Override

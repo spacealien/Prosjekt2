@@ -712,6 +712,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         {
             if( dekningvelger.getSelectedIndex() != 0)
                 vilkår = this.velgVilkår( "Bil"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
+            System.out.println("Bil"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()));
         }
     }
 }
