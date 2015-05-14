@@ -5,12 +5,8 @@
  */
 package gui;
 
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.*;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Calendar;
 import javax.swing.*;
 import objekter.*;
@@ -182,7 +178,6 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         });
     }
     
-    
     // ikke fjern, ikke ferdig....mangler visning for dropdown
     public void visForsikring( Forsikring f)
     {
@@ -215,7 +210,6 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         husTilbud.setVisible(true);
         revalidate();
         repaint();
-        
         disableFelter( this, husGiTilbud, beregnPris );
     }
     
@@ -313,11 +307,6 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
       }
     }
     
-    public void leggTilKundePanel( KundePanel panel )
-    {
-        kundePanel = panel;
-    }
-    
     public void tegnNy()
     {
             if (hentInfo())
@@ -328,22 +317,84 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
                     register.nyKunde(kunde);
                 }
                 
-            Forsikring forsikringen = new Husforsikring(kunde, 
+            Forsikring nyForsikring = new Husforsikring(kunde, 
                     egenandelvalget, dekningvalget, adr, ar, hustypevalget, husmaterialevalget, 
                     husstandardvalget, kvm, belop, belopInnbo, alarm_b);
             
-            vindu.getRegister().nyForsikring(forsikringen);
+            nyForsikring.setArligPremie( Double.parseDouble(husTilbud.getText()) );
+            vindu.getRegister().nyForsikring(nyForsikring);
             
             if(kundePanel != null)
                 kundePanel.oppdaterVindu();
             
             JOptionPane.showMessageDialog(null, "Du har nå tegnet husforsikring med nummer " 
-                                          + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() 
+                                          + nyForsikring.getForsikringsnummer() + " på " + kunde.getFornavn() 
                                           + " " + kunde.getEtternavn() , "Bekreftelse", 
                                             JOptionPane.INFORMATION_MESSAGE);
-            
-            System.out.println(forsikringen);
             }
+    }
+    
+    public void oppdaterForsikring()
+    {
+        if (hentInfo())
+       {
+            forsikring.setAdresse(adr);
+            forsikring.setAlarm(alarm_b);
+            forsikring.setMateriale(husmaterialevalget);
+            forsikring.setKvadratmeter(kvm);
+            forsikring.setBoligtype(hustypevalget);
+            forsikring.setStandard(husstandardvalget);
+            forsikring.setForsikringsbelopBygning(belop);
+            forsikring.setForsikringsbelopInnbo(belopInnbo);
+            forsikring.setEgenandel(egenandelvalget);
+            forsikring.setByggeAr(ar);
+            forsikring.setVilkar(vilkår);
+            
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
+        }
+    }
+    
+    public void rediger()
+    {
+        enableFelter( this, beregnPris );
+        knappePanel.add(lagreNyInfo);
+        tilbudLabel.setText("Foreslått tilbud: ");
+        beregnPris.setText("Beregn ny pris");
+        revalidate();
+        repaint();
+    }
+    
+    public void deaktiverForsikring()
+    {
+        int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
+        if (svar == JOptionPane.YES_OPTION)
+        {
+            knappePanel.remove(rediger);
+            knappePanel.remove(lagreNyInfo);
+            this.remove(beregnPris);
+            knappePanel.remove(deaktiver);
+            forsikring.setAktiver(false);
+            JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
+            repaint();
+            revalidate();
+            
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
+        }
+    }
+    
+    public void visVilkår()
+    {
+        if( forsikring == null )
+            visForsikringensVilkår("Ny Husforsikring" + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
+       else
+            visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
+    }
+    
+    public void leggTilKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
     }
     
     @Override
@@ -359,53 +410,19 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else if (e.getSource() == vilkarKnapp)
         {
-            if( forsikring == null )
-                visForsikringensVilkår("Ny Husforsikring" + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
-            else
-                visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
+            visVilkår();
         }
         else if(e.getSource() == rediger)
         {
-            enableFelter( this, beregnPris );
-            knappePanel.add(lagreNyInfo);
-            tilbudLabel.setText("Foreslått tilbud: ");
-            beregnPris.setText("Beregn ny pris");
-            revalidate();
-            repaint();
+            rediger();
         }
         else if (e.getSource() == lagreNyInfo)
         {
-            if (hentInfo())
-            {
-                forsikring.setAdresse(adr);
-                forsikring.setAlarm(alarm_b);
-                forsikring.setMateriale(husmaterialevalget);
-                forsikring.setKvadratmeter(kvm);
-                forsikring.setBoligtype(hustypevalget);
-                forsikring.setStandard(husstandardvalget);
-                forsikring.setForsikringsbelopBygning(belop);
-                forsikring.setForsikringsbelopInnbo(belopInnbo);
-                forsikring.setEgenandel(egenandelvalget);
-                forsikring.setByggeAr(ar);
-                forsikring.setVilkar(vilkår);
-            }
-            //Må beregne pris på nytt!
+           
         }
         else if (e.getSource() == deaktiver)
         {
-           
-            int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
-            if (svar == JOptionPane.YES_OPTION)
-            {
-                knappePanel.remove(rediger);
-                knappePanel.remove(lagreNyInfo);
-                this.remove(beregnPris);
-                knappePanel.remove(deaktiver);
-                forsikring.setAktiver(false);
-                JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
-                repaint();
-                revalidate();
-            }
+            
         }
     }
     

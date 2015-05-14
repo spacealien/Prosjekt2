@@ -154,21 +154,21 @@ public class Kunderegister implements Serializable
     public List<Kunde> finnKundeEtterFornavn( String fornavn )
     {
         return kunderegister.stream().filter( (x) ->
-                x.getFornavn().equalsIgnoreCase(fornavn)).collect(Collectors.toList());
+                x.getFornavn().contains(fornavn)).collect(Collectors.toList());
     }
     
     public List<Kunde> finnKundeEtterEtternavn( String etternavn )
     {
         
         return kunderegister.stream().filter( (x) -> 
-                x.getEtternavn().equalsIgnoreCase(etternavn)).collect(Collectors.toList());
+                x.getEtternavn().contains(etternavn)).collect(Collectors.toList());
     }
     
     //ok, testet
     public List<Kunde> finnKunderEtterNavn( String fornavn, String etternavn )
     {
-        return kunderegister.stream().filter( (x) -> x.getEtternavn().equalsIgnoreCase(etternavn) &&
-                x.getFornavn().equalsIgnoreCase(fornavn)).collect(Collectors.toList());
+        return kunderegister.stream().filter( (x) -> x.getEtternavn().contains(etternavn) &&
+                x.getFornavn().contains(fornavn)).collect(Collectors.toList());
     }
     
     public List<Kunde> alleKunder()

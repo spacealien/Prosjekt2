@@ -7,8 +7,6 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Calendar;
 import javax.swing.*;
 import objekter.*;
@@ -20,12 +18,10 @@ import register.*;
  */
 public class FritidsboligforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
-    private AnsattVindu vindu;
-    private HovedRegister register;
+    private final AnsattVindu vindu;
+    private final HovedRegister register;
     private Fritidsboligforsikring forsikring;
     private KundePanel kundePanel;
-    
-    
     private final JTextField fritidAdresse;
     private final JTextField belopFritid;
     private final JTextField belopFritidInnbo;
@@ -184,6 +180,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         dekningvelger.setSelectedItem(forsikring.getVilkar());
         belopFritid.setText(String.valueOf(forsikring.getForsikringsbelopBygning()));
         belopFritidInnbo.setText(String.valueOf(forsikring.getForsikringsbelopInnbo()));
+        
         if (forsikring.getAlarm())
             alarmJa.setSelected(true);
         else
@@ -201,119 +198,116 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
             knappePanel.add(deaktiver);
             add(knappePanel);
         }
+        else
+        {
+            tilbudLabel.setText("Årlig premie: (Kr/År)");
+            tilbudLabel.setVisible(true);
+            fritidTilbud.setVisible(true);
+        }
         
-        tilbudLabel.setText("Årlig premie: (Kr/År)");
-        tilbudLabel.setVisible(true);
-        fritidTilbud.setVisible(true);
         revalidate();
         repaint();
-        
         disableFelter( this, fritidGiTilbud, beregnPris );
     }
     
+    public boolean hentInfo()
+    {   
+        int type_n = fritidtypevelger.getSelectedIndex(); 
+        int materiale_n = fritidmaterialevelger.getSelectedIndex();
+        int standard_n = fritidstandardvelger.getSelectedIndex();
+        int egenandel_n = egenandelsvelger.getSelectedIndex();
+        int dekning_n = dekningvelger.getSelectedIndex();
+        if (type_n == 0 || materiale_n == 0 || standard_n == 0 || egenandel_n == 0 || dekning_n == 0 || (!alarmJa.isSelected() && !alarmNei.isSelected()) || (!utleidJa.isSelected() && !utleidNei.isSelected()))
+        {
+            String ut = "Det mangler informasjon om:\n";
+            if (type_n == 0)
+            {
+                ut += "Boligtype\n";
+            }
+            if (materiale_n == 0)
+            {
+                ut += "Byggemateriale\n";
+            }
+            if (standard_n == 0)
+            {
+                ut += "Standard\n";
+            }
+            if (egenandel_n == 0)
+            {
+                ut += "Egenandel\n";
+            }
+            if (dekning_n == 0)
+            {
+                ut += "Dekning\n";
+            }
+            if (!alarmJa.isSelected() && !alarmNei.isSelected())
+            {
+                ut += "Alarmvalg\n";
+            }
+            if (!utleidJa.isSelected() && !utleidNei.isSelected())
+            {
+                ut += "Utleievalg\n";
+            }
+                   
+            ut += "\nVennligst fyll ut denne informasjonen og prøv igjen.";
+                            JOptionPane.showMessageDialog(null, ut, "Feilmelding",
+                                                JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        else
+        {
+            if (utleidJa.isSelected() && !utleidNei.isSelected())
+                utleid_b = true;
+            else if (!utleidJa.isSelected() && utleidNei.isSelected())
+                utleid_b = false;
+                
+            if (alarmJa.isSelected() && !alarmNei.isSelected())
+                alarm_b = true;
+            else if (!alarmJa.isSelected() && alarmNei.isSelected())
+                alarm_b = false;
+                
+            try
+            {
+                egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
+                typevalget = fritidtypevelger.getItemAt(type_n); 
+                materialevalget = fritidmaterialevelger.getItemAt(materiale_n);
+                standardvalget = fritidstandardvelger.getItemAt(standard_n);
+                dekningvalget = dekningvelger.getItemAt(dekning_n);
+                adr = fritidAdresse.getText();
+                java.util.Locale norge = new java.util.Locale( "no" );
+                Calendar dato = Calendar.getInstance(norge);
+             
+                if (fritidAr.getText().matches("\\d{4}") && Integer.parseInt(fritidAr.getText()) <= dato.get(Calendar.YEAR))
+                    ar = Integer.parseInt(fritidAr.getText());
+                else
+                {
+                    vindu.visFeilmelding("Feilmelding", fritidAr.getText() + " er ikke et gyldig byggeår");
+                     return false;
+                }
+          
+                kvm = Integer.parseInt(fritidKvm.getText());
+                belop = Integer.parseInt(belopFritid.getText());
+                belopInnbo = Integer.parseInt(belopFritidInnbo.getText());
+                return true;
+            }
+            catch( NumberFormatException e )
+            {
+                vindu.visFeilmelding("Feilmelding", "Feil format i et av tekstfeltene. ");
+                return false;
+            }     
+        } 
+    }
     public void beregnPris()
     {
         if(hentInfo())
         {
-            //Beregn pris
-            double foreslåttPris = ForsikringsKalulator.beregnFritidsboligforsikring(egenandelvalget, dekningvalget, ar, materialevalget, kvm, belop, belopInnbo, alarm_b, typevalget, standardvalget);
-                    
+            double foreslåttPris = ForsikringsKalulator.beregnFritidsboligforsikring(egenandelvalget, dekningvalget, ar, 
+                                              materialevalget, kvm, belop, belopInnbo, alarm_b, typevalget, standardvalget);                    
+            
             fritidTilbud.setVisible(true);
             fritidTilbud.setText( String.valueOf(foreslåttPris) );
             fritidGiTilbud.setVisible(true);
         }
-    }
-    
-    public boolean hentInfo()
-    {
-           
-            int type_n = fritidtypevelger.getSelectedIndex(); 
-            int materiale_n = fritidmaterialevelger.getSelectedIndex();
-            int standard_n = fritidstandardvelger.getSelectedIndex();
-            int egenandel_n = egenandelsvelger.getSelectedIndex();
-            int dekning_n = dekningvelger.getSelectedIndex();
-            if (type_n == 0 || materiale_n == 0 || standard_n == 0 || egenandel_n == 0 || dekning_n == 0 || (!alarmJa.isSelected() && !alarmNei.isSelected()) || (!utleidJa.isSelected() && !utleidNei.isSelected()))
-            {
-                String ut = "Det mangler informasjon om:\n";
-                    if (type_n == 0)
-                    {
-                        ut += "Boligtype\n";
-                    }
-                    if (materiale_n == 0)
-                    {
-                        ut += "Byggemateriale\n";
-                    }
-                    if (standard_n == 0)
-                    {
-                        ut += "Standard\n";
-                    }
-                    if (egenandel_n == 0)
-                    {
-                        ut += "Egenandel\n";
-                    }
-                    if (dekning_n == 0)
-                    {
-                        ut += "Dekning\n";
-                    }
-                    if (!alarmJa.isSelected() && !alarmNei.isSelected())
-                    {
-                        ut += "Alarmvalg\n";
-                    }
-                    if (!utleidJa.isSelected() && !utleidNei.isSelected())
-                    {
-                        ut += "Utleievalg\n";
-                    }
-                    
-                    ut += "\nVennligst fyll ut denne informasjonen og prøv igjen.";
-                            JOptionPane.showMessageDialog(null, ut, "Feilmelding",
-                                                JOptionPane.ERROR_MESSAGE);
-            return false;
-            }
-            else
-            {
-                if (utleidJa.isSelected() && !utleidNei.isSelected())
-                    utleid_b = true;
-                else if (!utleidJa.isSelected() && utleidNei.isSelected())
-                    utleid_b = false;
-                
-                if (alarmJa.isSelected() && !alarmNei.isSelected())
-                    alarm_b = true;
-                else if (!alarmJa.isSelected() && alarmNei.isSelected())
-                    alarm_b = false;
-                
-                try
-                {
-                    egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
-                    typevalget = fritidtypevelger.getItemAt(type_n); 
-                    materialevalget = fritidmaterialevelger.getItemAt(materiale_n);
-                    standardvalget = fritidstandardvelger.getItemAt(standard_n);
-                    dekningvalget = dekningvelger.getItemAt(dekning_n);
-                    adr = fritidAdresse.getText();
-                    java.util.Locale norge = new java.util.Locale( "no" );
-                    Calendar dato = Calendar.getInstance(norge);
-                    if (fritidAr.getText().matches("\\d{4}") && Integer.parseInt(fritidAr.getText()) <= dato.get(Calendar.YEAR))
-                        ar = Integer.parseInt(fritidAr.getText());
-                    else
-                    {
-                        vindu.visFeilmelding("Feilmelding", fritidAr.getText() + " er ikke et gyldig byggeår");
-                        return false;
-                    }
-                    kvm = Integer.parseInt(fritidKvm.getText());
-                    belop = Integer.parseInt(belopFritid.getText());
-                    belopInnbo = Integer.parseInt(belopFritidInnbo.getText());
-                    return true;
-                }
-                catch( NumberFormatException e )
-                {
-                vindu.visFeilmelding("Feilmelding", "Feil format i et av tekstfeltene. ");
-                return false;
-                }     
-            } 
-    }
-    
-    public void leggTilKundePanel( KundePanel panel )
-    {
-        kundePanel = panel;
     }
     
     public void tegnNy()
@@ -329,17 +323,81 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
             Forsikring forsikringen = new Fritidsboligforsikring(kunde, egenandelvalget, dekningvalget, adr, ar, 
                        typevalget, materialevalget, standardvalget, kvm, belop, belopInnbo, alarm_b, utleid_b);
             
+            forsikringen.setArligPremie(Double.parseDouble(fritidTilbud.getText()));
             vindu.getRegister().nyForsikring(forsikringen);
-            
-            if(kundePanel != null)
-                kundePanel.oppdaterVindu();
             
             JOptionPane.showMessageDialog(null, "Du har nå tegnet fritidsboligforsikring med nummer " 
                                           + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() 
                                           + " " + kunde.getEtternavn() , "Bekreftelse", 
                                             JOptionPane.INFORMATION_MESSAGE);
-
+            
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
         }
+    }
+    
+    public void oppdaterForsikring()
+    {
+        if (hentInfo())
+        {
+            forsikring.setAdresse(adr);
+            forsikring.setAlarm(alarm_b);
+            forsikring.setUtleie(utleid_b);
+            forsikring.setMateriale(materialevalget);
+            forsikring.setKvadratmeter(kvm);
+            forsikring.setBoligtype(typevalget);
+            forsikring.setStandard(standardvalget);
+            forsikring.setForsikringsbelopBygning(belop);
+            forsikring.setForsikringsbelopInnbo(belopInnbo);
+            forsikring.setEgenandel(egenandelvalget);
+            forsikring.setByggeAr(ar);
+            forsikring.setVilkar(dekningvalget);
+            
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
+        }  
+    }
+    
+    public void rediger()
+    {
+        enableFelter( this, beregnPris );
+        knappePanel.add(lagreNyInfo);
+        tilbudLabel.setText("Foreslått tilbud: ");
+        beregnPris.setText("Beregn ny pris");
+        revalidate();
+        repaint();
+    }
+    
+    public void deaktiverForsikring()
+    {
+        int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
+        if (svar == JOptionPane.YES_OPTION)
+        {
+            knappePanel.remove(rediger);
+            knappePanel.remove(lagreNyInfo);
+            this.remove(beregnPris);
+            knappePanel.remove(deaktiver);
+            forsikring.setAktiver(false);
+            JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
+            repaint();
+            revalidate();
+            
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
+        }
+    }
+    
+    public void visVilkår()
+    {
+        if( forsikring == null )
+                visForsikringensVilkår("Ny Fritidsboligforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
+        else
+            visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
+    }
+    
+    public void leggTilKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
     }
     
     @Override
@@ -355,55 +413,19 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         }
         else if (e.getSource() == vilkårKnapp)
         {
-            if( forsikring == null )
-                visForsikringensVilkår("Ny Fritidsboligforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
-            else
-                visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
+            visVilkår();
         }
         else if(e.getSource() == rediger)
         {
-            enableFelter( this, beregnPris );
-            knappePanel.add(lagreNyInfo);
-            tilbudLabel.setText("Foreslått tilbud: ");
-            beregnPris.setText("Beregn ny pris");
-            revalidate();
-            repaint();
+            rediger();
         }
         else if (e.getSource() == lagreNyInfo)
         {
-            if (hentInfo())
-            {
-                forsikring.setAdresse(adr);
-                forsikring.setAlarm(alarm_b);
-                forsikring.setUtleie(utleid_b);
-                forsikring.setMateriale(materialevalget);
-                forsikring.setKvadratmeter(kvm);
-                forsikring.setBoligtype(typevalget);
-                forsikring.setStandard(standardvalget);
-                forsikring.setForsikringsbelopBygning(belop);
-                forsikring.setForsikringsbelopInnbo(belopInnbo);
-                forsikring.setEgenandel(egenandelvalget);
-                forsikring.setByggeAr(ar);
-                forsikring.setVilkar(dekningvalget);
-            
-            //Må beregne pris på nytt!
-            }
+            oppdaterForsikring();
         }
         else if (e.getSource() == deaktiver)
         {
-           
-            int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
-            if (svar == JOptionPane.YES_OPTION)
-            {
-                knappePanel.remove(rediger);
-                knappePanel.remove(lagreNyInfo);
-                this.remove(beregnPris);
-                knappePanel.remove(deaktiver);
-                forsikring.setAktiver(false);
-                JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
-                repaint();
-                revalidate();
-            }
+            deaktiverForsikring();
         }
         
     }
