@@ -34,9 +34,6 @@ public abstract class Kjoretoyforsikring extends Forsikring
         verdi = belop;
     }
     
-
-    
-
     public Person getEier() 
     {
         if (eier == null)
@@ -116,12 +113,7 @@ public abstract class Kjoretoyforsikring extends Forsikring
     {
         verdi = b;
     }
-
-    @Override
-    public void beregnPris()
-    {
-        
-    }
+    
     @Override
     public String toString()
     { 

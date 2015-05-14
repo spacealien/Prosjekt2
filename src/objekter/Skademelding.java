@@ -116,6 +116,16 @@ public class Skademelding implements Serializable
     {
         bilder = photo;
     }
+    
+    public int getLøpenummer()
+    {
+        return nestenr;
+    }
+    
+    public void setLøpenummer( int n)
+    {
+        nestenr = n;
+    }
         
 
     @Override

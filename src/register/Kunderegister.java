@@ -8,6 +8,7 @@ package register;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import objekter.Ansatt;
@@ -183,6 +184,14 @@ public class Kunderegister implements Serializable
     {
         Personsammenlikner test = new Personsammenlikner();
         kunderegister.sort(test);
+    }
+    
+    public Kunde getKunde()
+    {
+        Iterator<Kunde> iterator = kunderegister.iterator();
+        if( iterator.hasNext() && iterator.next() != null )
+            return iterator.next();
+        return null;
     }
     
     @Override

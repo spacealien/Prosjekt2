@@ -294,10 +294,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
                     inntektsvelger.setEnabled(true);
                 }
         }});
-        
-        
  }
- 
  
  public void alleKunderMedForsikring()
  {
@@ -307,8 +304,8 @@ public class StatistikkPanel extends JPanel implements ActionListener
     tabell.setModel(new TabellModell(liste));
     tabell.setPreferredScrollableViewportSize(new Dimension(700,180));
     statistikkVindu = new StatistikkVindu("Kunder med " + forsikringsvalg, new JScrollPane(tabell));
-    
  }
+ 
  public void antSkademeldinger()
  {
     startDato = new Date((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
@@ -343,6 +340,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
                         sdf.format(startDato) + "  -  " + sdf.format(sluttDato), 
                         new JScrollPane(tabell));
  }
+ 
  public void antForsikringer()
  {
     startDato = new Date((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
@@ -404,6 +402,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
         statistikkVindu = new StatistikkVindu("Total utbetalt erstatningsbeløp i perioden "
                 + sdf.format(startDato) + "  -  " + sdf.format(sluttDato), textArea);
     }
+    
     public void totalErstatningPaForsikring()
     {
      forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());

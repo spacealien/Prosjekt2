@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -79,6 +80,15 @@ public class Forsikringsliste implements Serializable
         }
         
         return set;
+    }
+    
+    public Forsikring getForsikring()
+    {
+        Iterator<Forsikring> iterator = liste.values().iterator();
+        if( iterator.hasNext() && iterator.next() != null)
+            return iterator.next();
+        else
+            return null;
     }
     
     public List<Forsikring> alleForsikringer()

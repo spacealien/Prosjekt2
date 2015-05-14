@@ -105,12 +105,12 @@ public abstract class Forsikring implements Serializable
         this.totalbelop = totalbelop;
     }
 
-    public static int getLøpenummer() 
+    public int getLøpenummer() 
     {
         return løpenummer;
     }
 
-    public static void setLøpenummer(int løpenummer) 
+    public void setLøpenummer(int løpenummer) 
     {
         Forsikring.løpenummer = løpenummer;
     }
@@ -185,11 +185,7 @@ public abstract class Forsikring implements Serializable
     {
         sluttdato = d;
     }
-    
-    public void beregnPris()
-    {
-        
-    }
+
     
     @Override
     public String toString()

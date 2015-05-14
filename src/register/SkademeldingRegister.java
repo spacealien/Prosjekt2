@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -75,5 +76,14 @@ public class SkademeldingRegister implements Serializable
         return skademeldinger.values().stream()
                 .filter( x -> startdato.after(x.getSkadeDato()) && sluttdato.before(x.getSkadeDato()))
                 .collect( Collectors.toList() );
+    }
+    
+    public Skademelding getSkademelding()
+    {
+        Iterator<Skademelding> iterator = skademeldinger.values().iterator();
+        if( iterator.hasNext() && iterator.next() != null)
+            return iterator.next();
+        else
+            return null;
     }
 }

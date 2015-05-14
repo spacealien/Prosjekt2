@@ -346,8 +346,8 @@ public class HovedRegister
             utfil.writeObject(forsikringsregister);
             utfil.writeObject(skademeldingsregister);
             utfil.writeObject(ansattregister);
-            
-            
+            utfil.writeInt(forsikringsregister.getForsikring().getLøpenummer());
+            utfil.writeInt(skademeldingsregister.getSkademelding().getLøpenummer());
             utfil.close();
         }
         catch( IOException e )
@@ -365,7 +365,8 @@ public class HovedRegister
             forsikringsregister = (Forsikringsliste) innfil.readObject();
             skademeldingsregister = (SkademeldingRegister) innfil.readObject();
             ansattregister = (Ansattregister) innfil.readObject();
-            
+            forsikringsregister.getForsikring().setLøpenummer(innfil.readInt());
+            skademeldingsregister.getSkademelding().setLøpenummer(innfil.readInt());
             innfil.close();
         }
         catch( IOException | ClassNotFoundException e )
