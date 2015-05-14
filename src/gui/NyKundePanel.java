@@ -75,7 +75,7 @@ public class NyKundePanel extends JPanel implements ActionListener
         knappeWrapper.add(forsikringsDropDown);
         knappeWrapper.add(regKunde);
         add(kundeInfo_1, BorderLayout.CENTER );
-        add(knappeWrapper, BorderLayout.SOUTH );
+        add(knappeWrapper, BorderLayout.PAGE_END );
         
         regKunde.addActionListener(this);
     }

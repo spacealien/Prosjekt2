@@ -26,6 +26,7 @@ public abstract class Forsikring implements Serializable
     private int egenandel;
     private final Calendar startdato;
     private Calendar sluttdato;
+    private Date sistBetalt;
     private double arligPremie = 0;
     private double totalbelop = 0;
     private String vilkar;
@@ -51,6 +52,7 @@ public abstract class Forsikring implements Serializable
         forsikringsnummer =  løpenummer++;
         kunde = k;
         skademeldingsnøkkler = new ArrayList<>();
+        sistBetalt = stDato;
     }
     
     public String getForsikringsType()
@@ -70,6 +72,16 @@ public abstract class Forsikring implements Serializable
     public void setDekning( String type )
     {
         dekning = type;
+    }
+    
+    public void setSistBetalt(Date d)
+    {
+        sistBetalt = d;
+    }
+    
+    public Date getSistBetalt()
+    {
+        return sistBetalt;
     }
     
     public String getDekning()
