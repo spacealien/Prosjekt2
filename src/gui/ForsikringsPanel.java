@@ -118,7 +118,7 @@ public interface ForsikringsPanel
             mappeSti = "Vilkår/";
         }
 
-        try (BufferedReader innfil = new BufferedReader( new InputStreamReader ( new FileInputStream( "Vilkår\\" + filsti + ".txt"),"UTF8")))                                                                                                               
+        try (BufferedReader innfil = new BufferedReader( new InputStreamReader ( new FileInputStream( mappeSti + filsti + ".txt"),"UTF8")))                                                                                                               
         {
             StringBuilder vilkårBygger = new StringBuilder();
             String vilkår;
@@ -133,12 +133,12 @@ public interface ForsikringsPanel
                 innfil.close();            
                 return vilkårBygger.toString();
         } 
-        catch (FileNotFoundException ex) 
+        catch (FileNotFoundException e) 
         {
             JOptionPane.showMessageDialog(null, "Feilmelding", "Kunne ikke finne fil", JOptionPane.ERROR_MESSAGE);
             return null;
         } 
-        catch (UnsupportedEncodingException ex) 
+        catch (UnsupportedEncodingException e) 
         {
             JOptionPane.showMessageDialog(null, "Feilmelding", "Feil filformat. ikke UTF-8.", JOptionPane.ERROR_MESSAGE);
             return null;
