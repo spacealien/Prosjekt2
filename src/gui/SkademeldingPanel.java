@@ -186,7 +186,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
             
             Skademelding nySkademelding = new Skademelding(forsikring, dato, skadetypevalget, beskrivelse, takst, belop );
             if( bilder != null)
-                skademelding.setBilder(bilder);
+                nySkademelding.setBilder(bilder);
 
             if(vindu.getRegister().nySkademelding(nySkademelding));
                 vindu.visInformasjon("Beskjed", "Skademelding registrert.");
