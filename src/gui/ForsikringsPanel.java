@@ -49,58 +49,57 @@ public interface ForsikringsPanel
     default void disableFelter( Container pane, JButton knapp1, JButton knapp2 )
     {
         for(Component component : getKomponenter(pane))
-                {
-                    if((component instanceof JTextField))
-                    {
-                        JTextField tf = (JTextField)component;
-                        tf.setEditable(false);
-                    }
-                    else if(component instanceof JComboBox)
-                    {
-                        JComboBox cb = (JComboBox)component;
-                        cb.setEnabled(false);
-                    }
-                    else if(component instanceof JRadioButton)
-                    {
-                        JRadioButton rb = (JRadioButton)component;
-                        rb.setEnabled(false);
-                    }
-                    else if (component.equals(knapp1))
-                    {
-                        component.setVisible(false);
-                    }
-                    else if (component.equals(knapp2))
-                    {
-                        component.setVisible(false);
-                    }
-                }
+        {
+            if((component instanceof JTextField))
+            {
+                JTextField tf = (JTextField)component;
+                tf.setEditable(false);
+            }
+            else if(component instanceof JComboBox)
+            {
+                JComboBox cb = (JComboBox)component;
+                cb.setEnabled(false);
+            }
+            else if(component instanceof JRadioButton)
+            {
+                JRadioButton rb = (JRadioButton)component;
+                rb.setEnabled(false);
+            }
+            else if (component.equals(knapp1))
+            {
+                component.setVisible(false);
+            }
+            else if (component.equals(knapp2))
+            {
+                component.setVisible(false);
+            }
+        }
     }
     
     default void enableFelter( Container pane, JButton knapp2 )
     {
         for(Component component : getKomponenter(pane))
-                {
-                    if((component instanceof JTextField))
-                    {
-                        JTextField tf = (JTextField)component;
-                        tf.setEditable(true);
-                    }
-                    else if(component instanceof JComboBox)
-                    {
-                        JComboBox cb = (JComboBox)component;
-                        cb.setEnabled(true);
-                    }
-                    else if(component instanceof JRadioButton)
-                    {
-                        JRadioButton rb = (JRadioButton)component;
-                        rb.setEnabled(true);
-                    }
-                    else if (component.equals(knapp2))
-                    {
-                        component.setVisible(true);
-                    }
-                    
-                }
+        {
+            if((component instanceof JTextField))
+            {
+                JTextField tf = (JTextField)component;
+                tf.setEditable(true);
+            }
+            else if(component instanceof JComboBox)
+            {
+                JComboBox cb = (JComboBox)component;
+                cb.setEnabled(true);
+            }
+            else if(component instanceof JRadioButton)
+            {
+                JRadioButton rb = (JRadioButton)component;
+                rb.setEnabled(true);
+            }
+            else if (component.equals(knapp2))
+            {
+                component.setVisible(true);
+            }              
+        }
     }
     
     default void visForsikringensVilkår(String overskrift, String vilkårInnhold )
