@@ -188,17 +188,13 @@ public class HovedRegister
         
         for(Forsikring forsikring :  kundeForsikringer)
         {    
-            Calendar startdato = forsikring.getStartdato();
-            Calendar sluttdato = forsikring.getSluttdato();
             int differanseÅr = 0;
-            int differanseMnd = 0;
+            long differanseMnd = 0L;
             if( forsikring.getSluttdato() != null)
             {
-                differanseÅr = sluttdato.get( Calendar.YEAR ) - startdato.get( Calendar.YEAR );
-                differanseMnd = sluttdato.get( Calendar.MONTH ) - startdato.get( Calendar.MONTH );
+                differanseMnd = (forsikring.getSluttdato().getTime().getTime() - forsikring.getStartdato().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
             }
             prisPrMåned= forsikring.getTotalbelop() / 12;
-            differanseMnd += differanseÅr * 12;
             sum += differanseMnd * prisPrMåned;
         }
         return sum;

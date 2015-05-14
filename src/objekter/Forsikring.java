@@ -193,9 +193,9 @@ public abstract class Forsikring implements Serializable
         return skademeldingsnøkkler;
     }
     
-    public Calendar getStartdato()
+    public Date getStartdato()
     {
-        return startdato;
+        return stDato;
     }
     
     public Calendar getSluttdato()
