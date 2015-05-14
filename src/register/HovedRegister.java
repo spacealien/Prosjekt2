@@ -475,12 +475,19 @@ public class HovedRegister
         nySkademelding(skademelding_82);
         nySkademelding(skademelding_83);
         nySkademelding(skademelding_84);
+        
+        
+        for(Forsikring forsikring:forsikringsregister.alleForsikringer())
+        {
+            
+            
+        }
        
         
         
         
         
-        skrivTilFil();
+        //skrivTilFil();
 
         //sjekkTid2();
     }
@@ -626,11 +633,11 @@ public class HovedRegister
         double sum = 0.0;
         List<Forsikring> kundeForsikringer = forsikringsregister.getKundensForsikringer(kunde);
         double prisPrMåned;
+        long differanseMnd = 0L;
         
         for(Forsikring forsikring :  kundeForsikringer)
         {    
             int differanseÅr = 0;
-            long differanseMnd = 0L;
             if( forsikring.getSluttdato() != null)
             {
                 differanseMnd = (forsikring.getSluttdato().getTime().getTime() - forsikring.getStartdato().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
