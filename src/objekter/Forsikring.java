@@ -110,7 +110,7 @@ public abstract class Forsikring implements Serializable
         return løpenummer;
     }
 
-    public void setLøpenummer(int n) 
+    public static void setLøpenummer(int n) 
     {
         løpenummer = n;
     }

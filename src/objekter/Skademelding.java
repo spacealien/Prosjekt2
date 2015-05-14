@@ -122,7 +122,7 @@ public class Skademelding implements Serializable
         return nestenr;
     }
     
-    public void setLøpenummer( int n)
+    public static void setLøpenummer( int n)
     {
         nestenr = n;
     }

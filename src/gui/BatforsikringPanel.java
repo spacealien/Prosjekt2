@@ -338,7 +338,10 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else if (e.getSource() == vilkarKnapp)
         {
-            //Vis vilkår
+            if( forsikring == null )
+                visForsikringensVilkår("Ny Bilforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
+            else
+                visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
         }
         else if (e.getSource() == rediger)
         {

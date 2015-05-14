@@ -33,8 +33,6 @@ public class VilkårVindu extends JFrame
         utskrift.setLineWrap(true);
         JScrollPane scroll = new JScrollPane(utskrift);
         
-        
-
         overskrift = new JLabel("");
         JPanel menyPanel = new JPanel();
         menyPanel.add(overskrift);

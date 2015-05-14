@@ -365,8 +365,8 @@ public class HovedRegister
             forsikringsregister = (Forsikringsliste) innfil.readObject();
             skademeldingsregister = (SkademeldingRegister) innfil.readObject();
             ansattregister = (Ansattregister) innfil.readObject();
-            forsikringsregister.getForsikring().setLøpenummer(innfil.readInt());
-            skademeldingsregister.getSkademelding().setLøpenummer(innfil.readInt());
+            Forsikring.setLøpenummer(innfil.readInt());
+            Skademelding.setLøpenummer(innfil.readInt());
             innfil.close();
         }
         catch( IOException | ClassNotFoundException e )
