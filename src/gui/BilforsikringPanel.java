@@ -618,7 +618,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         repaint();
     }
     
-    
     public void deaktiverForsirking()
     {
         int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " 

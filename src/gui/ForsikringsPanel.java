@@ -113,10 +113,9 @@ public interface ForsikringsPanel
     default String velgVilkår( String filsti )
     {
         String mappeSti = "Vilkår\\";
+        
         if(System.getProperty("os.name").toLowerCase().contains("mac") || System.getProperty("os.name").toLowerCase().contains("lin"))
-        {
             mappeSti = "Vilkår/";
-        }
 
         try (BufferedReader innfil = new BufferedReader( new InputStreamReader ( new FileInputStream( mappeSti + filsti + ".txt"),"UTF8")))                                                                                                               
         {

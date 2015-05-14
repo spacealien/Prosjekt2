@@ -5,12 +5,8 @@
  */
 package gui;
 
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.*;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Calendar;
 import javax.swing.*;
 import objekter.*;
@@ -182,7 +178,6 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         });
     }
     
-    
     // ikke fjern, ikke ferdig....mangler visning for dropdown
     public void visForsikring( Forsikring f)
     {
@@ -328,21 +323,22 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
                     register.nyKunde(kunde);
                 }
                 
-            Forsikring forsikringen = new Husforsikring(kunde, 
+            Forsikring nyForsikring = new Husforsikring(kunde, 
                     egenandelvalget, dekningvalget, adr, ar, hustypevalget, husmaterialevalget, 
                     husstandardvalget, kvm, belop, belopInnbo, alarm_b);
             
-            vindu.getRegister().nyForsikring(forsikringen);
+            nyForsikring.setArligPremie( Double.parseDouble(husTilbud.getText()) );
+            vindu.getRegister().nyForsikring(nyForsikring);
             
             if(kundePanel != null)
                 kundePanel.oppdaterVindu();
             
             JOptionPane.showMessageDialog(null, "Du har nå tegnet husforsikring med nummer " 
-                                          + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() 
+                                          + nyForsikring.getForsikringsnummer() + " på " + kunde.getFornavn() 
                                           + " " + kunde.getEtternavn() , "Bekreftelse", 
                                             JOptionPane.INFORMATION_MESSAGE);
             
-            System.out.println(forsikringen);
+
             }
     }
     
