@@ -793,25 +793,25 @@ public boolean sjekkDato()
 }
 public boolean sjekkDatoOgForsikringsvelger()
 {
-   if (stDatoAr.getText().equals("") || stDatoMnd.getText().equals("") || 
-                        stDatoDag.getText().equals("") || slDatoAr.getText().equals("") || 
-                        slDatoMnd.getText().equals("") || slDatoDag.getText().equals("") 
+   if (!stDatoAr.getText().matches("\\d{4}") || !stDatoMnd.getText().matches("\\d{2}") || 
+       !stDatoDag.getText().matches("\\d{2}") || !slDatoAr.getText().matches("\\d{4}") || 
+       !slDatoMnd.getText().matches("\\d{2}") || !slDatoDag.getText().matches("\\d{2}") 
                                 || forsikringsvelgeren.getSelectedIndex() == 0)
-                        {
-                            if(stDatoAr.getText().equals("") || stDatoMnd.getText().equals("") || 
-                        stDatoDag.getText().equals("") || slDatoAr.getText().equals("") || 
-                        slDatoMnd.getText().equals("") || slDatoDag.getText().equals(""))
-                            {
-                                feilMelding("Fyll ut alle feltene for dato");
-                            }
+    {
+        if(stDatoAr.getText().equals("") || stDatoMnd.getText().equals("") || 
+        stDatoDag.getText().equals("") || slDatoAr.getText().equals("") || 
+        slDatoMnd.getText().equals("") || slDatoDag.getText().equals(""))
+        {
+            feilMelding("Fyll ut alle feltene for dato");
+        }
                             
-                            if (forsikringsvelgeren.getSelectedIndex() == 0)
-                            {
-                                feilMelding("Du må velge forsikringstype");
-                            }
+        if (forsikringsvelgeren.getSelectedIndex() == 0)
+        {
+            feilMelding("Du må velge forsikringstype");
+        }
                            
-                            return false;
-                        } 
+            return false;
+    } 
    else
    {
        return true;
@@ -853,12 +853,12 @@ public boolean sjekkDatoOgForsikringsvelger()
                 switch (utgiftsvelger.getSelectedIndex())
                 {
                     case 1:
-                        if (!sjekkDato())
+                        if (sjekkDato())
                         totalErstatning();
                         
                     break;
                     case 2:
-                        if (!sjekkDatoOgForsikringsvelger())
+                        if (sjekkDatoOgForsikringsvelger())
                             totalErstatningPaForsikring();
                         
                         break;
@@ -869,12 +869,12 @@ public boolean sjekkDatoOgForsikringsvelger()
                 switch (inntektsvelger.getSelectedIndex())
                 {
                     case 1:
-                        if (!sjekkDato())
+                        if (sjekkDato())
                         totalPremieinntekt();
                         
                     break;
                     case 2:
-                        if (!sjekkDatoOgForsikringsvelger())
+                        if (sjekkDatoOgForsikringsvelger())
                             totalPremieinntektPaForsikringstype();
                         
                         break;
@@ -884,29 +884,45 @@ public boolean sjekkDatoOgForsikringsvelger()
             }
             
             else if (statistikkvelger.isEnabled())
-            { System.out.println("hei");
+            {
                 switch (statistikkvelger.getSelectedIndex())
                 {
                     case 1:
                         if (sjekkDato())
-                        statistikkSkademeldinger();
+                        {
+                            statistikkSkademeldinger();
+                        }
+                        
                         break;
                     case 2:
-                    if (sjekkDatoOgForsikringsvelger())
-                        statistikkSkademeldingPaForsikring();
+                        if (sjekkDatoOgForsikringsvelger())
+                        {
+                            statistikkSkademeldingPaForsikring();
+                        }
                         
                         break;
                     case 3:
-                    
+                        if(forsikringsvelgeren.getSelectedIndex() !=0 && 
+                                skadetypevelgeren.getSelectedIndex() !=0)
                          statistikkSkademeldingPaSkadetype();
+                        else
+                            feilMelding("Du må velge skadetype");
+                        
                         break;
                     case 4:
                         if (sjekkDatoOgForsikringsvelger())
-                        statistikkErstatning();
+                        {
+                            statistikkErstatning();
+                        }
                         
                         break;
                     case 5:
+                        if(forsikringsvelgeren.getSelectedIndex() !=0 && 
+                                skadetypevelgeren.getSelectedIndex() !=0)
                         statistikkErstatningPaSkadetype();
+                        else
+                            feilMelding("Du må velge skadetype");
+                        
                         break;
                     case 6:
                         typeForsikringPaAntall();
