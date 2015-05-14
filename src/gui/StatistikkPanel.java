@@ -170,7 +170,6 @@ public class StatistikkPanel extends JPanel implements ActionListener
         add(avansertSokPanel1);
         add(Box.createRigidArea(new Dimension(50,1)));
         add(avansertSokPanel3);
-        sokKnapp.addActionListener(this);
         
         sokevelger.addItemListener(new ItemListener()
         {
@@ -746,7 +745,7 @@ public boolean sjekkDatoOgForsikringsvelger()
                 {
                     case 1:
                         if(forsikringsvelgeren.getSelectedIndex() != 0)
-                        alleKunderMedForsikring();
+                            alleKunderMedForsikring();
                         else
                             feilMelding("Du må velge forsikringstype");
                         
