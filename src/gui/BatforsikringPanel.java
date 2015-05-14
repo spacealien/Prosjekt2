@@ -349,6 +349,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
                 "Vennligst fyll ut bileiers kontaktinformasjon:", JOptionPane.OK_CANCEL_OPTION);
                 if (result == JOptionPane.OK_OPTION)
                 {
+                    if(eierFornavn.getText().matches("\\D*") && eierEtternavn.getText().matches("\\D*") && eierTlf.getText().matches("\\d{8}"))
                     eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), eierAdresse.getText(), eierTlf.getText());
                 }
             }
