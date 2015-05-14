@@ -25,17 +25,19 @@ public class Inntekt
         sum = summen;
         forsikring = forsikringen;
     }
-
-    public Date getDato()
-    {
-        return dato;
-    }
-
+    
+    // set metoder
     public double getSum()
     {
         return sum;
     }
 
+    // get metoder
+    public Date getDato()
+    {
+        return dato;
+    }
+    
     public Forsikring getForsikring()
     {
         return forsikring;

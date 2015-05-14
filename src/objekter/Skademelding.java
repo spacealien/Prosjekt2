@@ -52,11 +52,41 @@ public class Skademelding implements Serializable
         opprettetdato = new GregorianCalendar();
     }
     
+    
+    // set metoder
+    public void setAktiv(boolean b)
+    {
+        aktiv = b;
+    }
+    
+    
+    
     public Forsikring getForsikring()
     {
         return forsikring;
     }
     
+    public void setBeskrivelse( String input )
+    {
+        this.beskrivelse = input;
+    }
+    
+    public void setSkadetype(String input)
+    {
+        skadetype = input;
+    }
+    
+    public void setBilder( Image[] photo )
+    {
+        bilder = photo;
+    }
+    
+    public static void setLøpenummer( int n)
+    {
+        nestenr = n;
+    }
+    
+    // get metoder
     public String getBeskrivelse()
     {
         return beskrivelse;
@@ -70,11 +100,6 @@ public class Skademelding implements Serializable
     public boolean getAktiv()
     {
         return aktiv;
-    }
-    
-    public void setAktiv(boolean b)
-    {
-        aktiv = b;
     }
     
     public GregorianCalendar getOpprettetDato()
@@ -102,32 +127,11 @@ public class Skademelding implements Serializable
         return skadenummer;
     }
     
-    public void setBeskrivelse( String input )
-    {
-        this.beskrivelse = input;
-    }
-    
-    public void setSkadetype(String input)
-    {
-        skadetype = input;
-    }
-    
-    public void setBilder( Image[] photo )
-    {
-        bilder = photo;
-    }
-    
     public static int getLøpenummer()
     {
         return nestenr;
     }
     
-    public static void setLøpenummer( int n)
-    {
-        nestenr = n;
-    }
-        
-
     @Override
     public String toString()
     {

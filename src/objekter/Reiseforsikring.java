@@ -25,54 +25,57 @@ public class Reiseforsikring extends Personligforsikring
         sone = son;  
         belopet = belop;
     }
-
-    public String getSone()
-    {
-        return sone;
-    }
-
+    
+    // set metoder
     public void setSone(String s)
     {
         sone = s;
     }
-
-    public double getSoneBeregn()
-    {
-        return soneBeregn;
-    }
-
+    
     public void setSoneBeregn(int sb)
     {
         soneBeregn = sb;
     }
-
-    public double getForsorgerpris()
-    {
-        return forsorgerpris;
-    }
-
+    
     public void setForsorgerpris(double fp)
     {
         forsorgerpris = fp;
     }
-
-    public double getPremie()
-    {
-        return premie;
-    }
-
+    
     public void setPremie(double p)
     {
         premie = p;
     }
-
-    public int getBelopet()
-    {
-        return belopet;
-    }
+    
     public void setBelopet(int b)
     {
         belopet = b;
+    }
+    
+    // get metoder
+    public String getSone()
+    {
+        return sone;
+    }
+    
+    public double getSoneBeregn()
+    {
+        return soneBeregn;
+    }
+    
+    public double getForsorgerpris()
+    {
+        return forsorgerpris;
+    }
+    
+    public double getPremie()
+    {
+        return premie;
+    }
+    
+    public int getBelopet()
+    {
+        return belopet;
     }
     
     @Override
