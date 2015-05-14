@@ -216,106 +216,107 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
     public boolean hentInfo()
     {
       
-            int hustype_n = hustypevelger.getSelectedIndex();
-            int materiale_n = husmaterialevelger.getSelectedIndex();
-            int husstandard_n = husstandardvelger.getSelectedIndex();
-            int egenandel_n = egenandelsvelger.getSelectedIndex();
-            int dekning_n = dekningvelger.getSelectedIndex();
+        int hustype_n = hustypevelger.getSelectedIndex();
+        int materiale_n = husmaterialevelger.getSelectedIndex();
+        int husstandard_n = husstandardvelger.getSelectedIndex();
+        int egenandel_n = egenandelsvelger.getSelectedIndex();
+        int dekning_n = dekningvelger.getSelectedIndex();
             
-            if (hustype_n == 0 || materiale_n == 0 || husstandard_n == 0 || egenandel_n == 0 || dekning_n == 0 || (!alarmJa.isSelected() && !alarmNei.isSelected()))
+        if (hustype_n == 0 || materiale_n == 0 || husstandard_n == 0 || egenandel_n == 0 || dekning_n == 0 || (!alarmJa.isSelected() && !alarmNei.isSelected()))
+        { 
+            String ut = "Det mangler informasjon om:\n";
+          
+            if (hustype_n == 0)
             {
-                String ut = "Det mangler informasjon om:\n";
-            
-                if (hustype_n == 0)
-                {
-                    ut += "Hustype\n";
-                }
-                
-                if (materiale_n == 0)
-                {
-                    ut += "Byggemateriale\n";
-                }
-                
-                if (husstandard_n == 0)
-                    {
-                        ut += "Husstandard\n";
-                    }
-                if (egenandel_n == 0)
-                    {
-                        ut += "Egenandel\n";
-                    }
-                if (dekning_n == 0)
-                    {
-                        ut += "Dekning\n";
-                    }
-                if (!alarmJa.isSelected() && !alarmNei.isSelected())
-                {
-                    ut += "Alarmvalg\n";
-                }
-                
-                ut += "\nVennligst fyll ut denne informasjonen og prøv igjen.";
-                JOptionPane.showMessageDialog(null, ut, "Feilmelding",
-                                                JOptionPane.ERROR_MESSAGE);
-                return false;
+                ut += "Hustype\n";
             }
-            else
+               
+            if (materiale_n == 0)
             {
-                if (alarmJa.isSelected() && !alarmNei.isSelected())
-                    alarm_b = true;
-                else if (!alarmJa.isSelected() && alarmNei.isSelected())
-                    alarm_b = false;
+                ut += "Byggemateriale\n";
+            }
                 
-                try
+            if (husstandard_n == 0)
+            {
+                ut += "Husstandard\n";
+            }
+            if (egenandel_n == 0)
+            {
+                ut += "Egenandel\n";
+            }
+            if (dekning_n == 0)
+            {
+                ut += "Dekning\n";
+            }
+            if (!alarmJa.isSelected() && !alarmNei.isSelected())
+            {
+                ut += "Alarmvalg\n";
+            }
+             
+            ut += "\nVennligst fyll ut denne informasjonen og prøv igjen.";
+                    JOptionPane.showMessageDialog(null, ut, "Feilmelding",
+                                                JOptionPane.ERROR_MESSAGE);
+        return false;
+        }
+        else
+        {
+            if (alarmJa.isSelected() && !alarmNei.isSelected())
+                alarm_b = true;
+            else if (!alarmJa.isSelected() && alarmNei.isSelected())
+                alarm_b = false;
+              
+            try
+            {
+                hustypevalget = hustypevelger.getItemAt(hustype_n);
+                husmaterialevalget = husmaterialevelger.getItemAt(materiale_n);
+                husstandardvalget = husstandardvelger.getItemAt(husstandard_n);
+                egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
+                dekningvalget = dekningvelger.getItemAt(dekning_n);
+                adr = husAdresse.getText();
+                java.util.Locale norge = new java.util.Locale( "no" );
+                Calendar dato = Calendar.getInstance(norge);
+                if (husAr.getText().matches("\\d{4}") && Integer.parseInt(husAr.getText()) <= dato.get(Calendar.YEAR))
+                    ar = Integer.parseInt(husAr.getText());
+                else
                 {
-                    hustypevalget = hustypevelger.getItemAt(hustype_n);
-                    husmaterialevalget = husmaterialevelger.getItemAt(materiale_n);
-                    husstandardvalget = husstandardvelger.getItemAt(husstandard_n);
-                    egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
-                    dekningvalget = dekningvelger.getItemAt(dekning_n);
-                    adr = husAdresse.getText();
-                    java.util.Locale norge = new java.util.Locale( "no" );
-                    Calendar dato = Calendar.getInstance(norge);
-                    if (husAr.getText().matches("\\d{4}") && Integer.parseInt(husAr.getText()) <= dato.get(Calendar.YEAR))
-                        ar = Integer.parseInt(husAr.getText());
-                    else
-                    {
-                        vindu.visFeilmelding("Feilmelding", husAr.getText() + " er ikke et gyldig byggeår");
-                        return false;
-                    }
-                    kvm = Integer.parseInt(husKvm.getText());
-                    belop = Integer.parseInt(belopHus.getText());
-                    belopInnbo = Integer.parseInt(belopHusInnbo.getText());
-                    return true;
-                }
-                catch( NumberFormatException e )
-                {
-                    vindu.visFeilmelding("Feilmelding", "Feil format i et av tekstfeltene. ");
+                    vindu.visFeilmelding("Feilmelding", husAr.getText() + " er ikke et gyldig byggeår");
                     return false;
                 }
+        
+                kvm = Integer.parseInt(husKvm.getText());
+                belop = Integer.parseInt(belopHus.getText());
+                belopInnbo = Integer.parseInt(belopHusInnbo.getText());
+                return true;
             }
+            catch( NumberFormatException e )
+            {
+                vindu.visFeilmelding("Feilmelding", "Feil format i et av tekstfeltene. ");
+                return false;
+            }
+        }
     }
     
     public void beregnPris()
     {
-      if (hentInfo())
-      {
+       if (hentInfo())
+        {
             double foreslåttPris = ForsikringsKalulator.beregnHusforsikring(egenandelvalget, dekningvalget, ar, husmaterialevalget, kvm, belop, belopInnbo, alarm_b, hustypevalget, husstandardvalget );
                     
             husTilbud.setVisible(true);
             husTilbud.setText(String.valueOf(foreslåttPris));
             husGiTilbud.setVisible(true);
-      }
+        }
     }
     
     public void tegnNy()
     {
-            if (hentInfo())
+        if (hentInfo())
+        {
+            if( vindu.getRegister().getKundeliste().erKunde(kunde) == false )
             {
-                if( vindu.getRegister().getKundeliste().erKunde(kunde) == false )
-                {
-                    vindu.getAnsatt().leggTilKundenøkel(kunde.getPersonnummer());
-                    register.nyKunde(kunde);
-                }
+                vindu.getAnsatt().leggTilKundenøkel(kunde.getPersonnummer());
+                register.nyKunde(kunde);
+            }
                 
             Forsikring nyForsikring = new Husforsikring(kunde, 
                     egenandelvalget, dekningvalget, adr, ar, hustypevalget, husmaterialevalget, 
@@ -337,7 +338,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
     public void oppdaterForsikring()
     {
         if (hentInfo())
-       {
+        {
             forsikring.setAdresse(adr);
             forsikring.setAlarm(alarm_b);
             forsikring.setMateriale(husmaterialevalget);
@@ -388,7 +389,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
     {
         if( forsikring == null )
             visForsikringensVilkår("Ny Husforsikring" + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
-       else
+        else
             visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
     }
     
@@ -418,11 +419,11 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else if (e.getSource() == lagreNyInfo)
         {
-           
+           oppdaterForsikring();
         }
         else if (e.getSource() == deaktiver)
         {
-            
+            deaktiverForsikring();
         }
     }
     
