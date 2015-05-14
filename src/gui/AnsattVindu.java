@@ -112,7 +112,10 @@ public class AnsattVindu extends JFrame
         hovedPanel.add(fanekort, BorderLayout.CENTER);
         
         lukkeknapp = new JCheckBox();
-        tabellModell = new TabellModell(register.getKundeliste().alleKunder());
+        
+        List<Kunde> kundeListe = register.getKundeliste().alleKunder();
+        if( kundeListe != null )
+            tabellModell = new TabellModell(register.getKundeliste().alleKunder());
         
         this.setMenuBar( new MenyLinje(this));
         visTabellPanel(tabellModell);
@@ -234,7 +237,7 @@ public class AnsattVindu extends JFrame
     
     public void oppdaterTabell( List<Kunde> liste )
     {
-        if( liste.size() >= 1 )
+        if( liste != null )
         {
             tabellModell = new TabellModell(liste);
             tabell.setModel(tabellModell);

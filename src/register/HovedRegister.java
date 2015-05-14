@@ -346,8 +346,8 @@ public class HovedRegister
             utfil.writeObject(forsikringsregister);
             utfil.writeObject(skademeldingsregister);
             utfil.writeObject(ansattregister);
-            utfil.writeInt(forsikringsregister.getForsikring().getLøpenummer());
-            utfil.writeInt(skademeldingsregister.getSkademelding().getLøpenummer());
+            utfil.writeInt(Forsikring.getLøpenummer());
+            utfil.writeInt(Skademelding.getLøpenummer());
             utfil.close();
         }
         catch( IOException e )

@@ -214,9 +214,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     }
     
     public boolean hentInfo()
-    {
-           
-              
+    {  
             int type_n = battypevelger.getSelectedIndex();
             int egenandel_n = egenandelsvelger.getSelectedIndex();
             int dekning_n = dekningvelger.getSelectedIndex();

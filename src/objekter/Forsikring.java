@@ -105,14 +105,14 @@ public abstract class Forsikring implements Serializable
         this.totalbelop = totalbelop;
     }
 
-    public int getLøpenummer() 
+    public static int getLøpenummer() 
     {
         return løpenummer;
     }
 
-    public void setLøpenummer(int løpenummer) 
+    public void setLøpenummer(int n) 
     {
-        Forsikring.løpenummer = løpenummer;
+        løpenummer = n;
     }
 
     public String getVilkar()
