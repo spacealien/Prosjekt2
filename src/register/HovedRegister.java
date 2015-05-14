@@ -35,6 +35,7 @@ public class HovedRegister
     public HovedRegister(AnsattVindu v) 
     {
         vindu = v;
+        
         /**
         kalender = new GregorianCalendar();
         Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer("08206049937");
@@ -74,15 +75,12 @@ public class HovedRegister
         forsikringsregister.leggTil(kunde_2, forsikring_3);
         forsikringsregister.leggTil(kunde_2, forsikring_4);
         forsikringsregister.leggTil(kunde_3, forsikring_5);
-        forsikringsregister.leggTil(kunde_3, forsikring_6);
-        
-        System.out.println(forsikring_1.getArligPremie());
-        
-        
+        forsikringsregister.leggTil(kunde_3, forsikring_6); 
         Skademelding test_1 = new Skademelding( forsikring_1, new Date() , "Skadetype" , "Beskrivelse", 2000, 30000 );
         skademeldingsregister.leggTil(forsikring_1, test_1);
         sjekkTid();
         */
+        
         lesFraFil();
     }
     
@@ -154,12 +152,6 @@ public class HovedRegister
         kunderegister.leggTil(nyKunde);
         vindu.oppdaterTabell( kunderegister.alleKunder() );
     }
-    
-    /*public Kunde finnKunde()
-    {
-        return null;
-    }*/
-    
     
     public List<Kunde> finnKundeMedNavn(String fornavn, String etternavn)
     {
@@ -296,6 +288,7 @@ public class HovedRegister
             innbetalinger.add(new Inntekt(dato, (nyForsikring.getArligPremie() * 0.9), nyForsikring));
             vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
             vindu.oppdaterTabell(kunderegister.alleKunder());
+            skrivTilFil();
         }
         else
         {
@@ -314,6 +307,7 @@ public class HovedRegister
         
         vindu.oppdaterTabell( kunderegister.alleKunder() );
         vindu.visInformasjon("Beskjed", "Forsikringen er deaktivert. ");
+        skrivTilFil();
     }
     
     public boolean nySkademelding( Skademelding nySkademelding )
@@ -324,6 +318,7 @@ public class HovedRegister
             Bilforsikring bilforsikring = (Bilforsikring) nySkademelding.getForsikring();
             bilforsikring.korrigerBonusVedSkade();
         }
+        skrivTilFil();
         return true;
     }
     
@@ -340,7 +335,7 @@ public class HovedRegister
     public void skrivTilFil()
     {
         try( ObjectOutputStream utfil = new ObjectOutputStream(
-                new FileOutputStream("Data\\ForsikringsData.txt")) )
+                new FileOutputStream("Data\\ForsikringsData.dat")) )
         {
             utfil.writeObject(kunderegister);
             utfil.writeObject(forsikringsregister);
@@ -359,7 +354,7 @@ public class HovedRegister
     public void lesFraFil()
     {
         try( ObjectInputStream innfil = new ObjectInputStream(
-              new FileInputStream("Data\\ForsikringsData.txt")))
+              new FileInputStream("Data\\ForsikringsData.dat")))
         {
             kunderegister = (Kunderegister)innfil.readObject();
             forsikringsregister = (Forsikringsliste) innfil.readObject();

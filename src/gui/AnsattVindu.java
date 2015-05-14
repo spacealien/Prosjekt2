@@ -113,16 +113,32 @@ public class AnsattVindu extends JFrame
         
         lukkeknapp = new JCheckBox();
         
-        List<Kunde> kundeListe = register.getKundeliste().alleKunder();
-        if( kundeListe != null )
-            tabellModell = new TabellModell(register.getKundeliste().alleKunder());
+        
+        tabell = new KundeTabell(new TabellModell(register.getKundeliste().alleKunder()), this);
+        tabell.setPreferredScrollableViewportSize(new Dimension(500,180));
+        bunnContainer.removeAll();
+        bunnContainer.setLayout( new BorderLayout() );
+        søkePanel.setLayout( new FlowLayout() );
+        søkePanel.add(alleKunder);
+        søkePanel.add(mineKunder);
+        søkePanel.add( new JLabel("ID: "));
+        søkePanel.add(søkefelt);
+        søkePanel.add(new JLabel("Fornavn: "));
+        søkePanel.add( søkefeltFornavn );
+        søkePanel.add(new JLabel("Etternavn: "));
+        søkePanel.add( søkefeltEtternavn );
+        søkePanel.add( søkekanpp);
+        bunnContainer.add(søkePanel,BorderLayout.NORTH);
+        tabellContainer.setLayout( new BorderLayout());
+        tabellContainer.add(tabell.getTableHeader(), BorderLayout.NORTH);
+        tabellContainer.add(new JScrollPane(tabell), BorderLayout.CENTER);
+        bunnContainer.add( tabellContainer);
+        hovedPanelBunn.setLayout( new BorderLayout() );
+        hovedPanelBunn.add( bunnContainer, BorderLayout.PAGE_END);
         
         this.setMenuBar( new MenyLinje(this));
-        visTabellPanel(tabellModell);
         visLogin();
         pack();
-        
-
     }
     
     public GregorianCalendar getKalender()
@@ -207,34 +223,6 @@ public class AnsattVindu extends JFrame
         }
     }
     
-    public void visTabellPanel( TabellModell modell)
-    {
-        hovedPanelBunn.removeAll();
-        tabell = new KundeTabell(modell, this);
-        tabell.setPreferredScrollableViewportSize(new Dimension(500,180));
-        bunnContainer.removeAll();
-        bunnContainer.setLayout( new BorderLayout() );
-        søkePanel.removeAll();
-        søkePanel.setLayout( new FlowLayout() );
-        søkePanel.add(alleKunder);
-        søkePanel.add(mineKunder);
-        søkePanel.add( new JLabel("ID: "));
-        søkePanel.add(søkefelt);
-        søkePanel.add(new JLabel("Fornavn: "));
-        søkePanel.add( søkefeltFornavn );
-        søkePanel.add(new JLabel("Etternavn: "));
-        søkePanel.add( søkefeltEtternavn );
-        søkePanel.add( søkekanpp);
-        bunnContainer.add(søkePanel,BorderLayout.NORTH);
-        tabellContainer.removeAll();
-        tabellContainer.setLayout( new BorderLayout());
-        tabellContainer.add(tabell.getTableHeader(), BorderLayout.NORTH);
-        tabellContainer.add(new JScrollPane(tabell), BorderLayout.CENTER);
-        bunnContainer.add( tabellContainer);
-        hovedPanelBunn.setLayout( new BorderLayout() );
-        hovedPanelBunn.add( bunnContainer, BorderLayout.PAGE_END);
-    }
-    
     public void oppdaterTabell( List<Kunde> liste )
     {
         if( liste != null )
@@ -290,7 +278,7 @@ public class AnsattVindu extends JFrame
         }
         else
         {
-            visFeilmelding("Feilmelding", "Søket ga ingen funn.");
+            visInformasjon("Feilmelding", "Søket ga ingen funn.");
         }
     }
 
@@ -326,7 +314,6 @@ public class AnsattVindu extends JFrame
     {
         JOptionPane.showMessageDialog(null, melding, tittel, JOptionPane.INFORMATION_MESSAGE);
     }
-    
     
     private class KnappeLytter implements ActionListener
     {

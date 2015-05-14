@@ -22,11 +22,11 @@ import objekter.Skademelding;
  */
 public class SkademeldingRegister implements Serializable
 {
-    private Map<Integer,Skademelding> skademeldinger = new HashMap<>();
+    private Map<Integer,Skademelding> skademeldinger;
     
     public SkademeldingRegister()
     {
-
+        skademeldinger = new HashMap<>();
     }
     
     public void leggTil( Forsikring forsikring, Skademelding skademelding )
