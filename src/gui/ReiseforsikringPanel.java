@@ -204,22 +204,22 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
                 }
                 else
                 {
-                if (forsorgerJa.isSelected() && !forsorgerNei.isSelected())
-                {
-                    forsorger_b = true;
-                    antBarn = Integer.parseInt(antbarn.getText());
-                 }
-                else if (!forsorgerJa.isSelected() && forsorgerNei.isSelected())
-                {
-                    forsorger_b = false;
-                    antBarn = 0;
-                }
+                    if (forsorgerJa.isSelected() && !forsorgerNei.isSelected())
+                    {
+                        forsorger_b = true;
+                        antBarn = Integer.parseInt(antbarn.getText());
+                    }
+                    else if (!forsorgerJa.isSelected() && forsorgerNei.isSelected())
+                    {
+                        forsorger_b = false;
+                        antBarn = 0;
+                    }
                 
-                egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
-                sonevalget = sonevelger.getItemAt(sone_n);
-                dekningvalget = dekningvelger.getItemAt(dekning_n);
-                belop = Integer.parseInt(reiseBelop.getText());
-                return true;
+                    egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
+                    sonevalget = sonevelger.getItemAt(sone_n);
+                    dekningvalget = dekningvelger.getItemAt(dekning_n);
+                    belop = Integer.parseInt(reiseBelop.getText());
+                    return true;
                 }
                 
                 
