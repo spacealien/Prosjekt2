@@ -537,7 +537,7 @@ public void statistikkSkademeldinger()
     try
     {
         
-        Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+        Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
         Date programSluttDato = new Date();
         double alltidIMnd = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
         double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
