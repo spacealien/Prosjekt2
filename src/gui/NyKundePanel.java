@@ -97,9 +97,10 @@ public class NyKundePanel extends JPanel implements ActionListener
             String personnummer = regPersnr.getText();
             String fødeslsår = regFødselsår.getText();
             
-            if( fornavn.length() > 0 || etternavn.length() > 0 || telefonnummer.matches("\\d{8}") 
-                    || epost.matches(" ^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$") 
-                    || personnummer.matches("\\d{11}") && fødeslsår.matches("\\d{4}") )
+            if( fornavn.length() > 0 && etternavn.length() > 0 && telefonnummer.matches("\\d{8}") 
+                    && epost.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") 
+                    && personnummer.matches("\\d{11}") && fødeslsår.matches("\\d{4}") )
             {
                 int dato = Integer.parseInt(personnummer.substring(0, 2));
                 int måned = Integer.parseInt(personnummer.substring(2, 4));
