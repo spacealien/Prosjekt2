@@ -29,34 +29,35 @@ public class BatForsikring extends Kjoretoyforsikring
         this.lengde = lengde;
         
     }
-
-    public boolean getVekter() 
-    {
-        return vekter;
-    }
     
-    public void setVekter(boolean v) {
-        
-        vekter = v;
-    }
-
-    public int getLengde() 
-    {
-        return lengde;
-    }
-
+    // set metoder
     public void setLengde(int lengde) 
     {
         this.lengde = lengde;
     }
 
-
+    public void setVekter(boolean v) {
+        
+        vekter = v;
+    }
+    
+    // get metoder
+    public boolean getVekter() 
+    {
+        return vekter;
+    }
+    
+    public int getLengde() 
+    {
+        return lengde;
+    }
+    
     public int getInnevarendeAr() 
     {
         return innevarendeAr;
     }
-
     
+    @Override
     public String toString()
     {  
         String vekt;
@@ -69,6 +70,4 @@ public class BatForsikring extends Kjoretoyforsikring
         ut +=  "\nVekter: " + vekt + "\nLengde: " + lengde;
         return ut;
     }
-    
-   
 }

@@ -32,21 +32,22 @@ public abstract class Bruker extends Person
         fDato = fodtdato.getTime();
     }
     
-    public Date getStartdato()
-    {
-        return startdato;
-    }
-
-    public String getEpost()
-    {
-        return epost;
-    }
-
+    //Set metoder
     public void setEpost(String epost)
     {
         this.epost = epost;
     }
-
+    
+    // get metoder
+    public Date getStartdato()
+    {
+        return startdato;
+    }
+    public String getEpost()
+    {
+        return epost;
+    }
+    
     public String getPersonnummer()
     {
         return personnummer;

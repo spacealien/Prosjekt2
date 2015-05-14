@@ -43,7 +43,44 @@ public abstract class Kjoretoyforsikring extends Forsikring
         else
         return eier;
     }
-
+    
+    // set metoder
+    public void setEier( Eier e )
+    {
+        eier = e;
+    }
+    
+    public void setRegistreringsnummer( String registreringsnmmer )
+    {
+        this.registreringsnmmer = registreringsnmmer;
+    }
+    public void setArsmodell(int a)
+    {
+        arsmodell = a;
+    }
+    
+    public void setHestekrefter( int hestekrefter )
+    {
+        this.hestekrefter = hestekrefter;
+    }
+    public void setFabrikant(String f)
+    {
+        fabrikant = f;
+    }
+    public void setType(String t)
+    {
+        kjøretøytype = t;
+    }
+    public void setModell(String m)
+    {
+        modell = m;
+    }
+    public void setBelop(int b)
+    {
+        verdi = b;
+    }
+    
+    // get metoder
     public String getRegistreringsnmmer() 
     {
         return registreringsnmmer;
@@ -79,40 +116,6 @@ public abstract class Kjoretoyforsikring extends Forsikring
         return verdi;
     }
     
-    public void setEier( Eier e )
-    {
-        eier = e;
-    }
-    
-    public void setRegistreringsnummer( String registreringsnmmer )
-    {
-        this.registreringsnmmer = registreringsnmmer;
-    }
-    public void setArsmodell(int a)
-    {
-        arsmodell = a;
-    }
-    
-    public void setHestekrefter( int hestekrefter )
-    {
-        this.hestekrefter = hestekrefter;
-    }
-    public void setFabrikant(String f)
-    {
-        fabrikant = f;
-    }
-    public void setType(String t)
-    {
-        kjøretøytype = t;
-    }
-    public void setModell(String m)
-    {
-        modell = m;
-    }
-    public void setBelop(int b)
-    {
-        verdi = b;
-    }
     
     @Override
     public String toString()

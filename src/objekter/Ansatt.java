@@ -34,16 +34,18 @@ public class Ansatt extends Bruker
         passord = "passord";
     }
     
-    public List<String> getKundenøkler()
+    // setters
+    public void setNestenr(int nr)
     {
-        return kundenøkler;
+        nestenr = nr;
     }
     
-    public void leggTilKundenøkel( String nøkkel)
+    public void setAdmin( boolean erAdmin )
     {
-        kundenøkler.add(nøkkel);
+        admin = erAdmin;
     }
     
+    //getters
     public int getAnsattnr()
     {    
         return ansattnr;
@@ -64,16 +66,22 @@ public class Ansatt extends Bruker
         return passord;
     }
     
-    public void setNestenr(int nr)
+    public List<String> getKundenøkler()
     {
-        nestenr = nr;
+        return kundenøkler;
     }
     
-    public void setAdmin( boolean erAdmin )
+    /**
+     * Metode for å legge inn nøkkel slik at man kan finne ansattes kunde
+     * @param nøkkel 
+     */
+    
+    public void leggTilKundenøkel( String nøkkel)
     {
-        admin = erAdmin;
+        kundenøkler.add(nøkkel);
     }
     
+    // tester om ansatt har admin rettigeter
     public boolean erAdmin()
     {
         return admin;

@@ -39,41 +39,24 @@ public abstract class Eiendomsforsikring extends Forsikring implements Serializa
         forsikringsbelopInnbo = belopInn;
     }
    
-    
-    public String getAdresse()
-    {
-        return husadresse;
-    }
+    // set metoder
     public void setAdresse(String a)
     {
         husadresse = a;
     }
-    public String getBoligtype()
-    {
-        return boligtype;
-    }
+    
     public void setBoligtype(String bt)
     {
         boligtype = bt;
     }
-    public boolean getAlarm()
+    
+    public void setMateriale(String m) 
     {
-        return alarm;
-    }
-
-    public String getMateriale() {
-        return materiale;
-    }
-
-    public void setMateriale(String m) {
         materiale = m;
     }
-
-    public String getStandard() {
-        return standard;
-    }
-
-    public void setStandard(String s) {
+    
+    public void setStandard(String s) 
+    {
         standard = s;
     }
     
@@ -82,24 +65,58 @@ public abstract class Eiendomsforsikring extends Forsikring implements Serializa
         alarm = a;
     }
     
-    public int getKvadratmeter()
-    {
-        return kvadratmeter;
-    }
-    
     public void setKvadratmeter(int kv)
     {
         kvadratmeter = kv;
     }
     
-    public int getByggeAr()
-    {
-        return byggear;
-    }
-    
     public void setByggeAr(int a)
     {
         byggear = a;
+    }
+    
+    public void setForsikringsbelopBygning(int fbBygning) 
+    {
+        forsikringsbelopBygning = fbBygning;
+    }
+
+    public void setForsikringsbelopInnbo(int fbInnbo) 
+    {
+        forsikringsbelopInnbo = fbInnbo;
+    }
+    
+    // get metoder
+    public String getAdresse()
+    {
+        return husadresse;
+    }
+    public String getBoligtype()
+    {
+        return boligtype;
+    }
+    public boolean getAlarm()
+    {
+        return alarm;
+    }
+
+    public String getMateriale() 
+    {
+        return materiale;
+    }
+    
+    public String getStandard() 
+    {
+        return standard;
+    }
+    
+    public int getKvadratmeter()
+    {
+        return kvadratmeter;
+    }
+    
+    public int getByggeAr()
+    {
+        return byggear;
     }
     
     public int getForsikringsbelopBygning()
@@ -111,15 +128,7 @@ public abstract class Eiendomsforsikring extends Forsikring implements Serializa
     {
         return forsikringsbelopInnbo;
     }
-
-    public void setForsikringsbelopBygning(int fbBygning) {
-        forsikringsbelopBygning = fbBygning;
-    }
-
-    public void setForsikringsbelopInnbo(int fbInnbo) {
-        forsikringsbelopInnbo = fbInnbo;
-    }
-
+    
     @Override
     public String toString()
     {

@@ -21,8 +21,17 @@ public class Husforsikring extends Eiendomsforsikring
                              int belopInn, boolean alarmen)
     {
     super( k, e_andel, vilkar, hadresse, byggar, bt, mat, stand, kvm, belopByg, belopInn, alarmen);
-    
     }
+    
+    // set metoder
+    
+    
+    
+    
+    
+    // get metoder
+
+    
 
     
     @Override

@@ -28,9 +28,9 @@ public class Kunde extends Bruker
         super( fnavn,  enavn,  adr,  tlf,  fd, email, persnummer);
     }
     
-    public void setTotalKunde( boolean total )
+    public void leggTilNøkkel( int i)
     {
-        totalkunde = total;
+        forsikringsnøkkel.add(i);
     }
     
     public void leggTilÅrligForsikringsPremie(double beløp)
@@ -43,30 +43,16 @@ public class Kunde extends Bruker
         årligForsikringsPremie -= beløp;
     }
     
-    public double getÅrligForsikringsPremie()
-    {
-        return årligForsikringsPremie;
-    }
-    
     public int finnForsikringsNøkkel( int n )
     {
         return Collections.binarySearch(forsikringsnøkkel, n);
-    }
-    
-    public void leggTilNøkkel( int i)
-    {
-        forsikringsnøkkel.add(i);
-    }
-    
-    public List<Integer> getNøkkelliste()
-    {
-        return forsikringsnøkkel;
     }
     
     public boolean erTotalkunde()
     {
         return totalkunde;
     }
+    
     public String erTotalkundeTekst()
     {
         if (totalkunde)
@@ -74,9 +60,27 @@ public class Kunde extends Bruker
         else
             return "Nei";
     }
+    
+    // set metoder
+    public void setTotalKunde( boolean total )
+    {
+        totalkunde = total;
+    }
+    
     public void setTotalkunde(boolean tk)
     {
         totalkunde = tk;
+    }
+    
+    // get metoder
+    public double getÅrligForsikringsPremie()
+    {
+        return årligForsikringsPremie;
+    }
+    
+    public List<Integer> getNøkkelliste()
+    {
+        return forsikringsnøkkel;
     }
     
     @Override

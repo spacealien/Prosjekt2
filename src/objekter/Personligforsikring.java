@@ -29,22 +29,24 @@ public abstract class Personligforsikring extends Forsikring
     {
         return forsorger;
     }
-
+    
+    // set metoder
     public void setForsorger(boolean f)
     {
         forsorger = f;
     }
-
-    public int getAntBarn()
-    {
-        return antBarn;
-    }
-
+    
     public void setAntBarn(int a)
     {
         antBarn = a;
     }
-
+    
+    // get metoder
+    public int getAntBarn()
+    {
+        return antBarn;
+    }
+    
     @Override
     public String toString()
     {

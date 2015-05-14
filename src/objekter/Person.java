@@ -28,25 +28,7 @@ public abstract class Person implements Serializable
          
     }
 
-    public String getFornavn()
-    {
-        return fornavn;
-    }
-
-    public String getEtternavn()
-    {
-        return etternavn;
-    }
-
-    public String getAdresse()
-    {
-        return adresse;
-    }
-
-    public String getTlfnr() {
-        return telefonnummer;
-    }
-
+    // set metoder
     public void setFornavn(String fnavn)
     {
         this.fornavn = fnavn;
@@ -66,7 +48,28 @@ public abstract class Person implements Serializable
     {
         this.telefonnummer = tlfnr;
     }
+    
+    // get metoder
+    public String getFornavn()
+    {
+        return fornavn;
+    }
 
+    public String getEtternavn()
+    {
+        return etternavn;
+    }
+
+    public String getAdresse()
+    {
+        return adresse;
+    }
+
+    public String getTlfnr() 
+    {
+        return telefonnummer;
+    }
+    
     @Override
     public String toString()
    {

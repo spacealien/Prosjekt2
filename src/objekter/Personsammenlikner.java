@@ -22,8 +22,7 @@ public class Personsammenlikner implements Comparator<Kunde>, Serializable
            "<K,k<L,l<M,m<N,n<O,o<P,p<Q,q<R,r<S,s<T,t" +
            "<U,u<V,v<W,w<X,x<Y,y<Z,z<Æ,æ<Ø,ø<Å=AA,å=aa;AA,aa";
     
-    private Collator kollator;
-    
+    private Collator kollator;   
     public Personsammenlikner()
     {
         try

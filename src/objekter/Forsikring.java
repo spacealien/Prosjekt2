@@ -36,6 +36,7 @@ public abstract class Forsikring implements Serializable
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     java.util.Locale norge = new java.util.Locale( "no" );
     private Date stDato;
+    private String dekning;
                    //lokalitetsobjekt for norsk standard
     
     
@@ -64,6 +65,16 @@ public abstract class Forsikring implements Serializable
             return "Fritidsboligforsikring";
         else
             return "Reiseforsikring";
+    }
+    
+    public void setDekning( String type )
+    {
+        dekning = type;
+    }
+    
+    public String getDekning()
+    {
+        return dekning;
     }
     
     public Kunde getKunde()
