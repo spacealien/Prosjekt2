@@ -515,7 +515,14 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
                 typevalget = biltypevelger.getItemAt(biltypevelger.getSelectedIndex());
                 dekningvalget = dekningvelger.getItemAt(dekningvelger.getSelectedIndex());
                 egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
-                regnr = bilRegnr.getText();
+                if (bilRegnr.getText().matches("^([a-zA-Z]){2}([0-9]){5}"))
+                        regnr = bilRegnr.getText();
+                else
+                {
+                    vindu.visFeilmelding("Feilmelding", "Feil format i et av tekstfeltene. ");
+                    return false;
+                }
+                
                 modell = bilModell.getText();
                 merke = bilMerke.getText();
                 hk = Integer.parseInt(bilHk.getText());
