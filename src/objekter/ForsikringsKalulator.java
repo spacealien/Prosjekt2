@@ -280,7 +280,7 @@ public class ForsikringsKalulator
                 beregnetBilKjorelengde + beregnetBilHK+beregnetBilGarasje + 
                 beregnetBilEgenandel + beregnetBilForerAlder + beregnetBilESP + 
                 beregnetBilAlarm + beregnetBilGPS+beregnetBilVilkar) * (1-bonus);
-        return beregnetBilTilbud;
+        return Math.rint(beregnetBilTilbud);
     }
     
     public static double beregnBatforsikring(int egenandel, String vilkar, 

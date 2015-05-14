@@ -763,7 +763,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
             }
             else if (i == reiseForsikring)
             {
-                ut += "\nAntall båtforsikringer: " + reiseForsikring;
+                ut += "\nAntall reiseforsikringer: " + reiseForsikring;
                 reiseForsikring = -1;
             }
         }

@@ -537,10 +537,10 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         {            
             double foreslåttPris = ForsikringsKalulator.beregnBilforsikring(belop, dekningvalget, ar, lengdevalget, 
             hk, garasje, egenandelvalget, forer, esp_b, alarm_b, gjenkjenning_b, bonusen);
-                    
-            NumberFormat formatter = new DecimalFormat("#0.00"); 
+             
             bilTilbud.setVisible(true);
-            bilTilbud.setText(formatter.format(foreslåttPris));
+            bilTilbud.setText(String.valueOf(foreslåttPris));
+            bilGiTilbud.setVisible(true);
         }
     }
     
@@ -591,7 +591,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         else if( e.getSource() == beregnPris)
         {
             beregnPris();
-            bilGiTilbud.setVisible(true);
             
         }
         else if (e.getSource() == annenEier)
