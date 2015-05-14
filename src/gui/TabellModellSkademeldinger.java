@@ -25,10 +25,9 @@ public class TabellModellSkademeldinger extends AbstractTableModel implements Ac
     //private final KundePanel panel;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     
-    public TabellModellSkademeldinger( List<Skademelding> skademeldinger/*, KundePanel panel*/ )
+    public TabellModellSkademeldinger( List<Skademelding> skademeldinger)
     {
         this.skademeldinger = skademeldinger;
-        //this.panel = panel;
         innhold = new Object[this.skademeldinger.size()][kolonnenavn.length];
         
         int teller = 0;
