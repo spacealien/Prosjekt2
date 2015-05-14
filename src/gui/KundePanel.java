@@ -146,6 +146,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         rediger.addActionListener(this);
         nyForsikring.addActionListener(this);
         
+        oppdaterVindu();
         disableFelter(kundeInfo_1, null, null);
     }
     

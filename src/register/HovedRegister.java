@@ -16,7 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import objekter.*;
 
@@ -30,7 +29,7 @@ public class HovedRegister
     private Forsikringsliste forsikringsregister = new Forsikringsliste();
     private SkademeldingRegister skademeldingsregister = new SkademeldingRegister();
     private Ansattregister ansattregister = new Ansattregister();
-    List<Inntekt> innbetalinger = new ArrayList<>();
+    private List<Inntekt> innbetalinger = new ArrayList<>();
     private Calendar kalender;
     private AnsattVindu vindu;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
@@ -383,6 +382,7 @@ public class HovedRegister
             utfil.writeObject(forsikringsregister);
             utfil.writeObject(skademeldingsregister);
             utfil.writeObject(ansattregister);
+            utfil.writeObject(innbetalinger);
             utfil.writeInt(Forsikring.getLøpenummer());
             utfil.writeInt(Skademelding.getLøpenummer());
             utfil.close();
@@ -402,6 +402,7 @@ public class HovedRegister
             forsikringsregister = (Forsikringsliste) innfil.readObject();
             skademeldingsregister = (SkademeldingRegister) innfil.readObject();
             ansattregister = (Ansattregister) innfil.readObject();
+            innbetalinger = (List<Inntekt>) innfil.readObject();
             Forsikring.setLøpenummer(innfil.readInt());
             Skademelding.setLøpenummer(innfil.readInt());
             innfil.close();
