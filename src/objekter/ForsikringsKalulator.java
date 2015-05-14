@@ -675,7 +675,7 @@ public class ForsikringsKalulator
                 (beregnetHusEgenandel+beregnetHusAlder+
                 beregnetHusByggeMateriale+beregnetHusAlarm+beregnetHusType+
                 beregnetHusStandard+beregnetHusVilkar);
-        return beregnetHusTilbud;
+        return Math.rint(beregnetHusTilbud);
     }
     
     public static double beregnFritidsboligforsikring( int egenandel, 
@@ -876,7 +876,7 @@ public class ForsikringsKalulator
                 (beregnetFritidsEgenandel+beregnetFritidsHusAlder+
                 beregnetFritidsByggeMateriale+beregnetFritidsAlarm+
                 beregnetFritidType+beregnetFritidStandard+beregnetFritidVilkar);
-        return beregnetFritidsTilbud;
+        return Math.rint(beregnetFritidsTilbud);
     }
     
     public static double beregnReiseforsikring( int egenandel, String vilkar, boolean forsorger, int antallBarn, String sone, int belop)
@@ -959,6 +959,6 @@ public class ForsikringsKalulator
         
         beregnReiseTilbud = beregnReiseForsikringsbelop*(beregnReiseSone+
                 beregnReiseForsorger+beregnetReiseEgenandel+beregnetReiseVilkar);
-        return beregnReiseTilbud;
+        return Math.rint(beregnReiseTilbud);
     }
 }
