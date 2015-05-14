@@ -30,64 +30,17 @@ public class HovedRegister
     private Forsikringsliste forsikringsregister = new Forsikringsliste();
     private SkademeldingRegister skademeldingsregister = new SkademeldingRegister();
     private Ansattregister ansattregister = new Ansattregister();
-    List<Inntekt> innbetalinger = new ArrayList<>();
+    private List<Inntekt> innbetalinger = new ArrayList<>();
     private Calendar kalender;
     private AnsattVindu vindu;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
     public HovedRegister(AnsattVindu v) 
     {
-        vindu = v;
-        
-        kalender = Calendar.getInstance();
-        /**
-        Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer("08206049937");
-        Kunde kunde_2 = kunderegister.finnKundeEtterPersonnummer("01258446816");
-        Kunde kunde_3 = kunderegister.finnKundeEtterPersonnummer("02029449964");
-        
-        
-        Forsikring forsikring_1 = new Bilforsikring( kunde_1, 4000, "Delkasko", "DH12345", 1600000, 
-                                                    "Volvo", "XC90", "SUV", 340, 
-                                                    2014, 30000, "Bilfører < 23 år", 0.50, 1, 
-                                                    false, false, false, false, 12000 );
-        Eier eier = new Eier("Hans", "Hansen", "Heiveien 3", "97612312");
-        Kjoretoyforsikring forsikring1 = (Kjoretoyforsikring)forsikring_1;
-        forsikring1.setEier(eier);
-        Forsikring forsikring_2 = new BatForsikring( kunde_1, 20000, "Båt Pluss", "DK54321", 600000, 
-                                                    "Tresfjord", "Ultra 360 FB", 
-                                                    "Cabin cruiser", 120, 2014, false, 30 );
-        Forsikring forsikring_3 = new Bilforsikring( kunde_2, 4000, "Ansvar", "CD67890", 270000, 
-                                                    "Volvo", "Sonett", "Personbil", 
-                                                    800, 1968, 300000, "Bilfører < 23 år", -0.10, 1, 
-                                                    true, true, true, false, 8000 );
-        Forsikring forsikring_4 = new Husforsikring( kunde_2, 8000, "Hus", "Fjollesvingen 32", 
-                                                    1970, "Tremannsbolig", 
-                                                    "Laftet tømmer", 
-                                                    "Høy standard", 320, 
-                                                    4500000, 1200000, false);
-        Forsikring forsikring_5 = new Reiseforsikring( kunde_3, 4000, "Reise Pluss", false, 0, "Norden", 
-                                                    40000 );
-        Forsikring forsikring_6 = new Fritidsboligforsikring( kunde_3, 4000, "Fritidsbolig", 
-                                                    "Hardangervidda", 1899, 
-                                                    "Hus/Hytte", "Tre", 
-                                                    "Normal standard", 13, 
-                                                    250000, 125000, true, false);
-        
-        forsikringsregister.leggTil(kunde_1, forsikring_1);
-        forsikringsregister.leggTil(kunde_1, forsikring_2);
-        forsikringsregister.leggTil(kunde_2, forsikring_3);
-        forsikringsregister.leggTil(kunde_2, forsikring_4);
-        forsikringsregister.leggTil(kunde_3, forsikring_5);
-        forsikringsregister.leggTil(kunde_3, forsikring_6);
-        
-        System.out.println(forsikring_1.getArligPremie());
-        
-        
-        Skademelding test_1 = new Skademelding( forsikring_1, new Date() , "Skadetype" , "Beskrivelse", 2000, 30000 );
-        skademeldingsregister.leggTil(forsikring_1, test_1);
-        sjekkTid();
-        */
+        vindu = v;  
+        kalender = Calendar.getInstance();  
         lesFraFil();
+
         //sjekkTid2();
     }
     
@@ -100,6 +53,24 @@ public class HovedRegister
     public List<Forsikring> getAlleKundensForsikringer(Kunde kunde)
     {
         return forsikringsregister.getKundensForsikringer(kunde);
+    }
+    
+    public final void sjekkTid()
+    {
+       //GregorianCalendar kalender = vindu.getKalender();
+      for( Kunde kunde : kunderegister.alleKunder() )
+        {
+           List<Forsikring> forsikringsliste = getAlleKundensForsikringer( kunde );
+           for( Forsikring forsikring : forsikringsliste )
+            {
+               
+                    /*if(Math.abs(( kalender.getTime().getTime() - forsikring.getStartdato().getTime().getTime())) > (1000*60*60*24*365.25) ) 
+                    {
+                        forsikring.beregnPris();
+                    }*/
+            }
+            
+        }  
     }
     
     public final void sjekkTid2()
@@ -132,6 +103,8 @@ public class HovedRegister
             }
         }
     }
+           
+    
     
     public List<Inntekt> getAlleInntekter()
     {
@@ -148,7 +121,6 @@ public class HovedRegister
         kunderegister.leggTil(nyKunde);
         vindu.oppdaterTabell( kunderegister.alleKunder() );
     }
-    
     
     public List<Kunde> finnKundeMedNavn(String fornavn, String etternavn)
     {
@@ -288,6 +260,7 @@ public class HovedRegister
                 vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
             
             vindu.oppdaterTabell(kunderegister.alleKunder());
+            skrivTilFil();
         }
         else
         {
@@ -305,6 +278,7 @@ public class HovedRegister
         forsikring.setAktiver(false);
         vindu.oppdaterTabell( kunderegister.alleKunder() );
         vindu.visInformasjon("Beskjed", "Forsikringen er deaktivert. ");
+        skrivTilFil();
     }
     
     public boolean nySkademelding( Skademelding nySkademelding )
@@ -315,6 +289,7 @@ public class HovedRegister
             Bilforsikring bilforsikring = (Bilforsikring) nySkademelding.getForsikring();
             bilforsikring.korrigerBonusVedSkade();
         }
+        skrivTilFil();
         return true;
     }
     
@@ -331,12 +306,13 @@ public class HovedRegister
     public void skrivTilFil()
     {
         try( ObjectOutputStream utfil = new ObjectOutputStream(
-                new FileOutputStream("Data\\ForsikringsData.txt")) )
+                new FileOutputStream("Data\\ForsikringsData.dat")) )
         {
             utfil.writeObject(kunderegister);
             utfil.writeObject(forsikringsregister);
             utfil.writeObject(skademeldingsregister);
             utfil.writeObject(ansattregister);
+            utfil.writeObject(innbetalinger);
             utfil.writeInt(Forsikring.getLøpenummer());
             utfil.writeInt(Skademelding.getLøpenummer());
             utfil.close();
@@ -350,12 +326,13 @@ public class HovedRegister
     public void lesFraFil()
     {
         try( ObjectInputStream innfil = new ObjectInputStream(
-              new FileInputStream("Data\\ForsikringsData.txt")))
+              new FileInputStream("Data\\ForsikringsData.dat")))
         {
             kunderegister = (Kunderegister)innfil.readObject();
             forsikringsregister = (Forsikringsliste) innfil.readObject();
             skademeldingsregister = (SkademeldingRegister) innfil.readObject();
             ansattregister = (Ansattregister) innfil.readObject();
+            innbetalinger = (List<Inntekt>) innfil.readObject();
             Forsikring.setLøpenummer(innfil.readInt());
             Skademelding.setLøpenummer(innfil.readInt());
             innfil.close();

@@ -32,13 +32,13 @@ public class KundeTabell extends JTable implements ForsikringsPanel
     private final JMenuItem nySkademelding;
     private final AnsattVindu vindu;
     
+
     public KundeTabell( TabellModell modell, AnsattVindu v )
     {
         super( modell );
         vindu = v;
         setRowHeight(20);
         setAutoCreateRowSorter(true);
-        
         MenyLytter menyLytter = new MenyLytter();
         popup = new JPopupMenu();
         info = new JMenuItem("Vis informasjon");
@@ -66,7 +66,6 @@ public class KundeTabell extends JTable implements ForsikringsPanel
         
         popup.add(info);
         popup.add(nyForsikring);
-        //popup.add(nySkademelding);
         
         addMouseListener(new MouseAdapter()
         {    
