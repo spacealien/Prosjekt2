@@ -639,7 +639,7 @@ public class HovedRegister
             {
                 differanseMnd = (forsikring.getStartdato().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
             }
-            prisPrMåned= forsikring.getTotalbelop() / 12;
+            prisPrMåned= forsikring.getArligPremie()/ 12;
             sum += differanseMnd * prisPrMåned;
         }
         return sum;

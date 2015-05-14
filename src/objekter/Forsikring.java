@@ -47,7 +47,7 @@ public abstract class Forsikring implements Serializable
     {
         egenandel = e_andel;
         startdato = Calendar.getInstance(norge);
-        stDato = startdato.getTime();
+        stDato = new Date(2013-1900,11,5);
         vilkar = betingelser;
         forsikringsnummer =  løpenummer++;
         kunde = k;
