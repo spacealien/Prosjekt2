@@ -113,8 +113,11 @@ public class AnsattVindu extends JFrame
         
         lukkeknapp = new JCheckBox();
         
+        if( register.getKundeliste().alleKunder() != null)
+            tabell = new KundeTabell(new TabellModell(register.getKundeliste().alleKunder()), this);
+        else
+            tabell = new KundeTabell(this);
         
-        tabell = new KundeTabell(new TabellModell(register.getKundeliste().alleKunder()), this);
         tabell.setPreferredScrollableViewportSize(new Dimension(500,180));
         bunnContainer.removeAll();
         bunnContainer.setLayout( new BorderLayout() );

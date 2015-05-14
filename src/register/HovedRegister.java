@@ -180,6 +180,26 @@ public class HovedRegister
         return ansattregister;
     }
     
+    public double getNåværendeInntjening( Kunde kunde )
+    {
+        double sum = 0.0;
+        List<Forsikring> kundeForsikringer = forsikringsregister.getKundensForsikringer(kunde);
+        double prisPrMåned;
+        
+        for(Forsikring forsikring :  kundeForsikringer)
+        {    
+            int differanseÅr = 0;
+            long differanseMnd = 0L;
+            if( forsikring.getSluttdato() != null)
+            {
+                differanseMnd = (forsikring.getSluttdato().getTime().getTime() - forsikring.getStartdato().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
+            }
+            prisPrMåned= forsikring.getTotalbelop() / 12;
+            sum += differanseMnd * prisPrMåned;
+        }
+        return sum;
+    }
+    
     public int getUtgifter( Kunde kunde )
     {
         int sum = 0;
@@ -306,7 +326,7 @@ public class HovedRegister
     public void skrivTilFil()
     {
         try( ObjectOutputStream utfil = new ObjectOutputStream(
-                new FileOutputStream("Data\\ForsikringsData.dat")) )
+                new FileOutputStream("Data\\ForsikringsData.txt")) )
         {
             utfil.writeObject(kunderegister);
             utfil.writeObject(forsikringsregister);

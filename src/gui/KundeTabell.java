@@ -32,6 +32,77 @@ public class KundeTabell extends JTable implements ForsikringsPanel
     private final JMenuItem nySkademelding;
     private final AnsattVindu vindu;
     
+    public KundeTabell( AnsattVindu v)
+    {
+        vindu = v;
+        setRowHeight(20);
+        setAutoCreateRowSorter(true);
+        MenyLytter menyLytter = new MenyLytter();
+        popup = new JPopupMenu();
+        info = new JMenuItem("Vis informasjon");
+        nyForsikring = new JMenu("Ny forsikring");
+        nyBilforsikring = new JMenuItem("Bilforsikring");
+        nyBåtforsikring = new JMenuItem("Båtforsikring");
+        nyHusforsikring = new JMenuItem("Husforsikring");
+        nyFritidsboligforsikring = new JMenuItem("Fritidsboligforsikring");
+        nyReiseforsikring = new JMenuItem("Reiseforsikring");
+        nySkademelding = new JMenuItem("Ny Skademelding");
+        
+        info.addActionListener(menyLytter);
+        nyBilforsikring.addActionListener(menyLytter);
+        nyBåtforsikring.addActionListener(menyLytter);
+        nyHusforsikring.addActionListener(menyLytter);
+        nyFritidsboligforsikring.addActionListener(menyLytter);
+        nyReiseforsikring.addActionListener(menyLytter);
+        nySkademelding.addActionListener(menyLytter);
+        
+        nyForsikring.add(nyBilforsikring);
+        nyForsikring.add(nyBåtforsikring);
+        nyForsikring.add(nyHusforsikring);
+        nyForsikring.add(nyFritidsboligforsikring);
+        nyForsikring.add(nyReiseforsikring);
+        
+        popup.add(info);
+        popup.add(nyForsikring);
+        
+        addMouseListener(new MouseAdapter()
+        {    
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+                sjekkKlikk(e);
+            }
+            @Override
+            public void mouseReleased(MouseEvent e)
+            {
+                sjekkKlikk(e);
+            }
+        
+            public void sjekkKlikk(MouseEvent e)
+            {
+                if (e.isPopupTrigger())
+                {
+                    int r = rowAtPoint(e.getPoint());
+                    if (r >= 0 && r < getRowCount()) 
+                    {
+                        setRowSelectionInterval(r, r);
+                    }
+                    else 
+                    {
+                        clearSelection();
+                    }
+                    int rowindex = getSelectedRow();
+                    if (rowindex < 0)
+                        return;
+                    if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) 
+                    {
+                        popup.show(e.getComponent(), e.getX(), e.getY());
+                    }
+                }
+            }   
+        }); // end of anonym muselytter 
+    }
+    
 
     public KundeTabell( TabellModell modell, AnsattVindu v )
     {

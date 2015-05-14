@@ -536,6 +536,7 @@ public void statistikkSkademeldinger()
     double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
     try
     {
+        
         Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
         Date programSluttDato = new Date();
         double alltidIMnd = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
