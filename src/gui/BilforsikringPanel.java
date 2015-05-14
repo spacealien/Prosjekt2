@@ -699,8 +699,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
                                         JOptionPane.OK_CANCEL_OPTION);
                 if (result == JOptionPane.OK_OPTION)
                 {
-                    eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), 
-                    eierAdresse.getText(), eierTlf.getText());
+                    if(eierFornavn.getText().matches("\\D*") && eierEtternavn.getText().matches("\\D*") && eierTlf.getText().matches("\\d{8}"))
+                        eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), eierAdresse.getText(), eierTlf.getText());
                 }  
             }
             else if (annenEier.getText().equals("Vis eier"))

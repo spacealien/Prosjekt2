@@ -11,8 +11,10 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -35,10 +37,12 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     private final JTextField skadeTakst;
     private final JTextField skadeForsikring;
     private final JTextField erstatningsBeløp;
+    private final JLabel erstatningsLabel;
     private final JButton sendInnSkade;
     private final JButton lastOppBildeKnapp;
     private final JButton vitneKnapp;
     private final JButton visBilde;
+    private final JButton beregnErstatning;
     private final String[] skadetype = {"", "Brann", "Tyveri/Hærverk", "Ulykke", "Tap", "Annet"};
     private final String[] skadetypeKjoretoy = {"", "Ansvar", "Glasskade", "Vei-/slepehjelp", "Tyveri/Hærverk", "Ulykke", "Annet"};
     private final String[] skadetypeEiendom = {"", "Brann", "Innbrudd/tyveri", "Hærverk", "Naturskade", "Vann", "Fryser/matvarer", "Annet"};
@@ -56,6 +60,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     private final JTextField vitneTlf;
     private final JTextField vitneAdresse;
     private final JPanel vitnePanel;
+    List<Vitne> vitneliste;
     
     private final Desktop desktop = Desktop.getDesktop();
     private final Desktop.Action action = Desktop.Action.OPEN;
@@ -68,15 +73,22 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         forsikring = f;
         vindu = v;
         register = vindu.getRegister();
+        vitneliste = new ArrayList<>();
         skadeDato = new JTextField( 7 );
         skadeBeskrivelse = new JTextArea( 20, 30);
         skadeTakst = new JTextField( 7 );
         sendInnSkade = new JButton("Send inn skade");  
-        lastOppBildeKnapp = new JButton("Last Opp Bilde");
+        sendInnSkade.setVisible(false);
+        lastOppBildeKnapp = new JButton("Last opp bilde");
         skadeForsikring = new JTextField(16);
-        vitneKnapp = new JButton("Legg Til Vitner");
+        skadeForsikring.setEditable(false);
+        vitneKnapp = new JButton("Legg til vitner");
         erstatningsBeløp = new JTextField(15);
+        erstatningsLabel = new JLabel("Foreslått erstatningsbeløp:");
+        erstatningsBeløp.setVisible(false);
+        erstatningsLabel.setVisible(false);
         visBilde = new JButton("Vis bilder");
+        beregnErstatning = new JButton("Beregn erstatningsbeløp");
         
         if (forsikring.getForsikringsType().equals("Bilforsikring") || forsikring.getForsikringsType().equals("Båtforsikring"))
         {
@@ -124,7 +136,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         
         JPanel wrapper_2 = new JPanel();
         wrapper_2.setLayout( new BorderLayout());
-        wrapper_2.add( new JLabel("Beskrivelse av Skaden: "), BorderLayout.PAGE_START);
+        wrapper_2.add( new JLabel("Beskrivelse av skaden: "), BorderLayout.PAGE_START);
         skadeBeskrivelse.setLineWrap(true);
         JScrollPane scroll = new JScrollPane(skadeBeskrivelse);
         scroll.setPreferredSize(new Dimension(70,150));
@@ -132,12 +144,13 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         
         JPanel wrapper_3 = new JPanel();
         wrapper_3.setLayout( new FlowLayout() );
-        wrapper_3.add( new JLabel("Erstatnings beløp: "));
+        wrapper_3.add( erstatningsLabel);
         wrapper_3.add( erstatningsBeløp );
-        wrapper_3.add(sendInnSkade);
+        wrapper_3.add(beregnErstatning);
         wrapper_3.add(lastOppBildeKnapp);
         wrapper_3.add(visBilde);
         wrapper_3.add(vitneKnapp);
+        wrapper_3.add(sendInnSkade);
         
         
         this.setLayout( new BorderLayout());
@@ -148,6 +161,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         
         skadeForsikring.setText(forsikring.getForsikringsType() + " " + forsikring.getForsikringsnummer());
         lastOppBildeKnapp.addActionListener(this);
+        beregnErstatning.addActionListener(this);
         sendInnSkade.addActionListener(this);
         visBilde.addActionListener(this);
         vitneKnapp.addActionListener(this);
@@ -166,8 +180,19 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     
     public void beregnPris()
     {
-        //Beregner pris
-        //belop =;
+        ForsikringsKalulator fk = new ForsikringsKalulator();
+        try
+        {
+            erstatningsBeløp.setText(String.valueOf(fk.beregnErstatningsbelop(forsikring.getEgenandel(), Integer.parseInt(skadeTakst.getText()))));
+            erstatningsLabel.setVisible(true);
+            erstatningsBeløp.setVisible(true);
+            erstatningsBeløp.setToolTipText("Kan redigeres");
+            sendInnSkade.setVisible(true);
+        }
+        catch (NumberFormatException e)
+        {
+            vindu.visInformasjon("Feilmelding", "Skriv inn skadetakst i riktig format: ####");
+        }
     }
     
     public void nySkademelding()
@@ -185,6 +210,10 @@ public class SkademeldingPanel extends JPanel implements ActionListener
             skadetypevalget = skadetypevelger.getItemAt(skadetype_n);
             
             Skademelding nySkademelding = new Skademelding(forsikring, dato, skadetypevalget, beskrivelse, takst, belop );
+            if (!vitneliste.isEmpty())
+            {
+                nySkademelding.setVitner(vitneliste);
+            }
             if( bilder != null)
                 nySkademelding.setBilder(bilder);
 
@@ -213,6 +242,10 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         {
             nySkademelding();
         }
+        else if( e.getSource() == beregnErstatning )
+        {
+            beregnPris();
+        }
         else if( e.getSource() == lastOppBildeKnapp)
         {
             JFileChooser filer = new JFileChooser();
@@ -240,23 +273,47 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         }
         else if( e.getSource() == vitneKnapp )
         {
-            if (vitneKnapp.getText().equals("Legg til vitne"))
+            if (vitneKnapp.getText().equals("Legg til vitner"))
             {
-                Object[] valg = {"Legg til nytt vitne", ""};
-                int result = JOptionPane.showConfirmDialog(null, vitnePanel, 
-                             "Vennligst fyll ut vitnes kontaktinformasjon:",
-                                        JOptionPane.OK_CANCEL_OPTION);
-                if (result == JOptionPane.OK_OPTION)
+                Object[] valg = {"Lagre vitne og legg til et nytt vitne", "Lagre vitne", "Avbryt"};
+                int result = 0;
+                while (result == 0)
                 {
-                    vitne = new Vitne(vitneFornavn.getText(), vitneEtternavn.getText(), 
-                    vitneAdresse.getText(), vitneTlf.getText());
-                }  
+                    result = JOptionPane.showOptionDialog(null, vitnePanel, 
+                             "Vennligst fyll ut vitnes kontaktinformasjon:",
+                                        JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, valg, valg [0]);
+                    if (result == 1)
+                    {
+                        if(vitneFornavn.getText().matches("\\D*") && vitneEtternavn.getText().matches("\\D*") && vitneTlf.getText().matches("\\d{8}"))
+                        {
+                            Vitne vitnet = new Vitne(vitneFornavn.getText(), vitneEtternavn.getText(), 
+                            vitneAdresse.getText(), vitneTlf.getText());
+                            vitneliste.add(vitnet);
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Ugyldig format i ett eller flere av feltene.\n\nPrøv igjen", "Feilmelding", JOptionPane.ERROR_MESSAGE);
+                            result = 0;
+                        }
+                    }
+                    else if (result == 0)
+                    {
+                        if(vitneFornavn.getText().matches("\\D*") && vitneEtternavn.getText().matches("\\D*") && vitneTlf.getText().matches("\\d{8}"))
+                        {
+                            Vitne vitnet = new Vitne(vitneFornavn.getText(), vitneEtternavn.getText(), 
+                            vitneAdresse.getText(), vitneTlf.getText());
+                            vitneliste.add(vitnet);
+                        }
+                        else
+                            JOptionPane.showMessageDialog(null, "Ugyldig format i ett eller flere av feltene.\n\nPrøv igjen", "Feilmelding", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
-            else if (vitneKnapp.getText().equals("Vis vitner"))
+            /*else if (vitneKnapp.getText().equals("Vis vitner"))
             {
                JOptionPane.showMessageDialog( null, skademelding.getVitner().toString(), 
                       "Vitner:", JOptionPane.PLAIN_MESSAGE);
-            }
+            }*/
         }
     }
 }

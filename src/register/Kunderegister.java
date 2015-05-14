@@ -7,6 +7,7 @@ package register;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +28,8 @@ public class Kunderegister implements Serializable
     public Kunderegister()
     {
         kunderegister = new ArrayList<>();
+        kunderegister.add(new Kunde("fornavn", "enavn", "String adr", "String tlf", new GregorianCalendar(13,03,1992),
+                 "String email", "String persnummer"));
         sorter();
     }
     

@@ -22,10 +22,10 @@ public class TabellModell extends AbstractTableModel
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     
     
-    public TabellModell( List<Kunde> kunder )
+    public TabellModell( List<Kunde> kundene )
     {
-        this.kunder = kunder;
-        innhold = new Object[this.kunder.size()][kolonnenavn.length];
+        this.kunder = kundene;
+        innhold = new Object[kunder.size()][kolonnenavn.length];
         
         int teller = 0;
         for( Kunde kunde : kunder )

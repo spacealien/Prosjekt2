@@ -961,4 +961,12 @@ public class ForsikringsKalulator
                 beregnReiseForsorger+beregnetReiseEgenandel+beregnetReiseVilkar);
         return Math.rint(beregnReiseTilbud);
     }
+    public static double beregnErstatningsbelop( int egenandel, int skadetakst)
+    {
+        double beløp = 0.0;
+        if(!(egenandel >= skadetakst))
+            beløp = Math.rint((skadetakst*0.7)-egenandel);
+        
+        return beløp;
+    }
 }
