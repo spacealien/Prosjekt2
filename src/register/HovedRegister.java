@@ -38,8 +38,7 @@ public class HovedRegister
     public HovedRegister(AnsattVindu v) 
     {
         vindu = v;  
-        kalender = Calendar.getInstance();  
-        
+        kalender = Calendar.getInstance();
         
         GregorianCalendar fdato = new GregorianCalendar(1991,6,6);
         Kunde test_1 = new Kunde("Rolf", "Hestman", "Kongleknaggen 18", "22260906", fdato, "hesterolf@yahoo.no", "08206049937");
@@ -477,17 +476,12 @@ public class HovedRegister
         nySkademelding(skademelding_84);
         
         
-        for(Forsikring forsikring:forsikringsregister.alleForsikringer())
+        for( Forsikring forsikring : forsikringsregister.alleForsikringer())
         {
-            
-            
+            forsikring.setArligPremie(100);
         }
-       
         
-        
-        
-        
-        //skrivTilFil();
+        skrivTilFil();
 
         //sjekkTid2();
     }
@@ -636,11 +630,14 @@ public class HovedRegister
         long differanseMnd = 0L;
         
         for(Forsikring forsikring :  kundeForsikringer)
-        {    
-            int differanseÅr = 0;
+        {
             if( forsikring.getSluttdato() != null)
             {
                 differanseMnd = (forsikring.getSluttdato().getTime().getTime() - forsikring.getStartdato().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
+            }
+            else
+            {
+                differanseMnd = (forsikring.getStartdato().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
             }
             prisPrMåned= forsikring.getTotalbelop() / 12;
             sum += differanseMnd * prisPrMåned;
@@ -727,8 +724,8 @@ public class HovedRegister
             if(forsikringsregister.antallAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
                 vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
             
-            //vindu.oppdaterTabell(kunderegister.alleKunder());
-            //skrivTilFil();
+//            vindu.oppdaterTabell(kunderegister.alleKunder());
+  //          skrivTilFil();
         }
         else
         {
