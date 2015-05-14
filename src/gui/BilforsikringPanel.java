@@ -8,8 +8,6 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import javax.swing.*;
 
 import objekter.*;
@@ -254,7 +252,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         deaktiver.addActionListener(this);
         vilkårKnapp.addActionListener(this);
         dekningvelger.addItemListener(vilkårLytter);
-        
     } // slutt på konstuktør
 
     public void visForsikring( Forsikring f)
@@ -295,50 +292,50 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
             gjenkjenningNei.setSelected(true);
         
         annenEier.setText("Vis eier");
-        
-        
         double d = bilforsikring.getBonus();
         int j = (int)(d*100);
         int a = bilforsikring.getAntallAr();
+        
         for (int i = 1; i< bonus.length; i++)
         {
             if (bonus[i].matches(j + ".*"))
-            {
-                
-                    if (j == 70)
+            { 
+                if (j == 70)
+                {
+                    if (bonus[i].matches(".+" + a + " år" + ".*"))
                     {
-                        if (bonus[i].matches(".+" + a + " år" + ".*"))
-                        {
-                            bonusvelger.setSelectedItem(bonusvelger.getItemAt(i));
-                        }
+                        bonusvelger.setSelectedItem(bonusvelger.getItemAt(i));
                     }
-                    else if(j == 75)
+                }
+                else if(j == 75)
+                {
+                    if (bonus[i].matches(".+" + a + " år" + ".*"))
                     {
-                        if (bonus[i].matches(".+" + a + " år" + ".*"))
-                        {
-                            bonusvelger.setSelectedItem(bonusvelger.getItemAt(i));
-                        } 
-                    }
-                    else
-                    {
-                        bonusvelger.setSelectedItem(bonusvelger.getItemAt(i)); 
+                        bonusvelger.setSelectedItem(bonusvelger.getItemAt(i));
                     } 
+                }
+                else
+                {
+                    bonusvelger.setSelectedItem(bonusvelger.getItemAt(i)); 
+                } 
             }
-            
         }
+        
         if(bilforsikring.erAktiv())
         {
             knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
             knappePanel.add(rediger);
             knappePanel.add(deaktiver);
+            disableFelter( this, bilGiTilbud, beregnPris );
             add(knappePanel);
         }
-        
+        else
+        {
             tilbudLabel.setText("Årlig premie: ");
             tilbudLabel.setVisible(true);
             bilTilbud.setVisible(true);
-        
-        disableFelter( this, bilGiTilbud, beregnPris );
+            disableFelter( this, bilGiTilbud, beregnPris );
+        }
     }
     // ikke ferdig
     
@@ -551,11 +548,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
-    public void leggTilKundePanel( KundePanel panel )
-    {
-        kundePanel = panel;
-    }
-    
     public void tegnNy()
     {
         if (hentInfo())
@@ -569,15 +561,14 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
             Bilforsikring forsikring = new Bilforsikring(kunde, egenandelvalget, vilkår, regnr, belop,
                                     merke,modell, typevalget, hk, ar,
                                     kmstand, forer, bonusen, antAr, garasje, alarm_b, esp_b, gjenkjenning_b, lengdevalget);
-            forsikring.setArligPremie(Double.parseDouble(bilTilbud.getText()));
-            vindu.getRegister().nyForsikring(forsikring);
             
+            forsikring.setArligPremie(Double.parseDouble(bilTilbud.getText()));
+            
+            vindu.getRegister().nyForsikring(forsikring);
             if(kundePanel != null)
                 kundePanel.oppdaterVindu();
-            
-            Kjoretoyforsikring kjForsikring = (Kjoretoyforsikring)forsikring;
             if (eier != null)
-                kjForsikring.setEier(eier);
+                forsikring.setEier(eier);
 
             
             JOptionPane.showMessageDialog(null, "Du har nå tegnet bilforsikring med nummer " 
@@ -586,6 +577,106 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
                                           + kunde.getEtternavn() , "Bekreftelse", 
                                             JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+    
+    public void oppdaterForsikring()
+    {
+        if(hentInfo())
+        { 
+            bilforsikring.setAntallAr(antAr);
+            bilforsikring.setGjenkjenning(gjenkjenning_b);
+            bilforsikring.setESP(esp_b);
+            bilforsikring.setGarasje(garasje);
+            bilforsikring.setKmstand(kmstand);
+            bilforsikring.setForerAlder(forer);
+            bilforsikring.setEier(eier);
+            bilforsikring.setHestekrefter(hk);
+            bilforsikring.setRegistreringsnummer(regnr);
+            bilforsikring.setEgenandel(egenandelvalget);
+            bilforsikring.setAlarm(alarm_b);
+            bilforsikring.setFabrikant(merke);
+            bilforsikring.setType(typevalget);
+            bilforsikring.setModell(modell);
+            bilforsikring.setBelop(belop);
+            bilforsikring.setMaxKjorelengde(lengdevalget);
+            bilforsikring.setBonus(bonusen);
+            bilforsikring.setArsmodell(ar);
+            bilforsikring.setVilkar(dekningvalget);
+            if( kundePanel != null )
+                kundePanel.oppdaterVindu();
+        }
+    }
+    
+    public void redigerForsikring()
+    {
+        enableFelter( this, beregnPris );
+        knappePanel.add(lagreNyInfo);
+        tilbudLabel.setText("Foreslått tilbud: ");
+        beregnPris.setText("Beregn ny pris");
+        annenEier.setText("Trykk her for annen eier");
+        revalidate();
+        repaint();
+    }
+    
+    
+    public void deaktiverForsirking()
+    {
+        int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " 
+                                                     + String.valueOf(bilforsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
+        if (svar == JOptionPane.YES_OPTION)
+        {
+            for(Component component : getKomponenter(this))
+            {
+                if((component instanceof JTextField))
+                {
+                    JTextField tf = (JTextField)component;
+                     tf.setEditable(false);
+                }
+                else if(component instanceof JComboBox)
+                {
+                    JComboBox cb = (JComboBox)component;
+                    cb.setEnabled(false);
+                }
+                else if(component instanceof JRadioButton)
+                {
+                    JRadioButton rb = (JRadioButton)component;
+                    rb.setEnabled(false);
+                }
+                else if (component.equals(bilGiTilbud))
+                {
+                    component.setVisible(false);
+                }
+                else if (component.equals(beregnPris))
+                {
+                    component.setVisible(false);
+                }
+            }
+           
+            knappePanel.remove(rediger);
+            knappePanel.remove(lagreNyInfo);
+            this.remove(beregnPris);
+            knappePanel.remove(deaktiver);
+            bilforsikring.setAktiver(false);
+            JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(bilforsikring.getForsikringsnummer()) 
+                                              + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
+                
+            kundePanel.oppdaterVindu();
+            repaint();
+            revalidate();
+        }
+    }
+    
+    public void visVilkår()
+    {
+        if( bilforsikring == null )
+            visForsikringensVilkår("Ny Bilforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
+        else
+            visForsikringensVilkår("Vilkår" + bilforsikring.getForsikringsnummer(), bilforsikring.getVilkar());
+    }
+    
+    public void leggTilKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
     }
     
     @Override
@@ -598,7 +689,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         else if( e.getSource() == beregnPris)
         {
             beregnPris();
-            
         }
         else if (e.getSource() == annenEier)
         {
@@ -621,96 +711,23 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else if ( e.getSource() == vilkårKnapp)
         {
-            if( bilforsikring == null )
-                visForsikringensVilkår("Ny Bilforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
-            else
-                visForsikringensVilkår("Vilkår" + bilforsikring.getForsikringsnummer(), bilforsikring.getVilkar());
+            visVilkår();
         }
         else if( e.getSource() == rediger)
         {
-                    enableFelter( this, beregnPris );
-                    knappePanel.add(lagreNyInfo);
-                    tilbudLabel.setText("Foreslått tilbud: ");
-                    beregnPris.setText("Beregn ny pris");
-                    annenEier.setText("Trykk her for annen eier");
-                    revalidate();
-                    repaint();
+            redigerForsikring();
         }
         else if(e.getSource() == lagreNyInfo)
         {
-            if(hentInfo())
-            { 
-                bilforsikring.setAntallAr(antAr);
-                bilforsikring.setGjenkjenning(gjenkjenning_b);
-                bilforsikring.setESP(esp_b);
-                bilforsikring.setGarasje(garasje);
-                bilforsikring.setKmstand(kmstand);
-                bilforsikring.setForerAlder(forer);
-                bilforsikring.setEier(eier);
-                bilforsikring.setHestekrefter(hk);
-                bilforsikring.setRegistreringsnummer(regnr);
-                bilforsikring.setEgenandel(egenandelvalget);
-                bilforsikring.setAlarm(alarm_b);
-                bilforsikring.setFabrikant(merke);
-                bilforsikring.setType(typevalget);
-                bilforsikring.setModell(modell);
-                bilforsikring.setBelop(belop);
-                bilforsikring.setMaxKjorelengde(lengdevalget);
-                bilforsikring.setBonus(bonusen);
-                bilforsikring.setArsmodell(ar);
-                bilforsikring.setVilkar(dekningvalget);
-                kundePanel.oppdaterVindu();
-                //Må beregne pris på nytt!
-            }
+            oppdaterForsikring();
         }
         else if (e.getSource() == deaktiver)
         {
-           
-            int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " 
-                                                     + String.valueOf(bilforsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
-            if (svar == JOptionPane.YES_OPTION)
-            {
-                for(Component component : getKomponenter(this))
-                {
-                    if((component instanceof JTextField))
-                    {
-                        JTextField tf = (JTextField)component;
-                        tf.setEditable(false);
-                    }
-                    else if(component instanceof JComboBox)
-                    {
-                        JComboBox cb = (JComboBox)component;
-                        cb.setEnabled(false);
-                    }
-                    else if(component instanceof JRadioButton)
-                    {
-                        JRadioButton rb = (JRadioButton)component;
-                        rb.setEnabled(false);
-                    }
-                    else if (component.equals(bilGiTilbud))
-                    {
-                        component.setVisible(false);
-                    }
-                    else if (component.equals(beregnPris))
-                    {
-                        component.setVisible(false);
-                    }
-                }
-                knappePanel.remove(rediger);
-                knappePanel.remove(lagreNyInfo);
-                this.remove(beregnPris);
-                knappePanel.remove(deaktiver);
-                bilforsikring.setAktiver(false);
-                JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(bilforsikring.getForsikringsnummer()) 
-                                              + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
-                
-                kundePanel.oppdaterVindu();
-                repaint();
-                revalidate();
-            }
+            deaktiverForsirking();
         }
     }
     
+    // denne lyttern endrer vilkårene etter hvilken dekning man ønsker på forsikringen.
     private class VilkårLytter implements ItemListener, ForsikringsPanel
     {
         @Override
@@ -718,7 +735,6 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         {
             if( dekningvelger.getSelectedIndex() != 0)
                 vilkår = this.velgVilkår( "Bil"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
-            System.out.println("Bil"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()));
         }
     }
 }
