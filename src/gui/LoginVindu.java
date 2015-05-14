@@ -24,6 +24,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -91,6 +92,8 @@ public class LoginVindu extends JFrame
             vindu.setAnsatt(ansatt);
             this.dispose();
         }
+        else
+            JOptionPane.showMessageDialog(null, "Bruker ikke funnet", "Beskjed", JOptionPane.INFORMATION_MESSAGE, null);
     }
     
     private void avslutt()
