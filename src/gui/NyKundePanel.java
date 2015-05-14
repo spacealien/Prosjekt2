@@ -97,7 +97,7 @@ public class NyKundePanel extends JPanel implements ActionListener
             String personnummer = regPersnr.getText();
             String fødselsår = regFødselsår.getText();
             
-            if( fornavn.matches("\\D") && etternavn.matches("\\D") && telefonnummer.matches("\\d{8}") 
+            if( fornavn.matches("\\D*") && etternavn.matches("\\D*") && telefonnummer.matches("\\d{8}") 
                     && epost.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") 
                     && personnummer.matches("\\d{11}") && fødselsår.matches("\\d{4}") )
