@@ -607,6 +607,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
+    
     public void redigerForsikring()
     {
         enableFelter( this, beregnPris );

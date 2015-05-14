@@ -162,12 +162,8 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         }
         
         tilbudLabel.setText("Årlig premie: ");
-        
         disableFelter( this, reiseGiTilbud, beregnPris );
     }
-    
-    
-    
     
     public boolean hentInfo()
     {
@@ -240,11 +236,6 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         }
     }
     
-    public void leggTilKundePanel( KundePanel panel )
-    {
-        kundePanel = panel;
-    }
-    
     public void tegnNy()
     {
         if (hentInfo())
@@ -266,6 +257,66 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         }
     }
     
+    public void oppdaterForsikring()
+    {
+        if (hentInfo())
+        {
+            forsikring.setForsorger(forsorger_b);
+            forsikring.setAntBarn(antBarn);
+            forsikring.setSone(sonevalget);
+            forsikring.setEgenandel(egenandelvalget);
+            forsikring.setBelopet(belop);
+            forsikring.setVilkar(dekningvalget);
+            forsikring.setArligPremie(foreslåttPris);
+              
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
+        }  
+    }
+    
+    public void rediger()
+    {
+        enableFelter( this, beregnPris );
+        knappePanel.add(lagreNyInfo);
+        tilbudLabel.setText("Foreslått tilbud: ");
+        beregnPris.setText("Beregn ny pris");   
+        revalidate();
+        repaint(); 
+    } 
+    
+    public void deaktiverForsikring()
+    {
+        int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
+        if (svar == JOptionPane.YES_OPTION)
+        {
+            knappePanel.remove(rediger);
+            knappePanel.remove(lagreNyInfo);
+            this.remove(beregnPris);
+            knappePanel.remove(deaktiver);
+            forsikring.setAktiver(false);
+            JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
+              
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
+              
+            repaint();
+            revalidate();
+        }
+    }
+    
+    public void visVilkår()
+    {
+        if( forsikring == null )
+            visForsikringensVilkår("Ny Fritidsboligforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
+        else
+            visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
+    }
+    
+    public void leggTilKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) 
     {
@@ -279,56 +330,19 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         }
         else if (e.getSource() == vilkarKnapp)
         {
-            if( forsikring == null )
-                visForsikringensVilkår("Ny Fritidsboligforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
-            else
-                visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
+            visVilkår();
         }
         else if (e.getSource() == rediger)
         {
-            enableFelter( this, beregnPris );
-            knappePanel.add(lagreNyInfo);
-            tilbudLabel.setText("Foreslått tilbud: ");
-            beregnPris.setText("Beregn ny pris");
-            
-            revalidate();
-            repaint();
+            rediger();
         }
         else if (e.getSource() == lagreNyInfo)
         {
-            if (hentInfo())
-            {
-                forsikring.setForsorger(forsorger_b);
-                forsikring.setAntBarn(antBarn);
-                forsikring.setSone(sonevalget);
-                forsikring.setEgenandel(egenandelvalget);
-                forsikring.setBelopet(belop);
-                forsikring.setVilkar(dekningvalget);
-                forsikring.setArligPremie(foreslåttPris);
-                
-                if(kundePanel != null)
-                    kundePanel.oppdaterVindu();
-            }
+            oppdaterForsikring();
         }
         else if (e.getSource() == deaktiver)
         {
-           
-            int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
-            if (svar == JOptionPane.YES_OPTION)
-            {
-                knappePanel.remove(rediger);
-                knappePanel.remove(lagreNyInfo);
-                this.remove(beregnPris);
-                knappePanel.remove(deaktiver);
-                forsikring.setAktiver(false);
-                JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
-                
-                if(kundePanel != null)
-                    kundePanel.oppdaterVindu();
-                
-                repaint();
-                revalidate();
-            }
+           deaktiverForsikring();
         }
     }
     

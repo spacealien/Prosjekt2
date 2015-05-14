@@ -358,6 +358,16 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         }  
     }
     
+    public void rediger()
+    {
+        enableFelter( this, beregnPris );
+        knappePanel.add(lagreNyInfo);
+        tilbudLabel.setText("Foreslått tilbud: ");
+        beregnPris.setText("Beregn ny pris");
+        revalidate();
+        repaint();
+    }
+    
     public void deaktiverForsikring()
     {
         int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
@@ -407,12 +417,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         }
         else if(e.getSource() == rediger)
         {
-            enableFelter( this, beregnPris );
-            knappePanel.add(lagreNyInfo);
-            tilbudLabel.setText("Foreslått tilbud: ");
-            beregnPris.setText("Beregn ny pris");
-            revalidate();
-            repaint();
+            rediger();
         }
         else if (e.getSource() == lagreNyInfo)
         {
