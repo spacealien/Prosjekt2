@@ -36,12 +36,10 @@ public interface ForsikringsPanel
                   ((Container) pane).getComponents()));
             for (int i = 0; i < liste.size(); i++)
             {
-            for (Component currentComponent : getKomponenter(liste.get(i)))
-            {
-                liste.add(currentComponent);
+                liste.addAll(Arrays.asList(getKomponenter(liste.get(i))));
             }
-            }
-        } catch (ClassCastException e) {
+        } catch (ClassCastException e) 
+        {
             liste = new ArrayList<>();
         }
         return liste.toArray(new Component[liste.size()]);
@@ -115,74 +113,42 @@ public interface ForsikringsPanel
     
     default String velgVilkår( String filsti )
     {
-        if(System.getProperty("os.name").toLowerCase().contains("win"))
+        String mappeSti = "Vilkår\\";
+        if(System.getProperty("os.name").toLowerCase().contains("mac") || System.getProperty("os.name").toLowerCase().contains("lin"))
         {
-            try (BufferedReader innfil = new BufferedReader( new InputStreamReader ( new FileInputStream( "Vilkår\\" + filsti + ".txt"),
-            "UTF8")))
-            {
-                StringBuilder vilkårBygger = new StringBuilder();
-                String vilkår;
-            
-                do
-                {
-                    vilkår = innfil.readLine();
-                    if( vilkår != null )
-                    vilkårBygger.append(vilkår).append("\n");
-                } while( vilkår != null);
-            
-                innfil.close();            
-                return vilkårBygger.toString();
-            } 
-            catch (FileNotFoundException ex) 
-            {
-                JOptionPane.showMessageDialog(null, "Feilmelding", "Kunne ikke finne fil", JOptionPane.ERROR_MESSAGE);
-                return null;
-            } 
-            catch (UnsupportedEncodingException ex) 
-            {
-                JOptionPane.showMessageDialog(null, "Feilmelding", "Feil filformat. ikke UTF-8.", JOptionPane.ERROR_MESSAGE);
-                return null;
-            } 
-            catch (IOException e)
-            {
-                JOptionPane.showMessageDialog(null, "Feilmelding", "Feil under lesing av fil. ", JOptionPane.ERROR_MESSAGE);
-                return null;
-            }
+            mappeSti = "Vilkår/";
         }
-        else if(System.getProperty("os.name").toLowerCase().contains("mac") || System.getProperty("os.name").toLowerCase().contains("lin"))
+
+        try (BufferedReader innfil = new BufferedReader( new InputStreamReader ( new FileInputStream( "Vilkår\\" + filsti + ".txt"),"UTF8")))                                                                                                               
         {
-            try (BufferedReader innfil = new BufferedReader( new InputStreamReader ( new FileInputStream( "Vilkår/" + filsti + ".txt"),
-            "UTF8")))
-            {
-                StringBuilder vilkårBygger = new StringBuilder();
-                String vilkår;
+            StringBuilder vilkårBygger = new StringBuilder();
+            String vilkår;
             
-                do
-                {
-                    vilkår = innfil.readLine();
-                    if( vilkår != null )
+            do
+            {
+                vilkår = innfil.readLine();
+                if( vilkår != null )
                     vilkårBygger.append(vilkår).append("\n");
-                } while( vilkår != null);
+            } while( vilkår != null);
             
                 innfil.close();            
                 return vilkårBygger.toString();
-            } 
-            catch (FileNotFoundException ex) 
-            {
+        } 
+        catch (FileNotFoundException ex) 
+        {
             JOptionPane.showMessageDialog(null, "Feilmelding", "Kunne ikke finne fil", JOptionPane.ERROR_MESSAGE);
             return null;
-            } 
-            catch (UnsupportedEncodingException ex) 
-            {
-                JOptionPane.showMessageDialog(null, "Feilmelding", "Feil filformat. ikke UTF-8.", JOptionPane.ERROR_MESSAGE);
-                return null;
-            } 
-            catch (IOException e)
-            {
-             JOptionPane.showMessageDialog(null, "Feilmelding", "Feil under lesing av fil. ", JOptionPane.ERROR_MESSAGE);
-             return null;
-            }
-        }
-        return null;
+        } 
+        catch (UnsupportedEncodingException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Feilmelding", "Feil filformat. ikke UTF-8.", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } 
+        catch (IOException e)
+        {
+            JOptionPane.showMessageDialog(null, "Feilmelding", "Feil under lesing av fil. ", JOptionPane.ERROR_MESSAGE);
+            return null;
+         }
     }
 }
+

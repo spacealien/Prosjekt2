@@ -94,8 +94,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
     private final JButton rediger = new JButton("Rediger forsikringinfo");
     private final JButton lagreNyInfo = new JButton("Lagre forsikring");
     private final JButton deaktiver = new JButton("Si opp forsikring");
-    private JPanel knappePanel = new JPanel();
-    private JPanel eierPanel;
+    private final JPanel knappePanel = new JPanel();
+    private final JPanel eierPanel;
     
     public BilforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -341,20 +341,20 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
     
     public boolean hentInfo()
     {
-            int type_n = biltypevelger.getSelectedIndex();
-            int lengde_n = kjorelengdevelger.getSelectedIndex();
-            int bonus_n = bonusvelger.getSelectedIndex();
-            int egenandel_n = egenandelsvelger.getSelectedIndex();
-            int alder_n = aldervelger.getSelectedIndex();
-            int dekning_n = dekningvelger.getSelectedIndex();
+        int type_n = biltypevelger.getSelectedIndex();
+        int lengde_n = kjorelengdevelger.getSelectedIndex();
+        int bonus_n = bonusvelger.getSelectedIndex();
+        int egenandel_n = egenandelsvelger.getSelectedIndex();
+        int alder_n = aldervelger.getSelectedIndex();
+        int dekning_n = dekningvelger.getSelectedIndex();
             
             
-            if (lengde_n == 0 || type_n == 0 || egenandel_n == 0 
-               || alder_n == 0 || dekning_n == 0 || bonus_n == 0 || 
-                    (!garasjeJa.isSelected() && !garasjeNei.isSelected()) || 
-                    (!alarmJa.isSelected() && !alarmNei.isSelected()) || 
-                    (!espJa.isSelected() && !espNei.isSelected()) || 
-                    (!gjenkjenningJa.isSelected() && !gjenkjenningNei.isSelected()))
+        if (lengde_n == 0 || type_n == 0 || egenandel_n == 0 
+            || alder_n == 0 || dekning_n == 0 || bonus_n == 0 || 
+            (!garasjeJa.isSelected() && !garasjeNei.isSelected()) || 
+            (!alarmJa.isSelected() && !alarmNei.isSelected()) || 
+            (!espJa.isSelected() && !espNei.isSelected()) || 
+            (!gjenkjenningJa.isSelected() && !gjenkjenningNei.isSelected()))
             {
                 String ut = "Det mangler informasjon om:\n";
                 

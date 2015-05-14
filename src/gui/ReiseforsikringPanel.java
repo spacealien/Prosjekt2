@@ -7,7 +7,6 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.text.*;
 import javax.swing.*;
 import objekter.*;
 import register.*;
@@ -40,6 +39,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     private final JComboBox<String> dekningvelger;
     private final Kunde kunde;
     
+    private double foreslåttPris; 
     private String vilkår;
     private int antBarn;
     private int belop;
@@ -139,11 +139,12 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     // ikke fjern, ikke ferdig
     public void visForsikring( Forsikring f)
     {
-       this.forsikring = (Reiseforsikring)f;
+        this.forsikring = (Reiseforsikring)f;
         sonevelger.setSelectedItem(forsikring.getSone());
         reiseBelop.setText(String.valueOf(forsikring.getBelopet()));
         egenandelsvelger.setSelectedItem(String.valueOf(forsikring.getEgenandel()));
         dekningvelger.setSelectedItem(forsikring.getVilkar());
+        
         if (forsikring.isForsorger())
         {
             forsorgerJa.setSelected(true);
@@ -175,7 +176,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         int dekning_n = dekningvelger.getSelectedIndex();
                 
                 
-        if(egenandel_n == 0 || sone_n == 0 || dekning_n == 0 || (!forsorgerJa.isSelected() && !forsorgerNei.isSelected()))
+        if(egenandel_n == 0 || sone_n == 0 || dekning_n == 0 || (!forsorgerJa.isSelected() && !forsorgerNei.isSelected()) )
         {
             String ut = "Det mangler informasjon om:\n";
             if (sone_n == 0)
@@ -213,11 +214,11 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
                         forsorger_b = false;
                         antBarn = 0;
                     }
-                
+                    
                     egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
                     sonevalget = sonevelger.getItemAt(sone_n);
                     dekningvalget = dekningvelger.getItemAt(dekning_n);
-                    belop = Integer.parseInt(reiseBelop.getText());
+                    belop = Integer.parseInt( reiseBelop.getText() );
                     return true;
                 }
                 catch( NumberFormatException e )
@@ -226,18 +227,13 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
                     return false;
                 }
             }
-                
-                
-               
     }
     
     public void beregnPris()
     {
         if (hentInfo())
         {
-            //Beregner prisen
             double foreslåttPris = ForsikringsKalulator.beregnReiseforsikring(egenandelvalget, dekningvalget, forsorger_b , antBarn, sonevalget, belop );
-                    
             reiseTilbud.setVisible(true);
             reiseTilbud.setText(String.valueOf(foreslåttPris));
             reiseGiTilbud.setVisible(true);
@@ -260,6 +256,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
             }
             
             Reiseforsikring nyForsikring = new Reiseforsikring(kunde, egenandelvalget, dekningvalget, forsorger_b, antBarn, sonevalget, belop);
+            nyForsikring.setArligPremie(foreslåttPris);
             register.nyForsikring(nyForsikring);
             
             if(kundePanel != null)
@@ -301,13 +298,16 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         {
             if (hentInfo())
             {
-            forsikring.setForsorger(forsorger_b);
-            forsikring.setAntBarn(antBarn);
-            forsikring.setSone(sonevalget);
-            forsikring.setEgenandel(egenandelvalget);
-            forsikring.setBelopet(belop);
-            forsikring.setVilkar(dekningvalget);
-            //Må beregne ny pris også
+                forsikring.setForsorger(forsorger_b);
+                forsikring.setAntBarn(antBarn);
+                forsikring.setSone(sonevalget);
+                forsikring.setEgenandel(egenandelvalget);
+                forsikring.setBelopet(belop);
+                forsikring.setVilkar(dekningvalget);
+                forsikring.setArligPremie(foreslåttPris);
+                
+                if(kundePanel != null)
+                    kundePanel.oppdaterVindu();
             }
         }
         else if (e.getSource() == deaktiver)
@@ -322,6 +322,10 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
                 knappePanel.remove(deaktiver);
                 forsikring.setAktiver(false);
                 JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
+                
+                if(kundePanel != null)
+                    kundePanel.oppdaterVindu();
+                
                 repaint();
                 revalidate();
             }

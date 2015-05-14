@@ -7,11 +7,7 @@ package gui;
 
 import java.awt.GridLayout;
 import java.awt.event.*;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import javax.swing.*;
 import objekter.*;
 import register.*;
@@ -217,74 +213,78 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     }
     
     public boolean hentInfo()
-    {  
-            int type_n = battypevelger.getSelectedIndex();
-            int egenandel_n = egenandelsvelger.getSelectedIndex();
-            int dekning_n = dekningvelger.getSelectedIndex();
+    {
+        int type_n = battypevelger.getSelectedIndex();
+        int egenandel_n = egenandelsvelger.getSelectedIndex();
+        int dekning_n = dekningvelger.getSelectedIndex();
             
-            if (type_n == 0 || egenandel_n == 0 || (!vekterJa.isSelected() && !vekterNei.isSelected()) || dekning_n == 0 )
+        if (type_n == 0 || egenandel_n == 0 || (!vekterJa.isSelected() && !vekterNei.isSelected()) || dekning_n == 0 )
+        {
+            String ut = "Det mangler informasjon om:\n";
+            if (type_n == 0)
             {
-                String ut = "Det mangler informasjon om:\n";
-                if (type_n == 0)
-                {
-                    ut += "Båttype\n";
-                }
-                if (egenandel_n == 0)
-                {
-                    ut += "Egenandel\n";
-                }
-                if (dekning_n == 0)
-                {
-                    ut += "Dekning\n";
-                }
-                if(!vekterJa.isSelected() && !vekterNei.isSelected())
-                {
-                        ut += "Vektervalg\n";
-                }
-                ut += "\nVennligst fyll ut denne informasjonen og prøv igjen.";
+                ut += "Båttype\n";
+            }
+            if (egenandel_n == 0)
+            {
+                ut += "Egenandel\n";
+            }
+            if (dekning_n == 0)
+            {
+                ut += "Dekning\n";
+            }
+            if(!vekterJa.isSelected() && !vekterNei.isSelected())
+            {
+                ut += "Vektervalg\n";
+            }
+         
+            ut += "\nVennligst fyll ut denne informasjonen og prøv igjen.";
                 JOptionPane.showMessageDialog(null, ut, "Feilmelding",
                                                 JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-            else
-            {  
-                if (vekterJa.isSelected() && !vekterNei.isSelected())
-                        vekter_b = true;
-                    else if (!vekterJa.isSelected() && vekterNei.isSelected())
-                        vekter_b = false;
-                try
+            return false;
+        }
+        else
+        {  
+            if (vekterJa.isSelected() && !vekterNei.isSelected())
+                vekter_b = true;
+            else if (!vekterJa.isSelected() && vekterNei.isSelected())
+                vekter_b = false;
+        
+            try
+            {
+                if (batRegnr.getText().matches("^([a-zA-Z]){2}([0-9]){5}"))
+                    reg = batRegnr.getText();
+                else
                 {
-                    if (batRegnr.getText().matches("^([a-zA-Z]){2}([0-9]){5}"))
-                        reg = batRegnr.getText();
-                    else
-                    {
-                        vindu.visFeilmelding("Feilmelding", "Feil format i et av tekstfeltene. ");
-                        return false;
-                    }
-                    belop = Integer.parseInt(batVerdi.getText());
-                    merke = batMerke.getText();
-                    modell = batModell.getText();
-                    hk = Integer.parseInt(batHk.getText());
-                    ar = Integer.parseInt(batArsmodell.getText());
-                    java.util.Locale norge = new java.util.Locale( "no" );
-                    Calendar dato = Calendar.getInstance(norge);
-                    if (ar > dato.get(Calendar.YEAR))
-                    {
-                        vindu.visFeilmelding("Feilmelding", ar + " er ikke et gyldig registreringsår");
-                        return false;
-                    }
-                    lengde = Integer.parseInt(batLengde.getText());
-                    typevalget = battypevelger.getItemAt(type_n);
-                    egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
-                    dekningvalget = dekningvelger.getItemAt(dekning_n);
-                    return true;
+                    vindu.visFeilmelding("Feilmelding", "Feil format i et av tekstfeltene. ");
+                    return false;
                 }
-                catch( NumberFormatException e )
+            
+                belop = Integer.parseInt(batVerdi.getText());
+                merke = batMerke.getText();
+                modell = batModell.getText();
+                hk = Integer.parseInt(batHk.getText());
+                ar = Integer.parseInt(batArsmodell.getText());
+                java.util.Locale norge = new java.util.Locale( "no" );
+                Calendar dato = Calendar.getInstance(norge);
+                if (ar > dato.get(Calendar.YEAR))
                 {
+                    vindu.visFeilmelding("Feilmelding", ar + " er ikke et gyldig registreringsår");
+                    return false;
+                }
+                
+                lengde = Integer.parseInt(batLengde.getText());
+                typevalget = battypevelger.getItemAt(type_n);
+                egenandelvalget = Integer.parseInt(egenandelsvelger.getItemAt(egenandel_n));
+                dekningvalget = dekningvelger.getItemAt(dekning_n);
+                return true;
+            }
+            catch( NumberFormatException e )
+            {
                 vindu.visFeilmelding("Feilmelding", "Feil format i et av tekstfeltene. ");
                 return false;
-                } 
-            }
+            } 
+        }
     }
     
     public void beregnPris()
@@ -292,17 +292,12 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         if (hentInfo())
         {
             double foreslåttPris = ForsikringsKalulator.beregnBatforsikring(egenandelvalget, dekningvalget, belop, hk, ar, vekter_b, lengde  );
-                    
             batTilbud.setVisible(true);
             batTilbud.setText(String.valueOf(foreslåttPris));
             batGiTilbud.setVisible(true);
         }
     }
     
-    public void leggTilKundePanel( KundePanel panel )
-    {
-        kundePanel = panel;
-    }
             
     public void tegnNy()
     {
@@ -314,21 +309,89 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
                 register.nyKunde(kunde);
             }
             
-            Forsikring forsikringen = new BatForsikring(kunde, egenandelvalget, vilkår, reg, belop,
+            BatForsikring nyForsikring = new BatForsikring(kunde, egenandelvalget, vilkår, reg, belop,
                                  merke, modell, typevalget, hk, 
                                  ar, vekter_b, lengde);
-            forsikringen.setArligPremie(Double.parseDouble(batTilbud.getText()));
-            vindu.getRegister().nyForsikring(forsikringen);
-            Kjoretoyforsikring kjForsikring = (Kjoretoyforsikring)forsikringen;
+            
+            nyForsikring.setArligPremie(Double.parseDouble(batTilbud.getText()));
+            
+            vindu.getRegister().nyForsikring(nyForsikring);
+            Kjoretoyforsikring kjForsikring = (Kjoretoyforsikring)nyForsikring;
+            
             if (eier != null)
-                kjForsikring.setEier(eier);
+                nyForsikring.setEier(eier);
             
             JOptionPane.showMessageDialog(null, "Du har nå tegnet båtforsikring med nummer "
-                                          + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() 
+                                          + nyForsikring.getForsikringsnummer() + " på " + kunde.getFornavn() 
                                           + " " + kunde.getEtternavn() , "Bekreftelse", JOptionPane.INFORMATION_MESSAGE);
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
         }
     }
     
+    public void oppdaterForsikring()
+    {
+        if(hentInfo())
+        {
+            forsikring.setRegistreringsnummer(reg);
+            forsikring.setLengde(lengde);
+            forsikring.setEgenandel(egenandelvalget);
+            forsikring.setVekter(vekter_b);
+            forsikring.setModell(modell);
+            forsikring.setFabrikant(merke);
+            forsikring.setType(typevalget);
+            forsikring.setHestekrefter(hk);
+            forsikring.setArsmodell(ar);
+            forsikring.setBelop(belop);
+            forsikring.setEier(eier);
+            forsikring.setVilkar(dekningvalget);
+            
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
+        }
+    }
+    
+    public void enableSkjema()
+    {
+        enableFelter( this, beregnPris );
+        beregnPris.setText("Beregn ny pris");
+        tilbudLabel.setText("Foreslått tilbud: ");
+        annenEier.setText("Trykk for annen eier");
+        knappePanel.add(lagreNy);
+    }
+    
+    public void deaktiverForsikring()
+    {
+        int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
+        if (svar == JOptionPane.YES_OPTION)
+        {
+            knappePanel.remove(rediger);
+            knappePanel.remove(lagreNy);
+            this.remove(beregnPris);
+            knappePanel.remove(deaktiver);
+            forsikring.setAktiver(false);
+            JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
+            
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
+            
+            repaint();
+            revalidate();
+        }
+    }
+    
+    public void visVilkår()
+    {
+        if( forsikring == null )
+            visForsikringensVilkår("Ny Bilforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
+        else
+            visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
+    }
+    
+    public void leggTilKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
+    }
     
     @Override
     public void actionPerformed(ActionEvent e) 
@@ -360,55 +423,19 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else if (e.getSource() == vilkarKnapp)
         {
-            if( forsikring == null )
-                visForsikringensVilkår("Ny Bilforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
-            else
-                visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
+            visVilkår();
         }
         else if (e.getSource() == rediger)
         {
-            enableFelter( this, beregnPris );
-            beregnPris.setText("Beregn ny pris");
-            tilbudLabel.setText("Foreslått tilbud: ");
-            annenEier.setText("Trykk for annen eier");
-            knappePanel.add(lagreNy);
+            enableSkjema();
         }
         else if (e.getSource() == lagreNy)
         {
-            if(hentInfo())
-            {
-                forsikring.setRegistreringsnummer(reg);
-                forsikring.setLengde(lengde);
-                forsikring.setEgenandel(egenandelvalget);
-                forsikring.setVekter(vekter_b);
-                forsikring.setModell(modell);
-                forsikring.setFabrikant(merke);
-                forsikring.setType(typevalget);
-                forsikring.setHestekrefter(hk);
-                forsikring.setArsmodell(ar);
-                forsikring.setBelop(belop);
-                forsikring.setEier(eier);
-                forsikring.setVilkar(dekningvalget);
-                
-                //Må beregne pris på nytt!
-            }
-            
+            oppdaterForsikring();
         }
         else if (e.getSource() == deaktiver)
         {
-           
-            int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
-            if (svar == JOptionPane.YES_OPTION)
-            {
-                knappePanel.remove(rediger);
-                knappePanel.remove(lagreNy);
-                this.remove(beregnPris);
-                knappePanel.remove(deaktiver);
-                forsikring.setAktiver(false);
-                JOptionPane.showMessageDialog(null, "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()) + " er ikke lenger aktiv.", "Bekreftelse", JOptionPane.PLAIN_MESSAGE);
-                repaint();
-                revalidate();
-            }
+            deaktiverForsikring();
         }
     }
     
