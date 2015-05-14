@@ -5,25 +5,24 @@
  */
 package register;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 import objekter.Forsikring;
 import objekter.Kunde;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd
+ * @param <Forsikringer>
  */
-public class Forsikringsliste implements Serializable
+
+
+public class Forsikringsliste
 {
-    private Map<Integer,Forsikring> liste = new HashMap<>();
+    Map<Integer,Forsikring> liste = new HashMap<>();
     
     public Forsikringsliste()
     {
@@ -51,43 +50,11 @@ public class Forsikringsliste implements Serializable
         List<Integer> nøkkler  = kunde.getNøkkelliste();
         List<Forsikring> funnetForsikringer = new ArrayList<>( nøkkler.size() );
         
-        nøkkler.stream().forEach((n) -> {
-            funnetForsikringer.add(liste.get(n));
-        });
-        return funnetForsikringer;
-    }
-    
-    public int tellKundensAktiveForsikringer( Kunde kunde )
-    {
-        List<Forsikring> forsikringer =  getKundensForsikringer( kunde );
-        
-        int teller = 0;
-        for(Forsikring forsikring : forsikringer)
-            if(forsikring.erAktiv())
-                teller++;
-        
-        return teller;
-    }
-    
-    public Set<String> antallAktiveForsikringer( Kunde kunde )
-    {
-        List<Forsikring> kundeForsikringer = getKundensForsikringer( kunde );
-        Set<String> set = new HashSet<>();
-        for( Forsikring forsikring :  kundeForsikringer)
+        for( int n: nøkkler)
         {
-            if(forsikring.erAktiv())
-                set.add(forsikring.getForsikringsType());
+            funnetForsikringer.add(liste.get(n));
         }
-        return set;
-    }
-    
-    public Forsikring getForsikring()
-    {
-        Iterator<Forsikring> iterator = liste.values().iterator();
-        if( iterator.hasNext() && iterator.next() != null)
-            return iterator.next();
-        else
-            return null;
+        return funnetForsikringer;
     }
     
     public List<Forsikring> alleForsikringer()
