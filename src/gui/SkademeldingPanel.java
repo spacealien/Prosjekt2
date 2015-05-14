@@ -37,10 +37,12 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     private final JTextField skadeTakst;
     private final JTextField skadeForsikring;
     private final JTextField erstatningsBeløp;
+    private final JLabel erstatningsLabel;
     private final JButton sendInnSkade;
     private final JButton lastOppBildeKnapp;
     private final JButton vitneKnapp;
     private final JButton visBilde;
+    private final JButton beregnErstatning;
     private final String[] skadetype = {"", "Brann", "Tyveri/Hærverk", "Ulykke", "Tap", "Annet"};
     private final String[] skadetypeKjoretoy = {"", "Ansvar", "Glasskade", "Vei-/slepehjelp", "Tyveri/Hærverk", "Ulykke", "Annet"};
     private final String[] skadetypeEiendom = {"", "Brann", "Innbrudd/tyveri", "Hærverk", "Naturskade", "Vann", "Fryser/matvarer", "Annet"};
@@ -76,11 +78,17 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         skadeBeskrivelse = new JTextArea( 20, 30);
         skadeTakst = new JTextField( 7 );
         sendInnSkade = new JButton("Send inn skade");  
+        sendInnSkade.setVisible(false);
         lastOppBildeKnapp = new JButton("Last opp bilde");
         skadeForsikring = new JTextField(16);
+        skadeForsikring.setEditable(false);
         vitneKnapp = new JButton("Legg til vitner");
         erstatningsBeløp = new JTextField(15);
+        erstatningsLabel = new JLabel("Foreslått erstatningsbeløp:");
+        erstatningsBeløp.setVisible(false);
+        erstatningsLabel.setVisible(false);
         visBilde = new JButton("Vis bilder");
+        beregnErstatning = new JButton("Beregn erstatningsbeløp");
         
         if (forsikring.getForsikringsType().equals("Bilforsikring") || forsikring.getForsikringsType().equals("Båtforsikring"))
         {
@@ -128,7 +136,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         
         JPanel wrapper_2 = new JPanel();
         wrapper_2.setLayout( new BorderLayout());
-        wrapper_2.add( new JLabel("Beskrivelse av Skaden: "), BorderLayout.PAGE_START);
+        wrapper_2.add( new JLabel("Beskrivelse av skaden: "), BorderLayout.PAGE_START);
         skadeBeskrivelse.setLineWrap(true);
         JScrollPane scroll = new JScrollPane(skadeBeskrivelse);
         scroll.setPreferredSize(new Dimension(70,150));
@@ -136,12 +144,13 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         
         JPanel wrapper_3 = new JPanel();
         wrapper_3.setLayout( new FlowLayout() );
-        wrapper_3.add( new JLabel("Erstatnings beløp: "));
+        wrapper_3.add( erstatningsLabel);
         wrapper_3.add( erstatningsBeløp );
-        wrapper_3.add(sendInnSkade);
+        wrapper_3.add(beregnErstatning);
         wrapper_3.add(lastOppBildeKnapp);
         wrapper_3.add(visBilde);
         wrapper_3.add(vitneKnapp);
+        wrapper_3.add(sendInnSkade);
         
         
         this.setLayout( new BorderLayout());
@@ -152,6 +161,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         
         skadeForsikring.setText(forsikring.getForsikringsType() + " " + forsikring.getForsikringsnummer());
         lastOppBildeKnapp.addActionListener(this);
+        beregnErstatning.addActionListener(this);
         sendInnSkade.addActionListener(this);
         visBilde.addActionListener(this);
         vitneKnapp.addActionListener(this);
@@ -170,8 +180,19 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     
     public void beregnPris()
     {
-        //Beregner pris
-        //belop =;
+        ForsikringsKalulator fk = new ForsikringsKalulator();
+        try
+        {
+            erstatningsBeløp.setText(String.valueOf(fk.beregnErstatningsbelop(forsikring.getEgenandel(), Integer.parseInt(skadeTakst.getText()))));
+            erstatningsLabel.setVisible(true);
+            erstatningsBeløp.setVisible(true);
+            erstatningsBeløp.setToolTipText("Kan redigeres");
+            sendInnSkade.setVisible(true);
+        }
+        catch (NumberFormatException e)
+        {
+            vindu.visInformasjon("Feilmelding", "Skriv inn skadetakst i riktig format: ####");
+        }
     }
     
     public void nySkademelding()
@@ -220,6 +241,10 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         if (e.getSource() == sendInnSkade)
         {
             nySkademelding();
+        }
+        else if( e.getSource() == beregnErstatning )
+        {
+            beregnPris();
         }
         else if( e.getSource() == lastOppBildeKnapp)
         {
