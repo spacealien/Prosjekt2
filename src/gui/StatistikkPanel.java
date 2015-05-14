@@ -72,7 +72,6 @@ public class StatistikkPanel extends JPanel implements ActionListener
     private final JTextField slDatoAr;
     private final JLabel skadetypelabel;
     private final JButton sokKnapp;
-    //private final StatistikkVindu statestikkVindu;
     private int sok;
     private int utgift;
     private int inntekt;
@@ -91,7 +90,6 @@ public class StatistikkPanel extends JPanel implements ActionListener
  public StatistikkPanel(AnsattVindu v)
  {
         vindu = v;
-      //  statestikkVindu = new StatistikkVindu(vindu);
         register = vindu.getRegister();
         sokevelger = new JComboBox<>(soket);
         utgiftsvelger = new JComboBox<>(utgifter);
@@ -114,8 +112,6 @@ public class StatistikkPanel extends JPanel implements ActionListener
         sokKnapp = new JButton("Søk");
         sokKnapp.setEnabled(false);
         sokKnapp.addActionListener(this);
-        
-        
         
         JPanel avansertSokPanel1 = new JPanel();
         JPanel avansertSokPanel2 = new JPanel();
@@ -301,7 +297,7 @@ public class StatistikkPanel extends JPanel implements ActionListener
     List<Kunde> liste = register.getAlleKunderMedForsikring(forsikringsvalg);
     JTable tabell = new JTable();
     tabell.setModel(new TabellModell(liste));
-    tabell.setPreferredScrollableViewportSize(new Dimension(700,180));
+    tabell.setPreferredScrollableViewportSize(new Dimension(700, 200));
     statistikkVindu = new StatistikkVindu("Kunder med " + forsikringsvalg, new JScrollPane(tabell));
  }
  
@@ -310,8 +306,11 @@ public class StatistikkPanel extends JPanel implements ActionListener
     startDato = new Date((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
     sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
     List<Skademelding> skademeldingsliste  = new ArrayList<>();
+    int antall = 0;
+    String s = "";
     if (forsikringsvelgeren.getSelectedIndex() != 0)
     {
+        s = "Registrerte skademeldinger på " + forsikringsvalg.toLowerCase() + "er i perioden ";
         forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
         for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
         {
@@ -319,25 +318,33 @@ public class StatistikkPanel extends JPanel implements ActionListener
             if (skademld.getForsikring().getForsikringsType().equals(forsikringsvalg) && skademld.getOpprettetDato().after(startDato) && skademld.getOpprettetDato().before(sluttDato) )
             {
                 skademeldingsliste.add(skademld);
+                antall++;
             }
         }
     }
     else
     {
+        s = "Registrerte skademeldinger i perioden: ";
         for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
         {
             if (skademld.getOpprettetDato().after(startDato) && skademld.getOpprettetDato().before(sluttDato) )
             {
                 skademeldingsliste.add(skademld);
+                antall++;
             }
         }
     }
     JTable tabell = new JTable();
     tabell.setModel(new TabellModellSkademeldinger(skademeldingsliste));
     tabell.setPreferredScrollableViewportSize(new Dimension(700,180));
-    statistikkVindu = new StatistikkVindu("Skademeldinger i perioden " + 
-                        sdf.format(startDato) + "  -  " + sdf.format(sluttDato), 
-                        new JScrollPane(tabell));
+    JPanel pane = new JPanel();
+    JTextField textField = new JTextField("Antall skademeldinger i perioden: " + antall);
+    textField.setEditable(false);
+    pane.add(textField);
+    pane.add(new JScrollPane(tabell));
+    statistikkVindu = new StatistikkVindu(s + 
+                        sdf.format(startDato) + " - " + sdf.format(sluttDato), 
+                        pane);
  }
  
  public void antForsikringer()
@@ -346,35 +353,43 @@ public class StatistikkPanel extends JPanel implements ActionListener
     sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
     List<Forsikring> forsikringsliste  = new ArrayList<>();
     String s = "";
+    int antall = 0;
     if (forsikringsvelgeren.getSelectedIndex() != 0)
     {
         forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
-        s = "Antall tegnede " + forsikringsvalg.toLowerCase() + "er i perioden ";
+        s = "Tegnede " + forsikringsvalg.toLowerCase() + "er i perioden ";
         for (Forsikring forsikring : register.getForsikringrsliste().alleForsikringer() )
         {
             if (forsikring.getForsikringsType().equals(forsikringsvalg) && forsikring.getStartdato().after(startDato) && forsikring.getStartdato().before(sluttDato) )
             {
                 forsikringsliste.add(forsikring);
+                antall++;
             }
         }
     }
     else
     {
-        s = "Antall tegnede forsikringer i perioden ";
+        s = "Tegnede forsikringer i perioden ";
         for (Forsikring forsikring : register.getForsikringrsliste().alleForsikringer() )
         {
             if (forsikring.getStartdato().after(startDato) && forsikring.getStartdato().before(sluttDato) )
             {
                 forsikringsliste.add(forsikring);
+                antall++;
             }
         }
     }
     JTable tabell = new JTable();
     tabell.setModel(new TabellModellForsikring(forsikringsliste));
     tabell.setPreferredScrollableViewportSize(new Dimension(700,180));
+    JPanel pane = new JPanel();
+    JTextField textField = new JTextField("Antall tegnede forsikringer i perioden: " + antall);
+    textField.setEditable(false);
+    pane.add(textField);
+    pane.add(new JScrollPane(tabell));
     statistikkVindu = new StatistikkVindu(s + 
-                        sdf.format(startDato) + "  -  " + sdf.format(sluttDato), 
-                        new JScrollPane(tabell)); 
+                        sdf.format(startDato) + " - " + sdf.format(sluttDato), 
+                        pane);
  }
  
     public void totalErstatning()
@@ -394,12 +409,12 @@ public class StatistikkPanel extends JPanel implements ActionListener
             }
         }
         gjennomsnitt = totalSum / antall;
-        JTextArea textArea = new JTextArea(400,100);
+        JTextArea textArea = new JTextArea();
         textArea.setText("Totalt utbetalt: " + totalSum + "kr\nAntall skademeldinger i perioden: " + antall
                 + "\nGjennomsnittlig erstatning per skademelding "
                 + "i denne perioden: " + gjennomsnitt + "kr");
-        statistikkVindu = new StatistikkVindu("Total utbetalt erstatningsbeløp i perioden "
-                + sdf.format(startDato) + "  -  " + sdf.format(sluttDato), textArea);
+        statistikkVindu = new StatistikkVindu("Totalt utbetalt erstatningsbeløp i perioden "
+                + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
     }
     
     public void totalErstatningPaForsikring()
@@ -419,12 +434,12 @@ public class StatistikkPanel extends JPanel implements ActionListener
          }
      }   
      gjennomsnitt = totalSum / antall;
-     JTextArea textArea = new JTextArea(400,100);
+     JTextArea textArea = new JTextArea();
      textArea.setText("Totalt utbetalt: " + totalSum + "kr\nAntall skademeldinger i perioden: " + antall
                 + "\nGjennomsnittlig erstatning per skademelding "
                 + "i denne perioden: " + gjennomsnitt + "kr");
-     statistikkVindu = new StatistikkVindu("Total utbetalt erstatningsbeløp i perioden "
-                + sdf.format(startDato) + "  -  " + sdf.format(sluttDato), textArea);
+     statistikkVindu = new StatistikkVindu("Totalt utbetalt erstatningsbeløp på " + forsikringsvalg.toLowerCase() + "er i perioden "
+                + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
     }
  
  
@@ -445,7 +460,14 @@ public class StatistikkPanel extends JPanel implements ActionListener
         }
      }
      gjennomsnitt = totalSum / antall;  
+     JTextArea textArea = new JTextArea();
+     textArea.setText("Totale premieinntekter: " + totalSum + "kr\nAntall innbetalinger i perioden: " + antall
+                + "\nGjennomsnittlig premieinntekt per forsikring "
+                + "i denne perioden: " + gjennomsnitt + "kr");
+     statistikkVindu = new StatistikkVindu("Totale premieinntekter i perioden "
+              + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
  }
+ 
  public void totalPremieinntektPaForsikringstype()
  {
      //Total utbetaling av inntekt på forsikringstype i en gitt periode
@@ -466,7 +488,13 @@ public class StatistikkPanel extends JPanel implements ActionListener
             }
          }
      }
-     gjennomsnitt = totalSum / antall; 
+     gjennomsnitt = totalSum / antall;
+     JTextArea textArea = new JTextArea();
+     textArea.setText("Totalt utbetalt: " + totalSum + "kr\nAntall skademeldinger i perioden: " + antall
+                + "\nGjennomsnittlig erstatning per skademelding "
+                + "i denne perioden: " + gjennomsnitt + "kr");
+     statistikkVindu = new StatistikkVindu("Totalt utbetalt erstatningsbeløp på " + forsikringsvalg.toLowerCase() + "er i perioden "
+                + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
  }
  
  public void statistikkSkademeldinger()
@@ -679,9 +707,9 @@ public class StatistikkPanel extends JPanel implements ActionListener
                 reiseForsikring = -1;
             }
         }
-        JTextArea textArea = new JTextArea(150,100);
+        JTextArea textArea = new JTextArea();
         textArea.setText(ut);
-        statistikkVindu = new StatistikkVindu("Forsikringer sortert på antall", textArea);
+        statistikkVindu = new StatistikkVindu("Forsikringer sortert på antall", new JScrollPane(textArea));
  }
  
 public void feilMelding(String t)
@@ -736,10 +764,7 @@ public boolean sjekkDatoOgForsikringsvelger()
     {
         if (e.getSource() == sokKnapp)
         {
-            //StatistikkVindu statistikkVindu = new StatistikkVindu();
-            
-            
-            if (sokevelger.isEnabled())
+           if (sokevelger.isEnabled())
             {
                 switch (sokevelger.getSelectedIndex())
                 {

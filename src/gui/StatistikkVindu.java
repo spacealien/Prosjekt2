@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -26,10 +27,11 @@ public class StatistikkVindu extends JFrame
     {
         super(s);
         setVisible(true);
-        setSize(new Dimension(700, 500));
+        setSize(new Dimension(850, 350));
         c = getContentPane();
         hovedPanel = new JPanel();
-        hovedPanel.add(komponent);
+        komponent.setPreferredSize(new Dimension(840,300));
+        hovedPanel.add(new JScrollPane(komponent));
         c.setLayout(new BorderLayout());
         c.add(hovedPanel, BorderLayout.CENTER);
     }
