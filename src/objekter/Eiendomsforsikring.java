@@ -119,13 +119,7 @@ public abstract class Eiendomsforsikring extends Forsikring implements Serializa
     public void setForsikringsbelopInnbo(int fbInnbo) {
         forsikringsbelopInnbo = fbInnbo;
     }
-    
-    @Override
-    public void beregnPris()
-    {
-        
-    }
-    
+
     @Override
     public String toString()
     {
