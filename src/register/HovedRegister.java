@@ -720,8 +720,8 @@ public class HovedRegister
             if(forsikringsregister.antallAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
                 vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
             
-            vindu.oppdaterTabell(kunderegister.alleKunder());
-            skrivTilFil();
+            //vindu.oppdaterTabell(kunderegister.alleKunder());
+            //skrivTilFil();
         }
         else
         {
