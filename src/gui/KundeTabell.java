@@ -32,7 +32,6 @@ public class KundeTabell extends JTable implements ForsikringsPanel
     private final JMenuItem nySkademelding;
     private final AnsattVindu vindu;
     
-    
     public KundeTabell( TabellModell modell, AnsattVindu v )
     {
         super( modell );

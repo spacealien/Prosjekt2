@@ -7,7 +7,6 @@ package register;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +28,7 @@ public class Kunderegister implements Serializable
     {
         kunderegister = new ArrayList<>();
         
-        
+        /**
         GregorianCalendar fdato = new GregorianCalendar(1991,6,6);
         Kunde test_1 = new Kunde("Rolf", "Hestman", "Kongleknaggen 18", "22260906", fdato, "hesterolf@yahoo.no", "08206049937");
         Kunde test_2 = new Kunde("Bjørn", "Dæhlie", "Trysil 23B", "22260906", fdato, "epost@epost.no", "12048449997");
@@ -90,7 +89,7 @@ public class Kunderegister implements Serializable
         kunderegister.add(test_27);
         kunderegister.add(test_28);
         sorter();
-
+        * */
         
     }
     
@@ -201,6 +200,7 @@ public class Kunderegister implements Serializable
         kunderegister.stream().forEach((kunde) -> {
             bygger.append(kunde.toString());
         });
+        
         return bygger.toString();
     }
 }
