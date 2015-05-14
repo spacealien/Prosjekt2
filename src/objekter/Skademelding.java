@@ -117,7 +117,7 @@ public class Skademelding implements Serializable
         bilder = photo;
     }
     
-    public int getLøpenummer()
+    public static int getLøpenummer()
     {
         return nestenr;
     }
