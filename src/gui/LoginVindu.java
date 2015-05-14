@@ -57,7 +57,6 @@ public class LoginVindu extends JFrame
         Dimension vinduStørelse = verktøy.getScreenSize();
         this.setLocation(vinduStørelse.width/3, vinduStørelse.height/3);
         
-        
         KnappeLytter knappeLytter = new KnappeLytter();
         this.vindu = vindu;
         loginFelt = new JTextField(25);
