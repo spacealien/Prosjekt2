@@ -97,7 +97,7 @@ public class NyKundePanel extends JPanel implements ActionListener
             String personnummer = regPersnr.getText();
             String fødeslsår = regFødselsår.getText();
             
-            if( fornavn.length() > 0 && etternavn.length() > 0 && telefonnummer.matches("\\d{8}") 
+            if( fornavn.matches("\\D") && etternavn.matches("\\D") && telefonnummer.matches("\\d{8}") 
                     && epost.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") 
                     && personnummer.matches("\\d{11}") && fødeslsår.matches("\\d{4}") )
@@ -137,7 +137,7 @@ public class NyKundePanel extends JPanel implements ActionListener
             
             if(nyKunde != null)
                 if( valg.equals(""))
-                  vindu.visFeilmelding("Melding", "Du må velge en type forsikring for å gå videre. ");
+                    vindu.visFeilmelding("Melding", "Du må velge en type forsikring for å gå videre. ");
                 else if( valg.equals("Bilforsikring") )
                     vindu.leggTilNyFane( new BilforsikringPanel(nyKunde, vindu), "Ny Bilforsikring");
                 else if( valg.equals("Båtforsikring"))
