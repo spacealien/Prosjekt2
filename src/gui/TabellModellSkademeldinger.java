@@ -22,7 +22,6 @@ public class TabellModellSkademeldinger extends AbstractTableModel implements Ac
     private final String[] kolonnenavn = {"ID", "Forsikring", "Skadedato", "Opprettet Dato", "Takst", "Utbetalt"};
     private final Object[][] innhold;
     private final List<Skademelding> skademeldinger;
-    //private final KundePanel panel;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     
     public TabellModellSkademeldinger( List<Skademelding> skademeldinger)

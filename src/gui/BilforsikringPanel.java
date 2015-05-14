@@ -130,7 +130,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         bilKmstand = new JTextField( 6 );
         bilTilbud = new JTextField( 6 );
         bilTilbud.setVisible(true);
-        tilbudLabel = new JLabel("Foreslått tilbud: ");
+        tilbudLabel = new JLabel("Foreslått tilbud: (Kr/år) ");
         tilbudLabel.setVisible(true);
         garasjeJa = new JRadioButton("Ja");
         garasjeNei = new JRadioButton("Nei");
@@ -540,7 +540,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
                     
             NumberFormat formatter = new DecimalFormat("#0.00"); 
             bilTilbud.setVisible(true);
-            bilTilbud.setText(formatter.format(foreslåttPris) + " Kr/År");
+            bilTilbud.setText(formatter.format(foreslåttPris));
         }
     }
     
@@ -592,6 +592,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         {
             beregnPris();
             bilGiTilbud.setVisible(true);
+            
         }
         else if (e.getSource() == annenEier)
         {

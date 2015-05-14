@@ -41,14 +41,13 @@ public abstract class Forsikring implements Serializable
     
     private static final long serialVersionUID = 12345678910L;
     
-    public Forsikring( Kunde k, int e_andel, String vilkar )
+    public Forsikring( Kunde k, int e_andel, String betingelser )
     {
         egenandel = e_andel;
         startdato = Calendar.getInstance(norge);
         stDato = startdato.getTime();
-        this.vilkar = vilkar;
+        vilkar = betingelser;
         forsikringsnummer =  løpenummer++;
-        //this.vilkår = vilkår;
         kunde = k;
         skademeldingsnøkkler = new ArrayList<>();
     }
@@ -196,7 +195,7 @@ public abstract class Forsikring implements Serializable
                     "\nÅrlig Premie: " + arligPremie + 
                    "\nTotal beløp: " + totalbelop +
                    "\nForsikringsnummer: " + forsikringsnummer + 
-                   "\nVilkår: " + vilkar;
+                   "\nVilkår: \n" + vilkar;
         return utskrift;
     }
     

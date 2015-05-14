@@ -830,7 +830,7 @@ public boolean sjekkDatoOgForsikringsvelger()
                 {
                     case 1:
                         if(forsikringsvelgeren.getSelectedIndex() != 0)
-                        alleKunderMedForsikring();
+                            alleKunderMedForsikring();
                         else
                             feilMelding("Du må velge forsikringstype");
                         
