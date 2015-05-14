@@ -12,7 +12,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -29,14 +31,16 @@ public class HovedRegister
     private SkademeldingRegister skademeldingsregister = new SkademeldingRegister();
     private Ansattregister ansattregister = new Ansattregister();
     List<Inntekt> innbetalinger = new ArrayList<>();
-    private GregorianCalendar kalender;
+    private Calendar kalender;
     private AnsattVindu vindu;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
     public HovedRegister(AnsattVindu v) 
     {
         vindu = v;
+        
+        kalender = Calendar.getInstance();
         /**
-        kalender = new GregorianCalendar();
         Kunde kunde_1 = kunderegister.finnKundeEtterPersonnummer("08206049937");
         Kunde kunde_2 = kunderegister.finnKundeEtterPersonnummer("01258446816");
         Kunde kunde_3 = kunderegister.finnKundeEtterPersonnummer("02029449964");
@@ -84,6 +88,7 @@ public class HovedRegister
         sjekkTid();
         */
         lesFraFil();
+        //sjekkTid2();
     }
     
     
@@ -117,10 +122,46 @@ public class HovedRegister
     
     public final void sjekkTid2()
     {
-        
+        Calendar ettÅrSiden = Calendar.getInstance();
+        ettÅrSiden.set(kalender.get(Calendar.YEAR) - 1, kalender.get(Calendar.MONTH), kalender.get(Calendar.DATE));
+        System.out.print(sdf.format(ettÅrSiden.getTime()));
         for (Forsikring forsikring : getForsikringrsliste().alleForsikringer())
         {
-            if (Math.abs(( kalender.getTime().getTime() - forsikring.getStartdato().getTime())) > (1000*60*60*24*365) )
+            if(forsikring.getSistBetalt().before(ettÅrSiden.getTime()));
+            {
+                if(forsikring.getForsikringsType().equals("Bilforsikring"))
+                {
+                    Bilforsikring bilforsikring = (Bilforsikring)forsikring;
+                    double bonusFør = bilforsikring.getBonus();
+                    double originalPris = bilforsikring.getArligPremie() / bonusFør * 100;
+                    bilforsikring.korrigerArligBonus();
+                    bilforsikring.setArligPremie((originalPris * (100-bilforsikring.getBonus())));
+                    innbetalinger.add(new Inntekt(kalender.getTime(), forsikring.getArligPremie(), forsikring));
+                    forsikring.setSistBetalt(kalender.getTime());
+                }
+                else
+                {
+                    innbetalinger.add(new Inntekt(kalender.getTime(), forsikring.getArligPremie(), forsikring));
+                    forsikring.setSistBetalt(kalender.getTime());
+                }
+            }
+        }
+    }
+            /*if(( ettÅrSiden.getTime().before(forsikring.getStartdato())))
+            {
+                for (Inntekt innbetaling : innbetalinger)
+                {
+                    if(innbetaling.getForsikring().equals(forsikring))
+                    {
+                        //Calendar ettÅrSiden = Calendar.getInstance();
+                        ettÅrSiden.set(kalender.get(Calendar.YEAR) - 1, kalender.get(Calendar.MONTH), kalender.get(Calendar.DATE));
+                        System.out.print(ettÅrSiden);
+                        //ettÅrSiden.add(Calendar.DAY_OF_YEAR, -365);
+                        if(innbetaling.getDato().before(kalender.getTime().getTime() - 1000*60*60*24*365.25))
+                    }*/
+                
+            
+            /*if (Math.abs(( kalender.getTime().getTime() - forsikring.getStartdato().getTime())) > (1000*60*60*24*365.25) )
             {
                 if(forsikring.getForsikringsType().equals("Bilforsikring"))
                 {
@@ -136,8 +177,8 @@ public class HovedRegister
                     innbetalinger.add(new Inntekt(kalender.getTime(), forsikring.getArligPremie(), forsikring));
                 }
             }
-        }
-    }
+        }*/
+    
     
     public List<Inntekt> getAlleInntekter()
     {
@@ -290,11 +331,14 @@ public class HovedRegister
     {
         forsikringsregister.leggTil( nyForsikring.getKunde(), nyForsikring);
         Date dato = new Date();
-        if(forsikringsregister.antallAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
+        System.out.print(sdf.format(dato));
+        if(forsikringsregister.antallAktiveForsikringer(nyForsikring.getKunde()).size() >= 3)
         {
             nyForsikring.getKunde().setTotalKunde(true);
             innbetalinger.add(new Inntekt(dato, (nyForsikring.getArligPremie() * 0.9), nyForsikring));
-            vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
+            if(forsikringsregister.antallAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
+                vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
+            
             vindu.oppdaterTabell(kunderegister.alleKunder());
         }
         else
@@ -306,12 +350,11 @@ public class HovedRegister
     public void deaktiverForsikring( Integer forsikringsnummer )
     {
         Forsikring forsikring = forsikringsregister.getForsikring(forsikringsnummer);
-        forsikring.setAktiver(false);
         if( forsikringsregister.antallAktiveForsikringer(forsikring.getKunde()).size() == 3)
         {
             forsikring.getKunde().setTotalKunde(false);
         }
-        
+        forsikring.setAktiver(false);
         vindu.oppdaterTabell( kunderegister.alleKunder() );
         vindu.visInformasjon("Beskjed", "Forsikringen er deaktivert. ");
     }
