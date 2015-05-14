@@ -197,7 +197,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
             add(knappePanel);
         }
         
-        tilbudLabel.setText("Årlig premie: ");
+        tilbudLabel.setText("Årlig premie: (Kr/År)");
         tilbudLabel.setVisible(true);
         fritidTilbud.setVisible(true);
         revalidate();
@@ -215,7 +215,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
                     
             NumberFormat formatter = new DecimalFormat("#0.00"); 
             fritidTilbud.setVisible(true);
-            fritidTilbud.setText(formatter.format(foreslåttPris) + " Kr/År");
+            fritidTilbud.setText( formatter.format(foreslåttPris) );
         }
     }
     

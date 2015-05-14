@@ -211,7 +211,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
             add(knappePanel);
         }
         
-        tilbudLabel.setText("Årlig premie: ");
+        tilbudLabel.setText("Årlig premie: (Kr/år)");
         tilbudLabel.setVisible(true);
         husTilbud.setVisible(true);
         revalidate();
@@ -297,7 +297,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
                     
             NumberFormat formatter = new DecimalFormat("#0.00"); 
             husTilbud.setVisible(true);
-            husTilbud.setText(formatter.format(foreslåttPris) + " Kr/År");
+            husTilbud.setText(formatter.format(foreslåttPris));
       }
     }
     

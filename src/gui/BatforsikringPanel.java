@@ -204,7 +204,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
             add(knappePanel);
         }
         
-        tilbudLabel.setText("Årlig premie: ");
+        tilbudLabel.setText("Årlig premie: (Kr/år)");
         tilbudLabel.setVisible(true);
         batTilbud.setVisible(true);
         revalidate();
@@ -272,7 +272,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
                     
             NumberFormat formatter = new DecimalFormat("#0.00"); 
             batTilbud.setVisible(true);
-            batTilbud.setText(formatter.format(foreslåttPris) + " Kr/År");
+            batTilbud.setText(formatter.format(foreslåttPris));
         }
     }
     

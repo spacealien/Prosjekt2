@@ -135,8 +135,8 @@ public interface ForsikringsPanel
             } 
             catch (FileNotFoundException ex) 
             {
-            JOptionPane.showMessageDialog(null, "Feilmelding", "Kunne ikke finne fil", JOptionPane.ERROR_MESSAGE);
-            return null;
+                JOptionPane.showMessageDialog(null, "Feilmelding", "Kunne ikke finne fil", JOptionPane.ERROR_MESSAGE);
+                return null;
             } 
             catch (UnsupportedEncodingException ex) 
             {
@@ -145,8 +145,8 @@ public interface ForsikringsPanel
             } 
             catch (IOException e)
             {
-             JOptionPane.showMessageDialog(null, "Feilmelding", "Feil under lesing av fil. ", JOptionPane.ERROR_MESSAGE);
-             return null;
+                JOptionPane.showMessageDialog(null, "Feilmelding", "Feil under lesing av fil. ", JOptionPane.ERROR_MESSAGE);
+                return null;
             }
         }
         else if(System.getProperty("os.name").toLowerCase().contains("mac") || System.getProperty("os.name").toLowerCase().contains("lin"))
