@@ -7,6 +7,8 @@
 package gui;
 
 //import java.awt.*;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.*;
@@ -20,7 +22,7 @@ import register.*;
  *
  * @author Marthejansonskogen
  */
-public class StatistikkPanel extends JPanel implements ActionListener
+public class StatistikkPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
     private AnsattVindu vindu;
     private HovedRegister register;
@@ -242,16 +244,30 @@ public StatistikkPanel(AnsattVindu v)
         @Override
         public void itemStateChanged(ItemEvent e)
         {
-            if (statistikkvelger.getSelectedIndex() != 0)
+            switch (statistikkvelger.getSelectedIndex())
             {
-                statistikken = statistikkvelger.getSelectedIndex();
-                sokevelger.setEnabled(false);
-                utgiftsvelger.setEnabled(false);
-                inntektsvelger.setEnabled(false);
-                sokKnapp.setEnabled(true);
-                   
-                if (statistikkvelger.getSelectedIndex() == 3 || statistikkvelger.getSelectedIndex() == 5)
-                {
+                case 0:
+                    statistikken = statistikkvelger.getSelectedIndex();
+                    sokevelger.setEnabled(true);
+                    utgiftsvelger.setEnabled(true);
+                    inntektsvelger.setEnabled(true);
+                    skadetypelabel.setVisible(false);
+                    skadetypevelgeren.setVisible(false);
+                    break;
+                case 1:
+                case 2:
+                case 4:
+                case 6:
+                    statistikken = statistikkvelger.getSelectedIndex();
+                    sokevelger.setEnabled(false);
+                    utgiftsvelger.setEnabled(false);
+                    inntektsvelger.setEnabled(false);
+                    skadetypelabel.setVisible(false);
+                    skadetypevelgeren.setVisible(false);
+                    sokKnapp.setEnabled(true);
+                    break;
+                case 3:
+                case 5:
                     forsikringsvelgeren.addItemListener(new ItemListener()
                     {
                         @Override
@@ -263,43 +279,56 @@ public StatistikkPanel(AnsattVindu v)
                                     sokKnapp.setEnabled(false);
                                     skadetypelabel.setVisible(false);
                                     skadetypevelgeren.setVisible(false);
-                                break;
+                                    break;
                                 case 1:
                                 case 2:
                                     skadetypevelgeren.setModel(skadetypeModellKjoretoy);
                                     skadetypelabel.setVisible(true);
                                     skadetypevelgeren.setVisible(true);
                                     sokKnapp.setEnabled(true);
-                                break;
+                                    break;
                                 case 3:
                                 case 4:
                                     skadetypevelgeren.setModel(skadetypeModellEiendom);
                                     skadetypelabel.setVisible(true);
                                     skadetypevelgeren.setVisible(true);
                                     sokKnapp.setEnabled(true);
-                                break;
+                                    break;
                                 case 5:
                                     skadetypevelgeren.setModel(skadetypeModellReise);
                                     skadetypelabel.setVisible(true);
                                     skadetypevelgeren.setVisible(true);
                                     sokKnapp.setEnabled(true);
-                                break;
+                                    break;
                                 }
                             }
                         });
                     }
                 }
-                else if (statistikkvelger.getSelectedIndex() == 0)
-                {
-                    statistikken = statistikkvelger.getSelectedIndex();
-                    sokevelger.setEnabled(true);
-                    utgiftsvelger.setEnabled(true);
-                    inntektsvelger.setEnabled(true);
-                }
-        }
     });
  }
  
+    public void tømFelter(Container pane, JComboBox forsikringsvelger)
+    {
+        for(Component component : getKomponenter(pane))
+        {
+            if((component instanceof JTextField))
+            {
+                JTextField tf = (JTextField)component;
+                tf.setText("");
+            }
+            else if(component instanceof JComboBox)
+            {
+                JComboBox cb = (JComboBox)component;
+                cb.setSelectedIndex(0);
+                if(cb.equals(forsikringsvelger))
+                    cb.setEnabled(false);
+            }
+        }
+    }
+    
+//public void 
+
 public void alleKunderMedForsikring()
 {
     forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
@@ -534,7 +563,7 @@ public void statistikkSkademeldinger()
      
         long periodeIMnd = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
         double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
-        Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+        Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato().getTime();
         Date programSluttDato = new Date();
         double alltidIMnd = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
         double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
@@ -587,7 +616,7 @@ public void statistikkSkademeldingPaForsikring()
     long periodeIMnd = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
     System.out.println(periodeIMnd);
     double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
-    Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+    Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato().getTime();
     Date programSluttDato = new Date();
     long alltidIMnd = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
     double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
@@ -643,7 +672,7 @@ public void statistikkSkademeldingPaSkadetype()
     long periodeIMnd = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24;
     System.out.println(periodeIMnd);
     double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
-    Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+    Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato().getTime();
     Date programSluttDato = new Date();
     long alltidIMnd = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24;
     double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
@@ -688,7 +717,7 @@ public void statistikkErstatning()
     
     long periodeIMnd = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
     double gjennomsnittPerioden = totalSumIPeriode / periodeIMnd;
-    Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+    Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato().getTime();
     Date programSluttDato = new Date();
     long alltidIMnd = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
     double gjennomsnittAlltid = totalSum / alltidIMnd;
@@ -740,7 +769,7 @@ public void statistikkErstatningPaSkadetype()
      
     long periodeIMnd = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24;
     double gjennomsnittPerioden = totalSumIPeriode / periodeIMnd;
-    Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+    Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato().getTime();
     Date programSluttDato = new Date();
     long alltidIMnd = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24;
     double gjennomsnittAlltid = totalSum / alltidIMnd;

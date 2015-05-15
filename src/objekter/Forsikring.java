@@ -193,9 +193,9 @@ public abstract class Forsikring implements Serializable
         return skademeldingsnøkkler;
     }
     
-    public Date getStartdato()
+    public Calendar getStartdato()
     {
-        return stDato;
+        return startdato;
     }
     
     public Calendar getSluttdato()
@@ -213,7 +213,7 @@ public abstract class Forsikring implements Serializable
     public String toString()
     {
         String utskrift;
-        utskrift = "\nStartdato:" + sdf.format(stDato) + 
+        utskrift = "\nStartdato:" + sdf.format(startdato.getTime()) + 
                    //"\nSluttdato: " + sluttdato.toString() +   
                     "\nÅrlig Premie: " + arligPremie + 
                    "\nTotal beløp: " + totalbelop +

@@ -34,5 +34,6 @@ public class StatistikkVindu extends JFrame
         hovedPanel.add(new JScrollPane(komponent));
         c.setLayout(new BorderLayout());
         c.add(hovedPanel, BorderLayout.CENTER);
+        pack();
     }
 }
