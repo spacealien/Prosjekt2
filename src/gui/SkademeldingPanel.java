@@ -274,8 +274,8 @@ public class SkademeldingPanel extends JPanel implements ActionListener
             if (vitneKnapp.getText().equals("Legg til vitner"))
             {
                 Object[] valg = {"Lagre vitne og legg til et nytt vitne", "Lagre vitne", "Avbryt"};
-                int result = 0;
-                while (result == 0)
+                int result;
+                do
                 {
                     result = JOptionPane.showOptionDialog(null, vitnePanel, 
                              "Vennligst fyll ut vitnes kontaktinformasjon:",
@@ -305,13 +305,13 @@ public class SkademeldingPanel extends JPanel implements ActionListener
                         else
                             JOptionPane.showMessageDialog(null, "Ugyldig format i ett eller flere av feltene.\n\nPrøv igjen", "Feilmelding", JOptionPane.ERROR_MESSAGE);
                     }
-                }
+                }while (result == 0);
             }
-            /*else if (vitneKnapp.getText().equals("Vis vitner"))
+            else if (vitneKnapp.getText().equals("Vis vitner"))
             {
                JOptionPane.showMessageDialog( null, skademelding.getVitner().toString(), 
                       "Vitner:", JOptionPane.PLAIN_MESSAGE);
-            }*/
+            }
         }
     }
 }
