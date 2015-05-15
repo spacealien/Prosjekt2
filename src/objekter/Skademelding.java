@@ -8,6 +8,7 @@ package objekter;
 import java.awt.Image;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -32,6 +33,8 @@ public class Skademelding implements Serializable
     private int takseringsbelop;
     private int erstatningsbelop;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+    java.util.Locale norge = new java.util.Locale( "no" );
+    Date startDato;
     private boolean aktiv = true;
     private static final long serialVersionUID = 512341233333L;
     
@@ -50,7 +53,7 @@ public class Skademelding implements Serializable
         this.takseringsbelop = takseringsbelop;
         this.erstatningsbelop = erstatingsbelop;
         skadenummer = nestenr++;
-        opprettetdato = new GregorianCalendar();
+        opprettetdato = new GregorianCalendar(norge);
     }
     
     

@@ -185,10 +185,9 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     
     public void beregnPris()
     {
-        ForsikringsKalulator fk = new ForsikringsKalulator();
         try
         {
-            erstatningsBeløp.setText(String.valueOf(fk.beregnErstatningsbelop(forsikring.getEgenandel(), Integer.parseInt(skadeTakst.getText()))));
+            erstatningsBeløp.setText(String.valueOf(ForsikringsKalulator.beregnErstatningsbelop(forsikring.getEgenandel(), Integer.parseInt(skadeTakst.getText()))));
             erstatningsLabel.setVisible(true);
             erstatningsBeløp.setVisible(true);
             erstatningsBeløp.setToolTipText("Kan redigeres");

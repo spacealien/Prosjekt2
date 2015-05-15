@@ -29,6 +29,7 @@ public class TabellModellSkademeldinger extends AbstractTableModel implements Ac
         this.skademeldinger = skademeldinger;
         innhold = new Object[this.skademeldinger.size()][kolonnenavn.length];
         
+        
         int teller = 0;
         for(Skademelding skademelding : skademeldinger)
         {
