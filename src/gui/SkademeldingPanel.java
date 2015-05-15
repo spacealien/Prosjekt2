@@ -168,7 +168,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
     public void visSkademelding( Skademelding skade )
     {
         this.skademelding = skade;
-        skadeDato.setText(skademelding.getSkadeDato().toString());
+        skadeDato.setText(sdf.format(skademelding.getSkadeDato().getTime()));
         skadeForsikring.setText(skademelding.getForsikring().getForsikringsType());
         skadetypevelger.setSelectedItem(forsikring.getVilkar());
         skadeTakst.setText(String.valueOf(skademelding.getTakseringsbelop()));
