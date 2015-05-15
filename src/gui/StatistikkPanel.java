@@ -175,22 +175,31 @@ public StatistikkPanel(AnsattVindu v)
         @Override
         public void itemStateChanged(ItemEvent e)
         {
-            if (sokevelger.getSelectedIndex() != 0)
+            switch (sokevelger.getSelectedIndex())
             {
-                sok = sokevelger.getSelectedIndex();
-                utgiftsvelger.setEnabled(false);
-                inntektsvelger.setEnabled(false);
-                statistikkvelger.setEnabled(false);
-                sokKnapp.setEnabled(true);
-            }
-            else if (sokevelger.getSelectedIndex() == 0)
-            {
-                sok = sokevelger.getSelectedIndex();
-                utgiftsvelger.setEnabled(true);
-                inntektsvelger.setEnabled(true);
-                statistikkvelger.setEnabled(true);
-                disableDatoFelter();
-                forsikringsvelgeren.setEnabled(false);
+                case 0:
+                    utgiftsvelger.setEnabled(true);
+                    inntektsvelger.setEnabled(true);
+                    statistikkvelger.setEnabled(true);
+                    disableDatoFelter();
+                    forsikringsvelgeren.setEnabled(false);
+                    break;
+                case 1:
+                    utgiftsvelger.setEnabled(false);
+                    inntektsvelger.setEnabled(false);
+                    statistikkvelger.setEnabled(false);
+                    sokKnapp.setEnabled(true);
+                    disableDatoFelter();
+                    forsikringsvelgeren.setEnabled(true);
+                    break;
+                case 2:
+                case 3:
+                    utgiftsvelger.setEnabled(false);
+                    inntektsvelger.setEnabled(false);
+                    statistikkvelger.setEnabled(false);
+                    sokKnapp.setEnabled(true);
+                    enableDatoFelter();
+                    forsikringsvelgeren.setEnabled(true);
             }
         }
      });
