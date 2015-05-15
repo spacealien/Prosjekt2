@@ -35,10 +35,10 @@ public class Skademelding implements Serializable
     private boolean aktiv = true;
     private static final long serialVersionUID = 512341233333L;
     
-    public Skademelding( Forsikring forsikring)
+    public Skademelding( Forsikring forsikring )
     {
         this.forsikring = forsikring;
-        skadenummer = nestenr;
+        skadenummer = nestenr++;
     }
     
     public Skademelding( Forsikring forsikring, GregorianCalendar dato, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )
