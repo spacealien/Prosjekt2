@@ -616,11 +616,11 @@ public class HovedRegister
         {
             if( forsikring.getSluttdato() != null)
             {
-                differanseMnd = (forsikring.getSluttdato().getTime().getTime() - forsikring.getStartdato().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
+                differanseMnd = (forsikring.getSluttdato().getTime().getTime() - forsikring.getStartdato().getTime().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
             }
             else
             {
-                differanseMnd = (forsikring.getStartdato().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
+                differanseMnd = (forsikring.getStartdato().getTime().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
             }
             prisPrMåned= forsikring.getArligPremie()/ 12;
             sum += differanseMnd * prisPrMåned;
