@@ -34,8 +34,8 @@ public class TabellModellSkademeldinger extends AbstractTableModel implements Ac
         {
             innhold[teller][0] = skademelding.getSkadenummer();
             innhold[teller][1] = skademelding.getForsikring().getForsikringsType();
-            innhold[teller][2] = skademelding.getSkadeDato();
-            innhold[teller][3] = skademelding.getOpprettetDato();
+            innhold[teller][2] = sdf.format(skademelding.getSkadeDato().getTime());
+            innhold[teller][3] = sdf.format(skademelding.getOpprettetDato().getTime());
             innhold[teller][4] = skademelding.getTakseringsbelop();
             innhold[teller][5] = skademelding.getErstatningsbelop();
             teller++;
