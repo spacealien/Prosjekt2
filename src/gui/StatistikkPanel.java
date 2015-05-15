@@ -189,6 +189,8 @@ public StatistikkPanel(AnsattVindu v)
                 utgiftsvelger.setEnabled(true);
                 inntektsvelger.setEnabled(true);
                 statistikkvelger.setEnabled(true);
+                disableDatoFelter();
+                forsikringsvelgeren.setEnabled(false);
             }
         }
      });
@@ -212,6 +214,8 @@ public StatistikkPanel(AnsattVindu v)
                 sokevelger.setEnabled(true);
                 inntektsvelger.setEnabled(true);
                 statistikkvelger.setEnabled(true);
+                disableDatoFelter();
+                forsikringsvelgeren.setEnabled(false);
             }
         }
     });
@@ -235,6 +239,8 @@ public StatistikkPanel(AnsattVindu v)
                 sokevelger.setEnabled(true);
                 utgiftsvelger.setEnabled(true);
                 statistikkvelger.setEnabled(true);
+                disableDatoFelter();
+                forsikringsvelgeren.setEnabled(false);
             }
         }   
     });
@@ -253,6 +259,8 @@ public StatistikkPanel(AnsattVindu v)
                     inntektsvelger.setEnabled(true);
                     skadetypelabel.setVisible(false);
                     skadetypevelgeren.setVisible(false);
+                    disableDatoFelter();
+                    forsikringsvelgeren.setEnabled(false);
                     break;
                 case 1:
                 case 2:
@@ -308,9 +316,9 @@ public StatistikkPanel(AnsattVindu v)
     });
  }
  
-    public void tømFelter(Container pane, JComboBox forsikringsvelger)
+    public void tømFelter()
     {
-        for(Component component : getKomponenter(pane))
+        for(Component component : getKomponenter(this))
         {
             if((component instanceof JTextField))
             {
@@ -321,8 +329,31 @@ public StatistikkPanel(AnsattVindu v)
             {
                 JComboBox cb = (JComboBox)component;
                 cb.setSelectedIndex(0);
-                if(cb.equals(forsikringsvelger))
+                if(cb.equals(forsikringsvelgeren))
                     cb.setEnabled(false);
+            }
+        }
+    }
+    public void disableDatoFelter()
+    {
+        for(Component component : getKomponenter(this))
+        {
+            if((component instanceof JTextField))
+            {
+                JTextField tf = (JTextField)component;
+                tf.setEnabled(false);
+            }
+        }
+    }
+    
+    public void enableDatoFelter()
+    {
+        for(Component component : getKomponenter(this))
+        {
+            if((component instanceof JTextField))
+            {
+                JTextField tf = (JTextField)component;
+                tf.setEnabled(true);
             }
         }
     }
@@ -331,12 +362,19 @@ public StatistikkPanel(AnsattVindu v)
 
 public void alleKunderMedForsikring()
 {
-    forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
+    try
+    {
+        forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
     List<Kunde> liste = register.getAlleKunderMedForsikring(forsikringsvalg);
     JTable tabell = new JTable();
     tabell.setModel(new TabellModell(liste));
     tabell.setPreferredScrollableViewportSize(new Dimension(700, 200));
     statistikkVindu = new StatistikkVindu("Kunder med " + forsikringsvalg, new JScrollPane(tabell));
+    }
+    catch (NullPointerException e)
+    {
+        feilMelding("Søket ga ingen treff");
+    }
 }
  
 public void antSkademeldinger()
@@ -347,7 +385,8 @@ public void antSkademeldinger()
     int antall = 0;
     String s = "";
     
-    
+    try
+    {
     if (forsikringsvelgeren.getSelectedIndex() != 0)
     {
         forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
@@ -384,6 +423,11 @@ public void antSkademeldinger()
     statistikkVindu = new StatistikkVindu(s + 
                         sdf.format(startDato) + " - " + sdf.format(sluttDato), 
                         pane);
+    }
+    catch (NullPointerException e)
+    {
+        feilMelding("Søket ga ingen treff");
+    }
 }
  
 public void antForsikringer()
@@ -394,6 +438,8 @@ public void antForsikringer()
     String s = "";
     
     int antall = 0;
+    try
+    {
     if (forsikringsvelgeren.getSelectedIndex() != 0)
     {
         forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
@@ -432,6 +478,11 @@ public void antForsikringer()
     statistikkVindu = new StatistikkVindu(s + 
     sdf.format(startDato) + " - " + sdf.format(sluttDato), 
                         pane);
+    }
+    catch (NullPointerException e)
+    {
+        feilMelding("Søket ga ingen treff");
+    }
 }
  
 public void totalErstatning()
@@ -441,7 +492,8 @@ public void totalErstatning()
     double totalSum = 0.0;
     int antall = 0;
     double gjennomsnitt = 0;
-        
+    try
+    {
     for( Skademelding skademelding : register.getSkademeldingsregister().alleSkademeldinger() )
     {
         if (skademelding.getOpprettetDato().after(startDato) && skademelding.getOpprettetDato().before(sluttDato) )
@@ -459,6 +511,11 @@ public void totalErstatning()
     
     statistikkVindu = new StatistikkVindu("Totalt utbetalt erstatningsbeløp i perioden "
                 + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
+    }
+    catch (NullPointerException | ArithmeticException e)
+    {
+        feilMelding("Søket ga ingen treff");
+    }
 }
     
 public void totalErstatningPaForsikring()
@@ -469,6 +526,8 @@ public void totalErstatningPaForsikring()
     double totalSum = 0.0;
     int antall = 0;
     double gjennomsnitt = 0;
+    try
+    {
     for(Skademelding skademelding : register.getSkademeldingsregister().alleSkademeldinger())   
     {
         if(skademelding.getForsikring().getForsikringsType().equals(forsikringsvalg) && skademelding.getOpprettetDato().after(startDato) && skademelding.getOpprettetDato().before(sluttDato))
@@ -486,6 +545,11 @@ public void totalErstatningPaForsikring()
     statistikkVindu = new StatistikkVindu("Totalt utbetalt erstatningsbeløp på " + forsikringsvalg.toLowerCase() + "er i perioden "
                                           + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
 }
+    catch (NullPointerException | ArithmeticException e)
+    {
+        feilMelding("Søket ga ingen treff");
+    }
+    }
 
 public void totalPremieinntekt()
 {
@@ -495,6 +559,8 @@ public void totalPremieinntekt()
     double totalSum = 0.0;
     int antall = 0;
     double gjennomsnitt = 0;
+    try
+    {
     for (Inntekt inntekt : register.getAlleInntekter())
     {
         if (inntekt.getDato().after(startDato) && inntekt.getDato().before(sluttDato) )
@@ -511,6 +577,11 @@ public void totalPremieinntekt()
                 + "i denne perioden: " + gjennomsnitt + "kr");
     statistikkVindu = new StatistikkVindu("Totale premieinntekter i perioden "
               + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
+    }
+    catch (NullPointerException | ArithmeticException e)
+    {
+        feilMelding("Søket ga ingen treff");
+    }
 }
  
 public void totalPremieinntektPaForsikringstype()
@@ -522,6 +593,8 @@ public void totalPremieinntektPaForsikringstype()
     double totalSum = 0.0;
     int antall = 0;
     double gjennomsnitt = 0;
+    try
+    {
     for (Inntekt inntekt : register.getAlleInntekter())
     {
         if (inntekt.getForsikring().getForsikringsType().equals(forsikringsvalg))
@@ -540,7 +613,12 @@ public void totalPremieinntektPaForsikringstype()
                 + "i denne perioden: " + gjennomsnitt + "kr");
     statistikkVindu = new StatistikkVindu("Totale premieinntekter på " + forsikringsvalg.toLowerCase() + "er i perioden "
                 + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
-}
+    }
+    catch (NullPointerException | ArithmeticException e)
+    {
+        feilMelding("Søket ga ingen treff");
+    }
+   }
  
 public void statistikkSkademeldinger()
 {
@@ -578,7 +656,7 @@ public void statistikkSkademeldinger()
         }
                  
         JTextArea textArea = new JTextArea();
-        textArea.setText("Antall skademeldinger har " + s + " med " + endring + " stk / " + prosent +
+        textArea.setText("Antall skademeldinger har " + s + " med " + Math.rint(endring) + " stk / " + Math.rint(prosent) +
              "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
         statistikkVindu = new StatistikkVindu("Økning/Minking i perioden "
                 + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
@@ -630,7 +708,7 @@ public void statistikkSkademeldingPaForsikring()
         s = "minket";
     }                
     JTextArea textArea = new JTextArea();
-    textArea.setText("Antall skademeldinger på " + forsikringsvalg.toLowerCase() + "er har " + s + " med " + endring+ " stk / " + prosent +
+    textArea.setText("Antall skademeldinger på " + forsikringsvalg.toLowerCase() + "er har " + s + " med " + Math.rint(endring) + " stk / " + Math.rint(prosent) +
              "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
 
     statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger på " + forsikringsvalg.toLowerCase() + "er i perioden "
@@ -687,7 +765,7 @@ public void statistikkSkademeldingPaSkadetype()
     }
                  
     JTextArea textArea = new JTextArea();
-    textArea.setText("Antall skademeldinger for " + skadetypevalg.toLowerCase() + "skader har " + s + " med " + endring+ " stk / " + prosent +
+    textArea.setText("Antall skademeldinger for " + skadetypevalg.toLowerCase() + "skader har " + s + " med " + Math.rint(endring) + " stk / " + Math.rint(prosent) +
              "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
     statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger på " + skadetypevalg.toLowerCase() + "skader i perioden "
                 + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
@@ -730,7 +808,7 @@ public void statistikkErstatning()
         s = "minket";
                  
     JTextArea textArea = new JTextArea();
-    textArea.setText("Total erstatningsutgifter har " + s + " med " + endring+ " stk / " + prosent +
+    textArea.setText("Total erstatningsutgifter har " + s + " med " + Math.rint(endring) + " stk / " + Math.rint(prosent) +
              "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
     statistikkVindu = new StatistikkVindu("Øking/Minking av erstatningsutgifter i perioden "
                 + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
@@ -783,7 +861,7 @@ public void statistikkErstatningPaSkadetype()
                 
     JTextArea textArea = new JTextArea();
     textArea.setText("Totale erstatningsutgifter for " + skadetypevalg.toLowerCase()
-                    + "skader har " + s + " med " + endring+ " stk / " + prosent +
+                    + "skader har " + s + " med " + Math.rint(endring) + " stk / " + Math.rint(prosent) +
              "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
     
     statistikkVindu = new StatistikkVindu("Øking/Minking av erstatningsutgifter for " 
