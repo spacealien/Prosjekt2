@@ -866,17 +866,14 @@ public void actionPerformed(ActionEvent e)
                     else
                         feilMelding("Du må velge forsikringstype");
                         
-                break;
+                    break;
                 case 2:
                    if(sjekkDato())
                         antSkademeldinger();
-                break;
+                    break;
                 case 3:
-                    if(forsikringsvelgeren.getSelectedIndex() != 0)
-                        antForsikringer();
-                    else
-                        feilMelding("Du må velge forsikringstype");                     
-                break;
+                    antForsikringer();                     
+                    break;
             }
         }
         else if (utgiftsvelger.isEnabled())
@@ -884,14 +881,14 @@ public void actionPerformed(ActionEvent e)
             switch (utgiftsvelger.getSelectedIndex())
             {
                 case 1:
-                    if (!sjekkDato())
+                    if (sjekkDato())
                         totalErstatning();
-                break;
+                    break;
                 case 2:
-                    if (!sjekkDatoOgForsikringsvelger())
+                    if (sjekkDatoOgForsikringsvelger())
                         totalErstatningPaForsikring();
                         
-                break;
+                    break;
             }
         }
         else if (inntektsvelger.isEnabled())
@@ -899,11 +896,11 @@ public void actionPerformed(ActionEvent e)
             switch (inntektsvelger.getSelectedIndex())
             {
                 case 1:
-                    if (!sjekkDato())
+                    if (sjekkDato())
                         totalPremieinntekt();               
                 break;
                 case 2:
-                    if (!sjekkDatoOgForsikringsvelger())
+                    if (sjekkDatoOgForsikringsvelger())
                         totalPremieinntektPaForsikringstype();              
                 break;              
             }        
