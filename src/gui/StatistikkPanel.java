@@ -812,9 +812,9 @@ public void feilMelding(String t)
 
 public boolean sjekkDato()
 {
-    if (stDatoAr.getText().equals("") || stDatoMnd.getText().equals("") || 
-                        stDatoDag.getText().equals("") || slDatoAr.getText().equals("") || 
-                        slDatoMnd.getText().equals("") || slDatoDag.getText().equals(""))
+    if (!stDatoAr.getText().matches("\\d{4}") || !stDatoMnd.getText().matches("\\d{2}") || 
+       !stDatoDag.getText().matches("\\d{2}") || !slDatoAr.getText().matches("\\d{4}") || 
+       !slDatoMnd.getText().matches("\\d{2}") || !slDatoDag.getText().matches("\\d{2}"))
     {
         feilMelding("Fyll ut alle feltene for dato");
         return false;
@@ -826,14 +826,14 @@ public boolean sjekkDato()
 }
 public boolean sjekkDatoOgForsikringsvelger()
 {
-    if (stDatoAr.getText().equals("") || stDatoMnd.getText().equals("") || 
-        stDatoDag.getText().equals("") || slDatoAr.getText().equals("") || 
-        slDatoMnd.getText().equals("") || slDatoDag.getText().equals("") 
-        || forsikringsvelgeren.getSelectedIndex() == 0)
+   if (!stDatoAr.getText().matches("\\d{4}") || !stDatoMnd.getText().matches("\\d{2}") || 
+       !stDatoDag.getText().matches("\\d{2}") || !slDatoAr.getText().matches("\\d{4}") || 
+       !slDatoMnd.getText().matches("\\d{2}") || !slDatoDag.getText().matches("\\d{2}") 
+                                || forsikringsvelgeren.getSelectedIndex() == 0)
     {
-        if(stDatoAr.getText().equals("") || stDatoMnd.getText().equals("") || 
-           stDatoDag.getText().equals("") || slDatoAr.getText().equals("") || 
-           slDatoMnd.getText().equals("") || slDatoDag.getText().equals(""))
+        if(!stDatoAr.getText().matches("\\d{4}") || !stDatoMnd.getText().matches("\\d{2}") || 
+       !stDatoDag.getText().matches("\\d{2}") || !slDatoAr.getText().matches("\\d{4}") || 
+       !slDatoMnd.getText().matches("\\d{2}") || !slDatoDag.getText().matches("\\d{2}"))
         {
             feilMelding("Fyll ut alle feltene for dato");
         }
@@ -843,12 +843,12 @@ public boolean sjekkDatoOgForsikringsvelger()
             feilMelding("Du må velge forsikringstype");
         }
                            
-        return false;
+            return false;
     } 
-    else
-    {
-        return true;
-    }
+   else
+   {
+       return true;
+   }
 }
 
 @Override
