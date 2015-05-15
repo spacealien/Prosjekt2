@@ -172,6 +172,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         Forsikring forsirking = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
         List<Skademelding> nyListe = vindu.getRegister().getSkademeldingsregister().getSkademeldinger(forsirking);
         TabellModellSkademeldinger nyModell = new TabellModellSkademeldinger(nyListe);
+        tabellModell = nyModell;
         tabell.setModel(nyModell);
         tabell.brukSkademeldingPopup();
     }
@@ -194,7 +195,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
     
     public void åpneSkademeldingTab()
     {
-        Integer skademeldingnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
+        Integer skademeldingnummer = (Integer) tabell.getModel().getValueAt( tabell.getSelectedRow(), 0 );
         Skademelding skademelding = vindu.getRegister().getSkademeldingsregister().getSkademelding(skademeldingnummer);
         SkademeldingPanel skademeldingsPanel = new SkademeldingPanel(skademelding.getForsikring(), vindu);
         skademeldingsPanel.setKundePanel(this);
