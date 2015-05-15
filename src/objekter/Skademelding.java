@@ -51,7 +51,7 @@ public class Skademelding implements Serializable
         this.takseringsbelop = takseringsbelop;
         this.erstatningsbelop = erstatingsbelop;
         skadenummer = nestenr++;
-        opprettetdato = new GregorianCalendar();
+        opprettetdato = dato;
     }
     
     

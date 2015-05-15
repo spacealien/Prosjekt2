@@ -168,7 +168,6 @@ public StatistikkPanel(AnsattVindu v)
     add(Box.createRigidArea(new Dimension(50,1)));
     add(avansertSokPanel3);
       
-    System.out.print(register.getForsikringrsliste().getForsikring(1000001));
     sokevelger.addItemListener(new ItemListener()
     {
         @Override
@@ -309,7 +308,7 @@ public void alleKunderMedForsikring()
     tabell.setModel(new TabellModell(liste));
     tabell.setPreferredScrollableViewportSize(new Dimension(700, 200));
     statistikkVindu = new StatistikkVindu("Kunder med " + forsikringsvalg, new JScrollPane(tabell));
- }
+}
  
 public void antSkademeldinger()
 {
@@ -318,15 +317,15 @@ public void antSkademeldinger()
     List<Skademelding> skademeldingsliste  = new ArrayList<>();
     int antall = 0;
     String s = "";
-  
+    
+    
     if (forsikringsvelgeren.getSelectedIndex() != 0)
     {
-        s = "Registrerte skademeldinger på " + forsikringsvalg.toLowerCase() + "er i perioden ";
         forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
+        s = "Registrerte skademeldinger på " + forsikringsvalg.toLowerCase() + "er i perioden ";
         for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
-        {
-         
-            if (skademld.getForsikring().getForsikringsType().equals(forsikringsvalg) && skademld.getOpprettetDato().after(startDato) && skademld.getOpprettetDato().before(sluttDato) )
+        {     
+            if (skademld.getForsikring().getForsikringsType().equals(forsikringsvalg) && skademld.getOpprettetDato().getTime().after(startDato) && skademld.getOpprettetDato().getTime().before(sluttDato))
             {
                 skademeldingsliste.add(skademld);
                 antall++;
@@ -338,7 +337,7 @@ public void antSkademeldinger()
         s = "Registrerte skademeldinger i perioden: ";
         for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
         {
-            if (skademld.getOpprettetDato().after(startDato) && skademld.getOpprettetDato().before(sluttDato) )
+            if ( skademld.getOpprettetDato().getTime().after(startDato) && skademld.getOpprettetDato().getTime().before(sluttDato) ) 
             {
                 skademeldingsliste.add(skademld);
                 antall++;
@@ -346,8 +345,7 @@ public void antSkademeldinger()
         }
     }
     
-    JTable tabell = new JTable();
-    tabell.setModel(new TabellModellSkademeldinger(skademeldingsliste));
+    JTable tabell = new JTable(new TabellModellSkademeldinger(skademeldingsliste));
     tabell.setPreferredScrollableViewportSize(new Dimension(700,180));
     JPanel pane = new JPanel();
     JTextField textField = new JTextField("Antall skademeldinger i perioden: " + antall);
