@@ -484,7 +484,7 @@ public class HovedRegister
         
         skrivTilFil();
         //lesFraFil();
-        //sjekkTid2();
+        sjekkTid2();
     }
     
     
@@ -498,23 +498,6 @@ public class HovedRegister
         return forsikringsregister.getKundensForsikringer(kunde);
     }
     
-    public final void sjekkTid()
-    {
-       //GregorianCalendar kalender = vindu.getKalender();
-      for( Kunde kunde : kunderegister.alleKunder() )
-        {
-           List<Forsikring> forsikringsliste = getAlleKundensForsikringer( kunde );
-           for( Forsikring forsikring : forsikringsliste )
-            {
-               
-                    /*if(Math.abs(( kalender.getTime().getTime() - forsikring.getStartdato().getTime().getTime())) > (1000*60*60*24*365.25) ) 
-                    {
-                        forsikring.beregnPris();
-                    }*/
-            }
-            
-        }  
-    }
     
     public final void sjekkTid2()
     {
@@ -525,7 +508,7 @@ public class HovedRegister
         {
             for (Forsikring forsikring : getForsikringrsliste().alleForsikringer())
             {
-                if(forsikring.getSistBetalt().before(ettÅrSiden.getTime()));
+                if(forsikring.erAktiv() && forsikring.getSistBetalt().before(ettÅrSiden.getTime()));
                 {
                     if(forsikring.getForsikringsType().equals("Bilforsikring"))
                     {
@@ -717,7 +700,6 @@ public class HovedRegister
     {
         forsikringsregister.leggTil( nyForsikring.getKunde(), nyForsikring);
         Date dato = new Date();
-        System.out.print(sdf.format(dato));
         if(forsikringsregister.antallAktiveForsikringer(nyForsikring.getKunde()).size() >= 3)
         {
             nyForsikring.getKunde().setTotalKunde(true);
