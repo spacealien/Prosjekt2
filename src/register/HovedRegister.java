@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import objekter.*;
 
@@ -37,9 +38,9 @@ public class HovedRegister
     public HovedRegister(AnsattVindu v) 
     {
         vindu = v;  
-        kalender = Calendar.getInstance();
+        kalender = Calendar.getInstance();  
         
-        /**
+        
         GregorianCalendar fdato = new GregorianCalendar(1991,6,6);
         Kunde test_1 = new Kunde("Rolf", "Hestman", "Kongleknaggen 18", "22260906", fdato, "hesterolf@yahoo.no", "08206049937");
         Kunde test_2 = new Kunde("Bjørn", "Dæhlie", "Trysil 23B", "22260906", fdato, "epost@epost.no", "12048449997");
@@ -103,22 +104,22 @@ public class HovedRegister
         
         Eier eier = new Eier("Hans", "Hansen", "Heiveien 3", "97612312");
         Bilforsikring forsikring_1 = new Bilforsikring( test_1, 4000, "Kasko", "AX12345", 8000, "BMW", "520", "SUV", 340, 2000, 30000, "Bilfører < 23 år", 0.50, 1,true, false, false, false, 8000 );
-        Bilforsikring forsikring_2 = new Bilforsikring( test_1, 8000, "Delkasko", "VX12345", 1600000, "BMW", "X5", "SUV", 140, 2013, 30000, "Bilfører < 23 år", 0.50, 1,false, true, false, false, 16000 );
+        Bilforsikring forsikring_2 = new Bilforsikring( test_1, 8000, "Delkasko", "VX12345", 1600000, "BMW", "X5", "SUV", 140, 2013, 30000, "Bilfører < 23 år", 0.50, 1,false, true, false, false, 1600000 );
         Bilforsikring forsikring_3 = new Bilforsikring( test_1, 4000, "Ansvar", "CD67890", 270000,"Volvo", "V70", "Personbil", 800, 1968, 300000, "Bilfører < 23 år", -0.10, 1,true, true, true, false, 8000 );
-        Bilforsikring forsikring_4 = new Bilforsikring( test_2, 12000, "Kasko", "FH12345", 20000, "KIA", "SUPER", "Personbil", 240, 1999, 30000, "Bilfører < 23 år", 0.50, 1,false, false, true, false, 12000 );
+        Bilforsikring forsikring_4 = new Bilforsikring( test_2, 12000, "Kasko", "FH12345", 20000, "KIA", "SUPER", "Personbil", 240, 1999, 30000, "Bilfører < 23 år", 0.50, 1,false, false, true, false, 270000 );
         Bilforsikring forsikring_5 = new Bilforsikring( test_2, 8000, "Delkasko", "EH12345", 8000, "VW", "POLO", "Personbil", 330, 1999, 30000, "Bilfører < 23 år", 0.50, 1,false, false, false, true, 8000 );
         Bilforsikring forsikring_6 = new Bilforsikring( test_3, 12000, "Delkasko", "EL12345", 1600000, "VW", "PASSAT", "Personbil", 190, 2014, 30000, "Bilfører < 23 år", 0.50, 1,false, true, false, false, 12000 );
-        Bilforsikring forsikring_7 = new Bilforsikring( test_4, 4000, "Delkasko", "VA16745", 20000, "Volvo", "V70", "Personbil", 180, 1999, 30000, "Bilfører < 23 år", 0.50, 1,false, true, false, false, 16000 );
+        Bilforsikring forsikring_7 = new Bilforsikring( test_4, 4000, "Delkasko", "VA16745", 20000, "Volvo", "V70", "Personbil", 180, 1999, 30000, "Bilfører < 23 år", 0.50, 1,false, true, false, false, 1600000 );
         Bilforsikring forsikring_8 = new Bilforsikring( test_3, 20000, "Kasko", "DH12445", 1600000, "BMW", "X3", "SUV", 90, 2014, 30000, "Bilfører < 23 år", 0.50, 1,true, false, true, false, 12000 );
-        Bilforsikring forsikring_9 = new Bilforsikring( test_5, 8000, "Superkasko", "DH12225", 20000, "Mercedes", "G-Class", "SUV", 100, 1999, 30000, "Bilfører < 23 år", 0.50, 1,true, true, false, false, 25000 );
+        Bilforsikring forsikring_9 = new Bilforsikring( test_5, 8000, "Superkasko", "DH12225", 20000, "Mercedes", "G-Class", "SUV", 100, 1999, 30000, "Bilfører < 23 år", 0.50, 1,true, true, false, false, 1600000 );
         Bilforsikring forsikring_10 = new Bilforsikring( test_5, 4000, "Kasko", "DH54321", 8000, "KIA", "KOREA", "SUV", 90, 2014, 30000, "Bilfører < 23 år", 0.50, 1,false, false, false, false, 8000 );
-        Bilforsikring forsikring_11 = new Bilforsikring( test_6, 16000, "Superkasko", "DH13345", 1600000, "Mercedes", "M-Class", "SUV", 340, 2014, 30000, "Bilfører < 23 år", 0.50, 1,true, true, true, true, 16000 );
+        Bilforsikring forsikring_11 = new Bilforsikring( test_6, 16000, "Superkasko", "DH13345", 1600000, "Mercedes", "M-Class", "SUV", 340, 2014, 30000, "Bilfører < 23 år", 0.50, 1,true, true, true, true, 1600000 );
         Bilforsikring forsikring_12 = new Bilforsikring( test_7, 12000, "Delkasko", "DH12645", 1600000, "Toyota", "Yaris", "Personbil", 340, 1999, 30000, "Bilfører < 23 år", 0.50, 1,true, false, false, false, 12000 );
         Bilforsikring forsikring_13 = new Bilforsikring( test_17, 16000, "Superkasko", "DH45345", 1600000, "Jaguar", "FX", "SUV", 340, 2014, 30000, "Bilfører < 23 år", 0.50, 1,false, false, true, true, 12000 );
         Bilforsikring forsikring_14 = new Bilforsikring( test_21, 12000, "Delkasko", "DH12225", 20000, "Volvo", "XC90", "SUV", 340, 2014, 30000, "Bilfører < 23 år", 0.50, 1,false, false, false, true, 12000 );
         Bilforsikring forsikring_15 = new Bilforsikring( test_22, 20000, "Superkasko", "VX12345", 1600000, "Volvo", "XC70", "SUV", 340, 1980, 30000, "Bilfører < 23 år", 0.50, 1,false, false, false, true, 12000 );
         Bilforsikring forsikring_16 = new Bilforsikring( test_23, 16000, "Kasko", "DH12345", 8000, "Lexus", "GS-400", "SUV", 340, 2014, 30000, "Bilfører < 23 år", 0.50, 1,false, false, false, true, 8000 );
-        Bilforsikring forsikring_18 = new Bilforsikring( test_25, 8000, "Kasko", "VA12345", 1600000, "VW", "Passat", "SUV", 340, 2014, 30000, "Bilfører < 23 år", 0.50, 1,false, true, false, true, 16000 );
+        Bilforsikring forsikring_18 = new Bilforsikring( test_25, 8000, "Kasko", "VA12345", 1600000, "VW", "Passat", "SUV", 340, 2014, 30000, "Bilfører < 23 år", 0.50, 1,false, true, false, true, 1600000 );
         Bilforsikring forsikring_19 = new Bilforsikring( test_25, 16000, "Delkasko", "FX12345", 20000, "Volvo", "XC90", "SUV", 340, 2014, 30000, "Bilfører < 23 år", 0.50, 1,false, false, true, false, 12000 );
         Bilforsikring forsikring_20 = new Bilforsikring( test_24, 4000, "Delkasko", "DJ12335", 1600000, "Mercedes", "C-Class", "SUV", 340, 1970, 30000, "Bilfører < 23 år", 0.50, 1,false, false, true, true, 12000 );
         
@@ -475,16 +476,18 @@ public class HovedRegister
         nySkademelding(skademelding_83);
         nySkademelding(skademelding_84);
         
-        
-        for( Forsikring forsikring : forsikringsregister.alleForsikringer())
+        for(Forsikring f :forsikringsregister.alleForsikringer())
         {
-            forsikring.setArligPremie(100);
+            f.setArligPremie(100.0);
         }
-        */
+       
         
-       // skrivTilFil();
-        lesFraFil();
-        sjekkTid2();
+        
+        
+        
+        skrivTilFil();
+
+        //sjekkTid2();
     }
     
     
@@ -498,6 +501,24 @@ public class HovedRegister
         return forsikringsregister.getKundensForsikringer(kunde);
     }
     
+    public final void sjekkTid()
+    {
+       //GregorianCalendar kalender = vindu.getKalender();
+      for( Kunde kunde : kunderegister.alleKunder() )
+        {
+           List<Forsikring> forsikringsliste = getAlleKundensForsikringer( kunde );
+           for( Forsikring forsikring : forsikringsliste )
+            {
+               
+                    /*if(Math.abs(( kalender.getTime().getTime() - forsikring.getStartdato().getTime().getTime())) > (1000*60*60*24*365.25) ) 
+                    {
+                        forsikring.beregnPris();
+                    }*/
+            }
+            
+        }  
+    }
+    
     public final void sjekkTid2()
     {
         Calendar ettÅrSiden = Calendar.getInstance();
@@ -507,7 +528,7 @@ public class HovedRegister
         {
             for (Forsikring forsikring : getForsikringrsliste().alleForsikringer())
             {
-                if(forsikring.erAktiv() && forsikring.getSistBetalt().before(ettÅrSiden.getTime()));
+                if(forsikring.getSistBetalt().before(ettÅrSiden.getTime()));
                 {
                     if(forsikring.getForsikringsType().equals("Bilforsikring"))
                     {
@@ -613,16 +634,17 @@ public class HovedRegister
         long differanseMnd = 0L;
         
         for(Forsikring forsikring :  kundeForsikringer)
-        {
+        {    
             if( forsikring.getSluttdato() != null)
             {
-                differanseMnd = (forsikring.getSluttdato().getTime().getTime() - forsikring.getStartdato().getTime().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
+                differanseMnd = (forsikring.getSluttdato().getTime().getTime() - forsikring.getStartdato().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
             }
             else
             {
-                differanseMnd = (forsikring.getStartdato().getTime().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
+                differanseMnd = (forsikring.getStartdato().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
             }
-            prisPrMåned= forsikring.getArligPremie()/ 12;
+            
+            prisPrMåned= forsikring.getArligPremie() / 12;
             sum += differanseMnd * prisPrMåned;
         }
         return sum;
@@ -707,8 +729,8 @@ public class HovedRegister
             if(forsikringsregister.antallAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
                 vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
             
-//            vindu.oppdaterTabell(kunderegister.alleKunder());
-  //          skrivTilFil();
+            //vindu.oppdaterTabell(kunderegister.alleKunder());
+            //skrivTilFil();
         }
         else
         {

@@ -25,7 +25,7 @@ public abstract class Forsikring implements Serializable
     private final Kunde kunde;
     private int egenandel;
     private final Calendar startdato;
-    private Calendar sluttdato;
+    private Calendar sluttdato = null;
     private Date sistBetalt;
     private double arligPremie = 0;
     private double totalbelop = 0;
@@ -47,7 +47,7 @@ public abstract class Forsikring implements Serializable
     {
         egenandel = e_andel;
         startdato = Calendar.getInstance(norge);
-        stDato = new Date(2013-1900,11,5);
+        stDato = new Date(2013-1900,11,11);
         vilkar = betingelser;
         forsikringsnummer =  løpenummer++;
         kunde = k;
@@ -193,9 +193,9 @@ public abstract class Forsikring implements Serializable
         return skademeldingsnøkkler;
     }
     
-    public Calendar getStartdato()
+    public Date getStartdato()
     {
-        return startdato;
+        return stDato;
     }
     
     public Calendar getSluttdato()
@@ -213,7 +213,7 @@ public abstract class Forsikring implements Serializable
     public String toString()
     {
         String utskrift;
-        utskrift = "\nStartdato:" + sdf.format(startdato.getTime()) + 
+        utskrift = "\nStartdato:" + sdf.format(stDato) + 
                    //"\nSluttdato: " + sluttdato.toString() +   
                     "\nÅrlig Premie: " + arligPremie + 
                    "\nTotal beløp: " + totalbelop +
