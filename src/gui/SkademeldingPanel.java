@@ -318,19 +318,25 @@ public class SkademeldingPanel extends JPanel implements ActionListener
                 String[] kolonnenavn = {"Fornavn", "Etternavn", "Adresse", "Telefonnummer"};
                 Object[][] innhold;
                 List<Vitne> vitnelisten = skademelding.getVitner();
-                innhold = new Object[vitnelisten.size()][kolonnenavn.length];
-        
-                int teller = 0;
-                for(Vitne vitnet : vitnelisten)
+                if(!vitnelisten.isEmpty())
                 {
-                    innhold[teller][0] = vitnet.getFornavn();
-                    innhold[teller][1] = vitnet.getEtternavn();
-                    innhold[teller][2] = vitnet.getAdresse();
-                    innhold[teller][3] = vitnet.getTlfnr();
-                    teller++;
-                }
-                JOptionPane.showMessageDialog( null, skademelding.getVitner().toString(), 
+                    innhold = new Object[vitnelisten.size()][kolonnenavn.length];
+        
+                    int teller = 0;
+                    for(Vitne vitnet : vitnelisten)
+                    {
+                        innhold[teller][0] = vitnet.getFornavn();
+                        innhold[teller][1] = vitnet.getEtternavn();
+                        innhold[teller][2] = vitnet.getAdresse();
+                        innhold[teller][3] = vitnet.getTlfnr();
+                        teller++;
+                    }
+                    JTable tabell = new JTable(innhold, kolonnenavn);
+                    JOptionPane.showMessageDialog( null, tabell, 
                       "Vitner:", JOptionPane.PLAIN_MESSAGE);
+                }
+                else
+                    vindu.visInformasjon("Ingen vitner", "Det er ikke registrert noen vitner for denne skaden");
             }
         }
     }

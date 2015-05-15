@@ -8,7 +8,6 @@ package gui;
 
 //import java.awt.*;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.*;
@@ -178,6 +177,7 @@ public StatistikkPanel(AnsattVindu v)
             switch (sokevelger.getSelectedIndex())
             {
                 case 0:
+                    sokKnapp.setEnabled(false);
                     utgiftsvelger.setEnabled(true);
                     inntektsvelger.setEnabled(true);
                     statistikkvelger.setEnabled(true);
@@ -209,6 +209,30 @@ public StatistikkPanel(AnsattVindu v)
         @Override
         public void itemStateChanged(ItemEvent e)
         {
+            switch (utgiftsvelger.getSelectedIndex())
+            {
+                case 0:
+                    sokKnapp.setEnabled(false);
+                    utgift = utgiftsvelger.getSelectedIndex();
+                    sokevelger.setEnabled(true);
+                    inntektsvelger.setEnabled(true);
+                    statistikkvelger.setEnabled(true);
+                    disableDatoFelter();
+                    forsikringsvelgeren.setEnabled(false);
+                    break;
+                case 1:
+                    utgift = utgiftsvelger.getSelectedIndex();
+                    sokevelger.setEnabled(false);
+                    inntektsvelger.setEnabled(false);
+                    statistikkvelger.setEnabled(false);
+                    sokKnapp.setEnabled(true);
+                case 2:
+                    utgift = utgiftsvelger.getSelectedIndex();
+                    sokevelger.setEnabled(false);
+                    inntektsvelger.setEnabled(false);
+                    statistikkvelger.setEnabled(false);
+                    sokKnapp.setEnabled(true);
+            }
             if (utgiftsvelger.getSelectedIndex() != 0)
             {
                 utgift = utgiftsvelger.getSelectedIndex();
@@ -217,15 +241,7 @@ public StatistikkPanel(AnsattVindu v)
                 statistikkvelger.setEnabled(false);
                 sokKnapp.setEnabled(true);
             }
-            else if (utgiftsvelger.getSelectedIndex() == 0)
-            {
-                utgift = utgiftsvelger.getSelectedIndex();
-                sokevelger.setEnabled(true);
-                inntektsvelger.setEnabled(true);
-                statistikkvelger.setEnabled(true);
-                disableDatoFelter();
-                forsikringsvelgeren.setEnabled(false);
-            }
+            
         }
     });
         
@@ -244,6 +260,7 @@ public StatistikkPanel(AnsattVindu v)
             }
             else if (inntektsvelger.getSelectedIndex() == 0)
             {
+                sokKnapp.setEnabled(false);
                 inntekt = inntektsvelger.getSelectedIndex();
                 sokevelger.setEnabled(true);
                 utgiftsvelger.setEnabled(true);
@@ -262,6 +279,7 @@ public StatistikkPanel(AnsattVindu v)
             switch (statistikkvelger.getSelectedIndex())
             {
                 case 0:
+                    sokKnapp.setEnabled(false);
                     statistikken = statistikkvelger.getSelectedIndex();
                     sokevelger.setEnabled(true);
                     utgiftsvelger.setEnabled(true);
