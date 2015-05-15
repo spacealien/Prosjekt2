@@ -305,7 +305,6 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
             husTilbud.setVisible(true);
             husTilbud.setText(String.valueOf(foreslåttPris));
             husTilbud.setToolTipText("Kan redigeres");
-            husGiTilbud.setVisible(true);
         }
     }
     
