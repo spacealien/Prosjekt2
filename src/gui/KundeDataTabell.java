@@ -118,7 +118,7 @@ public class KundeDataTabell extends JTable
         {
             if( e.getSource() == åpneSkademelding)
             {
-                panel.åpneForsikringsTab();
+                panel.åpneSkademeldingTab();
             }
             else if( e.getSource() == åpneForsikring )
             {
