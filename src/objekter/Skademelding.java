@@ -8,7 +8,6 @@ package objekter;
 import java.awt.Image;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
