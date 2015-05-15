@@ -520,21 +520,20 @@ public void statistikkSkademeldinger()
     List<Skademelding> skademeldingsliste  = new ArrayList<>();
     int antallIPerioden = 0;
     int antallForAlltid = 0;
-    for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
-    {
-        if (skademld.getOpprettetDato().after(startDato) && skademld.getOpprettetDato().before(sluttDato) )
-        {
-            skademeldingsliste.add(skademld);
-            antallIPerioden++;
-        }
-        antallForAlltid++;
-    }
-     
-    long periodeIMnd = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
-    double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
     try
     {
-        
+        for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
+        {
+            if (skademld.getOpprettetDato().after(startDato) && skademld.getOpprettetDato().before(sluttDato) )
+            {
+            skademeldingsliste.add(skademld);
+            antallIPerioden++;
+            }
+            antallForAlltid++;
+        }
+     
+        long periodeIMnd = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
+        double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
         Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
         Date programSluttDato = new Date();
         double alltidIMnd = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
@@ -570,6 +569,8 @@ public void statistikkSkademeldingPaForsikring()
     List<Skademelding> skademeldingsliste  = new ArrayList<>();
     int antallIPerioden = 0;
     int antallForAlltid = 0;
+    try
+    {
     for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
     {
         if (skademld.getForsikring().getForsikringsType().equals(forsikringsvalg))
@@ -605,7 +606,12 @@ public void statistikkSkademeldingPaForsikring()
 
     statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger på " + forsikringsvalg.toLowerCase() + "er i perioden "
                                           + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
-}
+    }
+    catch (NullPointerException | ArithmeticException e)
+    {
+        feilMelding("Søket ga ingen treff");
+    }
+    }
  
 public void statistikkSkademeldingPaSkadetype()
 {
@@ -616,6 +622,8 @@ public void statistikkSkademeldingPaSkadetype()
     List<Skademelding> skademeldingsliste  = new ArrayList<>();
     int antallIPerioden = 0;
     int antallForAlltid = 0;
+    try
+    {
     for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
     {
         if(skademld.getForsikring().getForsikringsType().equals(forsikringsvalg))
@@ -654,6 +662,11 @@ public void statistikkSkademeldingPaSkadetype()
              "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
     statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger på " + skadetypevalg.toLowerCase() + "skader i perioden "
                 + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
+    }
+    catch (NullPointerException | ArithmeticException e)
+    {
+        feilMelding("Søket ga ingen treff");
+    }
 }
  
 public void statistikkErstatning()
@@ -662,6 +675,8 @@ public void statistikkErstatning()
     sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
     double totalSumIPeriode = 0.0;
     double totalSum = 0.0;
+    try
+    {
     for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
     {
         if (skademld.getOpprettetDato().after(startDato) && skademld.getOpprettetDato().before(sluttDato) )
@@ -690,6 +705,11 @@ public void statistikkErstatning()
              "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
     statistikkVindu = new StatistikkVindu("Øking/Minking av erstatningsutgifter i perioden "
                 + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
+    }
+    catch (NullPointerException | ArithmeticException e)
+    {
+        feilMelding("Søket ga ingen treff");
+    }
  
 }
 
@@ -701,6 +721,8 @@ public void statistikkErstatningPaSkadetype()
     sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
     double totalSumIPeriode = 0.0;
     double totalSum = 0.0;
+    try
+    {
     for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
     {
          if(skademld.getForsikring().getForsikringsType().equals(forsikringsvalg))
@@ -738,6 +760,11 @@ public void statistikkErstatningPaSkadetype()
     statistikkVindu = new StatistikkVindu("Øking/Minking av erstatningsutgifter for " 
                                         + skadetypevalg.toLowerCase() + "skader i perioden "
                                         + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
+}
+    catch (NullPointerException | ArithmeticException e)
+    {
+        feilMelding("Søket ga ingen treff");
+    }
 }
 public void typeForsikringPaAntall()
 {
