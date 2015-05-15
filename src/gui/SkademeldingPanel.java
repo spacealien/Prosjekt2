@@ -173,6 +173,13 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         skadetypevelger.setSelectedItem(forsikring.getVilkar());
         skadeTakst.setText(String.valueOf(skademelding.getTakseringsbelop()));
         skadeBeskrivelse.setText( skademelding.getBeskrivelse());
+        lastOppBildeKnapp.setVisible(false);
+        beregnErstatning.setVisible(false);
+        vitneKnapp.setText("Vis vitner");
+        erstatningsLabel.setText("Utbetalt erstatning:");
+        erstatningsBeløp.setText(String.valueOf(skademelding.getErstatningsbelop()));
+        erstatningsLabel.setVisible(true);
+        erstatningsBeløp.setVisible(true);
         
     }
     
@@ -309,7 +316,21 @@ public class SkademeldingPanel extends JPanel implements ActionListener
             }
             else if (vitneKnapp.getText().equals("Vis vitner"))
             {
-               JOptionPane.showMessageDialog( null, skademelding.getVitner().toString(), 
+                String[] kolonnenavn = {"Fornavn", "Etternavn", "Adresse", "Telefonnummer"};
+                Object[][] innhold;
+                List<Vitne> vitnelisten = skademelding.getVitner();
+                innhold = new Object[vitnelisten.size()][kolonnenavn.length];
+        
+                int teller = 0;
+                for(Vitne vitnet : vitnelisten)
+                {
+                    innhold[teller][0] = vitnet.getFornavn();
+                    innhold[teller][1] = vitnet.getEtternavn();
+                    innhold[teller][2] = vitnet.getAdresse();
+                    innhold[teller][3] = vitnet.getTlfnr();
+                    teller++;
+                }
+                JOptionPane.showMessageDialog( null, skademelding.getVitner().toString(), 
                       "Vitner:", JOptionPane.PLAIN_MESSAGE);
             }
         }

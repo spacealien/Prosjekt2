@@ -541,6 +541,7 @@ public void statistikkSkademeldinger()
         double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
         String s;
         double endring = gjennomsnittPerioden - gjennomsnittAlltid;
+        double prosent = ((endring - gjennomsnittAlltid) / gjennomsnittAlltid) * 100;
         if (endring >= 0)
             s = "økt";
         else
@@ -549,8 +550,8 @@ public void statistikkSkademeldinger()
         }
                  
         JTextArea textArea = new JTextArea();
-        textArea.setText("Antall skademeldinger har " + s + " med " + endring  + 
-             "månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
+        textArea.setText("Antall skademeldinger har " + s + " med " + endring + " stk / " + prosent +
+             "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
         statistikkVindu = new StatistikkVindu("Økning/Minking i perioden "
                 + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
     }
@@ -591,6 +592,7 @@ public void statistikkSkademeldingPaForsikring()
     double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
     String s;
     double endring = gjennomsnittPerioden - gjennomsnittAlltid;
+    double prosent = ((endring - gjennomsnittAlltid) / gjennomsnittAlltid) * 100;
     if (endring >= 0)
         s = "økt";
     else
@@ -598,8 +600,8 @@ public void statistikkSkademeldingPaForsikring()
         s = "minket";
     }                
     JTextArea textArea = new JTextArea();
-    textArea.setText("Antall skademeldinger på " + forsikringsvalg.toLowerCase() + "er har " + s + " med " + endring  + 
-                     "månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
+    textArea.setText("Antall skademeldinger på " + forsikringsvalg.toLowerCase() + "er har " + s + " med " + endring+ " stk / " + prosent +
+             "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
 
     statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger på " + forsikringsvalg.toLowerCase() + "er i perioden "
                                           + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
@@ -639,6 +641,7 @@ public void statistikkSkademeldingPaSkadetype()
     double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
     String s;
     double endring = gjennomsnittPerioden - gjennomsnittAlltid;
+    double prosent = ((endring - gjennomsnittAlltid) / gjennomsnittAlltid) * 100;
     if (endring >= 0)
         s = "økt";
     else
@@ -647,8 +650,8 @@ public void statistikkSkademeldingPaSkadetype()
     }
                  
     JTextArea textArea = new JTextArea();
-    textArea.setText("Antall skademeldinger for " + skadetypevalg.toLowerCase() + "skader har " + s + " med " + endring  + 
-                     "månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
+    textArea.setText("Antall skademeldinger for " + skadetypevalg.toLowerCase() + "skader har " + s + " med " + endring+ " stk / " + prosent +
+             "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
     statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger på " + skadetypevalg.toLowerCase() + "skader i perioden "
                 + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
 }
@@ -676,14 +679,15 @@ public void statistikkErstatning()
     double gjennomsnittAlltid = totalSum / alltidIMnd;
     String s;
     double endring = gjennomsnittPerioden - gjennomsnittAlltid;
+    double prosent = ((endring - gjennomsnittAlltid) / gjennomsnittAlltid) * 100;
     if (endring >= 0)
         s = "økt";
     else
         s = "minket";
                  
     JTextArea textArea = new JTextArea();
-    textArea.setText("Total erstatningsutgifter har " + s + " med " + endring  + 
-             "månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
+    textArea.setText("Total erstatningsutgifter har " + s + " med " + endring+ " stk / " + prosent +
+             "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
     statistikkVindu = new StatistikkVindu("Øking/Minking av erstatningsutgifter i perioden "
                 + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
  
@@ -720,6 +724,7 @@ public void statistikkErstatningPaSkadetype()
     double gjennomsnittAlltid = totalSum / alltidIMnd;
     String s;
     double endring = gjennomsnittPerioden - gjennomsnittAlltid;
+    double prosent = ((endring - gjennomsnittAlltid) / gjennomsnittAlltid) * 100;
     if (endring >= 0)
         s = "økt";
     else
@@ -727,8 +732,8 @@ public void statistikkErstatningPaSkadetype()
                 
     JTextArea textArea = new JTextArea();
     textArea.setText("Totale erstatningsutgifter for " + skadetypevalg.toLowerCase()
-                    + "skader har " + s + " med " + endring  + 
-                    "månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
+                    + "skader har " + s + " med " + endring+ " stk / " + prosent +
+             "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
     
     statistikkVindu = new StatistikkVindu("Øking/Minking av erstatningsutgifter for " 
                                         + skadetypevalg.toLowerCase() + "skader i perioden "

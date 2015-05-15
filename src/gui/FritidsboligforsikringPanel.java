@@ -306,6 +306,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
             
             fritidTilbud.setVisible(true);
             fritidTilbud.setText( String.valueOf(foreslåttPris) );
+            fritidTilbud.setToolTipText("Kan redigeres");
             fritidGiTilbud.setVisible(true);
         }
     }

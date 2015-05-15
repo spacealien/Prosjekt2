@@ -544,6 +544,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
              
             bilTilbud.setVisible(true);
             bilTilbud.setText(String.valueOf(foreslåttPris));
+            bilTilbud.setToolTipText("Kan redigeres");
             bilGiTilbud.setVisible(true);
         }
     }
