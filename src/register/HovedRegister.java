@@ -16,7 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import objekter.*;
 
@@ -40,6 +39,7 @@ public class HovedRegister
         vindu = v;  
         kalender = Calendar.getInstance();
         
+        /**
         GregorianCalendar fdato = new GregorianCalendar(1991,6,6);
         Kunde test_1 = new Kunde("Rolf", "Hestman", "Kongleknaggen 18", "22260906", fdato, "hesterolf@yahoo.no", "08206049937");
         Kunde test_2 = new Kunde("Bjørn", "Dæhlie", "Trysil 23B", "22260906", fdato, "epost@epost.no", "12048449997");
@@ -480,11 +480,11 @@ public class HovedRegister
         {
             forsikring.setArligPremie(100);
         }
+        */
         
-        
-        skrivTilFil();
-        //lesFraFil();
-        sjekkTid2();
+       // skrivTilFil();
+        lesFraFil();
+        //sjekkTid2();
     }
     
     
@@ -497,7 +497,6 @@ public class HovedRegister
     {
         return forsikringsregister.getKundensForsikringer(kunde);
     }
-    
     
     public final void sjekkTid2()
     {
@@ -700,6 +699,7 @@ public class HovedRegister
     {
         forsikringsregister.leggTil( nyForsikring.getKunde(), nyForsikring);
         Date dato = new Date();
+        System.out.print(sdf.format(dato));
         if(forsikringsregister.antallAktiveForsikringer(nyForsikring.getKunde()).size() >= 3)
         {
             nyForsikring.getKunde().setTotalKunde(true);
