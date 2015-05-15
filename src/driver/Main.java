@@ -34,7 +34,7 @@ public class Main
                     @Override
                     public void windowClosing( WindowEvent e )
                     {
-                        vindu.lagre();
+                        //vindu.lagre();
                         System.exit( 0 );
                     }
                 });

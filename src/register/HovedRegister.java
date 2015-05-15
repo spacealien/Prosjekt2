@@ -767,7 +767,7 @@ public class HovedRegister
         }
         catch( IOException e )
         {
-            
+            vindu.visFeilmelding("Feilmelding", "Det har oppstått en feil ved lagring til fil.");
         }
     }
     
@@ -787,7 +787,7 @@ public class HovedRegister
         }
         catch( IOException | ClassNotFoundException e )
         {
-            
+            vindu.visFeilmelding("Feilmelding", "Det har oppstått en feil ved lesing fra fil.");
         }
     }
 }
