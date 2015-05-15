@@ -295,7 +295,6 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
             batTilbud.setVisible(true);
             batTilbud.setText(String.valueOf(foreslåttPris));
             batTilbud.setToolTipText("Kan redigeres");
-            batGiTilbud.setVisible(true);
         }
     }
     

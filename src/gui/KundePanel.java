@@ -158,9 +158,9 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         regTlfnr.setText(kunde.getTlfnr());
         regAdresse.setText(kunde.getAdresse());
         regEpost.setText(kunde.getEpost());
-        utgifter.setText(String.valueOf(vindu.getRegister().getUtgifter(kunde)));
-        inntekter.setText(String.valueOf(vindu.getRegister().getInntekter(kunde)));
-        inntekterTotal.setText(String.valueOf(vindu.getRegister().getNåværendeInntjening(kunde)));
+        utgifter.setText(String.valueOf(vindu.getRegister().getUtgifter(kunde)) + " Kr" );
+        inntekter.setText(String.valueOf(vindu.getRegister().getInntekter(kunde)) +" Kr");
+        inntekterTotal.setText(String.valueOf(vindu.getRegister().getNåværendeInntjening(kunde)) + " Kr");
         tabellModell = new TabellModellForsikring( vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde));
         tabell.setModel(tabellModell);
         vindu.oppdaterTabell(vindu.getRegister().getKundeliste().alleKunder());
