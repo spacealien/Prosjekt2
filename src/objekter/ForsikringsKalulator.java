@@ -965,7 +965,9 @@ public class ForsikringsKalulator
     {
         double beløp = 0.0;
         if(!(egenandel >= skadetakst))
+        {
             beløp = Math.rint((skadetakst*0.7)-egenandel);
+        }
         
         return beløp;
     }

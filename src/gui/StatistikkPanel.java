@@ -35,7 +35,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
     private final JComboBox<String> sokevelger;
     private final String[] forsikringer = {"", "Bilforsikring", "Båtforsikring",
                             "Hus- og innboforsikring", "Fritidsboligforsikring",
-                            "Reiseforsikring", "Alle forsikringstyper"};
+                            "Reiseforsikring"};
     private final JComboBox<String> forsikringsvelgeren;
     //private final String[] skadetyper = {"", "Brann", "Tyveri/Hærverk", "Ulykke", "Tap", "Annet"};
     private final String[] skadetypeKjoretoy = {"", "Ansvar", "Glasskade", "Vei-/slepehjelp", "Tyveri/Hærverk", "Ulykke", "Annet"};
@@ -73,6 +73,15 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
     private final JTextField slDatoMnd;
     private final JTextField slDatoAr;
     private final JLabel skadetypelabel;
+    private final JLabel forsikringsLabel;
+    private final JLabel startDagLabel;
+    private final JLabel startMndLabel;
+    private final JLabel startArLabel;
+    private final JLabel sluttDagLabel;
+    private final JLabel sluttMndLabel;
+    private final JLabel sluttArLabel;
+    private final JLabel tomLabel;
+    private final JLabel fomLabel;
     private final JButton sokKnapp;
     private int sok;
     private int utgift;
@@ -83,6 +92,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
     private String skadetypevalg;
     private Date startDato;
     private Date sluttDato;
+    JPanel avansertSokPanel2;
     
     private ComboBoxModel<String> skadetypeModellKjoretoy;
     private ComboBoxModel<String> skadetypeModellEiendom;
@@ -97,6 +107,7 @@ public StatistikkPanel(AnsattVindu v)
     utgiftsvelger = new JComboBox<>(utgifter);
     inntektsvelger = new JComboBox<>(inntekter);
     forsikringsvelgeren = new JComboBox<>(forsikringer);
+    forsikringsvelgeren.setVisible(false);
     statistikkvelger = new JComboBox<>(statistikk);
     skadetypevelgeren = new JComboBox<>();
     skadetypevelgeren.setVisible(false);
@@ -104,6 +115,24 @@ public StatistikkPanel(AnsattVindu v)
     skadetypeModellEiendom = new DefaultComboBoxModel(skadetypeEiendom);
     skadetypeModellReise = new DefaultComboBoxModel(skadetypeReise);
     skadetypelabel = new JLabel("Velg skadetype: ");
+    forsikringsLabel = new JLabel("Velg forsikringstype: ");
+    forsikringsLabel.setVisible(false);
+    startDagLabel = new JLabel("Dag: (dd)");
+    startDagLabel.setVisible(false);
+    startMndLabel = new JLabel("Måned: (mm)");
+    startMndLabel.setVisible(false);
+    startArLabel = new JLabel("År: (åååå)");
+    startArLabel.setVisible(false);
+    tomLabel = new JLabel("Til og med: ");
+    tomLabel.setVisible(false);
+    fomLabel = new JLabel("Fra og med: ");
+    fomLabel.setVisible(false);
+    sluttDagLabel = new JLabel("Dag: (dd)");
+    sluttDagLabel.setVisible(false);
+    sluttMndLabel = new JLabel("Måned: (mm)");
+    sluttMndLabel.setVisible(false);
+    sluttArLabel = new JLabel("År: (åååå)");
+    sluttArLabel.setVisible(false);
     skadetypelabel.setVisible(false);
     stDatoDag = new JTextField(2);
     stDatoMnd = new JTextField(2);
@@ -111,12 +140,18 @@ public StatistikkPanel(AnsattVindu v)
     slDatoDag = new JTextField(2);
     slDatoMnd = new JTextField(2);
     slDatoAr = new JTextField(4);
+    stDatoDag.setVisible(false);
+    stDatoMnd.setVisible(false);
+    stDatoAr.setVisible(false);
+    slDatoDag.setVisible(false);
+    slDatoMnd.setVisible(false);
+    slDatoAr.setVisible(false);
     sokKnapp = new JButton("Søk");
     sokKnapp.setEnabled(false);
     sokKnapp.addActionListener(this);
         
     JPanel avansertSokPanel1 = new JPanel();
-    JPanel avansertSokPanel2 = new JPanel();
+    avansertSokPanel2 = new JPanel();
     JPanel avansertSokPanel3 = new JPanel();
     JPanel avansertSokPanel4 = new JPanel();
     avansertSokPanel3.setLayout(new BoxLayout(avansertSokPanel3, BoxLayout.PAGE_AXIS));
@@ -135,25 +170,25 @@ public StatistikkPanel(AnsattVindu v)
     avansertSokPanel1.add(new JLabel("Skriv ut statistikk om:"));
     avansertSokPanel1.add(statistikkvelger);
        
-    avansertSokPanel4.add(new JLabel("Velg forsikringstype: "));
+    avansertSokPanel4.add(forsikringsLabel);
     avansertSokPanel4.add(forsikringsvelgeren);
     avansertSokPanel4.add(skadetypelabel);
     avansertSokPanel4.add(skadetypevelgeren);
-    avansertSokPanel2.add(new JLabel("Fra og med: "));
+    avansertSokPanel2.add(fomLabel);
     avansertSokPanel2.add(new JLabel());
     avansertSokPanel2.add(new JLabel());
-    avansertSokPanel2.add(new JLabel("Dag: (dd)"));
-    avansertSokPanel2.add(new JLabel("Måned: (mm)"));
-    avansertSokPanel2.add(new JLabel("År: (åååå)"));
+    avansertSokPanel2.add(startDagLabel);
+    avansertSokPanel2.add(startMndLabel);
+    avansertSokPanel2.add(startArLabel);
     avansertSokPanel2.add(stDatoDag);
     avansertSokPanel2.add(stDatoMnd);
     avansertSokPanel2.add(stDatoAr);
-    avansertSokPanel2.add(new JLabel("Til og med: "));
+    avansertSokPanel2.add(tomLabel);
     avansertSokPanel2.add(new JLabel());
     avansertSokPanel2.add(new JLabel());
-    avansertSokPanel2.add(new JLabel("Dag: (dd)"));
-    avansertSokPanel2.add(new JLabel("Måned: (mm)"));
-    avansertSokPanel2.add(new JLabel("År: (åååå)"));
+    avansertSokPanel2.add(sluttDagLabel);
+    avansertSokPanel2.add(sluttMndLabel);
+    avansertSokPanel2.add(sluttArLabel);
     avansertSokPanel2.add(slDatoDag);
     avansertSokPanel2.add(slDatoMnd);
     avansertSokPanel2.add(slDatoAr);
@@ -182,7 +217,9 @@ public StatistikkPanel(AnsattVindu v)
                     inntektsvelger.setEnabled(true);
                     statistikkvelger.setEnabled(true);
                     disableDatoFelter();
-                    forsikringsvelgeren.setEnabled(false);
+                    forsikringsLabel.setVisible(false);
+                    forsikringsvelgeren.setVisible(false);
+                    forsikringsvelgeren.setSelectedIndex(0);
                     break;
                 case 1:
                     utgiftsvelger.setEnabled(false);
@@ -190,7 +227,8 @@ public StatistikkPanel(AnsattVindu v)
                     statistikkvelger.setEnabled(false);
                     sokKnapp.setEnabled(true);
                     disableDatoFelter();
-                    forsikringsvelgeren.setEnabled(true);
+                    forsikringsLabel.setVisible(true);
+                    forsikringsvelgeren.setVisible(true);
                     break;
                 case 2:
                 case 3:
@@ -199,7 +237,8 @@ public StatistikkPanel(AnsattVindu v)
                     statistikkvelger.setEnabled(false);
                     sokKnapp.setEnabled(true);
                     enableDatoFelter();
-                    forsikringsvelgeren.setEnabled(true);
+                    forsikringsLabel.setVisible(true);
+                    forsikringsvelgeren.setVisible(true);
             }
         }
      });
@@ -213,35 +252,34 @@ public StatistikkPanel(AnsattVindu v)
             {
                 case 0:
                     sokKnapp.setEnabled(false);
-                    utgift = utgiftsvelger.getSelectedIndex();
                     sokevelger.setEnabled(true);
                     inntektsvelger.setEnabled(true);
                     statistikkvelger.setEnabled(true);
                     disableDatoFelter();
-                    forsikringsvelgeren.setEnabled(false);
+                    forsikringsLabel.setVisible(false);
+                    forsikringsvelgeren.setVisible(false);
+                    forsikringsvelgeren.setSelectedIndex(0);
                     break;
                 case 1:
-                    utgift = utgiftsvelger.getSelectedIndex();
                     sokevelger.setEnabled(false);
                     inntektsvelger.setEnabled(false);
                     statistikkvelger.setEnabled(false);
                     sokKnapp.setEnabled(true);
+                    enableDatoFelter();
+                    forsikringsLabel.setVisible(false);
+                    forsikringsvelgeren.setVisible(false);
+                    forsikringsvelgeren.setSelectedIndex(0);
+                    break;
                 case 2:
-                    utgift = utgiftsvelger.getSelectedIndex();
                     sokevelger.setEnabled(false);
                     inntektsvelger.setEnabled(false);
                     statistikkvelger.setEnabled(false);
                     sokKnapp.setEnabled(true);
+                    enableDatoFelter();
+                    forsikringsLabel.setVisible(true);
+                    forsikringsvelgeren.setVisible(true);
+                    break;
             }
-            if (utgiftsvelger.getSelectedIndex() != 0)
-            {
-                utgift = utgiftsvelger.getSelectedIndex();
-                sokevelger.setEnabled(false);
-                inntektsvelger.setEnabled(false);
-                statistikkvelger.setEnabled(false);
-                sokKnapp.setEnabled(true);
-            }
-            
         }
     });
         
@@ -250,23 +288,37 @@ public StatistikkPanel(AnsattVindu v)
         @Override
         public void itemStateChanged(ItemEvent e)
         {
-            if (inntektsvelger.getSelectedIndex() != 0)
+            switch (inntektsvelger.getSelectedIndex())
             {
-                inntekt = inntektsvelger.getSelectedIndex();
-                sokevelger.setEnabled(false);
-                utgiftsvelger.setEnabled(false);
-                statistikkvelger.setEnabled(false);
-                sokKnapp.setEnabled(true);
-            }
-            else if (inntektsvelger.getSelectedIndex() == 0)
-            {
-                sokKnapp.setEnabled(false);
-                inntekt = inntektsvelger.getSelectedIndex();
-                sokevelger.setEnabled(true);
-                utgiftsvelger.setEnabled(true);
-                statistikkvelger.setEnabled(true);
-                disableDatoFelter();
-                forsikringsvelgeren.setEnabled(false);
+                case 0:
+                    sokKnapp.setEnabled(false);
+                    sokevelger.setEnabled(true);
+                    utgiftsvelger.setEnabled(true);
+                    statistikkvelger.setEnabled(true);
+                    disableDatoFelter();
+                    forsikringsLabel.setVisible(false);
+                    forsikringsvelgeren.setVisible(false);
+                    forsikringsvelgeren.setSelectedIndex(0);
+                    break;
+                case 1:
+                    sokevelger.setEnabled(false);
+                    utgiftsvelger.setEnabled(false);
+                    statistikkvelger.setEnabled(false);
+                    sokKnapp.setEnabled(true);
+                    enableDatoFelter();
+                    forsikringsLabel.setVisible(false);
+                    forsikringsvelgeren.setVisible(false);
+                    forsikringsvelgeren.setSelectedIndex(0);
+                    break;
+                case 2:
+                    sokevelger.setEnabled(false);
+                    utgiftsvelger.setEnabled(false);
+                    statistikkvelger.setEnabled(false);
+                    sokKnapp.setEnabled(true);
+                    enableDatoFelter();
+                    forsikringsLabel.setVisible(true);
+                    forsikringsvelgeren.setVisible(true);
+                    break;
             }
         }   
     });
@@ -280,32 +332,70 @@ public StatistikkPanel(AnsattVindu v)
             {
                 case 0:
                     sokKnapp.setEnabled(false);
-                    statistikken = statistikkvelger.getSelectedIndex();
                     sokevelger.setEnabled(true);
                     utgiftsvelger.setEnabled(true);
                     inntektsvelger.setEnabled(true);
                     skadetypelabel.setVisible(false);
                     skadetypevelgeren.setVisible(false);
                     disableDatoFelter();
-                    forsikringsvelgeren.setEnabled(false);
+                    forsikringsLabel.setVisible(false);
+                    forsikringsvelgeren.setVisible(false);
+                    forsikringsvelgeren.setSelectedIndex(0);
                     break;
                 case 1:
-                case 2:
-                case 4:
-                case 6:
-                    statistikken = statistikkvelger.getSelectedIndex();
                     sokevelger.setEnabled(false);
                     utgiftsvelger.setEnabled(false);
                     inntektsvelger.setEnabled(false);
                     skadetypelabel.setVisible(false);
                     skadetypevelgeren.setVisible(false);
                     sokKnapp.setEnabled(true);
+                    enableDatoFelter();
+                    forsikringsLabel.setVisible(false);
+                    forsikringsvelgeren.setVisible(false);
+                    forsikringsvelgeren.setSelectedIndex(0);
+                    break;
+                case 2:
+                    sokevelger.setEnabled(false);
+                    utgiftsvelger.setEnabled(false);
+                    inntektsvelger.setEnabled(false);
+                    skadetypelabel.setVisible(false);
+                    skadetypevelgeren.setVisible(false);
+                    sokKnapp.setEnabled(true);
+                    enableDatoFelter();
+                    forsikringsLabel.setVisible(true);
+                    forsikringsvelgeren.setVisible(true);
+                    break;
+                case 4:
+                    sokevelger.setEnabled(false);
+                    utgiftsvelger.setEnabled(false);
+                    inntektsvelger.setEnabled(false);
+                    skadetypelabel.setVisible(false);
+                    skadetypevelgeren.setVisible(false);
+                    sokKnapp.setEnabled(true);
+                    enableDatoFelter();
+                    forsikringsLabel.setVisible(false);
+                    forsikringsvelgeren.setVisible(false);
+                    forsikringsvelgeren.setSelectedIndex(0);
+                    break;
+                case 6:
+                    sokevelger.setEnabled(false);
+                    utgiftsvelger.setEnabled(false);
+                    inntektsvelger.setEnabled(false);
+                    skadetypelabel.setVisible(false);
+                    skadetypevelgeren.setVisible(false);
+                    sokKnapp.setEnabled(true);
+                    disableDatoFelter();
+                    forsikringsLabel.setVisible(false);
+                    forsikringsvelgeren.setVisible(false);
+                    forsikringsvelgeren.setSelectedIndex(0);
                     break;
                 case 3:
                 case 5:
+                    enableDatoFelter();
+                    forsikringsLabel.setVisible(true);
+                    forsikringsvelgeren.setVisible(true);
                     forsikringsvelgeren.addItemListener(new ItemListener()
                     {
-                        @Override
                         public void itemStateChanged(ItemEvent e)
                         {
                             switch (forsikringsvelgeren.getSelectedIndex())
@@ -338,6 +428,7 @@ public StatistikkPanel(AnsattVindu v)
                                 }
                             }
                         });
+                    break;
                     }
                 }
     });
@@ -363,24 +454,34 @@ public StatistikkPanel(AnsattVindu v)
     }
     public void disableDatoFelter()
     {
-        for(Component component : getKomponenter(this))
+        for(Component component : getKomponenter(avansertSokPanel2))
         {
             if((component instanceof JTextField))
             {
                 JTextField tf = (JTextField)component;
-                tf.setEnabled(false);
+                tf.setVisible(false);
+            }
+            if((component instanceof JLabel))
+            {
+                JLabel label = (JLabel)component;
+                label.setVisible(false);
             }
         }
     }
     
     public void enableDatoFelter()
     {
-        for(Component component : getKomponenter(this))
+        for(Component component : getKomponenter(avansertSokPanel2))
         {
             if((component instanceof JTextField))
             {
                 JTextField tf = (JTextField)component;
-                tf.setEnabled(true);
+                tf.setVisible(true);
+            }
+            if((component instanceof JLabel))
+            {
+                JLabel label = (JLabel)component;
+                label.setVisible(true);
             }
         }
     }
@@ -396,7 +497,8 @@ public void alleKunderMedForsikring()
     JTable tabell = new JTable();
     tabell.setModel(new TabellModell(liste));
     tabell.setPreferredScrollableViewportSize(new Dimension(700, 200));
-    statistikkVindu = new StatistikkVindu("Kunder med " + forsikringsvalg, new JScrollPane(tabell));
+    statistikkVindu = new StatistikkVindu("Kunder med " + forsikringsvalg, new JScrollPane(tabell), new Dimension(700,200));
+    tømFelter();
     }
     catch (NullPointerException e)
     {
@@ -449,7 +551,8 @@ public void antSkademeldinger()
     pane.add(new JScrollPane(tabell));
     statistikkVindu = new StatistikkVindu(s + 
                         sdf.format(startDato) + " - " + sdf.format(sluttDato), 
-                        pane);
+                        pane, new Dimension(700,180));
+    tømFelter();
     }
     catch (NullPointerException e)
     {
@@ -503,8 +606,8 @@ public void antForsikringer()
     pane.add(textField);
     pane.add(new JScrollPane(tabell));
     statistikkVindu = new StatistikkVindu(s + 
-    sdf.format(startDato) + " - " + sdf.format(sluttDato), 
-                        pane);
+    sdf.format(startDato) + " - " + sdf.format(sluttDato), pane, new Dimension(700,180));
+    tømFelter();
     }
     catch (NullPointerException e)
     {
@@ -537,7 +640,8 @@ public void totalErstatning()
                 + "i denne perioden: " + gjennomsnitt + "kr");
     
     statistikkVindu = new StatistikkVindu("Totalt utbetalt erstatningsbeløp i perioden "
-                + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
+                + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea, new Dimension(500,300));
+    tømFelter();
     }
     catch (NullPointerException | ArithmeticException e)
     {
@@ -570,8 +674,9 @@ public void totalErstatningPaForsikring()
                     + "i denne perioden: " + gjennomsnitt + "kr");
      
     statistikkVindu = new StatistikkVindu("Totalt utbetalt erstatningsbeløp på " + forsikringsvalg.toLowerCase() + "er i perioden "
-                                          + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
-}
+                                          + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea, new Dimension(500, 300));
+    tømFelter();
+    }
     catch (NullPointerException | ArithmeticException e)
     {
         feilMelding("Søket ga ingen treff");
@@ -603,7 +708,8 @@ public void totalPremieinntekt()
                 + "\nGjennomsnittlig premieinntekt per forsikring "
                 + "i denne perioden: " + gjennomsnitt + "kr");
     statistikkVindu = new StatistikkVindu("Totale premieinntekter i perioden "
-              + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
+              + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea, new Dimension(500,300));
+    tømFelter();
     }
     catch (NullPointerException | ArithmeticException e)
     {
@@ -639,7 +745,8 @@ public void totalPremieinntektPaForsikringstype()
                 + "\nGjennomsnittlig premieinntekt per forsikring "
                 + "i denne perioden: " + gjennomsnitt + "kr");
     statistikkVindu = new StatistikkVindu("Totale premieinntekter på " + forsikringsvalg.toLowerCase() + "er i perioden "
-                + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
+                + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea, new Dimension(500,300));
+    tømFelter();
     }
     catch (NullPointerException | ArithmeticException e)
     {
@@ -683,10 +790,11 @@ public void statistikkSkademeldinger()
         }
                  
         JTextArea textArea = new JTextArea();
-        textArea.setText("Antall skademeldinger har " + s + " med " + Math.rint(endring) + " stk / " + Math.rint(prosent) +
-             "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
+        textArea.setText("Antall skademeldinger har " + s + " med " + Math.floor(endring) + " stk / " + Math.floor(prosent) +
+             "% månedelig\ni perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
         statistikkVindu = new StatistikkVindu("Økning/Minking i perioden "
-                + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
+                + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea, new Dimension(500,300));
+    tømFelter();
     }
     catch (NullPointerException | ArithmeticException e)
     {
@@ -736,10 +844,11 @@ public void statistikkSkademeldingPaForsikring()
     }                
     JTextArea textArea = new JTextArea();
     textArea.setText("Antall skademeldinger på " + forsikringsvalg.toLowerCase() + "er har " + s + " med " + Math.rint(endring) + " stk / " + Math.rint(prosent) +
-             "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
+             "% månedelig\ni perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
 
     statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger på " + forsikringsvalg.toLowerCase() + "er i perioden "
-                                          + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
+                                          + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea, new Dimension(500,300));
+    tømFelter();
     }
     catch (NullPointerException | ArithmeticException e)
     {
@@ -793,9 +902,10 @@ public void statistikkSkademeldingPaSkadetype()
                  
     JTextArea textArea = new JTextArea();
     textArea.setText("Antall skademeldinger for " + skadetypevalg.toLowerCase() + "skader har " + s + " med " + Math.rint(endring) + " stk / " + Math.rint(prosent) +
-             "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
+             "% månedelig\ni perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
     statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger på " + skadetypevalg.toLowerCase() + "skader i perioden "
-                + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
+                + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea, new Dimension(500,300));
+    tømFelter();
     }
     catch (NullPointerException | ArithmeticException e)
     {
@@ -835,10 +945,11 @@ public void statistikkErstatning()
         s = "minket";
                  
     JTextArea textArea = new JTextArea();
-    textArea.setText("Total erstatningsutgifter har " + s + " med " + Math.rint(endring) + " stk / " + Math.rint(prosent) +
-             "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
+    textArea.setText("Total erstatningsutgifter har " + s + " med " + Math.floor(endring) + " stk / " + Math.floor(prosent) +
+             "% månedelig\ni perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
     statistikkVindu = new StatistikkVindu("Øking/Minking av erstatningsutgifter i perioden "
-                + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
+                + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea, new Dimension(500,300));
+    tømFelter();
     }
     catch (NullPointerException | ArithmeticException e)
     {
@@ -888,13 +999,14 @@ public void statistikkErstatningPaSkadetype()
                 
     JTextArea textArea = new JTextArea();
     textArea.setText("Totale erstatningsutgifter for " + skadetypevalg.toLowerCase()
-                    + "skader har " + s + " med " + Math.rint(endring) + " stk / " + Math.rint(prosent) +
+                    + "skader har " + s + " med " + Math.floor(endring) + " stk / " + Math.floor(prosent) +
              "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
     
     statistikkVindu = new StatistikkVindu("Øking/Minking av erstatningsutgifter for " 
-                                        + skadetypevalg.toLowerCase() + "skader i perioden "
-                                        + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea);
-}
+                                        + skadetypevalg.toLowerCase() + "skader\ni perioden "
+                                        + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea, new Dimension(500,300));
+    tømFelter();
+    }
     catch (NullPointerException | ArithmeticException e)
     {
         feilMelding("Søket ga ingen treff");
@@ -963,7 +1075,8 @@ public void typeForsikringPaAntall()
     
     JTextArea textArea = new JTextArea();
     textArea.setText(ut);
-    statistikkVindu = new StatistikkVindu("Forsikringer sortert på antall", new JScrollPane(textArea));
+    statistikkVindu = new StatistikkVindu("Forsikringer sortert på antall", new JScrollPane(textArea), new Dimension(500,300));
+    tømFelter();
 }
  
 public void feilMelding(String t)

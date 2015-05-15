@@ -23,14 +23,14 @@ public class StatistikkVindu extends JFrame
     private final Container c;
     private final JPanel hovedPanel;
 
-    public StatistikkVindu(String s, JComponent komponent) 
+    public StatistikkVindu(String s, JComponent komponent, Dimension d) 
     {
         super(s);
         setVisible(true);
         setSize(new Dimension(850, 350));
         c = getContentPane();
         hovedPanel = new JPanel();
-        komponent.setPreferredSize(new Dimension(840,300));
+        komponent.setPreferredSize(d);
         hovedPanel.add(new JScrollPane(komponent));
         c.setLayout(new BorderLayout());
         c.add(hovedPanel, BorderLayout.CENTER);

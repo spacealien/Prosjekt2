@@ -318,7 +318,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener
                 String[] kolonnenavn = {"Fornavn", "Etternavn", "Adresse", "Telefonnummer"};
                 Object[][] innhold;
                 List<Vitne> vitnelisten = skademelding.getVitner();
-                if(!vitnelisten.isEmpty())
+                if(vitnelisten != null)
                 {
                     innhold = new Object[vitnelisten.size()][kolonnenavn.length];
         
