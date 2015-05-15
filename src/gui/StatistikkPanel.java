@@ -11,6 +11,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.*;
@@ -98,11 +99,14 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
     private ComboBoxModel<String> skadetypeModellEiendom;
     private ComboBoxModel<String> skadetypeModellReise;
     
+    DecimalFormat df;
+    
     
 public StatistikkPanel(AnsattVindu v)
 {
     vindu = v;
     register = vindu.getRegister();
+    df = new DecimalFormat("###.##");
     sokevelger = new JComboBox<>(soket);
     utgiftsvelger = new JComboBox<>(utgifter);
     inntektsvelger = new JComboBox<>(inntekter);
@@ -446,11 +450,17 @@ public StatistikkPanel(AnsattVindu v)
             else if(component instanceof JComboBox)
             {
                 JComboBox cb = (JComboBox)component;
-                cb.setSelectedIndex(0);
-                if(cb.equals(forsikringsvelgeren))
-                    cb.setEnabled(false);
+                if(cb.equals(skadetypevelgeren) || cb.equals(forsikringsvelgeren))
+                {
+                    cb.setVisible(false);
+                }
+                else
+                {
+                    cb.setSelectedIndex(0);
+                }
             }
         }
+        disableDatoFelter();
     }
     public void disableDatoFelter()
     {
@@ -777,11 +787,19 @@ public void statistikkSkademeldinger()
         double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
         Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
         Date programSluttDato = new Date();
-        double alltidIMnd = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
+        double alltidIMnd = (programSluttDato.getTime() - programStartDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
         double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
         String s;
         double endring = gjennomsnittPerioden - gjennomsnittAlltid;
         double prosent = ((endring - gjennomsnittAlltid) / gjennomsnittAlltid) * 100;
+        System.out.println(gjennomsnittPerioden); 
+        /*160.0
+        -4.882352941176471
+        4.882352941176471
+        -200.0*7*/
+        System.out.println(gjennomsnittAlltid);
+        System.out.println(endring);
+        System.out.println(prosent);
         if (endring >= 0)
             s = "økt";
         else
@@ -790,7 +808,7 @@ public void statistikkSkademeldinger()
         }
                  
         JTextArea textArea = new JTextArea();
-        textArea.setText("Antall skademeldinger har " + s + " med " + Math.floor(endring) + " stk / " + Math.floor(prosent) +
+        textArea.setText("Antall skademeldinger har " + s + " med " + df.format(endring) + " stk / " + (int)prosent +
              "% månedelig\ni perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
         statistikkVindu = new StatistikkVindu("Økning/Minking i perioden "
                 + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea, new Dimension(500,300));
@@ -1086,11 +1104,11 @@ public void feilMelding(String t)
 
 public boolean sjekkDato()
 {
-    if (!stDatoAr.getText().matches("\\d{4}") || !stDatoMnd.getText().matches("\\d{2}") || 
-       !stDatoDag.getText().matches("\\d{2}") || !slDatoAr.getText().matches("\\d{4}") || 
-       !slDatoMnd.getText().matches("\\d{2}") || !slDatoDag.getText().matches("\\d{2}"))
+    if (!stDatoAr.getText().matches("0[1-9]|[12]\\d|3[01]") || !stDatoMnd.getText().matches("0[1-9]|1[0-2]") || 
+       !stDatoDag.getText().matches("0[1-9]|[12]\\d|3[01]") || !slDatoAr.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])") || 
+       !slDatoMnd.getText().matches("0[1-9]|1[0-2]") || !slDatoDag.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])"))
     {
-        feilMelding("Fyll ut alle feltene for dato");
+        feilMelding("Fyll ut alle feltene for dato i riktig format");
         return false;
     }
     else
@@ -1100,16 +1118,16 @@ public boolean sjekkDato()
 }
 public boolean sjekkDatoOgForsikringsvelger()
 {
-   if (!stDatoAr.getText().matches("\\d{4}") || !stDatoMnd.getText().matches("\\d{2}") || 
-       !stDatoDag.getText().matches("\\d{2}") || !slDatoAr.getText().matches("\\d{4}") || 
-       !slDatoMnd.getText().matches("\\d{2}") || !slDatoDag.getText().matches("\\d{2}") 
+   if (!stDatoAr.getText().matches("0[1-9]|[12]\\d|3[01]") || !stDatoMnd.getText().matches("0[1-9]|1[0-2]") || 
+       !stDatoDag.getText().matches("0[1-9]|[12]\\d|3[01]") || !slDatoAr.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])") || 
+       !slDatoMnd.getText().matches("0[1-9]|1[0-2]") || !slDatoDag.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])") 
                                 || forsikringsvelgeren.getSelectedIndex() == 0)
     {
-        if(!stDatoAr.getText().matches("\\d{4}") || !stDatoMnd.getText().matches("\\d{2}") || 
-       !stDatoDag.getText().matches("\\d{2}") || !slDatoAr.getText().matches("\\d{4}") || 
-       !slDatoMnd.getText().matches("\\d{2}") || !slDatoDag.getText().matches("\\d{2}"))
+        if(!stDatoAr.getText().matches("0[1-9]|[12]\\d|3[01]") || !stDatoMnd.getText().matches("0[1-9]|1[0-2]") || 
+       !stDatoDag.getText().matches("0[1-9]|[12]\\d|3[01]") || !slDatoAr.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])") || 
+       !slDatoMnd.getText().matches("0[1-9]|1[0-2]") || !slDatoDag.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])"))
         {
-            feilMelding("Fyll ut alle feltene for dato");
+            feilMelding("Fyll ut alle feltene for dato i riktig format");
         }
                             
         if (forsikringsvelgeren.getSelectedIndex() == 0)
