@@ -631,28 +631,31 @@ public class HovedRegister
         double sum = 0.0;
         List<Forsikring> kundeForsikringer = forsikringsregister.getKundensForsikringer(kunde);
         double prisPrMåned;
-        int differanseMnd;
-        int differanseÅr;
-        Calendar startdato = Calendar.getInstance();
-        Calendar sluttdato;
+        int differanseMnd = 0;
+        int diffYear;
         
         for(Forsikring forsikring :  kundeForsikringer)
-        {
-            startdato.setTime(forsikring.getStartdato());
-            
-            if( forsikring.getSluttdato() != null)
+        {    
+            if( forsikring.getSluttdato() == null)
             {
-                sluttdato = forsikring.getSluttdato();
-                differanseMnd = sluttdato.get(Calendar.MONTH) - startdato.get(Calendar.MONTH);
-                differanseÅr =  startdato.get(Calendar.YEAR) - sluttdato.get(Calendar.YEAR);
-                differanseMnd += differanseÅr*12;
+                Calendar startdato = Calendar.getInstance();
+                startdato.setTime( forsikring.getStartdato() );
+                
+                diffYear = Calendar.getInstance().get(Calendar.YEAR) - startdato.get(Calendar.YEAR);
+                differanseMnd = diffYear * 12 + Calendar.getInstance().get(Calendar.MONTH) - startdato.get(Calendar.MONTH);  
             }
             else
             {
-                differanseMnd = Calendar.getInstance().get(Calendar.MONTH) - startdato.get(Calendar.MONTH);
+                Calendar startDato = Calendar.getInstance();
+                startDato.setTime(forsikring.getStartdato());
+                
+                diffYear = forsikring.getSluttdato().get(Calendar.YEAR) - startDato.get(Calendar.YEAR);
+                differanseMnd = diffYear * 12 + forsikring.getSluttdato().get(Calendar.MONTH) - startDato.get(Calendar.MONTH);
             }
+            System.out.println(differanseMnd);
             
-            prisPrMåned= forsikring.getArligPremie() / 12;
+            prisPrMåned = forsikring.getArligPremie() / 12;
+            System.out.println(prisPrMåned);
             sum += differanseMnd * prisPrMåned;
         }
         return sum;
