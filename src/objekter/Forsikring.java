@@ -158,8 +158,8 @@ public abstract class Forsikring implements Serializable
     
     public void setArligPremie( double beløp )
     {
-        this.arligPremie = beløp;
         kunde.leggTilÅrligForsikringsPremie(beløp);
+        this.arligPremie = beløp;
     }
     
     public void setTotalbeløp( double beløp )
