@@ -7,6 +7,7 @@ package objekter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -14,26 +15,25 @@ import java.util.Date;
  */
 public class Inntekt
 {
-    private final Date dato;
+    private final GregorianCalendar dato;
     private final double sum;
     private final Forsikring forsikring;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     
     public Inntekt(Date datoen, double summen, Forsikring forsikringen)
     {
-        dato = datoen;
+        dato = new GregorianCalendar();
+        dato.setTime(datoen);
         sum = summen;
         forsikring = forsikringen;
     }
-    
-    // set metoder
+    //Get metoder
     public double getSum()
     {
         return sum;
     }
 
-    // get metoder
-    public Date getDato()
+    public GregorianCalendar getDato()
     {
         return dato;
     }
@@ -48,6 +48,6 @@ public class Inntekt
     @Override
     public String toString()
     {
-        return "\nDato for innbetaling: " + sdf.format(dato) + "\nBeløp: " + sum + "\nPremie fra forsikring: " + forsikring.getForsikringsnummer();
+        return "\nDato for innbetaling: " + sdf.format(dato.getTime()) + "\nBeløp: " + sum + "\nPremie fra forsikring: " + forsikring.getForsikringsnummer();
     }
 }

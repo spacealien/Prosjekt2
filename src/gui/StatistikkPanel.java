@@ -91,8 +91,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
     
     private String forsikringsvalg;
     private String skadetypevalg;
-    private Date startDato;
-    private Date sluttDato;
+    private GregorianCalendar startDato;
+    private GregorianCalendar sluttDato;
     JPanel avansertSokPanel2;
     
     private ComboBoxModel<String> skadetypeModellKjoretoy;
@@ -518,8 +518,8 @@ public void alleKunderMedForsikring()
  
 public void antSkademeldinger()
 {
-    startDato = new Date((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
-    sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
+    startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
+    sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
     List<Skademelding> skademeldingsliste  = new ArrayList<>();
     int antall = 0;
     String s = "";
@@ -532,7 +532,7 @@ public void antSkademeldinger()
         s = "Registrerte skademeldinger på " + forsikringsvalg.toLowerCase() + "er i perioden ";
         for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
         {     
-            if (skademld.getForsikring().getForsikringsType().equals(forsikringsvalg) && skademld.getOpprettetDato().getTime().after(startDato) && skademld.getOpprettetDato().getTime().before(sluttDato))
+            if ( skademld.getOpprettetDato().getTime().after(startDato.getTime()) && skademld.getOpprettetDato().getTime().before(sluttDato.getTime()) ) 
             {
                 skademeldingsliste.add(skademld);
                 antall++;
@@ -544,7 +544,7 @@ public void antSkademeldinger()
         s = "Registrerte skademeldinger i perioden: ";
         for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
         {
-            if ( skademld.getOpprettetDato().getTime().after(startDato) && skademld.getOpprettetDato().getTime().before(sluttDato) ) 
+            if ( skademld.getOpprettetDato().getTime().after(startDato.getTime()) && skademld.getOpprettetDato().getTime().before(sluttDato.getTime()) ) 
             {
                 skademeldingsliste.add(skademld);
                 antall++;
@@ -572,8 +572,8 @@ public void antSkademeldinger()
  
 public void antForsikringer()
 {
-    startDato = new Date((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
-    sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
+    startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
+    sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
     List<Forsikring> forsikringsliste  = new ArrayList<>();
     String s = "";
     
@@ -627,8 +627,8 @@ public void antForsikringer()
  
 public void totalErstatning()
 {
-    startDato = new Date((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
-    sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
+    startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
+    sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
     double totalSum = 0.0;
     int antall = 0;
     double gjennomsnitt = 0;
@@ -662,8 +662,8 @@ public void totalErstatning()
 public void totalErstatningPaForsikring()
 {
     forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
-    startDato = new Date((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
-    sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
+    startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
+    sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
     double totalSum = 0.0;
     int antall = 0;
     double gjennomsnitt = 0;
@@ -696,8 +696,8 @@ public void totalErstatningPaForsikring()
 public void totalPremieinntekt()
 {
     //Total utbetaling av erstatninger i en gitt periode
-    startDato = new Date((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
-    sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
+    startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
+    sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
     double totalSum = 0.0;
     int antall = 0;
     double gjennomsnitt = 0;
@@ -705,7 +705,7 @@ public void totalPremieinntekt()
     {
     for (Inntekt inntekt : register.getAlleInntekter())
     {
-        if (inntekt.getDato().after(startDato) && inntekt.getDato().before(sluttDato) )
+        if (inntekt.getDato().after(startDato.getTime()) && inntekt.getDato().before(sluttDato.getTime()) )
         {
             totalSum += inntekt.getSum();
             antall++;
@@ -731,8 +731,8 @@ public void totalPremieinntektPaForsikringstype()
 {
     //Total utbetaling av inntekt på forsikringstype i en gitt periode
     forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
-    startDato = new Date((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
-    sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
+    startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
+    sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
     double totalSum = 0.0;
     int antall = 0;
     double gjennomsnitt = 0;
@@ -742,7 +742,7 @@ public void totalPremieinntektPaForsikringstype()
     {
         if (inntekt.getForsikring().getForsikringsType().equals(forsikringsvalg))
         {
-            if (inntekt.getDato().after(startDato) && inntekt.getDato().before(sluttDato) )
+            if (inntekt.getDato().getTime().after(startDato.getTime()) && inntekt.getDato().getTime().before(sluttDato.getTime()) )
             {
             totalSum += inntekt.getSum();
             antall++;
@@ -766,8 +766,8 @@ public void totalPremieinntektPaForsikringstype()
  
 public void statistikkSkademeldinger()
 {
-    startDato = new Date((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
-    sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
+    startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
+    sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
     List<Skademelding> skademeldingsliste  = new ArrayList<>();
     int antallIPerioden = 0;
     int antallForAlltid = 0;
@@ -783,20 +783,16 @@ public void statistikkSkademeldinger()
             antallForAlltid++;
         }
      
-        long periodeIMnd = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
+        long periodeIMnd = (sluttDato.getTime().getTime() - startDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
         double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
-        Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
-        Date programSluttDato = new Date();
-        double alltidIMnd = (programSluttDato.getTime() - programStartDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
+        GregorianCalendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+        GregorianCalendar programSluttDato = new GregorianCalendar();
+        double alltidIMnd = (programSluttDato.getTime().getTime() - programStartDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
         double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
         String s;
         double endring = gjennomsnittPerioden - gjennomsnittAlltid;
         double prosent = ((endring - gjennomsnittAlltid) / gjennomsnittAlltid) * 100;
-        System.out.println(gjennomsnittPerioden); 
-        /*160.0
-        -4.882352941176471
-        4.882352941176471
-        -200.0*7*/
+        System.out.println(gjennomsnittPerioden);
         System.out.println(gjennomsnittAlltid);
         System.out.println(endring);
         System.out.println(prosent);
@@ -824,8 +820,8 @@ public void statistikkSkademeldinger()
 public void statistikkSkademeldingPaForsikring()
 {
     forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
-    startDato = new Date((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
-    sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
+    startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
+    sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
     List<Skademelding> skademeldingsliste  = new ArrayList<>();
     int antallIPerioden = 0;
     int antallForAlltid = 0;
@@ -844,12 +840,12 @@ public void statistikkSkademeldingPaForsikring()
         }
     }
      
-    long periodeIMnd = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
+    long periodeIMnd = (sluttDato.getTime().getTime() - startDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
     System.out.println(periodeIMnd);
     double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
-    Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
-    Date programSluttDato = new Date();
-    long alltidIMnd = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
+    GregorianCalendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+    GregorianCalendar programSluttDato = new GregorianCalendar();
+    long alltidIMnd = (programStartDato.getTime().getTime() - programSluttDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
     double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
     String s;
     double endring = gjennomsnittPerioden - gjennomsnittAlltid;
@@ -861,7 +857,7 @@ public void statistikkSkademeldingPaForsikring()
         s = "minket";
     }                
     JTextArea textArea = new JTextArea();
-    textArea.setText("Antall skademeldinger på " + forsikringsvalg.toLowerCase() + "er har " + s + " med " + Math.rint(endring) + " stk / " + Math.rint(prosent) +
+    textArea.setText("Antall skademeldinger på " + forsikringsvalg.toLowerCase() + "er har " + s + " med " + df.format(endring) + " stk / " + (int)prosent +
              "% månedelig\ni perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
 
     statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger på " + forsikringsvalg.toLowerCase() + "er i perioden "
@@ -878,8 +874,8 @@ public void statistikkSkademeldingPaSkadetype()
 {
     skadetypevalg = skadetypevelgeren.getItemAt(skadetypevelgeren.getSelectedIndex());
     forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
-    startDato = new Date((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
-    sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
+    startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
+    sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
     List<Skademelding> skademeldingsliste  = new ArrayList<>();
     int antallIPerioden = 0;
     int antallForAlltid = 0;
@@ -901,12 +897,12 @@ public void statistikkSkademeldingPaSkadetype()
         }
      }
      
-    long periodeIMnd = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24;
+    long periodeIMnd = (sluttDato.getTime().getTime() - startDato.getTime().getTime()) / 1000 / 60 / 60 / 24;
     System.out.println(periodeIMnd);
     double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
-    Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
-    Date programSluttDato = new Date();
-    long alltidIMnd = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24;
+    GregorianCalendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+    GregorianCalendar programSluttDato = new GregorianCalendar();
+    long alltidIMnd = (programStartDato.getTime().getTime() - programSluttDato.getTime().getTime()) / 1000 / 60 / 60 / 24;
     double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
     String s;
     double endring = gjennomsnittPerioden - gjennomsnittAlltid;
@@ -919,7 +915,7 @@ public void statistikkSkademeldingPaSkadetype()
     }
                  
     JTextArea textArea = new JTextArea();
-    textArea.setText("Antall skademeldinger for " + skadetypevalg.toLowerCase() + "skader har " + s + " med " + Math.rint(endring) + " stk / " + Math.rint(prosent) +
+    textArea.setText("Antall skademeldinger for " + skadetypevalg.toLowerCase() + "skader har " + s + " med " + df.format(endring) + " stk / " + (int)prosent +
              "% månedelig\ni perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
     statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger på " + skadetypevalg.toLowerCase() + "skader i perioden "
                 + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea, new Dimension(500,300));
@@ -933,8 +929,8 @@ public void statistikkSkademeldingPaSkadetype()
  
 public void statistikkErstatning()
 {
-    startDato = new Date((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
-    sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
+    startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
+    sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
     double totalSumIPeriode = 0.0;
     double totalSum = 0.0;
     try
@@ -948,11 +944,11 @@ public void statistikkErstatning()
         totalSum += skademld.getErstatningsbelop();    
     }
     
-    long periodeIMnd = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
+    long periodeIMnd = (sluttDato.getTime().getTime() - startDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
     double gjennomsnittPerioden = totalSumIPeriode / periodeIMnd;
-    Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
-    Date programSluttDato = new Date();
-    long alltidIMnd = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24 / 30;
+    GregorianCalendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+    GregorianCalendar programSluttDato = new GregorianCalendar();
+    long alltidIMnd = (programStartDato.getTime().getTime() - programSluttDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
     double gjennomsnittAlltid = totalSum / alltidIMnd;
     String s;
     double endring = gjennomsnittPerioden - gjennomsnittAlltid;
@@ -963,7 +959,7 @@ public void statistikkErstatning()
         s = "minket";
                  
     JTextArea textArea = new JTextArea();
-    textArea.setText("Total erstatningsutgifter har " + s + " med " + Math.floor(endring) + " stk / " + Math.floor(prosent) +
+    textArea.setText("Total erstatningsutgifter har " + s + " med " + df.format(endring) + " stk / " + (int)prosent +
              "% månedelig\ni perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
     statistikkVindu = new StatistikkVindu("Øking/Minking av erstatningsutgifter i perioden "
                 + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea, new Dimension(500,300));
@@ -980,8 +976,8 @@ public void statistikkErstatningPaSkadetype()
 {   
     skadetypevalg = skadetypevelgeren.getItemAt(skadetypevelgeren.getSelectedIndex());
     forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
-    startDato = new Date((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
-    sluttDato = new Date((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
+    startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText()) - 1900), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
+    sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText()) - 1900), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
     double totalSumIPeriode = 0.0;
     double totalSum = 0.0;
     try
@@ -1001,11 +997,11 @@ public void statistikkErstatningPaSkadetype()
          }
     }
      
-    long periodeIMnd = (sluttDato.getTime() - startDato.getTime()) / 1000 / 60 / 60 / 24;
+    long periodeIMnd = (sluttDato.getTime().getTime() - startDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
     double gjennomsnittPerioden = totalSumIPeriode / periodeIMnd;
-    Date programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
-    Date programSluttDato = new Date();
-    long alltidIMnd = (programStartDato.getTime() - programSluttDato.getTime()) / 1000 / 60 / 60 / 24;
+    GregorianCalendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+    GregorianCalendar programSluttDato = new GregorianCalendar();
+    long alltidIMnd = (programStartDato.getTime().getTime() - programSluttDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
     double gjennomsnittAlltid = totalSum / alltidIMnd;
     String s;
     double endring = gjennomsnittPerioden - gjennomsnittAlltid;
@@ -1017,7 +1013,7 @@ public void statistikkErstatningPaSkadetype()
                 
     JTextArea textArea = new JTextArea();
     textArea.setText("Totale erstatningsutgifter for " + skadetypevalg.toLowerCase()
-                    + "skader har " + s + " med " + Math.floor(endring) + " stk / " + Math.floor(prosent) +
+                    + "skader har " + s + " med " + df.format(endring) + " stk / " + (int)prosent +
              "% månedelig i perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
     
     statistikkVindu = new StatistikkVindu("Øking/Minking av erstatningsutgifter for " 

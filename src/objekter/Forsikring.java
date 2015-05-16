@@ -24,7 +24,7 @@ public abstract class Forsikring implements Serializable
     //private final Ansatt ansatt;            Legg til datafelt for ansatt.?
     private final Kunde kunde;
     private int egenandel;
-    private final Calendar startdato;
+    private final GregorianCalendar startdato;
     private GregorianCalendar sluttdato = null;
     private Date sistBetalt;
     private double arligPremie = 0;
@@ -46,7 +46,7 @@ public abstract class Forsikring implements Serializable
     public Forsikring( Kunde k, int e_andel, String betingelser )
     {
         egenandel = e_andel;
-        startdato = Calendar.getInstance(norge);
+        startdato = new GregorianCalendar(norge);
         stDato = new Date(2013-1900,11,11);
         vilkar = betingelser;
         forsikringsnummer =  løpenummer++;
@@ -153,6 +153,7 @@ public abstract class Forsikring implements Serializable
         if(!aktiv)
         {
             kunde.trekkFraÅrligForsikringsPremie(totalbelop);
+            sluttdato = new GregorianCalendar(norge);
         }
     }
     
@@ -193,9 +194,9 @@ public abstract class Forsikring implements Serializable
         return skademeldingsnøkkler;
     }
     
-    public Date getStartdato()
+    public GregorianCalendar getStartdato()
     {
-        return stDato;
+        return startdato;
     }
     
     public Calendar getSluttdato()
@@ -213,7 +214,7 @@ public abstract class Forsikring implements Serializable
     public String toString()
     {
         String utskrift;
-        utskrift = "\nStartdato:" + sdf.format(stDato) + 
+        utskrift = "\nStartdato:" + sdf.format(startdato.getTime()) + 
                    //"\nSluttdato: " + sluttdato.toString() +   
                     "\nÅrlig Premie: " + arligPremie + 
                    "\nTotal beløp: " + totalbelop +
