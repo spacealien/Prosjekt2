@@ -25,7 +25,7 @@ public abstract class Forsikring implements Serializable
     private final Kunde kunde;
     private int egenandel;
     private final Calendar startdato;
-    private Calendar sluttdato = null;
+    private GregorianCalendar sluttdato = null;
     private Date sistBetalt;
     private double arligPremie = 0;
     private double totalbelop = 0;
