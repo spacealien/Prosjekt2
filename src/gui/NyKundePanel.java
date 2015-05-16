@@ -111,7 +111,7 @@ public class NyKundePanel extends JPanel implements ActionListener
                 int dato = Integer.parseInt(personnummer.substring(0, 2));
                 int måned = Integer.parseInt(personnummer.substring(2, 4));
                 int år = Integer.parseInt(fødselsår); 
-                GregorianCalendar fødselsdato = new GregorianCalendar(år, måned, dato);
+                GregorianCalendar fødselsdato = new GregorianCalendar(år, måned - 1, dato);
                 
                 Kunde kunde = new Kunde( fornavn, etternavn, adresse, telefonnummer,
                                         fødselsdato, epost, personnummer );

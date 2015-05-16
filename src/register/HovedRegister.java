@@ -631,17 +631,25 @@ public class HovedRegister
         double sum = 0.0;
         List<Forsikring> kundeForsikringer = forsikringsregister.getKundensForsikringer(kunde);
         double prisPrMåned;
-        long differanseMnd = 0L;
+        int differanseMnd;
+        int differanseÅr;
+        Calendar startdato = Calendar.getInstance();
+        Calendar sluttdato;
         
         for(Forsikring forsikring :  kundeForsikringer)
-        {    
+        {
+            startdato.setTime(forsikring.getStartdato());
+            
             if( forsikring.getSluttdato() != null)
             {
-                differanseMnd = (forsikring.getSluttdato().getTime().getTime() - forsikring.getStartdato().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
+                sluttdato = forsikring.getSluttdato();
+                differanseMnd = sluttdato.get(Calendar.MONTH) - startdato.get(Calendar.MONTH);
+                differanseÅr =  startdato.get(Calendar.YEAR) - sluttdato.get(Calendar.YEAR);
+                differanseMnd += differanseÅr*12;
             }
             else
             {
-                differanseMnd = (forsikring.getStartdato().getTime()) / 1000 / 60 / 60 / 24 / 30 ;
+                differanseMnd = Calendar.getInstance().get(Calendar.MONTH) - startdato.get(Calendar.MONTH);
             }
             
             prisPrMåned= forsikring.getArligPremie() / 12;
