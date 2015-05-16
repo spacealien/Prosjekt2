@@ -785,7 +785,7 @@ public void statistikkSkademeldinger()
      
         long periodeIMnd = (sluttDato.getTime().getTime() - startDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
         double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
-        GregorianCalendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+        Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
         GregorianCalendar programSluttDato = new GregorianCalendar();
         double alltidIMnd = (programSluttDato.getTime().getTime() - programStartDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
         double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
@@ -843,7 +843,7 @@ public void statistikkSkademeldingPaForsikring()
     long periodeIMnd = (sluttDato.getTime().getTime() - startDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
     System.out.println(periodeIMnd);
     double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
-    GregorianCalendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+    Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
     GregorianCalendar programSluttDato = new GregorianCalendar();
     long alltidIMnd = (programStartDato.getTime().getTime() - programSluttDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
     double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
@@ -900,7 +900,7 @@ public void statistikkSkademeldingPaSkadetype()
     long periodeIMnd = (sluttDato.getTime().getTime() - startDato.getTime().getTime()) / 1000 / 60 / 60 / 24;
     System.out.println(periodeIMnd);
     double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
-    GregorianCalendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+    Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
     GregorianCalendar programSluttDato = new GregorianCalendar();
     long alltidIMnd = (programStartDato.getTime().getTime() - programSluttDato.getTime().getTime()) / 1000 / 60 / 60 / 24;
     double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
@@ -946,7 +946,7 @@ public void statistikkErstatning()
     
     long periodeIMnd = (sluttDato.getTime().getTime() - startDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
     double gjennomsnittPerioden = totalSumIPeriode / periodeIMnd;
-    GregorianCalendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+    Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
     GregorianCalendar programSluttDato = new GregorianCalendar();
     long alltidIMnd = (programStartDato.getTime().getTime() - programSluttDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
     double gjennomsnittAlltid = totalSum / alltidIMnd;
@@ -999,7 +999,7 @@ public void statistikkErstatningPaSkadetype()
      
     long periodeIMnd = (sluttDato.getTime().getTime() - startDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
     double gjennomsnittPerioden = totalSumIPeriode / periodeIMnd;
-    GregorianCalendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
+    Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
     GregorianCalendar programSluttDato = new GregorianCalendar();
     long alltidIMnd = (programStartDato.getTime().getTime() - programSluttDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
     double gjennomsnittAlltid = totalSum / alltidIMnd;

@@ -24,8 +24,8 @@ public abstract class Forsikring implements Serializable
     //private final Ansatt ansatt;            Legg til datafelt for ansatt.?
     private final Kunde kunde;
     private int egenandel;
-    private final GregorianCalendar startdato;
-    private GregorianCalendar sluttdato = null;
+    private final Calendar startdato;
+    private Calendar sluttdato = null;
     private Date sistBetalt;
     private double arligPremie = 0;
     private double totalbelop = 0;
@@ -47,6 +47,7 @@ public abstract class Forsikring implements Serializable
     {
         egenandel = e_andel;
         startdato = new GregorianCalendar(norge);
+        startdato.set(2013, 11, 11);
         stDato = new Date(2013-1900,11,11);
         vilkar = betingelser;
         forsikringsnummer =  løpenummer++;
@@ -194,7 +195,7 @@ public abstract class Forsikring implements Serializable
         return skademeldingsnøkkler;
     }
     
-    public GregorianCalendar getStartdato()
+    public Calendar getStartdato()
     {
         return startdato;
     }

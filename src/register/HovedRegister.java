@@ -638,15 +638,13 @@ public class HovedRegister
         {    
             if( forsikring.getSluttdato() == null)
             {
-                Calendar startdato = Calendar.getInstance();
-                startdato.setTime( forsikring.getStartdato().getTime() );
+                Calendar startdato = forsikring.getStartdato();
                 diffYear = Calendar.getInstance().get(Calendar.YEAR) - startdato.get(Calendar.YEAR);
                 differanseMnd = diffYear * 12 + Calendar.getInstance().get(Calendar.MONTH) - startdato.get(Calendar.MONTH);  
             }
             else
             {
-                Calendar startDato = Calendar.getInstance();
-                startDato.setTime(forsikring.getStartdato().getTime());
+                Calendar startDato = forsikring.getStartdato();
                 diffYear = forsikring.getSluttdato().get(Calendar.YEAR) - startDato.get(Calendar.YEAR);
                 differanseMnd = diffYear * 12 + forsikring.getSluttdato().get(Calendar.MONTH) - startDato.get(Calendar.MONTH);
             }
