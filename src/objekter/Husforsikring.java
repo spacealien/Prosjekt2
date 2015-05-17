@@ -9,7 +9,7 @@ import java.util.Calendar;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public class Husforsikring extends Eiendomsforsikring
 {

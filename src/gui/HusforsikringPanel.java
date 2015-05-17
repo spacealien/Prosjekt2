@@ -13,7 +13,7 @@ import objekter.*;
 import register.*;
 
 /**
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public class HusforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {

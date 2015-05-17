@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public interface ForsikringsPanel
 {

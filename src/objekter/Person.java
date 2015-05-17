@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public abstract class Person implements Serializable
 {

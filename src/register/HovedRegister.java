@@ -22,7 +22,7 @@ import objekter.*;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public class HovedRegister 
 {

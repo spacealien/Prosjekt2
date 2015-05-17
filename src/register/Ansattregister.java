@@ -14,7 +14,7 @@ import objekter.Ansatt;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public class Ansattregister implements Serializable
 {

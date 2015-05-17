@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public class Bilforsikring extends Kjoretoyforsikring
 {

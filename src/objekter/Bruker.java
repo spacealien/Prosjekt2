@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public abstract class Bruker extends Person
 {

@@ -19,7 +19,7 @@ import objekter.Kunde;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public class Forsikringsliste implements Serializable
 {
