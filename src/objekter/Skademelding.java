@@ -8,9 +8,10 @@ package objekter;
 import java.awt.Image;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *
@@ -20,32 +21,31 @@ public class Skademelding implements Serializable
 {
     
     private final Forsikring forsikring;
-    private GregorianCalendar dato;
-    private GregorianCalendar opprettetdato;
+    private Calendar dato;
+    private Calendar opprettetdato;
     private final int skadenummer;
     private static int nestenr = 200000000;
     private String skadetype;
-    //private String skademeldingsskjema;
     private String beskrivelse;
     private Image[] bilder;
-    private Vitne vitne;
     private List<Vitne> vitner;
     private int takseringsbelop;
     private int erstatningsbelop;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-    java.util.Locale norge = new java.util.Locale( "no" );
-    Date startDato;
+    private final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+    private final Locale norge;
     private boolean aktiv = true;
     private static final long serialVersionUID = 512341233333L;
     
     public Skademelding( Forsikring forsikring )
     {
+        this.norge = new Locale( "no" );
         this.forsikring = forsikring;
         skadenummer = nestenr++;
     }
     
     public Skademelding( Forsikring forsikring, GregorianCalendar dato, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )
     {
+        this.norge = new Locale( "no" );
         this.forsikring = forsikring;
         this.dato = dato;
         this.skadetype = skadetype;
@@ -113,12 +113,12 @@ public class Skademelding implements Serializable
         return aktiv;
     }
     
-    public GregorianCalendar getOpprettetDato()
+    public Calendar getOpprettetDato()
     {
         return opprettetdato;
     }
     
-    public GregorianCalendar getSkadeDato()
+    public Calendar getSkadeDato()
     {
         return dato;
     }
