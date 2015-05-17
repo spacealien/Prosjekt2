@@ -20,7 +20,6 @@ public class Reiseforsikring extends Personligforsikring
         
     public Reiseforsikring(Kunde k, int e_andel, String vilkar, boolean fs, int antallBarn, String son, int belop )
     {
-        
         super(k, e_andel, vilkar, fs, antallBarn);
         sone = son;  
         belopet = belop;

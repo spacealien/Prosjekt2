@@ -50,8 +50,10 @@ public class SkademeldingRegister implements Serializable
     }
     
     /**
-     * Henter alle skademeldinger som hører til en kunde, tar i mot liste med forsikringer
-     * som hører til kunden.
+     * Henter alle skademeldinger som hører til en kunde. Metoden tar i mot liste med forsikringer
+     * som hører til kunden. Deretter henter nøkklene som fungerer som Key i hashmapet
+     * fra hver forsikring i lista, for og så hente ut tilhørende skademelding ved hjelp av nøkkelen.
+     * 
      * @param forsikringer
      * @return 
      */

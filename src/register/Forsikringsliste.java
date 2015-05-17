@@ -69,7 +69,13 @@ public class Forsikringsliste implements Serializable
         return teller;
     }
     
-    public Set<String> antallAktiveForsikringer( Kunde kunde )
+    /**
+     * skjekker hvor mange forskjellige unike forsikringer en kunde har.
+     * @param kunde
+     * @return 
+     */
+    
+    public Set<String> antallUnikeAktiveForsikringer( Kunde kunde )
     {
         List<Forsikring> kundeForsikringer = getKundensForsikringer( kunde );
         Set<String> set = new HashSet<>();
