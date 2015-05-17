@@ -40,7 +40,7 @@ public class HovedRegister
         vindu = v;  
         kalender = Calendar.getInstance();  
         
-        
+        /**
         GregorianCalendar fdato = new GregorianCalendar(1991,6,6);
         Kunde test_1 = new Kunde("Rolf", "Hestman", "Kongleknaggen 18", "22260906", fdato, "hesterolf@yahoo.no", "08206049937");
         Kunde test_2 = new Kunde("Bjørn", "Dæhlie", "Trysil 23B", "22260906", fdato, "epost@epost.no", "12048449997");
@@ -481,11 +481,11 @@ public class HovedRegister
             f.setArligPremie(100.0);
         }
        
+        */
         
         
-        
-        
-        skrivTilFil();
+      lesFraFil();
+        //skrivTilFil();
 
         //sjekkTid2();
     }

@@ -99,6 +99,5 @@ public class Forsikringsliste implements Serializable
     public String toString()
     {
         return liste.values().stream().toString();
-        
     }
 }
