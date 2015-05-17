@@ -17,7 +17,7 @@ import objekter.Personsammenlikner;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  * 
  */
 public class Kunderegister implements Serializable

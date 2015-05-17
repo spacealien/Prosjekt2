@@ -16,11 +16,10 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author Odd
+ * @author Odd, Marthe
  */
 public class KundeDataTabell extends JTable 
 {
-    private AbstractTableModel model = null;
     private JPopupMenu popup;
     private final JPopupMenu popupSkademelding;
     private final JPopupMenu popupForsikring;

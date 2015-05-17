@@ -20,7 +20,7 @@ import objekter.Kunde;
 
 /**
  *
- * @author Odd
+ * @author Odd, Marthe
  */
 public class NyKundePanel extends JPanel implements ActionListener
 {

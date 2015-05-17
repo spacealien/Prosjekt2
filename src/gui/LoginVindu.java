@@ -32,7 +32,7 @@ import objekter.Ansatt;
 
 /**
  *
- * @author Odd
+ * @author Odd, Marthe
  */
 public class LoginVindu extends JFrame
 {

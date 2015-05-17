@@ -22,7 +22,7 @@ import register.*;
 
 /**
  *
- * @author Marthejansonskogen
+ * @author Odd, Marthe
  */
 public class SkademeldingPanel extends JPanel implements ActionListener
 {

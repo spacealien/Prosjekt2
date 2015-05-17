@@ -14,7 +14,7 @@ import register.*;
 
 /**
  *
- * @author Odd, Thomas, Marthe //MARTHE! FIKS ALARM i hentInfo()
+ * @author Odd, Marthe //MARTHE! FIKS ALARM i hentInfo()
  */
 public class FritidsboligforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {

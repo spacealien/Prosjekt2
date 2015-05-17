@@ -7,14 +7,13 @@ package objekter;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public abstract class Personligforsikring extends Forsikring
 {
     private boolean forsorger;
     private int antBarn;
     private String forsorgeren;
-    //private enum sivilstatus
     private static final long serialVersionUID = 77741235123L;
     
     

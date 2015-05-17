@@ -31,7 +31,7 @@ import objekter.Skademelding;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public class KundePanel extends JPanel implements ActionListener, ForsikringsPanel
 {

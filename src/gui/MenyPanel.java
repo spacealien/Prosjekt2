@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public class MenyPanel extends JPanel implements ActionListener
 {

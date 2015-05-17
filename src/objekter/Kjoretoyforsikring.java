@@ -7,7 +7,7 @@ package objekter;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public abstract class Kjoretoyforsikring extends Forsikring
 {

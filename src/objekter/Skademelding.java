@@ -15,7 +15,7 @@ import java.util.Locale;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public class Skademelding implements Serializable
 {
