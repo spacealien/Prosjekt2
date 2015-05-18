@@ -15,6 +15,11 @@ import register.*;
 /**
  * @author Odd, Marthe
  */
+
+/*Klassens hensikt er å designe brukergrensesnittet for hus- og innboforsikringer, 
+ta imot input fra brukeren og videre registrere en hus- og innboforsikring
+hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
+en allerede tegnet hus- og innboforsikring, og endre denne.*/
 public class HusforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
     private AnsattVindu vindu;
@@ -178,7 +183,8 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         });
     }
     
-    // ikke fjern, ikke ferdig....mangler visning for dropdown
+    /*Metode for å vise en allerede tegnet hus/innboforsikring. Tar imot forsikringen
+    som parameter.*/
     public void visForsikring( Forsikring f)
     {
         this.forsikring = ( Husforsikring) f;
@@ -213,6 +219,8 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         disableFelter( this, husGiTilbud, beregnPris );
     }
     
+    /*Metoden henter input fra brukeren. Den sjekker at alle feltene er korrekt
+    fylt ut, hvis ikke kommer det opp en passende feilmelding.*/
     public boolean hentInfo()
     {
       

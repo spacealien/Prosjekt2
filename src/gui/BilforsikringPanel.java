@@ -17,6 +17,10 @@ import register.*;
  *
  * @author Odd, Marthe
  */
+/*Klassens hensikt er å designe brukergrensesnittet for bilforsikringer, 
+ta imot input fra brukeren og videre registrere en bilforsikring
+hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
+en allerede tegnet bilforsikring, og endre denne.*/
 public class BilforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
  
@@ -169,6 +173,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         aldervelger = new JComboBox<>(foreralder);
         bonusvelger = new JComboBox<>(bonus);
         vilkårKnapp = new JButton("Vis vilkår");
+        vilkårKnapp.setVisible(false);
         
     
         JPanel garasjePanel = new JPanel();
@@ -217,11 +222,11 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnBilPanel2.add(new JLabel("ESP antiskrens: "));
         tegnBilPanel2.add(espPanel);
         tegnBilPanel2.add(new JLabel("<html>FG-godkjent søk- og<br> gj.kjenningssystem: </html>"));
+        tegnBilPanel2.add(new JLabel("Dekning: "));
+        tegnBilPanel2.add(dekningvelger);
         tegnBilPanel2.add(gjenkjenningPanel);
         tegnBilPanel2.add(Box.createGlue());
         tegnBilPanel2.add(vilkårKnapp);
-        tegnBilPanel2.add(new JLabel("Dekning: "));
-        tegnBilPanel2.add(dekningvelger);
         tegnBilPanel2.add(new JLabel("Bonus: "));
         tegnBilPanel2.add(bonusvelger);
         tegnBilPanel2.add(new JLabel("Velg egenandel: "));
@@ -254,6 +259,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         dekningvelger.addItemListener(vilkårLytter);
     } // slutt på konstuktør
 
+    /*Metode for å vise en allerede tegnet bilforsikring. Tar imot forsikringen
+    som parameter.*/
     public void visForsikring( Forsikring f)
     {
         this.bilforsikring = (Bilforsikring) f;
@@ -270,6 +277,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         aldervelger.setSelectedItem(bilforsikring.getForerAlder());
         dekningvelger.setSelectedItem(bilforsikring.getVilkar());
         bilTilbud.setText(String.valueOf(bilforsikring.getArligPremie()));
+        vilkårKnapp.setVisible(true);
         
         if(bilforsikring.getGarasje())
             garasjeJa.setSelected(true);
@@ -337,8 +345,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
             disableFelter( this, bilGiTilbud, beregnPris );
         }
     }
-    // ikke ferdig
     
+    /*Metoden henter input fra brukeren. Den sjekker at alle feltene er korrekt
+    fylt ut, hvis ikke kommer det opp en passende feilmelding.*/
     public boolean hentInfo()
     {
         int type_n = biltypevelger.getSelectedIndex();
@@ -735,7 +744,10 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         public void itemStateChanged(ItemEvent e) 
         {
             if( dekningvelger.getSelectedIndex() != 0)
+            {
                 vilkår = this.velgVilkår( "Bil"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
+                vilkårKnapp.setVisible(true);
+            }
         }
     }
 }

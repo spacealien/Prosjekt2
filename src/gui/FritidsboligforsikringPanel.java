@@ -16,6 +16,11 @@ import register.*;
  *
  * @author Odd, Marthe //MARTHE! FIKS ALARM i hentInfo()
  */
+
+/*Klassens hensikt er å designe brukergrensesnittet for fritidsboligforsikringer, 
+ta imot input fra brukeren og videre registrere en fritidsboligforsikring
+hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
+en allerede tegnet fritidsboligforsikring, og endre denne.*/
 public class FritidsboligforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
     private final AnsattVindu vindu;
@@ -102,6 +107,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         fritidGiTilbud.setVisible(false);
         beregnPris = new JButton("Beregn pris");
         vilkårKnapp = new JButton("Vis vilkår");
+        vilkårKnapp.setVisible(false);
         
         JPanel tegnFritidPanel1 = new JPanel();
         JPanel tegnFritidPanel2 = new JPanel();
@@ -136,10 +142,10 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         tegnFritidPanel2.add(belopFritid);
         tegnFritidPanel2.add(new JLabel("Forsikringsbeløp innbo: "));
         tegnFritidPanel2.add(belopFritidInnbo);
-        tegnFritidPanel2.add(Box.createGlue());
-        tegnFritidPanel2.add(vilkårKnapp);
         tegnFritidPanel2.add(new JLabel("Velg dekning: "));
         tegnFritidPanel2.add(dekningvelger);
+        tegnFritidPanel2.add(Box.createGlue());
+        tegnFritidPanel2.add(vilkårKnapp);
         tegnFritidPanel2.add(new JLabel("Egenandel: "));
         tegnFritidPanel2.add(egenandelsvelger);
         tegnFritidPanel2.add(Box.createGlue());
@@ -166,7 +172,8 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         dekningvelger.addItemListener(vilkårLytter);
     }
     
-    // ikke fjern, ikke ferdig
+    /*Metode for å vise en allerede tegnet fritidsboligforsikring. Tar imot forsikringen
+    som parameter.*/
     public void visForsikring( Forsikring f)
     {
         this.forsikring = (Fritidsboligforsikring) f;
@@ -180,6 +187,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         dekningvelger.setSelectedItem(forsikring.getVilkar());
         belopFritid.setText(String.valueOf(forsikring.getForsikringsbelopBygning()));
         belopFritidInnbo.setText(String.valueOf(forsikring.getForsikringsbelopInnbo()));
+        vilkårKnapp.setVisible(true);
         
         if (forsikring.getAlarm())
             alarmJa.setSelected(true);
@@ -210,6 +218,8 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         disableFelter( this, fritidGiTilbud, beregnPris );
     }
     
+    /*Metoden henter input fra brukeren. Den sjekker at alle feltene er korrekt
+    fylt ut, hvis ikke kommer det opp en passende feilmelding.*/
     public boolean hentInfo()
     {   
         int type_n = fritidtypevelger.getSelectedIndex(); 
@@ -437,7 +447,10 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         public void itemStateChanged(ItemEvent e) 
         {
             if( dekningvelger.getSelectedIndex() != 0)
+            {
                 vilkår = this.velgVilkår( "Fritidsbolig"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
+                vilkårKnapp.setVisible(true);
+            }
         }
     }
 }

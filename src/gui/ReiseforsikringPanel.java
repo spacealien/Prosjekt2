@@ -5,6 +5,7 @@
  */
 package gui;
 
+//Nødvendige import-setninger
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -15,6 +16,11 @@ import register.*;
  *
  * @author Odd, Marthe
  */
+
+/*Klassens hensikt er å designe brukergrensesnittet for reiseforsikringer, 
+ta imot input fra brukeren og videre registrere en reiseforsikring
+hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
+en allerede tegnet reiseforsikring, og endre denne.*/
 public class ReiseforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
     private final AnsattVindu vindu;
@@ -136,7 +142,8 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         }});
     }
     
-    // ikke fjern, ikke ferdig
+    /*Metode for å vise en allerede tegnet reiseforsikring. Tar imot forsikringen
+    som parameter.*/
     public void visForsikring( Forsikring f)
     {
         this.forsikring = (Reiseforsikring)f;
@@ -165,6 +172,8 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         disableFelter( this, reiseGiTilbud, beregnPris );
     }
     
+    /*Metoden henter input fra brukeren. Den sjekker at alle feltene er korrekt
+    fylt ut, hvis ikke kommer det opp en passende feilmelding.*/
     public boolean hentInfo()
     {
         sone_n = sonevelger.getSelectedIndex();

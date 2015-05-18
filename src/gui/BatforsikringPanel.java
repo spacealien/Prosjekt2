@@ -7,6 +7,7 @@
  */
 package gui;
 
+//Nødvendige import-setninger
 import java.awt.GridLayout;
 import java.awt.event.*;
 import java.util.Calendar;
@@ -14,7 +15,10 @@ import javax.swing.*;
 import objekter.*;
 import register.*;
 
-
+/*Klassens hensikt er å designe brukergrensesnittet for båtforsikringer, 
+ta imot input fra brukeren og registrere videre en båtforsikring
+hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
+en allerede tegnet båtforsikring, og endre denne.*/
 public class BatforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
     private final AnsattVindu vindu;
@@ -70,6 +74,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     private JButton lagreNy = new JButton("Lagre forsikring");
     private JButton deaktiver = new JButton("Si opp forsikring");
     
+    
     public BatforsikringPanel(Kunde k, AnsattVindu v)
     {
      
@@ -100,6 +105,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         batGiTilbud.setVisible(false);
         beregnPris = new JButton("Beregn pris");
         vilkarKnapp = new JButton("Vis vilkår");
+        vilkarKnapp.setVisible(false);
         
         eierFornavn = new JTextField(20);
         eierEtternavn = new JTextField(20);
@@ -127,10 +133,10 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         vekt.add(vekterNei);
         tegnBatPanel1.add(new JLabel("Reg.nummer: "));
         tegnBatPanel1.add(batRegnr);
-        tegnBatPanel2.add(Box.createGlue());
-        tegnBatPanel2.add(vilkarKnapp);
         tegnBatPanel2.add(new JLabel("Velg dekning: "));
         tegnBatPanel2.add(dekningvelger);
+        tegnBatPanel2.add(Box.createGlue());
+        tegnBatPanel2.add(vilkarKnapp);
         tegnBatPanel1.add(new JLabel("Merke: "));
         tegnBatPanel1.add(batMerke);
         tegnBatPanel2.add(new JLabel("Vekter: "));
@@ -176,6 +182,8 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         dekningvelger.addItemListener(vilkårLytter);
     }
 
+    /*Metode for å vise en allerede tegnet båtforsikring. Tar imot forsikringen
+    som parameter.*/
     public void visForsikring( Forsikring f )
     {
         this.forsikring = (BatForsikring) f;
@@ -208,12 +216,26 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         tilbudLabel.setText("Årlig premie: (Kr/år)");
         tilbudLabel.setVisible(true);
         batTilbud.setVisible(true);
+        vilkarKnapp.setVisible(true);
         revalidate();
         repaint();
         
         disableFelter( this, batGiTilbud, beregnPris );
     }
     
+    /*Hvis brukeren trykket seg videre til å denne forsikringen via et kundepanel,
+    så setter denne metoden kundepanelet som var utgangspunktet via paramtereren.
+    Denne er nødvendig for å få oppdatert kundepanelet til kunden som forsikringen
+    hører til, når det blir gjort endring på en forsikring eller når det blir
+    tegnet en ny forsikring.*/
+    public void leggTilKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
+    }
+    
+    /*Metoden henter input fra brukeren. Den sjekker at alle feltene er korrekt
+    fylt ut, hvis ikke kommer det opp en passende feilmelding. Metoden returnerer
+    en boolean, som er avhengig av om alle feltene er korrekte fylt ut eller ikke*/
     public boolean hentInfo()
     {
         int type_n = battypevelger.getSelectedIndex();
@@ -289,6 +311,11 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
+    /*Metode for å beregne pris på forhånd, og skrive ut et prisforslag til brukeren.
+    Hvis all info er korrekt skrevet inn, henter den info fra inputfeltene, og gjør
+    kalkuleringer for å beregne pris på en eventuell forsikring med de dataene i 
+    inputfeltene. Deretter vises knappen "Tegn forsikring" og det blir mulig å
+    registrere forsikringen.*/
     public void beregnPris()
     {
         if (hentInfo())
@@ -300,7 +327,9 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
-            
+    /*Metode for å registrere et nytt båtforsikringsobjekt og legge dette inn i
+    registeret. Oppdaterer også den eventuelle kundefanen som forsikringen hører
+    til.*/        
     public void tegnNy()
     {
         if(hentInfo())
@@ -331,6 +360,9 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
+    /*Metode for å oppdatere en allerede eksisterende forsikring med ny input fra
+    brukeren. Forutsetter at hentInfo()-metoden returnerer true. Oppdaterer også
+    kundefanen som forsikringen hører til.*/
     public void oppdaterForsikring()
     {
         if(hentInfo())
@@ -353,15 +385,25 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
+    /*Gjør inputfeltene redigerbare, setter passende tekst på knappene og legger
+    til en knapp for å lagre den nye informasjonen som brukeren evt legger inn*/
     public void enableSkjema()
     {
+        /*Metode fra ForsikringPanel, gjør inputfeltene redigerbare. Sender med
+        dette panelet og knappen for å beregne pris som paramtere*/
         enableFelter( this, beregnPris );
+        
         beregnPris.setText("Beregn ny pris");
         tilbudLabel.setText("Foreslått tilbud: ");
         annenEier.setText("Trykk her for annen eier");
         knappePanel.add(lagreNy);
     }
     
+    /*Metode for å deaktivere en forsikring. Gjør alle feltene ikke-redigerbare
+    og fjerner alle knappene. Forsikringen slettes ikke fra systemet, men settes
+    som inaktiv. Det kommer først opp en meldingsboks der brukeren kan bekrefte at
+    han/hun ønsker å deaktivere forsikringen. Hvis svaret er ja, kommer det opp 
+    en ny meldingsboks som bekrefter forsikringens deaktivering.*/
     public void deaktiverForsikring()
     {
         int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
@@ -382,17 +424,13 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
+    /*Viser vilkår i et nytt vindu. Henter vilkår fra fil*/
     public void visVilkår()
     {
         if( forsikring == null )
-            visForsikringensVilkår("Ny Bilforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
+            visForsikringensVilkår("Ny bilforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
         else
-            visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
-    }
-    
-    public void leggTilKundePanel( KundePanel panel )
-    {
-        kundePanel = panel;
+            visForsikringensVilkår("Vilkår " + forsikring.getForsikringsnummer(), forsikring.getVilkar());
     }
     
     @Override
@@ -448,7 +486,10 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         public void itemStateChanged(ItemEvent e) 
         {
             if( dekningvelger.getSelectedIndex() != 0)
+            {
                 vilkår = this.velgVilkår( "Båt"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
+                vilkarKnapp.setVisible(true);
+            }
         }
     }
 }
