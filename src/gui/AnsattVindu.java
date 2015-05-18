@@ -78,7 +78,7 @@ public class AnsattVindu extends JFrame
         KnappeLytter knappeLytter = new KnappeLytter();
         mainContainer = getContentPane();
         fanekort =  new JTabbedPane();
-        fanekort.setPreferredSize( new Dimension(500,500));
+        fanekort.setPreferredSize( new Dimension(600,500));
         hovedPanelBunn =  new JPanel();
         hovedPanel = new JPanel();
         hovedPanelTop = new JPanel();
