@@ -74,7 +74,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         antbarn.setEnabled(false);
         antbarnLabel.setEnabled(false);
         reiseGiTilbud = new JButton("Tegn forsikring");
-        reiseGiTilbud.setVisible(false);
+        reiseGiTilbud.setVisible(true);
         beregnPris = new JButton("Beregn pris");
         vilkarKnapp = new JButton("Se vilkår");
         sonevelger = new JComboBox<>(sone);
@@ -151,6 +151,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         reiseBelop.setText(String.valueOf(forsikring.getBelopet()));
         egenandelsvelger.setSelectedItem(String.valueOf(forsikring.getEgenandel()));
         dekningvelger.setSelectedItem(forsikring.getVilkar());
+        reiseGiTilbud.setVisible(false);
         
         if (forsikring.isForsorger())
         {
@@ -242,7 +243,6 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
             reiseTilbud.setVisible(true);
             reiseTilbud.setText(String.valueOf(foreslåttPris));
             reiseTilbud.setToolTipText("Kan redigeres");
-            reiseGiTilbud.setVisible(true);
         }
     }
     

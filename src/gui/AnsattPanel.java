@@ -1,7 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* Klassen bygger ansatt panelenet. klassen er ikke ferdig men er ment for å vise
+ * diverse informasjon om den ansatte. 
  */
 package gui;
 

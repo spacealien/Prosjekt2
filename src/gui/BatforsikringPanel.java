@@ -1,10 +1,8 @@
 /**
  * Denne klassen representerer fanekortet som åpnes når bruker av programet
  * ønsker å vise/registrere en båtforsikring. 
- * 
- * 
- * 
  */
+
 package gui;
 
 //Nødvendige import-setninger
@@ -19,6 +17,7 @@ import register.*;
 ta imot input fra brukeren og registrere videre en båtforsikring
 hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
 en allerede tegnet båtforsikring, og endre denne.*/
+
 public class BatforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
     private final AnsattVindu vindu;
