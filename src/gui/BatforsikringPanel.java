@@ -432,6 +432,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
             visForsikringensVilkår("Vilkår " + forsikring.getForsikringsnummer(), forsikring.getVilkar());
     }
     
+    /*Klassens knappelytter*/
     @Override
     public void actionPerformed(ActionEvent e) 
     {
@@ -445,15 +446,31 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else if (e.getSource() == annenEier)
         {
+            //Hvis man skal registrere ny eier
             if (annenEier.getText().equals("Trykk her for annen eier"))
             {
                 int result = JOptionPane.showConfirmDialog(null, eierPanel, 
                 "Vennligst fyll ut bileiers kontaktinformasjon:", JOptionPane.OK_CANCEL_OPTION);
-                if (result == JOptionPane.OK_OPTION)
+                do
                 {
-                    if(eierFornavn.getText().matches("\\D*") && eierEtternavn.getText().matches("\\D*") && eierTlf.getText().matches("\\d{8}"))
-                    eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), eierAdresse.getText(), eierTlf.getText());
+                    if (result == JOptionPane.OK_OPTION)
+                    {
+                        if(eierFornavn.getText().matches("\\D*") && 
+                                eierEtternavn.getText().matches("\\D*") && 
+                                eierTlf.getText().matches("\\d{8}"))
+                        {
+                            eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), 
+                                    eierAdresse.getText(), eierTlf.getText());
+                            result = 0;
+                        }
+                        else
+                        {
+                            vindu.visFeilmelding("Feilmelding", "Pass på at alle"
+                                    + " feltene er korrekt fylt ut");
+                        }
+                    }
                 }
+                while (result == JOptionPane.OK_OPTION);
             }
             else if(annenEier.getText().equals("Vis eier"))
                 {
