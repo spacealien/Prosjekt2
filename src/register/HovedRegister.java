@@ -494,12 +494,13 @@ public class HovedRegister
         //sjekkTid2();
     }
     
-    
+    // returnerer alle skademelding som hører til kunden som blir send med som parameter.
     public List<Skademelding> getAlleKundensSkademeldinger( Kunde kunde )
     {
         return skademeldingsregister.getKundensSkademeldinger(forsikringsregister.getKundensForsikringer(kunde));
     }
     
+    // returnerer alle forsikringer som hører til kunden som blir send med som parameter.
     public List<Forsikring> getAlleKundensForsikringer(Kunde kunde)
     {
         return forsikringsregister.getKundensForsikringer(kunde);
@@ -561,10 +562,12 @@ public class HovedRegister
         return innbetalinger;
     }
     
+    // returner alle kunder som har blitt registrert av ansatt som blir oppgitt i parameter
     public List<Kunde> getAnsattKunde( Ansatt ansatt )
     {
         return kunderegister.getAnsattesKunder(ansatt);
     }
+    
     
     public void nyKunde( Kunde nyKunde )
     {   

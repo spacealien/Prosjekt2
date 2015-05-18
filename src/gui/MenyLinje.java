@@ -1,8 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Klassen bygger menylinjen som er øverst i programmet.  
  */
+
+
 package gui;
 
 import java.awt.Menu;
@@ -13,9 +13,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
 /**
- *
  * @author Odd
  */
+
 public class MenyLinje extends MenuBar
 {
     private final MenyLytter lytter = new MenyLytter();
@@ -39,6 +39,16 @@ public class MenyLinje extends MenuBar
         avsluttKnapp.addActionListener(lytter);
     }
     
+    // Gjemmer hovedvinduet, og ber programmet om å vise et nytt loginVIndu.
+    public void logUt()
+    {
+        ansattVindu.setAnsatt(null);
+        ansattVindu.setVisible(false);
+        ansattVindu.visLogin();
+    }
+    
+    
+    // seneder en beskjed til hovedvinduet om at programmet skal avsluttes.
     public void avslutt()
     {
         ansattVindu.dispatchEvent(new WindowEvent( ansattVindu,WindowEvent.WINDOW_CLOSING));

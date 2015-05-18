@@ -1,7 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Dette interfacet inneholder kode som ellers ville blitt gjenntagene
+ * i de forskjellige panelene som er relatert til forsikringene.
+ * 
+ * Klassene som implementerer dette interfacet får tilgang til alle metodene.
+ * 
  */
 package gui;
 
@@ -109,6 +111,12 @@ public interface ForsikringsPanel
             vilkårVindu.getUtskriftområdet().setText(vilkårInnhold);
             vilkårVindu.getUtskriftområdet().setCaretPosition(0);
     }
+    
+    /**
+     * 
+     * @param filsti
+     * @return 
+     */
     
     default String velgVilkår( String filsti )
     {

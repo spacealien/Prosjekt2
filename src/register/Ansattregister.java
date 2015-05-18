@@ -35,6 +35,8 @@ public class Ansattregister implements Serializable
         register.add(test_1);
     }
     
+    
+    // metode for å registrer en ny ansatt.
     public boolean leggTIl( Ansatt nyAnsatt )
     {
         return register.add(nyAnsatt);
@@ -84,11 +86,13 @@ public class Ansattregister implements Serializable
         return null;
     }
     
+    // sletter en ansatt fra registere ved hjelp av ansattnummer.
     public void slett( int ansattnr )
     {
         register.remove(finnAnsattAnsattnr(ansattnr));
     }
     
+    // returnerer en liste med alle ansatte.
     public List<Ansatt> getAlleAnsatte()
     {
         return register.stream().collect(Collectors.toList());

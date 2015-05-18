@@ -38,7 +38,6 @@ public abstract class Forsikring implements Serializable
     java.util.Locale norge = new java.util.Locale( "no" );
     private Date stDato;
     private String dekning;
-                   //lokalitetsobjekt for norsk standard
     
     
     private static final long serialVersionUID = 12345678910L;
@@ -169,7 +168,12 @@ public abstract class Forsikring implements Serializable
         this.totalbelop = beløp;
     }
     
+    public void setSluttdato(GregorianCalendar d)
+    {
+        sluttdato = d;
+    }
     
+    // get metoder
     public double getArligPremie()
     {
         return arligPremie;
@@ -204,12 +208,6 @@ public abstract class Forsikring implements Serializable
     {
         return sluttdato;
     }
-    
-    public void setSluttdato(GregorianCalendar d)
-    {
-        sluttdato = d;
-    }
-
     
     @Override
     public String toString()

@@ -1,8 +1,6 @@
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * AnsattVindu er selve hovedvinduet i programmet.
  */
 package gui;
 
@@ -54,7 +52,7 @@ public class AnsattVindu extends JFrame
     private final JPanel søkePanel;
     
     private TabellModell tabellModell;
-    private KundeTabell tabell;
+    private final KundeTabell tabell;
     
     private final JTextField søkefelt;
     private final JTextField søkefeltFornavn;
@@ -142,33 +140,39 @@ public class AnsattVindu extends JFrame
         this.setMenuBar( new MenyLinje(this));
         visLogin();
         pack();
-    }
+    } // slutt på konstuktør.
+
     
-    public GregorianCalendar getKalender()
-    {
-        return kalender;
-    }
-    
+    // konstuerer og viser et nytt login vindu.
     public void visLogin()
     {
         LoginVindu loginvindu = new LoginVindu(this);
     }
     
-    public void setAnsatt( Ansatt ansatt )
-    {
-        this.ansatt = ansatt;
-    }
     
+    
+    // Parameteren tar i mot et JPanel av gitt type som skal fjernes fra JTabbedPane
     public void lukkFanekort(JPanel panel)
     {
         fanekort.remove(panel);
 	fanekort.setSelectedIndex(fanekort.getTabCount()-1);
     }
     
+    
+    // metoden lukker alle fanekort som er åpne i programmet.
     public void lukkAlleFanekort()
     {
         fanekort.removeAll();
     }
+    
+    
+    /**
+     * Legger til en ny fane i AnsattVinduet.
+     * Parameteren panel tar i mot et Panel av en spesfikk type.
+     * 
+     * Den andre parameteren tittel tar i mot en String som brukes til å navngi 
+     * selve tabben.
+     */
     
     public void leggTilNyFane( JPanel panel, String tittel )
     {
@@ -182,6 +186,17 @@ public class AnsattVindu extends JFrame
         repaint();
     }
     
+    /**
+     * Metoden brues når programmet skal vise en forsikring fra registeret og 
+     * forsikringen er av ukjent type. Her skjekkes hvilken type forsikring objektet
+     * representerer før det vises som en tab i vinduet.
+     * 
+     * Første paramter(forsikring) forsikringsobjektet som skal vises.
+     * 
+     * Andre paramter(kundePanel) har som oppgave å legge til kundepanelet som
+     * som representerer kunden
+     * 
+     */
     public void leggTilForsikringsFane( Forsikring forsikring, KundePanel kundePanel )
     {
         if( forsikring.getClass() == Bilforsikring.class)
@@ -226,6 +241,12 @@ public class AnsattVindu extends JFrame
         }
     }
     
+    /**
+     * Metodens oppgave er å mate kunde tabellen med kunder som skal vises.
+     * Brukes f.eks til å oppdater listen etter søk.
+     * 
+     * @param liste tar imot en List<Kunde> 
+     */
     public void oppdaterTabell( List<Kunde> liste )
     {
         if( liste != null )
@@ -236,6 +257,14 @@ public class AnsattVindu extends JFrame
         }
     }
     
+    /**
+     * Metoden avgjør hva som skal søkes etter i registerene utifra hvilke
+     * søkeord som har blitt tastet inn av bruker i søkefeltet. F.eks en String bestående av tall 
+     * på 11 siffer er et personnummer.
+     * 
+     * Dersom søkeordet er ID nummer for forsikring eller skademelding åpnes
+     * det en ny JTabbedPane i vinduet.
+    */
     public void visSøkeresltat()
     {
         String søkeord = søkefelt.getText();
@@ -285,7 +314,8 @@ public class AnsattVindu extends JFrame
             visInformasjon("Feilmelding", "Søket ga ingen funn.");
         }
     }
-
+    
+    // tømmer søkefeltene over kunde tabellen.
     public void tomSøkefelter()
     {
         søkefelt.setText("");
@@ -293,32 +323,61 @@ public class AnsattVindu extends JFrame
         søkefeltEtternavn.setText("");
     }
     
+    /**
+     * returnerer HovedRegister slik at panele får mulighet til å manipulere
+     * data.
+     */
+    
     public HovedRegister getRegister()
     {
         return register;
     }
     
+    /**
+     * Tar i mot en ansatt som parameter, brukes for å identifisere hvilken ansatt
+     * som for øyeblikket er logget inn i programmet.
+     * 
+     */
+    
+    public void setAnsatt( Ansatt ansatt )
+    {
+        this.ansatt = ansatt;
+    }
+
+    // returnerer ansatt som er logget inn i programmet.
     public Ansatt getAnsatt()
     {
         return ansatt;
     }
+    
+    /**
+     * En hjelpe metode slik at jeg får tak i metoden for lagring til fil
+     * i vinduslytterl.
+     */
     
     public void lagre()
     {
         register.skrivTilFil();
     }
     
-    // lager en JOptionPane av typen feilmelding.
+    /**
+    * @param tittel tar i mot en String som brukes som tittel på selve popup vinduet.
+    * @param melding tar i mot en String som brukes til å fylle meldingsboksen med tekst.
+    */
+    
     public void visFeilmelding( String tittel, String melding )
     {
         JOptionPane.showMessageDialog(null, melding, tittel, JOptionPane.ERROR_MESSAGE);
     }
     
+    // lager en OptionPane for å vise informasjon til brukeren.
     public void visInformasjon( String tittel, String melding )
     {
         JOptionPane.showMessageDialog(null, melding, tittel, JOptionPane.INFORMATION_MESSAGE);
     }
     
+    
+    // private indre lytter klasse.
     private class KnappeLytter implements ActionListener
     {
         @Override
@@ -340,5 +399,6 @@ public class AnsattVindu extends JFrame
             }
         }
     }
-}
+    
+} // slutt på klasse
 

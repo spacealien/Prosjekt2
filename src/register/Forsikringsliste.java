@@ -30,21 +30,32 @@ public class Forsikringsliste implements Serializable
 
     }
     
+    /**
+     * Metoden legger en en forsikring i registeret.
+     */
+    
     public void leggTil( Kunde kunde, Forsikring forsikring )
     {
         kunde.leggTilNøkkel( forsikring.getForsikringsnummer() );
         liste.put(forsikring.getForsikringsnummer(), forsikring);
     }
     
+    // henter ut en forsikring utifra forsikringsnummer.
     public Forsikring getForsikring( Integer nøkkel )
     {
         return liste.get(nøkkel);
     }
     
+    // sletter en forsikring ved hjelp av forsikringsnummer.
     public void slett( Integer nøkkel )
     {
         liste.remove(nøkkel);
     }
+    
+    /**
+     * metoden motar en kunde som parameter og returnerer alle forsikringer som er registert på
+     * gitt kunde.
+     */
     
     public List<Forsikring> getKundensForsikringer( Kunde kunde )
     {
@@ -57,6 +68,8 @@ public class Forsikringsliste implements Serializable
         return funnetForsikringer;
     }
     
+    
+    // teller antall aktive forsikringer på kunden som blir send med som parameter.
     public int tellKundensAktiveForsikringer( Kunde kunde )
     {
         List<Forsikring> forsikringer =  getKundensForsikringer( kunde );
@@ -74,7 +87,6 @@ public class Forsikringsliste implements Serializable
      * @param kunde
      * @return 
      */
-    
     public Set<String> antallUnikeAktiveForsikringer( Kunde kunde )
     {
         List<Forsikring> kundeForsikringer = getKundensForsikringer( kunde );
@@ -87,6 +99,7 @@ public class Forsikringsliste implements Serializable
         return set;
     }
     
+    // returnerer en vilkårlig forsikring fra registerert, brukes for å hente løpenummer ved lagring til fil.
     public Forsikring getForsikring()
     {
         Iterator<Forsikring> iterator = liste.values().iterator();
@@ -96,6 +109,7 @@ public class Forsikringsliste implements Serializable
             return null;
     }
     
+    // returnerer en List<Forsikring> alle forsikringer.
     public List<Forsikring> alleForsikringer()
     {
         return liste.values().stream().collect(Collectors.toList());

@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Klassen bygger panelet som brukes når en kunde registreres for første gang. 
+ *  
  */
 package gui;
 
@@ -37,8 +36,6 @@ public class NyKundePanel extends JPanel implements ActionListener
     private final JButton regKunde;
     private final String[] forsikringsvalg = {"", "Bilforsikring", "Båtforsikring", "Husforsikring", "Fritidsboligforsikring", "Reiseforsikring"};
     private final JComboBox<String> forsikringsDropDown = new JComboBox<>(forsikringsvalg);
-    
-    
     
     public NyKundePanel( AnsattVindu vindu)
     {
@@ -78,11 +75,12 @@ public class NyKundePanel extends JPanel implements ActionListener
         add(knappeWrapper, BorderLayout.PAGE_END );
         
         regKunde.addActionListener(this);
-    }
+    } // slutt på konstuktør.
     
     /**
      * Henter kunde informajson fra textfeltene og validerer informasjonen.
-     * @return Kunde eller null hvis kundeinformasjonen oppfyller kravene. 
+     * returnerer enten null om valideringen har gått galt, eller en ny Kunde
+     * dersom informasjonen er korrekt.
      */
     
     public Kunde nyKunde()
@@ -128,15 +126,11 @@ public class NyKundePanel extends JPanel implements ActionListener
         catch( NumberFormatException e)
         {
             vindu.visInformasjon("Beskjed", "Feil format i et av feltene. ");
+            return null;
         }
-        return null;
     }
     
-    /**
-     * Sender den nye vidre til et forsikringspanel av gitt type.
-     * @param e 
-     */
-    
+    //Sender den nye kunden videre til et forsikringspanel av gitt type. utifra hvilket forsikrings type som er valgt i dropdown menyen.
     @Override
     public void actionPerformed(ActionEvent e) 
     {
@@ -157,4 +151,4 @@ public class NyKundePanel extends JPanel implements ActionListener
                 else if( valg.equals("Reiseforsikring"))
                     vindu.leggTilNyFane( new ReiseforsikringPanel(nyKunde, vindu), "Ny Reiseforsikring"); 
     }
-}
+} // slutt på klasse.
