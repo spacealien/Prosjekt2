@@ -6,7 +6,7 @@
  */
 package gui;
 
-//import java.awt.*;
+//Nødveidnige import-setninger
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -22,6 +22,9 @@ import register.*;
  *
  * @author Marthejansonskogen
  */
+
+/*Klassens hensikt er å vise brukergrensesnittet til statistikksøk, hente 
+input fra brukeren og skrive ut statistikken brukeren har valgt*/
 public class StatistikkPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
     private AnsattVindu vindu;
@@ -97,58 +100,58 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
     
     private DecimalFormat df;
     
-    
-public StatistikkPanel(AnsattVindu v)
-{
-    vindu = v;
-    register = vindu.getRegister();
-    df = new DecimalFormat("###.##");
-    sokevelger = new JComboBox<>(soket);
-    utgiftsvelger = new JComboBox<>(utgifter);
-    inntektsvelger = new JComboBox<>(inntekter);
-    forsikringsvelgeren = new JComboBox<>(forsikringer);
-    forsikringsvelgeren.setVisible(false);
-    statistikkvelger = new JComboBox<>(statistikk);
-    skadetypevelgeren = new JComboBox<>();
-    skadetypevelgeren.setVisible(false);
-    skadetypeModellKjoretoy = new DefaultComboBoxModel(skadetypeKjoretoy);
-    skadetypeModellEiendom = new DefaultComboBoxModel(skadetypeEiendom);
-    skadetypeModellReise = new DefaultComboBoxModel(skadetypeReise);
-    skadetypelabel = new JLabel("Velg skadetype: ");
-    forsikringsLabel = new JLabel("Velg forsikringstype: ");
-    forsikringsLabel.setVisible(false);
-    startDagLabel = new JLabel("Dag: (dd)");
-    startDagLabel.setVisible(false);
-    startMndLabel = new JLabel("Måned: (mm)");
-    startMndLabel.setVisible(false);
-    startArLabel = new JLabel("År: (åååå)");
-    startArLabel.setVisible(false);
-    tomLabel = new JLabel("Til og med: ");
-    tomLabel.setVisible(false);
-    fomLabel = new JLabel("Fra og med: ");
-    fomLabel.setVisible(false);
-    sluttDagLabel = new JLabel("Dag: (dd)");
-    sluttDagLabel.setVisible(false);
-    sluttMndLabel = new JLabel("Måned: (mm)");
-    sluttMndLabel.setVisible(false);
-    sluttArLabel = new JLabel("År: (åååå)");
-    sluttArLabel.setVisible(false);
-    skadetypelabel.setVisible(false);
-    stDatoDag = new JTextField(2);
-    stDatoMnd = new JTextField(2);
-    stDatoAr = new JTextField(4);
-    slDatoDag = new JTextField(2);
-    slDatoMnd = new JTextField(2);
-    slDatoAr = new JTextField(4);
-    stDatoDag.setVisible(false);
-    stDatoMnd.setVisible(false);
-    stDatoAr.setVisible(false);
-    slDatoDag.setVisible(false);
-    slDatoMnd.setVisible(false);
-    slDatoAr.setVisible(false);
-    sokKnapp = new JButton("Søk");
-    sokKnapp.setEnabled(false);
-    sokKnapp.addActionListener(this);
+    //Tar imot AnsattVinduobjektet som parameter    
+    public StatistikkPanel(AnsattVindu v)
+    {
+        vindu = v;
+        register = vindu.getRegister();
+        df = new DecimalFormat("###.##");
+        sokevelger = new JComboBox<>(soket);
+        utgiftsvelger = new JComboBox<>(utgifter);
+        inntektsvelger = new JComboBox<>(inntekter);
+        forsikringsvelgeren = new JComboBox<>(forsikringer);
+        forsikringsvelgeren.setVisible(false);
+        statistikkvelger = new JComboBox<>(statistikk);
+        skadetypevelgeren = new JComboBox<>();
+        skadetypevelgeren.setVisible(false);
+        skadetypeModellKjoretoy = new DefaultComboBoxModel(skadetypeKjoretoy);
+        skadetypeModellEiendom = new DefaultComboBoxModel(skadetypeEiendom);
+        skadetypeModellReise = new DefaultComboBoxModel(skadetypeReise);
+        skadetypelabel = new JLabel("Velg skadetype: ");
+        forsikringsLabel = new JLabel("Velg forsikringstype: ");
+        forsikringsLabel.setVisible(false);
+        startDagLabel = new JLabel("Dag: (dd)");
+        startDagLabel.setVisible(false);
+        startMndLabel = new JLabel("Måned: (mm)");
+        startMndLabel.setVisible(false);
+        startArLabel = new JLabel("År: (åååå)");
+        startArLabel.setVisible(false);
+        tomLabel = new JLabel("Til og med: ");
+        tomLabel.setVisible(false);
+        fomLabel = new JLabel("Fra og med: ");
+        fomLabel.setVisible(false);
+        sluttDagLabel = new JLabel("Dag: (dd)");
+        sluttDagLabel.setVisible(false);
+        sluttMndLabel = new JLabel("Måned: (mm)");
+        sluttMndLabel.setVisible(false);
+        sluttArLabel = new JLabel("År: (åååå)");
+        sluttArLabel.setVisible(false);
+        skadetypelabel.setVisible(false);
+        stDatoDag = new JTextField(2);
+        stDatoMnd = new JTextField(2);
+        stDatoAr = new JTextField(4);
+        slDatoDag = new JTextField(2);
+        slDatoMnd = new JTextField(2);
+        slDatoAr = new JTextField(4);
+        stDatoDag.setVisible(false);
+        stDatoMnd.setVisible(false);
+        stDatoAr.setVisible(false);
+        slDatoDag.setVisible(false);
+        slDatoMnd.setVisible(false);
+        slDatoAr.setVisible(false);
+        sokKnapp = new JButton("Søk");
+        sokKnapp.setEnabled(false);
+        sokKnapp.addActionListener(this);
         
     JPanel avansertSokPanel1 = new JPanel();
     avansertSokPanel2 = new JPanel();
@@ -203,7 +206,13 @@ public StatistikkPanel(AnsattVindu v)
     add(avansertSokPanel1);
     add(Box.createRigidArea(new Dimension(50,1)));
     add(avansertSokPanel3);
-      
+     
+    /*Legger til lyttere til comboboxene. Hvis et valg i en av comboboxene er
+    valgt, så skal ikke de andre comboboxene være mulig å velge ifra lenger og
+    søkknappen blir vist. Hvis brukeren setter valget til blankt igjen, så blir 
+    de andre comboboxene enabled/velgbare igjen og søkknappen blir skjult til noe
+    er valgt. Avhengig av hva brukeren har valgt, så blir også valg for forsikring
+    og/eller inputfelter for dato vist/skjult.*/
     sokevelger.addItemListener(new ItemListener()
     {
         @Override
@@ -322,7 +331,9 @@ public StatistikkPanel(AnsattVindu v)
             }
         }   
     });
-        
+    
+    /*Hvis brukeren har valgt å få ut statistikk angående skadetype, så blir også
+    en skadetypevelger vist avhengig av hvilken forsikring som er valgt.*/
     statistikkvelger.addItemListener(new ItemListener()
     {
         @Override
@@ -431,9 +442,11 @@ public StatistikkPanel(AnsattVindu v)
                     break;
                     }
                 }
-    });
- }
- 
+        });
+    }
+    
+    /*Tømmer alle inputfelter og setter statistikkvalget til blankt, skjuler
+    forsikrings-/skadetypevelgerene*/
     public void tømFelter()
     {
         for(Component component : getKomponenter(this))
@@ -458,6 +471,7 @@ public StatistikkPanel(AnsattVindu v)
         }
         disableDatoFelter();
     }
+    //Skjuler datofeltene
     public void disableDatoFelter()
     {
         for(Component component : getKomponenter(avansertSokPanel2))
@@ -475,6 +489,7 @@ public StatistikkPanel(AnsattVindu v)
         }
     }
     
+    //Gjør datofeltene synlige
     public void enableDatoFelter()
     {
         for(Component component : getKomponenter(avansertSokPanel2))
@@ -492,24 +507,24 @@ public StatistikkPanel(AnsattVindu v)
         }
     }
     
-//public void 
 
-public void alleKunderMedForsikring()
-{
-    try
+    //
+    public void alleKunderMedForsikring()
     {
-        forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
-        List<Kunde> liste = register.getAlleKunderMedForsikring(forsikringsvalg);
-        JTable tabell = new JTable();
-        tabell.setModel(new TabellModell(liste));
-        tabell.setPreferredScrollableViewportSize(new Dimension(700, 200));
-        statistikkVindu = new StatistikkVindu("Kunder med " + forsikringsvalg, new JScrollPane(tabell), new Dimension(700,200));
-        tømFelter();
-    }
-    catch (NullPointerException e)
-    {
-        feilMelding("Søket ga ingen treff");
-    }
+        try
+        {
+            forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
+            List<Kunde> liste = register.getAlleKunderMedForsikring(forsikringsvalg);
+            JTable tabell = new JTable();
+            tabell.setModel(new TabellModell(liste));
+            tabell.setPreferredScrollableViewportSize(new Dimension(700, 200));
+            statistikkVindu = new StatistikkVindu("Kunder med " + forsikringsvalg, new JScrollPane(tabell), new Dimension(700,200));
+            tømFelter();
+        }
+        catch (NullPointerException e)
+        {
+            feilMelding("Søket ga ingen treff");
+        }
 }
  
 public void antSkademeldinger()
@@ -1237,5 +1252,5 @@ public void actionPerformed(ActionEvent e)
             }
         }
     }
-}
+    }
 }

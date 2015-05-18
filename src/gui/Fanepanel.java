@@ -6,6 +6,7 @@
 
 package gui;
 
+//Nødvendige import-setninger
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -23,11 +24,12 @@ public class Fanepanel extends JPanel
     private final JToggleButton lukkeknapp;
     private String teksten;
     
-    //Tar imot 
+    //Tar imot JTabbedPane, panel komponent og overskrift tekst
     public Fanepanel(JTabbedPane t, JComponent k, String tekst)
     {
         fanekort = t;
         panel = k;
+        teksten = tekst;
         lukkeknapp = new JCheckBox();
         lukkeknapp.addActionListener(new Lukkelytter());
         lukkeknapp.addChangeListener(
@@ -39,11 +41,11 @@ public class Fanepanel extends JPanel
             lukkeknapp.setSelected(false);
 	}
 	});
-        add(new JLabel(tekst));
+        add(new JLabel(teksten));
         add(lukkeknapp);
     }
     
-    
+    //Klassens lytterklasse
     private class Lukkelytter implements ActionListener
     {
         @Override

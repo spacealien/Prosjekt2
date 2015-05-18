@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package gui;
-
+//Nødvendige importsetninger
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -15,14 +15,18 @@ import javax.swing.JScrollPane;
 
 /**
  *
- * @author Odd
+ * @author Odd, Marthe
  */
+
+/*Klassen har til hensikt å vise statistikk som brukeren vil se. Kalles fra
+StatistikkPanel. */
 public class StatistikkVindu extends JFrame 
 {
 
     private final Container c;
     private final JPanel hovedPanel;
 
+    /*Klassen tar imot overskrifttekst s, komponent, og størrelse på komponent*/
     public StatistikkVindu(String s, JComponent komponent, Dimension d) 
     {
         super(s);
