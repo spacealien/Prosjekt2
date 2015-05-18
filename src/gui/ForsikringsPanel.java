@@ -46,6 +46,13 @@ public interface ForsikringsPanel
         return liste.toArray(new Component[liste.size()]);
     }
     
+    /**
+     * 
+     * @param pane
+     * @param knapp1
+     * @param knapp2 
+     */
+    
     
     default void disableFelter( Container pane, JButton knapp1, JButton knapp2 )
     {
@@ -76,6 +83,12 @@ public interface ForsikringsPanel
             }
         }
     }
+    
+    /**
+     * 
+     * @param pane
+     * @param knapp2 
+     */
     
     default void enableFelter( Container pane, JButton knapp2 )
     {
@@ -109,7 +122,7 @@ public interface ForsikringsPanel
      * Parameteren overskrift endrer teksten i feltet over utskriftsområdet, ikke selve
      * tittelen for JFrame.
      * 
-     * parameteren vilkårInnhold tar i mot vilkårene i form av en String,
+     * Parameteren vilkårInnhold tar i mot vilkårene i form av en String,
      * som videre blir brukt til å fylle utskriftsområdet.
      */
     
