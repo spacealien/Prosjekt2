@@ -17,10 +17,13 @@ import register.*;
  *
  * @author Odd, Marthe
  */
+
 /*Klassens hensikt er å designe brukergrensesnittet for bilforsikringer, 
 ta imot input fra brukeren og videre registrere en bilforsikring
 hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
-en allerede tegnet bilforsikring, og endre denne.*/
+en allerede tegnet bilforsikring, og endre denne.
+*/
+
 public class BilforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
  
