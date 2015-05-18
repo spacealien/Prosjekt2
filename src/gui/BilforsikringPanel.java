@@ -225,9 +225,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnBilPanel2.add(new JLabel("ESP antiskrens: "));
         tegnBilPanel2.add(espPanel);
         tegnBilPanel2.add(new JLabel("<html>FG-godkjent søk- og<br> gj.kjenningssystem: </html>"));
+        tegnBilPanel2.add(gjenkjenningPanel);
         tegnBilPanel2.add(new JLabel("Dekning: "));
         tegnBilPanel2.add(dekningvelger);
-        tegnBilPanel2.add(gjenkjenningPanel);
         tegnBilPanel2.add(Box.createGlue());
         tegnBilPanel2.add(vilkårKnapp);
         tegnBilPanel2.add(new JLabel("Bonus: "));
