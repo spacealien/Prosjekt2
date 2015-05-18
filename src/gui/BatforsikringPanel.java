@@ -1,7 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Denne klassen representerer fanekortet som åpnes når bruker av programet
+ * ønsker å vise/registrere en båtforsikring. 
+ * 
+ * 
+ * 
  */
 package gui;
 

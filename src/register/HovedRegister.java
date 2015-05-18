@@ -1,8 +1,13 @@
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Klassen har som hensikt å samle alle registerene i en klasse for å gjøre
+ * det enkelt å alle registerne i en fil. Alternativet ville vært å hatt metodene
+ * i denne klassen i AnsattVindu klassen. Vi har valgt å gjøre det på denne måten
+ * for å prøve å gjøre AnsattVindu klassen så kort og ryddig som mulig.
+ * 
+ * Vi ønsket å holde AnsattVinduet så fri for metoder som ikke er direkte relatert
+ * til det grafiske grensesnittet.
+ * 
  */
 package register;
 
@@ -16,7 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import objekter.*;
 
