@@ -506,24 +506,6 @@ public class HovedRegister
         return forsikringsregister.getKundensForsikringer(kunde);
     }
     
-    public final void sjekkTid()
-    {
-       //GregorianCalendar kalender = vindu.getKalender();
-      for( Kunde kunde : kunderegister.alleKunder() )
-        {
-           List<Forsikring> forsikringsliste = getAlleKundensForsikringer( kunde );
-           for( Forsikring forsikring : forsikringsliste )
-            {
-               
-                    /*if(Math.abs(( kalender.getTime().getTime() - forsikring.getStartdato().getTime().getTime())) > (1000*60*60*24*365.25) ) 
-                    {
-                        forsikring.beregnPris();
-                    }*/
-            }
-            
-        }  
-    }
-    
     public final void sjekkTid2()
     {
         Calendar ettÅrSiden = Calendar.getInstance();
@@ -604,14 +586,12 @@ public class HovedRegister
     }
     
     
-    
-    //
-    public List<Kunde> getAlleKunderMedForsikring(String f)
+    public List<Kunde> getAlleKunderMedForsikring(String forsikringstype)
     {
         List<Kunde> kunderMedForsikring = new ArrayList<>();
         for (Forsikring forsikring : forsikringsregister.alleForsikringer())
         {
-            if (forsikring.getForsikringsType().equals(f))
+            if (forsikring.getForsikringsType().equals(forsikringstype))
             {
                 if (!kunderMedForsikring.contains(forsikring.getKunde()))
                 kunderMedForsikring.add(forsikring.getKunde());
