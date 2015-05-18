@@ -399,6 +399,5 @@ public class AnsattVindu extends JFrame
             }
         }
     }
-    
 } // slutt på klasse
 

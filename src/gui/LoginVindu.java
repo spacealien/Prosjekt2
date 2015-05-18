@@ -1,19 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Programmets login vindu.
  */
+
 package gui;
 
-/**
- *
- * @author Odd
- */
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -31,9 +21,9 @@ import javax.swing.JTextField;
 import objekter.Ansatt;
 
 /**
- *
  * @author Odd, Marthe
  */
+
 public class LoginVindu extends JFrame
 {
     private final JTextField loginFelt;
@@ -78,6 +68,7 @@ public class LoginVindu extends JFrame
         this.getRootPane().setDefaultButton(loginKnapp);
     }
     
+    
     private void login()
     {
         ansatt = vindu.getRegister().login( loginFelt.getText(), String.valueOf(passordFelt.getPassword()));
@@ -95,6 +86,7 @@ public class LoginVindu extends JFrame
             JOptionPane.showMessageDialog(null, "Bruker ikke funnet", "Beskjed", JOptionPane.INFORMATION_MESSAGE, null);
     }
     
+    // sender med event til AnsattVinduet som sier at vinduet skal lukkes dersom brukeren ønsker å avslutte programmet.
     private void avslutt()
     {
         vindu.dispatchEvent(new WindowEvent(vindu, WindowEvent.WINDOW_CLOSING));

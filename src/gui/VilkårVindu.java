@@ -1,6 +1,8 @@
 /**
- * testS
+ *  Klassen beskriver vinduet som åpnes hver gang bruker av programmet 
+ *  ønsker å lese en forsikring.
  */
+
 package gui;
 
 import java.awt.BorderLayout;
@@ -41,16 +43,19 @@ public class VilkårVindu extends JFrame
         c.add( scroll, BorderLayout.CENTER );
     }
     
+    // endrer overskriftet i feltet over utskriftsområdet.
     public void setOverskrift( String tekst )
     {
         overskrift.setText(tekst);
     }
     
+    // tar i mot vilkårene i form av en String og viser det i TextArea.
     public void visVilkår( String vilkår )
     {
         utskrift.setText(vilkår);
     }
     
+    // sender vidre TextArea slik at man kan manipulere innholdet andre steder i programmet.
     public JTextArea getUtskriftområdet()
     {
         return utskrift;

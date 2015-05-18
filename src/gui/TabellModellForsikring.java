@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Klassen brukes til å definere hvordan utsende og hvilke data som skal vises
+ * i forsikrings tabelle i kundepanelet.
  */
+
 package gui;
 
 import java.text.SimpleDateFormat;

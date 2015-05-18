@@ -25,7 +25,6 @@ public abstract class Person implements Serializable
         etternavn = enavn;
         telefonnummer = tlf;
         adresse = adr;
-         
     }
 
     // set metoder

@@ -1,8 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Klassen brukes til å definere hvordan utsende og hvilke data som skal vises
+ * i KundeTabellen neders i hovedvinduet.
+ * 
+ * 
  */
+
+
+
 package gui;
 
 import java.text.SimpleDateFormat;
@@ -48,6 +52,8 @@ public class TabellModell extends AbstractTableModel
         return kolonnenavn[i];
     }
     
+    
+    // returnerer inneholdet i en gitt celle.
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) 
     {
