@@ -536,8 +536,6 @@ public class HovedRegister
             }
         }
     }
-           
-    
     
     public List<Inntekt> getAlleInntekter()
     {
@@ -621,8 +619,7 @@ public class HovedRegister
     
     /**
      * 
-     * @param kunde
-     * @return 
+     * 
      */
     
     public double getNåværendeInntjening( Kunde kunde )
@@ -648,10 +645,7 @@ public class HovedRegister
                 differanseMnd = diffYear * 12 + forsikring.getSluttdato().get(Calendar.MONTH) - startDato.get(Calendar.MONTH);
                 
             }
-            System.out.print(forsikring.getStartdato().get(Calendar.YEAR));
-            System.out.print(differanseMnd);
             prisPrMåned = forsikring.getArligPremie() / 12;
-            System.out.print(prisPrMåned);
             sum += differanseMnd * prisPrMåned;
         }
         return sum;
@@ -677,7 +671,6 @@ public class HovedRegister
      * @param kunde
      * @return 
      */
-    
     public double getInntekter( Kunde kunde )
     {
         double sum = 0 ;
