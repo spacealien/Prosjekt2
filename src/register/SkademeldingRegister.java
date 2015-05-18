@@ -18,7 +18,7 @@ import objekter.Skademelding;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public class SkademeldingRegister implements Serializable
 {
@@ -29,16 +29,34 @@ public class SkademeldingRegister implements Serializable
         skademeldinger = new HashMap<>();
     }
     
+    /**
+     * Tar i mot et forsirkings og skademeldings objekt.
+     * metoden legger til skademeldingens skadenummer i en ArrayList
+     * på forsikrings objektet, på denne måten kan man hente opp verdier fra hashmapet.
+     * 
+     * @param forsikring - forsikringen skademeldingen skal registreres på.
+     * @param skademelding - skademelding.
+     */
     public void leggTil( Forsikring forsikring, Skademelding skademelding )
     {
         forsikring.leggTilNøkkel(skademelding.getSkadenummer());
         skademeldinger.put( skademelding.getSkadenummer() , skademelding );
     }
     
+    // returnerer en Skademelding med likt skademeldingsnummer som parameter.
     public Skademelding getSkademelding( int skademeldingnummer )
     {
         return skademeldinger.get(skademeldingnummer);
     }
+    
+    /**
+     * Henter alle skademeldinger som hører til en kunde. Metoden tar i mot liste med forsikringer
+     * som hører til kunden. Deretter henter nøkklene som fungerer som Key i hashmapet
+     * fra hver forsikring i lista, for og så hente ut tilhørende skademelding ved hjelp av nøkkelen.
+     * 
+     * @param forsikringer
+     * @return 
+     */
     
     public List<Skademelding> getKundensSkademeldinger( List<Forsikring> forsikringer )
     {
@@ -54,6 +72,14 @@ public class SkademeldingRegister implements Serializable
         return funnetSkademeldinger;
     }
     
+    /**
+     * Henter først nøkklene som ligger i forsikringen som kommer som parameter,
+     * videre opprettes det en List som fylles på med skademeldinger som hører til
+     * gitt forsikring.
+     * @param forsikring
+     * @return Forsikring
+     */
+    
     public List<Skademelding> getSkademeldinger( Forsikring forsikring )
     {
         List<Integer> nøkkler = forsikring.getNøkkelliste();
@@ -64,20 +90,29 @@ public class SkademeldingRegister implements Serializable
             funnetSkademeldinger.add(skademeldinger.get(n));
         }
         return funnetSkademeldinger;
-    } 
+    }
     
+    /**
+     * henter alle verdiene fra hashmapet, og returnerer i from av List<Skademeldig>.
+     * @return Skademelding
+     */
     public List<Skademelding> alleSkademeldinger()
     {
         return skademeldinger.values().stream().collect(Collectors.toList());
     }
     
+    // filtrer ut ut skademeldinger mello to datoer.
     public List<Skademelding> getSkademeldinger( Calendar startdato, Calendar sluttdato )
     {
         return skademeldinger.values().stream()
                 .filter( x -> startdato.after(x.getSkadeDato()) && sluttdato.before(x.getSkadeDato()))
                 .collect( Collectors.toList() );
     }
-    
+    /**
+     * Henter første skademelding fra registeret, brukes for å hente et tilfeldig
+     * objekt og deretter hente løpenummeret ved skriving til fil. 
+     * @return Skademelding
+     */
     public Skademelding getSkademelding()
     {
         Iterator<Skademelding> iterator = skademeldinger.values().iterator();

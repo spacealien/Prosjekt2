@@ -17,7 +17,7 @@ import objekter.Kunde;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public class KundeTabell extends JTable implements ForsikringsPanel
 {

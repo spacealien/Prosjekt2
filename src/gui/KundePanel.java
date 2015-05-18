@@ -31,7 +31,7 @@ import objekter.Skademelding;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public class KundePanel extends JPanel implements ActionListener, ForsikringsPanel
 {
@@ -150,6 +150,11 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         disableFelter(kundeInfo_1, null, null);
     }
     
+    /**
+     * Oppdaterer alle tekstfeltene og tabellen som tilhører KundePanel med 
+     * informasjon om kunden.
+     */
+    
     public void oppdaterVindu()
     {
         regFornavn.setText(kunde.getFornavn());
@@ -166,6 +171,11 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         vindu.oppdaterTabell(vindu.getRegister().getKundeliste().alleKunder());
     }
     
+    /**
+     * Ment for å brukes til å vise alle skademeldigner som tilhører en gitt forskring i
+     * KundeDataTabellen. ikke implementert.
+     */
+    
     public void visForsikringensSkademeldnger()
     {
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
@@ -176,6 +186,10 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         tabell.setModel(nyModell);
         tabell.brukSkademeldingPopup();
     }
+    
+    /**
+     * viser alle skademeldinger som hører til kunden i KundePanelets tabell.
+     */
     
     public void visAlleSkademeldinger()
     {
@@ -211,6 +225,10 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         skademeldingsPanel.setKundePanel(this);
         vindu.leggTilNyFane( skademeldingsPanel, "Skade " + forsirking.getKunde().getEtternavn() );
     }
+    
+    /**
+     * Lagerer endringer til kunden som det er ment å kunne endres på.
+     */
     
     public void lagreEndringer()
     {

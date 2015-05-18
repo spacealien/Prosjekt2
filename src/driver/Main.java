@@ -30,12 +30,14 @@ public class Main
             public void run()
             {
                 AnsattVindu vindu = new AnsattVindu();
+                
+                // legger til vinduslytter som registrer om viduet er i ferd med å lukkes.
                 vindu.addWindowListener( new WindowAdapter() 
                 {
                     @Override
                     public void windowClosing( WindowEvent e )
                     {
-                        //vindu.lagre();
+                        vindu.lagre();                  // sørger for at det blir skrevet til fil før programmet avsluttes.
                         System.exit( 0 );
                     }
                 });

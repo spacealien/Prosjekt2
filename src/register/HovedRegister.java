@@ -40,7 +40,7 @@ public class HovedRegister
         vindu = v;  
         kalender = Calendar.getInstance();  
         
-        
+        /**
         GregorianCalendar fdato = new GregorianCalendar(1991,6,6);
         Kunde test_1 = new Kunde("Rolf", "Hestman", "Kongleknaggen 18", "22260906", fdato, "hesterolf@yahoo.no", "08206049937");
         Kunde test_2 = new Kunde("Bjørn", "Dæhlie", "Trysil 23B", "22260906", fdato, "epost@epost.no", "12048449997");
@@ -481,11 +481,11 @@ public class HovedRegister
             f.setArligPremie(100.0);
         }
        
+        */
         
         
-        
-        
-        skrivTilFil();
+      lesFraFil();
+        //skrivTilFil();
 
         //sjekkTid2();
     }
@@ -596,6 +596,9 @@ public class HovedRegister
         return kunderegister;
     }
     
+    
+    
+    //
     public List<Kunde> getAlleKunderMedForsikring(String f)
     {
         List<Kunde> kunderMedForsikring = new ArrayList<>();
@@ -607,24 +610,33 @@ public class HovedRegister
                 kunderMedForsikring.add(forsikring.getKunde());
             }
         }
-       
         return kunderMedForsikring;
     }
     
+    
+    // Returnerer skademeldingsregisteret.
     public SkademeldingRegister getSkademeldingsregister()
     {
         return skademeldingsregister;
     }
     
+    // Returnerer forsikringsregisteret.
     public Forsikringsliste getForsikringrsliste()
     {
         return forsikringsregister;
     }
     
+    // Returnerer ansattregisteret.
     public Ansattregister getAnsattregister()
     {
         return ansattregister;
     }
+    
+    /**
+     * 
+     * @param kunde
+     * @return 
+     */
     
     public double getNåværendeInntjening( Kunde kunde )
     {
@@ -638,15 +650,13 @@ public class HovedRegister
         {    
             if( forsikring.getSluttdato() == null)
             {
-                Calendar startdato = Calendar.getInstance();
-                startdato.setTime( forsikring.getStartdato().getTime() );
+                Calendar startdato = forsikring.getStartdato();
                 diffYear = Calendar.getInstance().get(Calendar.YEAR) - startdato.get(Calendar.YEAR);
                 differanseMnd = diffYear * 12 + Calendar.getInstance().get(Calendar.MONTH) - startdato.get(Calendar.MONTH);  
             }
             else
             {
-                Calendar startDato = Calendar.getInstance();
-                startDato.setTime(forsikring.getStartdato().getTime());
+                Calendar startDato = forsikring.getStartdato();
                 diffYear = forsikring.getSluttdato().get(Calendar.YEAR) - startDato.get(Calendar.YEAR);
                 differanseMnd = diffYear * 12 + forsikring.getSluttdato().get(Calendar.MONTH) - startDato.get(Calendar.MONTH);
                 
@@ -660,6 +670,10 @@ public class HovedRegister
         return sum;
     }
     
+    /**
+     * Henter total sum for utgifter forbundet med kunden som blir send med som parameter. 
+     * @return int utgifter forbundet med en kunde.
+     */
     public int getUtgifter( Kunde kunde )
     {
         int sum = 0;
@@ -671,17 +685,26 @@ public class HovedRegister
         return sum;
     }
     
+    /**
+     * returnerer totale summen av av alle aktive forsikrings premier til en kunde.
+     * @param kunde
+     * @return 
+     */
+    
     public double getInntekter( Kunde kunde )
     {
         double sum = 0 ;
         List<Forsikring> forsikringsliste = forsikringsregister.getKundensForsikringer(kunde);
         
         for(Forsikring forsikring : forsikringsliste )
-            sum += forsikring.getArligPremie();
+            if( forsikring.erAktiv())
+                sum += forsikring.getArligPremie();
         
         return sum;
     }
     
+
+    //returner totale summen for alle årlie forsikringspremer for alle kunder totalt.
     public double getInntekter()
     {
         double totalSum = 0.0;
@@ -693,6 +716,7 @@ public class HovedRegister
         return totalSum;
     }
     
+    // returnerer total erstatningsbeløp for alle skademeldinger som er registrert.
     public double getUtgifter()
     {
         double totalSum = 0.0;
@@ -704,43 +728,28 @@ public class HovedRegister
         return totalSum;
     }
     
-    public void getAntallForsikringerEtterType()
-    {
-        int bilForsikring = 0;
-        int båtForsikring = 0;
-        int reiseForsikring = 0;
-        int innboForsikring = 0;
-        int fritidsboligForsikring = 0;
-        
-        for( Forsikring forsikring: forsikringsregister.alleForsikringer() )
-        {
-            if( forsikring instanceof Bilforsikring )
-                bilForsikring++;
-            else if( forsikring instanceof BatForsikring )
-                båtForsikring++;
-            else if( forsikring instanceof Reiseforsikring )
-                reiseForsikring++;
-            else if( forsikring instanceof Husforsikring )
-                båtForsikring++;
-            else if( forsikring instanceof Fritidsboligforsikring )
-                fritidsboligForsikring++;
-        }
-    }
+    /**
+     * Legger inn ny forsikring i forsikringsregisteret. Kjøerer en test for å 
+     * se hvor mange unike aktive forsikringer en kunde har, dersom kunden har mer
+     * enn tre aktive forsikringer settes kunden som totalkunde.
+     * 
+     * @param nyForsikring 
+     */
     
     public void nyForsikring( Forsikring nyForsikring  )
     {
         forsikringsregister.leggTil( nyForsikring.getKunde(), nyForsikring);
         Date dato = new Date();
-        System.out.print(sdf.format(dato));
-        if(forsikringsregister.antallAktiveForsikringer(nyForsikring.getKunde()).size() >= 3)
+        
+        if(forsikringsregister.antallUnikeAktiveForsikringer(nyForsikring.getKunde()).size() >= 3)
         {
             nyForsikring.getKunde().setTotalKunde(true);
             innbetalinger.add(new Inntekt(dato, (nyForsikring.getArligPremie() * 0.9), nyForsikring));
-            if(forsikringsregister.antallAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
+            if(forsikringsregister.antallUnikeAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
                 vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
             
-            //vindu.oppdaterTabell(kunderegister.alleKunder());
-            //skrivTilFil();
+            vindu.oppdaterTabell(kunderegister.alleKunder());
+            skrivTilFil();
         }
         else
         {
@@ -748,10 +757,18 @@ public class HovedRegister
         }
     }
     
+    
+    /**
+     * Metoden sier opp en forsikring og tester om kunden mister status som totalkunde dersom
+     * forsikringen deaktiveres.
+     * 
+     * @param forsikringsnummer 
+     */
+    
     public void deaktiverForsikring( Integer forsikringsnummer )
     {
         Forsikring forsikring = forsikringsregister.getForsikring(forsikringsnummer);
-        if( forsikringsregister.antallAktiveForsikringer(forsikring.getKunde()).size() == 3)
+        if( forsikringsregister.antallUnikeAktiveForsikringer(forsikring.getKunde()).size() == 3)
         {
             forsikring.getKunde().setTotalKunde(false);
         }
@@ -760,6 +777,14 @@ public class HovedRegister
         vindu.visInformasjon("Beskjed", "Forsikringen er deaktivert. ");
         skrivTilFil();
     }
+    
+    /**
+     * Legger inn ny skademelding i skademeldingsregisteret, dersom 
+     * skademeldingen tilhører en bilforsikring, korrigeres bonusen automatisk.
+     * 
+     * @param nySkademelding
+     * @return 
+     */
     
     public boolean nySkademelding( Skademelding nySkademelding )
     {
@@ -773,6 +798,7 @@ public class HovedRegister
         return true;
     }
     
+    // returnerer ansatt som har matchede brukernavn og passord. Brukes i LoginVindu.
     public Ansatt login( String brukernavn, String passord )
     {
         for( Ansatt arbeidstaker: ansattregister.getAlleAnsatte())
@@ -783,6 +809,7 @@ public class HovedRegister
         return null;
     }
     
+    // skriver data til fil.
     public void skrivTilFil()
     {
         try( ObjectOutputStream utfil = new ObjectOutputStream(
@@ -799,10 +826,13 @@ public class HovedRegister
         }
         catch( IOException e )
         {
+            vindu.visFeilmelding("Feilmelding", "Noe gikk galt under lagring til fil. ");
             
         }
     }
     
+    
+    // leser data fra fil.
     public void lesFraFil()
     {
         try( ObjectInputStream innfil = new ObjectInputStream(
@@ -819,7 +849,7 @@ public class HovedRegister
         }
         catch( IOException | ClassNotFoundException e )
         {
-            
+            vindu.visFeilmelding("Feilmelding", "Noe gikk galt under lesing fra fil. ");
         }
     }
 }

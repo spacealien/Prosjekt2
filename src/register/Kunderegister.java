@@ -17,7 +17,7 @@ import objekter.Personsammenlikner;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  * 
  */
 public class Kunderegister implements Serializable
@@ -122,6 +122,11 @@ public class Kunderegister implements Serializable
         kunderegister.sort(test);
     }
     
+    
+    /**
+     * Returnerer første kundeobjekt i lista, brukes til å hente it 
+     * hjelpevariablen for kundenummber ved skriving til fil.
+     * */
     public Kunde getKunde()
     {
         Iterator<Kunde> iterator = kunderegister.iterator();

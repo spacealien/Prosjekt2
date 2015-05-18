@@ -38,7 +38,7 @@ import register.HovedRegister;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public class AnsattVindu extends JFrame
 {

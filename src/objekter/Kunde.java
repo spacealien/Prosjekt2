@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public class Kunde extends Bruker
 {

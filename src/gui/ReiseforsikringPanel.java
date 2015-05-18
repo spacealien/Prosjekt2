@@ -13,7 +13,7 @@ import register.*;
 
 /**
  *
- * @author Odd, Thomas, Marthe
+ * @author Odd, Marthe
  */
 public class ReiseforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {
