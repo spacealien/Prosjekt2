@@ -249,7 +249,7 @@ public class AnsattVindu extends JFrame
      */
     public void oppdaterTabell( List<Kunde> liste )
     {
-        if( liste != null )
+        if( liste.size() > 0 )
         {
             tabellModell = new TabellModell(liste);
             tabell.setModel(tabellModell);
