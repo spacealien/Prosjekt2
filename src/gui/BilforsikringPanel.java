@@ -611,7 +611,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
             bilforsikring.setMaxKjorelengde(lengdevalget);
             bilforsikring.setBonus(bonusen);
             bilforsikring.setArsmodell(ar);
-            bilforsikring.setVilkar(dekningvalget);
+            bilforsikring.setVilkar(vilkår);
             if( kundePanel != null )
                 kundePanel.oppdaterVindu();
         }
