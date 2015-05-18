@@ -77,7 +77,6 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     
     public BatforsikringPanel(Kunde k, AnsattVindu v)
     {
-     
         vindu = v;
         register = vindu.getRegister();
         kunde = k;
