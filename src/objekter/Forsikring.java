@@ -218,7 +218,4 @@ public abstract class Forsikring implements Serializable
                    "\nVilkår: \n" + vilkar;
         return utskrift;
     }
-    
-    // må arves av alle ikke abstracte subklasser.
-    //abstract void beregnPris( Kunde kunde);
 }//end of class

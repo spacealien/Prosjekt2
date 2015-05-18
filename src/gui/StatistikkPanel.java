@@ -15,7 +15,15 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.*;
-import objekter.*;
+import objekter.BatForsikring;
+import objekter.Bilforsikring;
+import objekter.Forsikring;
+import objekter.Fritidsboligforsikring;
+import objekter.Husforsikring;
+import objekter.Inntekt;
+import objekter.Kunde;
+import objekter.Reiseforsikring;
+import objekter.Skademelding;
 import register.*;
 
 /**
@@ -241,7 +249,8 @@ public StatistikkPanel(AnsattVindu v)
                     forsikringsvelgeren.setVisible(true);
             }
         }
-     });
+    });
+    
         
     utgiftsvelger.addItemListener(new ItemListener()
     {
@@ -427,72 +436,72 @@ public StatistikkPanel(AnsattVindu v)
                                     break;
                                 }
                             }
-                        });
+                    });            
                     break;
-                    }
-                }
+            }
+        }
     });
- }
+}
+
  
-    public void tømFelter()
+public void tømFelter()
+{
+    for(Component component : getKomponenter(this))
     {
-        for(Component component : getKomponenter(this))
+        if((component instanceof JTextField))
         {
-            if((component instanceof JTextField))
-            {
-                JTextField tf = (JTextField)component;
-                tf.setText("");
-            }
-            else if(component instanceof JComboBox)
-            {
-                JComboBox cb = (JComboBox)component;
-                if(cb.equals(skadetypevelgeren) || cb.equals(forsikringsvelgeren))
-                {
-                    cb.setVisible(false);
-                }
-                else
-                {
-                    cb.setSelectedIndex(0);
-                }
-            }
+            JTextField tf = (JTextField)component;
+            tf.setText("");
         }
-        disableDatoFelter();
-    }
-    public void disableDatoFelter()
-    {
-        for(Component component : getKomponenter(avansertSokPanel2))
+        else if(component instanceof JComboBox)
         {
-            if((component instanceof JTextField))
+            JComboBox cb = (JComboBox)component;
+            if(cb.equals(skadetypevelgeren) || cb.equals(forsikringsvelgeren))
             {
-                JTextField tf = (JTextField)component;
-                tf.setVisible(false);
+                cb.setVisible(false);
             }
-            if((component instanceof JLabel))
+            else
             {
-                JLabel label = (JLabel)component;
-                label.setVisible(false);
+                cb.setSelectedIndex(0);
             }
         }
     }
+    disableDatoFelter();
+}
+
+public void disableDatoFelter()
+{
+    for(Component component : getKomponenter(avansertSokPanel2))
+    {
+        if((component instanceof JTextField))
+        {
+            JTextField tf = (JTextField)component;
+            tf.setVisible(false);
+        }
+        if((component instanceof JLabel))
+        {
+            JLabel label = (JLabel)component;
+            label.setVisible(false);
+        }
+    }
+}
     
-    public void enableDatoFelter()
+public void enableDatoFelter()
+{
+    for(Component component : getKomponenter(avansertSokPanel2))
     {
-        for(Component component : getKomponenter(avansertSokPanel2))
+        if((component instanceof JTextField))
         {
-            if((component instanceof JTextField))
-            {
-                JTextField tf = (JTextField)component;
-                tf.setVisible(true);
-            }
-            if((component instanceof JLabel))
-            {
-                JLabel label = (JLabel)component;
-                label.setVisible(true);
-            }
+            JTextField tf = (JTextField)component;
+            tf.setVisible(true);
+        }
+        if((component instanceof JLabel))
+        {
+            JLabel label = (JLabel)component;
+            label.setVisible(true);
         }
     }
-    
-//public void 
+}
 
 public void alleKunderMedForsikring()
 {
@@ -556,6 +565,7 @@ public void antSkademeldinger()
         statistikkVindu = new StatistikkVindu(s + 
                         sdf.format(startDato.getTime()) + " - " + sdf.format(sluttDato.getTime()), 
                         pane, new Dimension(700,180));
+
         tømFelter();
     }
     catch (NullPointerException e)
@@ -601,7 +611,6 @@ public void antForsikringer()
             }
         }
         
-    
         JTable tabell = new JTable();
         tabell.setModel(new TabellModellForsikring(forsikringsliste));
         tabell.setPreferredScrollableViewportSize(new Dimension(700,180));
@@ -612,6 +621,7 @@ public void antForsikringer()
         pane.add(new JScrollPane(tabell));
         statistikkVindu = new StatistikkVindu(s + 
         sdf.format(startDato.getTime()) + " - " + sdf.format(sluttDato.getTime()), pane, new Dimension(700,180));
+        
         tømFelter();
     }
     catch (NullPointerException e)
@@ -627,6 +637,7 @@ public void totalErstatning()
     double totalSum = 0.0;
     int antall = 0;
     double gjennomsnitt = 0;
+    
     try
     {
         for( Skademelding skademelding : register.getSkademeldingsregister().alleSkademeldinger() )
@@ -672,7 +683,7 @@ public void totalErstatningPaForsikring()
                 totalSum += skademelding.getErstatningsbelop();
                 antall++;
             }
-        }   
+        }
         
         gjennomsnitt = totalSum / antall;
         JTextArea textArea = new JTextArea();
@@ -688,7 +699,7 @@ public void totalErstatningPaForsikring()
     {
         feilMelding("Søket ga ingen treff");
     }
-    }
+}
 
 public void totalPremieinntekt()
 {
@@ -698,6 +709,7 @@ public void totalPremieinntekt()
     double totalSum = 0.0;
     int antall = 0;
     double gjennomsnitt = 0;
+    
     try
     {
         for (Inntekt inntekt : register.getAlleInntekter())
@@ -729,7 +741,6 @@ public void totalPremieinntekt()
  
 public void totalPremieinntektPaForsikringstype()
 {
-    //Total utbetaling av inntekt på forsikringstype i en gitt periode
     forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
     startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())), (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
     sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())), (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
@@ -766,7 +777,7 @@ public void totalPremieinntektPaForsikringstype()
     {
         feilMelding("Søket ga ingen treff");
     }
-   }
+}
  
 public void statistikkSkademeldinger()
 {
@@ -797,18 +808,17 @@ public void statistikkSkademeldinger()
         String s;
         double endring = gjennomsnittPerioden - gjennomsnittAlltid;
         double prosent = ((endring - gjennomsnittAlltid) / gjennomsnittAlltid) * 100;
-
         
         if (endring >= 0)
             s = "økt";
         else
-        {
             s = "minket";
-        }
+        
                  
         JTextArea textArea = new JTextArea();
         textArea.setText("Antall skademeldinger har " + s + " med " + df.format(endring) + " stk / " + (int)prosent +
-             "% månedelig\ni perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
+                         "% månedelig\ni perioden " + sdf.format(startDato) + " - " + sdf.format(sluttDato));
+        
         statistikkVindu = new StatistikkVindu("Økning/Minking i perioden "
                 + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea, new Dimension(500,300));
     
@@ -818,7 +828,6 @@ public void statistikkSkademeldinger()
     {
         feilMelding("Søket ga ingen treff");
     }
-    
 }
 
 public void statistikkSkademeldingPaForsikring()
@@ -829,6 +838,7 @@ public void statistikkSkademeldingPaForsikring()
     List<Skademelding> skademeldingsliste  = new ArrayList<>();
     int antallIPerioden = 0;
     int antallForAlltid = 0;
+    
     try
     {
         for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger() )
@@ -867,14 +877,13 @@ public void statistikkSkademeldingPaForsikring()
         statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger på " + forsikringsvalg.toLowerCase() + "er i perioden "
                                           + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea, new Dimension(500,300));
     
-        tømFelter();
-        
+        tømFelter();    
     }
     catch (NullPointerException | ArithmeticException e)
     {
         feilMelding("Søket ga ingen treff");
     }
-    }
+}
  
 public void statistikkSkademeldingPaSkadetype()
 {
@@ -1042,6 +1051,7 @@ public void statistikkErstatningPaSkadetype()
         feilMelding("Søket ga ingen treff");
     }
 }
+
 public void typeForsikringPaAntall()
 {
     int bilForsikring = 0;
@@ -1128,14 +1138,14 @@ public boolean sjekkDato()
         return true;
     }
 }
+
 public boolean sjekkDatoOgForsikringsvelger()
 {
-   if (!stDatoAr.getText().matches("0[1-9]|[12]\\d|3[01]") || !stDatoMnd.getText().matches("0[1-9]|1[0-2]") || 
+    if (!stDatoAr.getText().matches("0[1-9]|[12]\\d|3[01]") || !stDatoMnd.getText().matches("0[1-9]|1[0-2]") || 
        !stDatoDag.getText().matches("0[1-9]|[12]\\d|3[01]") || !slDatoAr.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])") || 
        !slDatoMnd.getText().matches("0[1-9]|1[0-2]") || !slDatoDag.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])") 
-                                || forsikringsvelgeren.getSelectedIndex() == 0)
+       || forsikringsvelgeren.getSelectedIndex() == 0)
     {
-        
         if(!stDatoAr.getText().matches("0[1-9]|[12]\\d|3[01]") || !stDatoMnd.getText().matches("0[1-9]|1[0-2]") || 
            !stDatoDag.getText().matches("0[1-9]|[12]\\d|3[01]") || !slDatoAr.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])") || 
            !slDatoMnd.getText().matches("0[1-9]|1[0-2]") || !slDatoDag.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])"))
@@ -1237,5 +1247,6 @@ public void actionPerformed(ActionEvent e)
             }
         }
     }
-}
-}
+}// slutt på actionPerformed
+
+}// slutt på klasse
