@@ -1,6 +1,7 @@
 /*
  * Klassen holder ansatt objektene i et register.
  */
+
 package register;
 
 import java.io.Serializable;

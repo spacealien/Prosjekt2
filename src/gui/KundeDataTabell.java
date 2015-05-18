@@ -68,7 +68,6 @@ public class KundeDataTabell extends JTable
         
         /**
          * Metoden skjekker når brukeren trykker på tabellen.
-         * 
          * Her brukes det en metode som trigger både mousePressed og mouseReleased.
          * Siden de som sitter på Mac ikke får registrert mousePressed, men mouseReleased.
          * 
