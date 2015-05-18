@@ -93,7 +93,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         battypevelger = new JComboBox<>(battype);
         egenandelsvelger = new JComboBox<>(egenandel);
         dekningvelger = new JComboBox<>(dekning);
-        annenEier = new JButton("Trykk her");
+        annenEier = new JButton("Trykk her for annen eier");
         batGiTilbud = new JButton("Tegn forsikring");
         batGiTilbud.setVisible(false);
         beregnPris = new JButton("Beregn pris");
@@ -139,7 +139,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnBatPanel2.add(egenandelsvelger);
         tegnBatPanel1.add(new JLabel("Lengde: "));
         tegnBatPanel1.add(batLengde);
-        tegnBatPanel2.add(new JLabel("Er eier annen enn kunde?"));
+        tegnBatPanel2.add(new JLabel("<html>Er eier annen<br>enn kunde?</html>"));
         tegnBatPanel2.add(annenEier);
         tegnBatPanel1.add(new JLabel("Årsmodell: "));
         tegnBatPanel1.add(batArsmodell);
@@ -356,7 +356,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         enableFelter( this, beregnPris );
         beregnPris.setText("Beregn ny pris");
         tilbudLabel.setText("Foreslått tilbud: ");
-        annenEier.setText("Trykk for annen eier");
+        annenEier.setText("Trykk her for annen eier");
         knappePanel.add(lagreNy);
     }
     
@@ -406,7 +406,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else if (e.getSource() == annenEier)
         {
-            if (annenEier.getText().equals("Trykk for annen eier"))
+            if (annenEier.getText().equals("Trykk her for annen eier"))
             {
                 int result = JOptionPane.showConfirmDialog(null, eierPanel, 
                 "Vennligst fyll ut bileiers kontaktinformasjon:", JOptionPane.OK_CANCEL_OPTION);

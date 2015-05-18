@@ -659,8 +659,12 @@ public class HovedRegister
                 Calendar startDato = forsikring.getStartdato();
                 diffYear = forsikring.getSluttdato().get(Calendar.YEAR) - startDato.get(Calendar.YEAR);
                 differanseMnd = diffYear * 12 + forsikring.getSluttdato().get(Calendar.MONTH) - startDato.get(Calendar.MONTH);
+                
             }
+            System.out.print(forsikring.getStartdato().get(Calendar.YEAR));
+            System.out.print(differanseMnd);
             prisPrMåned = forsikring.getArligPremie() / 12;
+            System.out.print(prisPrMåned);
             sum += differanseMnd * prisPrMåned;
         }
         return sum;
