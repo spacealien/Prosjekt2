@@ -1,6 +1,5 @@
 /*
  * Programmets login vindu.
- *
  */
 
 package gui;
@@ -22,9 +21,9 @@ import javax.swing.JTextField;
 import objekter.Ansatt;
 
 /**
- *
  * @author Odd, Marthe
  */
+
 public class LoginVindu extends JFrame
 {
     private final JTextField loginFelt;
@@ -69,6 +68,7 @@ public class LoginVindu extends JFrame
         this.getRootPane().setDefaultButton(loginKnapp);
     }
     
+    
     private void login()
     {
         ansatt = vindu.getRegister().login( loginFelt.getText(), String.valueOf(passordFelt.getPassword()));
@@ -86,6 +86,7 @@ public class LoginVindu extends JFrame
             JOptionPane.showMessageDialog(null, "Bruker ikke funnet", "Beskjed", JOptionPane.INFORMATION_MESSAGE, null);
     }
     
+    // sender med event til AnsattVinduet som sier at vinduet skal lukkes dersom brukeren ønsker å avslutte programmet.
     private void avslutt()
     {
         vindu.dispatchEvent(new WindowEvent(vindu, WindowEvent.WINDOW_CLOSING));
