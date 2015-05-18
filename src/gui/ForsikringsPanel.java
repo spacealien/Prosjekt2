@@ -1,7 +1,6 @@
 /**
  * Dette interfacet inneholder kode som ellers ville blitt gjenntagene
  * i de forskjellige panelene som er relatert til forsikringene.
- * 
  * Klassene som implementerer dette interfacet får tilgang til alle metodene.
  * 
  */
@@ -24,9 +23,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 /**
- *
  * @author Odd, Marthe
  */
+
 public interface ForsikringsPanel
 {
     default Component[] getKomponenter(Component pane)
@@ -103,6 +102,16 @@ public interface ForsikringsPanel
             }              
         }
     }
+     
+    /**
+     * Metoden oppretter et nytt vindu for visning av vilkår.
+     * 
+     * Parameteren overskrift endrer teksten i feltet over utskriftsområdet, ikke selve
+     * tittelen for JFrame.
+     * 
+     * parameteren vilkårInnhold tar i mot vilkårene i form av en String,
+     * som videre blir brukt til å fylle utskriftsområdet.
+     */
     
     default void visForsikringensVilkår(String overskrift, String vilkårInnhold )
     {
@@ -113,9 +122,9 @@ public interface ForsikringsPanel
     }
     
     /**
-     * 
-     * @param filsti
-     * @return 
+     * Henter vilkårene som er lagret i en textfil i programmets mappe.
+     * Metoden kjører en test på hvilket operativsystem brukeren har 
+     * og korrigerer filstien deretter.
      */
     
     default String velgVilkår( String filsti )

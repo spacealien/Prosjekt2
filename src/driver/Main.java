@@ -18,7 +18,8 @@ import javax.swing.UIManager;
 public class Main 
 {
     public static void main( String[] args)
-    {    
+    {
+        // endrer innholdet i OptionPane bokene slik at inneholdet i vises på norsk.
         UIManager.put("OptionPane.cancelButtonText", "Cancel");
         UIManager.put("OptionPane.noButtonText", "Nei");
         UIManager.put("OptionPane.okButtonText", "OK");

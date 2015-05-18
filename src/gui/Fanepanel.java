@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package gui;
 
 import java.awt.event.ActionEvent;
@@ -11,7 +12,6 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 /**
- *
  * @author Odd, Marthe
  */
 

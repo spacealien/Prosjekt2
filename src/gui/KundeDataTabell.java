@@ -1,8 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * 
  */
+
 package gui;
 
 import java.awt.event.ActionEvent;
@@ -54,6 +53,8 @@ public class KundeDataTabell extends JTable
         popupSkademelding.add(åpneSkademelding);
         popupSkademelding.add(visSkademeldingensForsikring);
         
+        
+        // Knytter menyvalgene i popupen til lytter.
         MenyLytter menyLytter = new MenyLytter();
         åpneForsikring.addActionListener(menyLytter);
         deaktiverForsikring.addActionListener(menyLytter);
@@ -63,6 +64,15 @@ public class KundeDataTabell extends JTable
         visSkademeldingensForsikring.addActionListener(menyLytter);
         
         brukForsikringsPopup();
+        
+        
+        /**
+         * Metoden skjekker når brukeren trykker på tabellen.
+         * Her brukes det en metode som trigger både mousePressed og mouseReleased.
+         * Siden de som sitter på Mac ikke får registrert mousePressed, men mouseReleased.
+         * 
+         */
+        
         addMouseListener(new MouseAdapter()
         {    
             @Override
@@ -74,37 +84,52 @@ public class KundeDataTabell extends JTable
             public void mouseReleased(MouseEvent e)
             {
                 sjekkKlikk(e);
-            }   
-        public void sjekkKlikk(MouseEvent e)
-        {
-            if (e.isPopupTrigger())
-            {
-                int r = rowAtPoint(e.getPoint());
-                if (r >= 0 && r < getRowCount()) 
-                {
-                    setRowSelectionInterval(r, r);
-                }
-                else 
-                {
-                    clearSelection();
-                }
-            int rowindex = getSelectedRow();
-            if (rowindex < 0)
-                return;
-            if (e.isPopupTrigger() && e.getComponent() instanceof JTable )
-            {
-                    popup.show(e.getComponent(), e.getX(), e.getY());
             }
+            
+            public void sjekkKlikk(MouseEvent e)
+            {
+                if (e.isPopupTrigger())
+                {
+                    int r = rowAtPoint(e.getPoint());
+                    if (r >= 0 && r < getRowCount()) 
+                    {
+                        setRowSelectionInterval(r, r);
+                    }
+                    else 
+                    {
+                        clearSelection();
+                    }
+                    
+                    int rowindex = getSelectedRow();
+                    if (rowindex < 0)
+                        return;
+                
+                    if (e.isPopupTrigger() && e.getComponent() instanceof JTable )
+                    {
+                        popup.show(e.getComponent(), e.getX(), e.getY());
+                    }
+                }
             }
-        }
         });
     } // slutt på konstuktør
+    
+    /**
+     * Når tabellen endres fra å vise skademeldinger til forsikringer 
+     * endres også menyvalgene for popupen i tabellen.
+     * Denne metoden forteller tabellen at den skal bytte menyvalg.
+     * 
+     */
     
     public void brukForsikringsPopup()
     {
          popup = popupForsikring;
     }
     
+    /**
+     * Når tabellen endres fra å vise forsikringer til skademeldinger 
+     * endres også menyvalgene for popupen i tabellen.
+     * Denne metoden forteller tabellen at den skal bytte menyvalg.
+     */
     public void brukSkademeldingPopup()
     {
          popup = popupSkademelding;
