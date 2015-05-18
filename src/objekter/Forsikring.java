@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -20,8 +21,6 @@ import java.util.List;
  */
 public abstract class Forsikring implements Serializable
 {
-    
-    //private final Ansatt ansatt;            Legg til datafelt for ansatt.?
     private final Kunde kunde;
     private int egenandel;
     private final Calendar startdato;
@@ -35,7 +34,7 @@ public abstract class Forsikring implements Serializable
     private final List<Integer> skademeldingsnøkkler;
     private boolean aktiv = true;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-    java.util.Locale norge = new java.util.Locale( "no" );
+    private Locale norge = new Locale( "no" );
     private Date stDato;
     private String dekning;
     
