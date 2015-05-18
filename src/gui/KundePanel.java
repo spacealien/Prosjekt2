@@ -1,8 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * 
  */
+
+
 package gui;
 
 import java.awt.BorderLayout;
@@ -187,10 +187,8 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         tabell.brukSkademeldingPopup();
     }
     
-    /**
-     * viser alle skademeldinger som hører til kunden i KundePanelets tabell.
-     */
     
+    //Viser alle skademeldinger som hører til kunden i KundePanelets tabell.
     public void visAlleSkademeldinger()
     {
         List<Forsikring> kundensForsikringer =   vindu.getRegister().getForsikringrsliste().getKundensForsikringer(kunde);
@@ -207,6 +205,11 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         }
     }
     
+    /**
+     * Metoden åpner et nytt skademeldingspanel utifra hvilken forsikring som er valgt i tabbel nå man ønsker 
+     * å registerer en ny skademelding på gitt forsikring.
+     */
+    
     public void åpneSkademeldingTab()
     {
         Integer skademeldingnummer = (Integer) tabell.getModel().getValueAt( tabell.getSelectedRow(), 0 );
@@ -217,6 +220,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         vindu.leggTilNyFane( skademeldingsPanel, "skademelding");
     }
     
+    // Åpner et tomt skademeldingspanel.
     public void visNySkademeldingsTab()
     {
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
@@ -250,12 +254,21 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         }
     }
     
+    /**
+     * Henter forsikringsnummeret fra tabellen deretter viser denne forsikringen
+     * i en ny tab.
+     */
+    
     public void åpneForsikringsTab()
     {
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
         Forsikring forsikring = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
         vindu.leggTilForsikringsFane(forsikring, this);
     }
+    
+    /**
+     * 
+     */
     
     public void deaktiverForsikring()
     {

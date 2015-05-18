@@ -422,7 +422,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
-    /*Viser vilkår i et nytt vindu. Henter vilkår fra fil*/
+    //Viser vilkår i et nytt vindu. Henter vilkår fra fil
     public void visVilkår()
     {
         if( forsikring == null )
@@ -431,7 +431,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
             visForsikringensVilkår("Vilkår " + forsikring.getForsikringsnummer(), forsikring.getVilkar());
     }
     
-    /*Klassens knappelytter*/
+    //Klassens knappelytter
     @Override
     public void actionPerformed(ActionEvent e) 
     {
