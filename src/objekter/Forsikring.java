@@ -37,8 +37,6 @@ public abstract class Forsikring implements Serializable
     private Locale norge = new Locale( "no" );
     private Date stDato;
     private String dekning;
-    
-    
     private static final long serialVersionUID = 12345678910L;
     
     public Forsikring( Kunde k, int e_andel, String betingelser )
