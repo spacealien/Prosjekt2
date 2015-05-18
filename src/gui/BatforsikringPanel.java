@@ -386,7 +386,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     
     /*Gjør inputfeltene redigerbare, setter passende tekst på knappene og legger
     til en knapp for å lagre den nye informasjonen som brukeren evt legger inn*/
-    public void enableSkjema()
+    public void redigerForsikring()
     {
         /*Metode fra ForsikringPanel, gjør inputfeltene redigerbare. Sender med
         dette panelet og knappen for å beregne pris som paramtere*/
@@ -449,10 +449,12 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
             //Hvis man skal registrere ny eier
             if (annenEier.getText().equals("Trykk her for annen eier"))
             {
-                int result = JOptionPane.showConfirmDialog(null, eierPanel, 
-                "Vennligst fyll ut bileiers kontaktinformasjon:", JOptionPane.OK_CANCEL_OPTION);
+                int result;
                 do
                 {
+                   result = JOptionPane.showConfirmDialog(null, eierPanel, 
+                                "Vennligst fyll ut båteiers kontaktinformasjon:",
+                                JOptionPane.OK_CANCEL_OPTION);
                     if (result == JOptionPane.OK_OPTION)
                     {
                         if(eierFornavn.getText().matches("\\D*") && 
@@ -461,12 +463,13 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
                         {
                             eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), 
                                     eierAdresse.getText(), eierTlf.getText());
-                            result = 0;
+                            //For å ikke gå igjennom løkken en gang til:
+                            result = JOptionPane.CANCEL_OPTION;
                         }
                         else
                         {
                             vindu.visFeilmelding("Feilmelding", "Pass på at alle"
-                                    + " feltene er korrekt fylt ut");
+                                    + " feltene er korrekt skrevet inn");
                         }
                     }
                 }
@@ -474,8 +477,8 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
             }
             else if(annenEier.getText().equals("Vis eier"))
                 {
-                  JOptionPane.showMessageDialog( null, forsikring.getEier().toString(), 
-                      "Kjøretøyets registrerte eier:", JOptionPane.PLAIN_MESSAGE);
+                    vindu.visInformasjon("Båtens registrete eier:", 
+                            forsikring.getEier().toString());
                 }
         }
         else if (e.getSource() == vilkarKnapp)
@@ -484,7 +487,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else if (e.getSource() == rediger)
         {
-            enableSkjema();
+            redigerForsikring();
         }
         else if (e.getSource() == lagreNy)
         {
@@ -496,6 +499,8 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
+    /*Lytterklassen til dekningvelgeren. Denne lytteren endrer vilkårene etter 
+    hvilken dekning som er valgt.*/
     private class VilkårLytter implements ItemListener, ForsikringsPanel
     {
         @Override

@@ -259,8 +259,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         dekningvelger.addItemListener(vilkårLytter);
     } // slutt på konstuktør
 
-    /*Metode for å vise en allerede tegnet bilforsikring. Tar imot forsikringen
-    som parameter.*/
+    /*Metode for å vise info om en allerede tegnet bilforsikring. Tar imot
+    forsikringen som parameter.*/
     public void visForsikring( Forsikring f)
     {
         this.bilforsikring = (Bilforsikring) f;
@@ -300,10 +300,10 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
             gjenkjenningNei.setSelected(true);
         
         annenEier.setText("Vis eier");
+        
         double d = bilforsikring.getBonus();
         int j = (int)(d*100);
         int a = bilforsikring.getAntallAr();
-        
         for (int i = 1; i< bonus.length; i++)
         {
             if (bonus[i].matches(j + ".*"))
@@ -344,6 +344,16 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
             bilTilbud.setVisible(true);
             disableFelter( this, bilGiTilbud, beregnPris );
         }
+    }
+    
+    /*Hvis brukeren trykket seg videre til å denne forsikringen via et kundepanel,
+    så setter denne metoden kundepanelet som var utgangspunktet via paramtereren.
+    Denne er nødvendig for å få oppdatert kundepanelet til kunden som forsikringen
+    hører til, når det blir gjort endring på en forsikring eller når det blir
+    tegnet en ny forsikring.*/
+    public void leggTilKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
     }
     
     /*Metoden henter input fra brukeren. Den sjekker at alle feltene er korrekt
@@ -544,6 +554,11 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
+    /*Metode for å beregne pris på forhånd, og skrive ut et prisforslag til brukeren.
+    Hvis all info er korrekt skrevet inn, henter den info fra inputfeltene, og gjør
+    kalkuleringer for å beregne pris på en eventuell forsikring med de dataene i 
+    inputfeltene. Deretter vises knappen "Tegn forsikring" og det blir mulig å
+    registrere forsikringen.*/
     public void beregnPris()
     {
         if (hentInfo())
@@ -558,6 +573,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
+    /*Metode for å registrere et nytt bilforsikringsobjekt og legge dette inn i
+    registeret. Oppdaterer også den eventuelle kundefanen som forsikringen hører
+    til.*/ 
     public void tegnNy()
     {
         if (hentInfo())
@@ -589,6 +607,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
+    /*Metode for å oppdatere en allerede eksisterende forsikring med ny input fra
+    brukeren. Forutsetter at hentInfo()-metoden returnerer true. Oppdaterer også
+    kundefanen som forsikringen hører til.*/
     public void oppdaterForsikring()
     {
         if(hentInfo())
@@ -617,7 +638,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
-    
+    /*Gjør inputfeltene redigerbare, setter passende tekst på knappene og legger
+    til en knapp for å lagre den nye informasjonen som brukeren evt legger inn*/
     public void redigerForsikring()
     {
         enableFelter( this, beregnPris );
@@ -629,38 +651,18 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         repaint();
     }
     
-    public void deaktiverForsirking()
+    /*Metode for å deaktivere en forsikring. Gjør alle feltene ikke-redigerbare
+    og fjerner alle knappene. Forsikringen slettes ikke fra systemet, men settes
+    som inaktiv. Det kommer først opp en meldingsboks der brukeren kan bekrefte at
+    han/hun ønsker å deaktivere forsikringen. Hvis svaret er ja, kommer det opp 
+    en ny meldingsboks som bekrefter forsikringens deaktivering.*/
+    public void deaktiverForsikring()
     {
         int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " 
                                                      + String.valueOf(bilforsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
         if (svar == JOptionPane.YES_OPTION)
         {
-            for(Component component : getKomponenter(this))
-            {
-                if((component instanceof JTextField))
-                {
-                    JTextField tf = (JTextField)component;
-                     tf.setEditable(false);
-                }
-                else if(component instanceof JComboBox)
-                {
-                    JComboBox cb = (JComboBox)component;
-                    cb.setEnabled(false);
-                }
-                else if(component instanceof JRadioButton)
-                {
-                    JRadioButton rb = (JRadioButton)component;
-                    rb.setEnabled(false);
-                }
-                else if (component.equals(bilGiTilbud))
-                {
-                    component.setVisible(false);
-                }
-                else if (component.equals(beregnPris))
-                {
-                    component.setVisible(false);
-                }
-            }
+            disableFelter(this, beregnPris, bilGiTilbud);
            
             knappePanel.remove(rediger);
             knappePanel.remove(lagreNyInfo);
@@ -676,6 +678,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
+    /*Viser vilkår i et nytt vindu. Henter vilkår fra fil*/
     public void visVilkår()
     {
         if( bilforsikring == null )
@@ -684,11 +687,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
             visForsikringensVilkår("Vilkår" + bilforsikring.getForsikringsnummer(), bilforsikring.getVilkar());
     }
     
-    public void leggTilKundePanel( KundePanel panel )
-    {
-        kundePanel = panel;
-    }
-    
+    //Klassens knappelytter
     @Override
     public void actionPerformed(ActionEvent e) 
     {
@@ -702,22 +701,41 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else if (e.getSource() == annenEier)
         {
+            //Hvis man skal registrere ny eier
             if (annenEier.getText().equals("Trykk her for annen eier"))
             {
-                int result = JOptionPane.showConfirmDialog(null, eierPanel, 
-                             "Vennligst fyll ut bileiers kontaktinformasjon:",
-                                        JOptionPane.OK_CANCEL_OPTION);
-                if (result == JOptionPane.OK_OPTION)
+                int result;
+                do
                 {
-                    if(eierFornavn.getText().matches("\\D*") && eierEtternavn.getText().matches("\\D*") && eierTlf.getText().matches("\\d{8}"))
-                        eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), eierAdresse.getText(), eierTlf.getText());
-                }  
+                   result = JOptionPane.showConfirmDialog(null, eierPanel, 
+                                "Vennligst fyll ut bileiers kontaktinformasjon:",
+                                JOptionPane.OK_CANCEL_OPTION);
+                    if (result == JOptionPane.OK_OPTION)
+                    {
+                        if(eierFornavn.getText().matches("\\D*") && 
+                                eierEtternavn.getText().matches("\\D*") && 
+                                eierTlf.getText().matches("\\d{8}"))
+                        {
+                            eier = new Eier(eierFornavn.getText(), eierEtternavn.getText(), 
+                                    eierAdresse.getText(), eierTlf.getText());
+                            //For å ikke gå igjennom løkken en gang til:
+                            result = JOptionPane.CANCEL_OPTION;
+                        }
+                        else
+                        {
+                            vindu.visFeilmelding("Feilmelding", "Pass på at alle"
+                                    + " feltene er korrekt skrevet inn");
+                        }
+                    }
+                }
+                while (result == JOptionPane.OK_OPTION);
             }
-            else if (annenEier.getText().equals("Vis eier"))
-            {
-               JOptionPane.showMessageDialog( null, bilforsikring.getEier().toString(), 
-                      "Kjøretøyets registrerte eier:", JOptionPane.PLAIN_MESSAGE);
-            }
+            //Hvis man skal vise eier på allerede eksisterende forsikring
+            else if(annenEier.getText().equals("Vis eier"))
+                {
+                    vindu.visInformasjon("Kjøretøyets registrete eier:", 
+                            bilforsikring.getEier().toString());
+                }
         }
         else if ( e.getSource() == vilkårKnapp)
         {
@@ -733,11 +751,12 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else if (e.getSource() == deaktiver)
         {
-            deaktiverForsirking();
+            deaktiverForsikring();
         }
     }
     
-    // denne lyttern endrer vilkårene etter hvilken dekning man ønsker på forsikringen.
+    /*Lytterklassen til dekningvelgeren. Denne lytteren endrer vilkårene etter 
+    hvilken dekning som er valgt.*/
     private class VilkårLytter implements ItemListener, ForsikringsPanel
     {
         @Override

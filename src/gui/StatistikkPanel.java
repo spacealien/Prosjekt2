@@ -84,10 +84,6 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
     private final JLabel tomLabel;
     private final JLabel fomLabel;
     private final JButton sokKnapp;
-    private int sok;
-    private int utgift;
-    private int inntekt;
-    private int statistikken;
     
     private String forsikringsvalg;
     private String skadetypevalg;

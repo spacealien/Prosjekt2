@@ -219,6 +219,16 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         disableFelter( this, husGiTilbud, beregnPris );
     }
     
+    /*Hvis brukeren trykket seg videre til å denne forsikringen via et kundepanel,
+    så setter denne metoden kundepanelet som var utgangspunktet via paramtereren.
+    Denne er nødvendig for å få oppdatert kundepanelet til kunden som forsikringen
+    hører til, når det blir gjort endring på en forsikring eller når det blir
+    tegnet en ny forsikring.*/
+    public void leggTilKundePanel( KundePanel panel )
+    {
+        kundePanel = panel;
+    }
+    
     /*Metoden henter input fra brukeren. Den sjekker at alle feltene er korrekt
     fylt ut, hvis ikke kommer det opp en passende feilmelding.*/
     public boolean hentInfo()
@@ -304,6 +314,11 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
+    /*Metode for å beregne pris på forhånd, og skrive ut et prisforslag til brukeren.
+    Hvis all info er korrekt skrevet inn, henter den info fra inputfeltene, og gjør
+    kalkuleringer for å beregne pris på en eventuell forsikring med de dataene i 
+    inputfeltene. Deretter vises knappen "Tegn forsikring" og det blir mulig å
+    registrere forsikringen.*/
     public void beregnPris()
     {
        if (hentInfo())
@@ -316,6 +331,9 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
+    /*Metode for å registrere et nytt hus- og innboforsikringsobjekt og legge
+    dette inn i registeret. Oppdaterer også den eventuelle kundefanen som
+    forsikringen hører til.*/ 
     public void tegnNy()
     {
         if (hentInfo())
@@ -343,6 +361,9 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
             }
     }
     
+    /*Metode for å oppdatere en allerede eksisterende forsikring med ny input fra
+    brukeren. Forutsetter at hentInfo()-metoden returnerer true. Oppdaterer også
+    kundefanen som forsikringen hører til.*/
     public void oppdaterForsikring()
     {
         if (hentInfo())
@@ -364,7 +385,9 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
-    public void rediger()
+    /*Gjør inputfeltene redigerbare, setter passende tekst på knappene og legger
+    til en knapp for å lagre den nye informasjonen som brukeren evt legger inn*/
+    public void redigerForsikring()
     {
         enableFelter( this, beregnPris );
         knappePanel.add(lagreNyInfo);
@@ -374,6 +397,11 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         repaint();
     }
     
+    /*Metode for å deaktivere en forsikring. Gjør alle feltene ikke-redigerbare
+    og fjerner alle knappene. Forsikringen slettes ikke fra systemet, men settes
+    som inaktiv. Det kommer først opp en meldingsboks der brukeren kan bekrefte at
+    han/hun ønsker å deaktivere forsikringen. Hvis svaret er ja, kommer det opp 
+    en ny meldingsboks som bekrefter forsikringens deaktivering.*/
     public void deaktiverForsikring()
     {
         int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
@@ -393,6 +421,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
+    //Viser vilkår i et nytt vindu. Henter vilkår fra fil
     public void visVilkår()
     {
         if( forsikring == null )
@@ -401,11 +430,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
             visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
     }
     
-    public void leggTilKundePanel( KundePanel panel )
-    {
-        kundePanel = panel;
-    }
-    
+    //Klassens knappelytter
     @Override
     public void actionPerformed(ActionEvent e) 
     {
@@ -423,7 +448,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         }
         else if(e.getSource() == rediger)
         {
-            rediger();
+            redigerForsikring();
         }
         else if (e.getSource() == lagreNyInfo)
         {
@@ -435,6 +460,8 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         }
     }
     
+    /*Lytterklassen til dekningvelgeren. Denne lytteren endrer vilkårene etter 
+    hvilken dekning som er valgt.*/
     private class VilkårLytter implements ItemListener, ForsikringsPanel
     {
         @Override
