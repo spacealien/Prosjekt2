@@ -317,10 +317,9 @@ public class AnsattVindu extends JFrame
         return register;
     }
     
-    /**
-     * Tar i mot en ansatt som parameter, brukes for å identifisere hvilken ansatt
-     * som for øyeblikket er logget inn i programmet.
-     * 
+    /*
+     Tar i mot en ansatt som parameter, brukes for å identifisere hvilken ansatt
+     som for øyeblikket er logget inn i programmet.
      */
     
     public void setAnsatt( Ansatt ansatt )
@@ -334,11 +333,8 @@ public class AnsattVindu extends JFrame
         return ansatt;
     }
     
-    /**
-     * En hjelpe metode slik at jeg får tak i metoden for lagring til fil
-     * i vinduslytterl.
-     */
-    
+    /*En hjelpemetode slik at jeg får tak i metoden for lagring til fil
+     i vinduslytterl.*/
     public void lagre()
     {
         register.skrivTilFil();
