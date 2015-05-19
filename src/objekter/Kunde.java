@@ -20,6 +20,7 @@ public class Kunde extends Bruker
     private boolean totalkunde = false;
     private double årligForsikringsPremie = 0;
     private static final long serialVersionUID = 88811111123L;
+    private boolean aktiv = true;
     
     public Kunde(String fnavn, String enavn, String adr, String tlf, GregorianCalendar fd,
                  String email, String persnummer)
@@ -71,6 +72,12 @@ public class Kunde extends Bruker
         totalkunde = tk;
     }
     
+    public void setAktiv( boolean ok )
+    {
+        aktiv = ok;
+    }
+    
+    
     // get metoder
     public double getÅrligForsikringsPremie()
     {
@@ -82,11 +89,16 @@ public class Kunde extends Bruker
         return forsikringsnøkkel;
     }
     
+    public boolean erKunde()
+    {
+        return aktiv;
+    }
+    
     @Override
     public String toString()
     {
         String utskrift = super.toString();  //kall på superklassens toString-metode
         return utskrift;
-    }    
+    }
 
 }//end of class

@@ -9,9 +9,11 @@ import java.awt.Image;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 /**
  *
@@ -46,7 +48,11 @@ public class Skademelding implements Serializable
         this.takseringsbelop = takseringsbelop;
         this.erstatningsbelop = erstatingsbelop;
         skadenummer = nestenr++;
-        opprettetdato = new GregorianCalendar(norge);
+        Calendar testdato = new GregorianCalendar(norge);
+        Random util = new Random();
+        testdato.setTime(new Date(Math.abs(System.currentTimeMillis() - util.nextLong())));
+        testdato.set(Calendar.YEAR, 2014);
+        opprettetdato = testdato;
     }
     
     // set metoder
