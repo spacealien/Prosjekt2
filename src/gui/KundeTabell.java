@@ -227,8 +227,7 @@ public class KundeTabell extends JTable implements ForsikringsPanel
             }
             else if( e.getSource() == siOppKunde )
             {
-                vindu.getRegister().siOppKundeforhold(vindu.getRegister().finnKundeMedPersonnummer((String)getValueAt(getSelectedRow(), 0)));
-             
+                if(vindu.getRegister().siOppKundeforhold(vindu.getRegister().finnKundeMedPersonnummer((String)getValueAt(getSelectedRow(), 0))));
             }
         }
     }

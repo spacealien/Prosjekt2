@@ -494,7 +494,7 @@ public class HovedRegister
     }
     
     // sier opp kundeforholdet.
-    public void siOppKundeforhold( Kunde kunde )
+    public boolean siOppKundeforhold( Kunde kunde )
     {
         if( JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, "Er du sikker på at du ønsker å si opp kundeforholdet",
                                                                             "Bekreftelse", JOptionPane.YES_NO_OPTION ))
@@ -507,7 +507,9 @@ public class HovedRegister
         
             vindu.visInformasjon("Beskjed", kunde.getFornavn() + " " + kunde.getEtternavn() + "er deaktivert.");
             vindu.oppdaterTabell(getKundeliste().alleKunder());
+            return true;
         }
+        return false;
     }
     
     

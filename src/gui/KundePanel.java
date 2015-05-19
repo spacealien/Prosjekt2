@@ -380,7 +380,8 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         }
         else if( e.getSource() == siOppKundeKnapp )
         {
-            vindu.getRegister().siOppKundeforhold(kunde);
+            if(vindu.getRegister().siOppKundeforhold(kunde));
+                oppdaterVindu();
         }
     }
 }
