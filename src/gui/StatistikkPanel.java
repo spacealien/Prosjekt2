@@ -25,7 +25,7 @@ import register.*;
 
 /*Klassens hensikt er å vise brukergrensesnittet til statistikksøk, hente 
 input fra brukeren og skrive ut statistikken brukeren har valgt*/
-public class StatistikkPanel extends JPanel implements ActionListener, ForsikringsPanel
+public class StatistikkPanel extends JPanel implements ActionListener, VinduVerktoy
 {
     private AnsattVindu vindu;
     private HovedRegister register;

@@ -33,7 +33,7 @@ import objekter.Skademelding;
  *
  * @author Odd, Marthe
  */
-public class KundePanel extends JPanel implements ActionListener, ForsikringsPanel
+public class KundePanel extends JPanel implements ActionListener, VinduVerktoy
 {
     private final JPanel kundeInfo_1;
     private final JPanel knappeWrapper;
@@ -151,7 +151,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         siOppKundeKnapp.addActionListener(this);
         
         oppdaterVindu();
-        disableFelter(kundeInfo_1, null, null);
+        //disableFelter(kundeInfo_1, null, null);
     }
     
     /**

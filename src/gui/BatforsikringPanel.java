@@ -15,7 +15,7 @@ Klassens hensikt er å ta imot input fra brukeren og registrere videre en
 båtforsikring, hvis alle feltene er korrekt skrevet inn. Klassen kan også vise 
 informasjon om en allerede tegnet båtforsikring, og endre denne.*/
 
-public class BatforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
+public class BatforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel, VinduVerktoy
 {
     private final AnsattVindu vindu;
     private final HovedRegister register;
@@ -188,6 +188,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
 
     /*Metode for å vise en allerede tegnet båtforsikring. Tar imot forsikringen
     som parameter.*/
+    @Override
     public void visForsikring( Forsikring f )
     {
         this.forsikring = (BatForsikring) f;
@@ -318,6 +319,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     kalkuleringer for å beregne pris på en eventuell forsikring med de dataene i 
     inputfeltene. Deretter vises knappen "Tegn forsikring" og det blir mulig å
     registrere forsikringen.*/
+    @Override
     public void beregnPris()
     {
         if (hentInfo())
@@ -332,6 +334,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     /*Metode for å registrere et nytt båtforsikringsobjekt og legge dette inn i
     registeret. Oppdaterer også den eventuelle kundefanen som forsikringen hører
     til.*/        
+    @Override
     public void tegnNy()
     {
         if(hentInfo())
@@ -368,6 +371,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     /*Metode for å oppdatere en allerede eksisterende forsikring med ny input fra
     brukeren. Forutsetter at hentInfo()-metoden returnerer true. Oppdaterer også
     kundefanen som forsikringen hører til.*/
+    @Override
     public void oppdaterForsikring()
     {
         if(hentInfo())
@@ -392,6 +396,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     
     /*Gjør inputfeltene redigerbare, setter passende tekst på knappene og legger
     til en knapp for å lagre den nye informasjonen som brukeren evt legger inn*/
+    @Override
     public void redigerForsikring()
     {
         /*Metode fra ForsikringPanel, gjør inputfeltene redigerbare. Sender med
@@ -409,6 +414,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     som inaktiv. Det kommer først opp en meldingsboks der brukeren kan bekrefte at
     han/hun ønsker å deaktivere forsikringen. Hvis svaret er ja, kommer det opp 
     en ny meldingsboks som bekrefter forsikringens deaktivering.*/
+    @Override
     public void deaktiverForsikring()
     {
         int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
@@ -430,12 +436,21 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     }
     
     //Viser vilkår i et nytt vindu. Henter vilkår fra fil
+    @Override
     public void visVilkår()
     {
         if( forsikring == null )
             visForsikringensVilkår("Ny bilforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
         else
             visForsikringensVilkår("Vilkår " + forsikring.getForsikringsnummer(), forsikring.getVilkar());
+    }
+    
+    @Override
+    public void velgVilkår()
+    {
+        vilkår = this.velgVilkår( "Båt"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
+        vilkarKnapp.setVisible(true);
+        
     }
     
     //Klassens knappelytter
@@ -507,15 +522,14 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     
     /*Lytterklassen til dekningvelgeren. Denne lytteren endrer vilkårene etter 
     hvilken dekning som er valgt.*/
-    private class VilkårLytter implements ItemListener, ForsikringsPanel
+    private class VilkårLytter implements ItemListener
     {
         @Override
         public void itemStateChanged(ItemEvent e) 
         {
             if( dekningvelger.getSelectedIndex() != 0)
             {
-                vilkår = this.velgVilkår( "Båt"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
-                vilkarKnapp.setVisible(true);
+                velgVilkår();
             }
         }
     }

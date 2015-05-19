@@ -21,10 +21,10 @@ import register.*;
 ta imot input fra brukeren og videre registrere en reiseforsikring
 hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
 en allerede tegnet reiseforsikring, og endre denne.*/
-public class ReiseforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
+public class ReiseforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel, VinduVerktoy
 {
     private final AnsattVindu vindu;
-    private HovedRegister register;
+    private final HovedRegister register;
     private Reiseforsikring forsikring;
     private KundePanel kundePanel;
     
@@ -153,6 +153,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     
     /*Metode for å vise en allerede tegnet reiseforsikring. Tar imot forsikringen
     som parameter.*/
+    @Override
     public void visForsikring( Forsikring f)
     {
         this.forsikring = (Reiseforsikring)f;
@@ -188,6 +189,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     Denne er nødvendig for å få oppdatert kundepanelet til kunden som forsikringen
     hører til, når det blir gjort endring på en forsikring eller når det blir
     tegnet en ny forsikring.*/
+    @Override
     public void leggTilKundePanel( KundePanel panel )
     {
         kundePanel = panel;
@@ -195,6 +197,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     
     /*Metoden henter input fra brukeren. Den sjekker at alle feltene er korrekt
     fylt ut, hvis ikke kommer det opp en passende feilmelding.*/
+    @Override
     public boolean hentInfo()
     {
         sone_n = sonevelger.getSelectedIndex();
@@ -260,6 +263,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     kalkuleringer for å beregne pris på en eventuell forsikring med de dataene i 
     inputfeltene. Deretter vises knappen "Tegn forsikring" og det blir mulig å
     registrere forsikringen.*/
+    @Override
     public void beregnPris()
     {
         if (hentInfo())
@@ -274,6 +278,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     /*Metode for å registrere et nytt hus- og innboforsikringsobjekt og legge
     dette inn i registeret. Oppdaterer også den eventuelle kundefanen som
     forsikringen hører til.*/ 
+    @Override
     public void tegnNy()
     {
         if (hentInfo())
@@ -299,6 +304,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     /*Metode for å oppdatere en allerede eksisterende forsikring med ny input fra
     brukeren. Forutsetter at hentInfo()-metoden returnerer true. Oppdaterer også
     kundefanen som forsikringen hører til.*/
+    @Override
     public void oppdaterForsikring()
     {
         if (hentInfo())
@@ -318,6 +324,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     
     /*Gjør inputfeltene redigerbare, setter passende tekst på knappene og legger
     til en knapp for å lagre den nye informasjonen som brukeren evt legger inn*/
+    @Override
     public void redigerForsikring()
     {
         enableFelter( this, beregnPris );
@@ -333,6 +340,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     som inaktiv. Det kommer først opp en meldingsboks der brukeren kan bekrefte at
     han/hun ønsker å deaktivere forsikringen. Hvis svaret er ja, kommer det opp 
     en ny meldingsboks som bekrefter forsikringens deaktivering.*/
+    @Override
     public void deaktiverForsikring()
     {
         int svar = JOptionPane.showConfirmDialog(null, "Er du sikker på at du vil deaktivere denne forsikringen?", "Forsikring " + String.valueOf(forsikring.getForsikringsnummer()), JOptionPane.YES_NO_OPTION);
@@ -354,12 +362,20 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     }
     
     //Viser vilkår i et nytt vindu. Henter vilkår fra fil
+    @Override
     public void visVilkår()
     {
         if( forsikring == null )
             visForsikringensVilkår("Ny Fritidsboligforsikring " + kunde.getFornavn() + " " + kunde.getEtternavn() , vilkår);
         else
             visForsikringensVilkår("Vilkår" + forsikring.getForsikringsnummer(), forsikring.getVilkar());
+    }
+    
+    @Override
+    public void velgVilkår() 
+    {
+        vilkår = this.velgVilkår( "Reise"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
+        vilkarKnapp.setVisible(true);
     }
     
     //Klassens lytter
@@ -394,13 +410,13 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     
     /*Lytterklassen til dekningvelgeren. Denne lytteren endrer vilkårene etter 
     hvilken dekning som er valgt.*/
-    private class VilkårLytter implements ItemListener, ForsikringsPanel
+    private class VilkårLytter implements ItemListener
     {
         @Override
         public void itemStateChanged(ItemEvent e) 
         {
             if( dekningvelger.getSelectedIndex() != 0)
-                vilkår = this.velgVilkår( "Reise"+ dekningvelger.getItemAt(dekningvelger.getSelectedIndex()) );
+                velgVilkår();
         }
     }
     

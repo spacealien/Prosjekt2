@@ -24,7 +24,7 @@ import register.*;
  *
  * @author Odd, Marthe
  */
-public class SkademeldingPanel extends JPanel implements ActionListener, ForsikringsPanel
+public class SkademeldingPanel extends JPanel implements ActionListener, VinduVerktoy
 {
     private final AnsattVindu vindu;
     private final HovedRegister register;

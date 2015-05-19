@@ -232,11 +232,18 @@ public class AnsattVindu extends JFrame
      */
     public void oppdaterTabell( List<Kunde> liste )
     {
-        if( !liste.isEmpty() )
+        try
         {
-            tabellModell = new TabellModell(liste);
-            tabell.setModel(tabellModell);
-            tabell.getRowSorter().toggleSortOrder(6);
+            if( !liste.isEmpty() )
+            {
+                tabellModell = new TabellModell(liste);
+                tabell.setModel(tabellModell);
+                tabell.getRowSorter().toggleSortOrder(6);
+            }
+        }
+        catch( NullPointerException e )
+        {
+            visInformasjon("Beskjed", "Det er ingen kunder i registeret. ");
         }
     }
     
