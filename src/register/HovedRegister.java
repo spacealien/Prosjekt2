@@ -497,8 +497,11 @@ public class HovedRegister
     {
         kunde.setAktiv(false);
         List<Forsikring> kundeForsikringer = getAlleKundensForsikringer(kunde);
+        
         for( Forsikring forsikring : kundeForsikringer)
             forsikring.setAktiver(false);
+        
+        vindu.visInformasjon("Beskjed", kunde.getFornavn() + " " + kunde.getEtternavn() + "er deaktivert.");
     }
     
     

@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import objekter.Kunde;
@@ -30,6 +31,7 @@ public class KundeTabell extends JTable implements ForsikringsPanel
     private final JMenuItem nyFritidsboligforsikring;
     private final JMenuItem nyReiseforsikring;
     private final JMenuItem nySkademelding;
+    private final JMenuItem siOppKunde;
     private final AnsattVindu vindu;
     
     public KundeTabell( AnsattVindu v)
@@ -47,6 +49,7 @@ public class KundeTabell extends JTable implements ForsikringsPanel
         nyFritidsboligforsikring = new JMenuItem("Fritidsboligforsikring");
         nyReiseforsikring = new JMenuItem("Reiseforsikring");
         nySkademelding = new JMenuItem("Ny Skademelding");
+        siOppKunde = new JMenuItem("Si opp Kunde");
         
         info.addActionListener(menyLytter);
         nyBilforsikring.addActionListener(menyLytter);
@@ -55,6 +58,7 @@ public class KundeTabell extends JTable implements ForsikringsPanel
         nyFritidsboligforsikring.addActionListener(menyLytter);
         nyReiseforsikring.addActionListener(menyLytter);
         nySkademelding.addActionListener(menyLytter);
+        siOppKunde.addActionListener(menyLytter);
         
         nyForsikring.add(nyBilforsikring);
         nyForsikring.add(nyBåtforsikring);
@@ -64,6 +68,7 @@ public class KundeTabell extends JTable implements ForsikringsPanel
         
         popup.add(info);
         popup.add(nyForsikring);
+        popup.add(siOppKunde);
         
         addMouseListener(new MouseAdapter()
         {    
@@ -120,6 +125,7 @@ public class KundeTabell extends JTable implements ForsikringsPanel
         nyFritidsboligforsikring = new JMenuItem("Fritidsboligforsikring");
         nyReiseforsikring = new JMenuItem("Reiseforsikring");
         nySkademelding = new JMenuItem("Ny Skademelding");
+        siOppKunde = new JMenuItem("Si opp kunde");
         
         info.addActionListener(menyLytter);
         nyBilforsikring.addActionListener(menyLytter);
@@ -128,6 +134,7 @@ public class KundeTabell extends JTable implements ForsikringsPanel
         nyFritidsboligforsikring.addActionListener(menyLytter);
         nyReiseforsikring.addActionListener(menyLytter);
         nySkademelding.addActionListener(menyLytter);
+        siOppKunde.addActionListener(menyLytter);
         
         nyForsikring.add(nyBilforsikring);
         nyForsikring.add(nyBåtforsikring);
@@ -137,6 +144,7 @@ public class KundeTabell extends JTable implements ForsikringsPanel
         
         popup.add(info);
         popup.add(nyForsikring);
+        popup.add(siOppKunde);
         
         addMouseListener(new MouseAdapter()
         {    
@@ -216,6 +224,14 @@ public class KundeTabell extends JTable implements ForsikringsPanel
             {
                 Kunde kunde = getKunde();
                 vindu.leggTilNyFane(new ReiseforsikringPanel(kunde, vindu), kunde.getEtternavn() + "-Reiseforsikring");
+            }
+            else if( e.getSource() == siOppKunde )
+            {
+                if( JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, "Er du sikker på at du ønsker å si opp kundeforholdet",
+                                                                            "Bekreftelse", JOptionPane.YES_NO_OPTION ))
+                {
+                    vindu.getRegister().siOppKundeforhold(vindu.getRegister().finnKundeMedPersonnummer((String)getValueAt(getSelectedRow(), 0)));
+                }
             }
         }
     }
