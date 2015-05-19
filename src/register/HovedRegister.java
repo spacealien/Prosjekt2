@@ -746,8 +746,8 @@ public class HovedRegister
         {
             nyForsikring.getKunde().setTotalKunde(true);
             innbetalinger.add(new Inntekt(dato, (nyForsikring.getArligPremie() * 0.9), nyForsikring));
-            if(forsikringsregister.antallUnikeAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
-                vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
+            //if(forsikringsregister.antallUnikeAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
+                //vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
             
             skrivTilFil();
         }

@@ -24,7 +24,7 @@ import register.*;
  *
  * @author Odd, Marthe
  */
-public class SkademeldingPanel extends JPanel implements ActionListener
+public class SkademeldingPanel extends JPanel implements ActionListener, VinduVerktoy
 {
     private final AnsattVindu vindu;
     private final HovedRegister register;
@@ -170,16 +170,15 @@ public class SkademeldingPanel extends JPanel implements ActionListener
         this.skademelding = skade;
         skadeDato.setText(sdf.format(skademelding.getSkadeDato().getTime()));
         skadeForsikring.setText(skademelding.getForsikring().getForsikringsType());
-        skadetypevelger.setSelectedItem(forsikring.getVilkar());
+        skadetypevelger.setSelectedItem(skademelding.getSkadetype());
         skadeTakst.setText(String.valueOf(skademelding.getTakseringsbelop()));
         skadeBeskrivelse.setText( skademelding.getBeskrivelse());
-        lastOppBildeKnapp.setVisible(false);
-        beregnErstatning.setVisible(false);
         vitneKnapp.setText("Vis vitner");
         erstatningsLabel.setText("Utbetalt erstatning:");
         erstatningsBeløp.setText(String.valueOf(skademelding.getErstatningsbelop()));
         erstatningsLabel.setVisible(true);
         erstatningsBeløp.setVisible(true);
+        disableFelter(this, lastOppBildeKnapp, beregnErstatning);
         
     }
     
@@ -224,6 +223,8 @@ public class SkademeldingPanel extends JPanel implements ActionListener
             
             if(kundePanel != null )
                 kundePanel.oppdaterVindu();
+            
+            disableFelter(this, lastOppBildeKnapp, beregnErstatning);
 
         }
         catch( NumberFormatException e)
