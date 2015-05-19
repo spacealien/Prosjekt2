@@ -72,12 +72,10 @@ public class SkademeldingRegister implements Serializable
         return funnetSkademeldinger;
     }
     
-    /**
+    /*
      * Henter først nøkklene som ligger i forsikringen som kommer som parameter,
      * videre opprettes det en List som fylles på med skademeldinger som hører til
      * gitt forsikring.
-     * @param forsikring
-     * @return Forsikring
      */
     
     public List<Skademelding> getSkademeldinger( Forsikring forsikring )
@@ -110,7 +108,6 @@ public class SkademeldingRegister implements Serializable
     /*
      * Henter første skademelding fra registeret, brukes for å hente et tilfeldig
      * objekt og deretter hente løpenummeret ved skriving til fil. 
-     * 
      * returnerer en vilkårlig skademelding eller null hvis det ikke finnes noen forsikringer i registeret.
      */
     

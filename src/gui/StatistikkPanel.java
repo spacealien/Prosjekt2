@@ -518,7 +518,6 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             forsikringsvalg = forsikringsvelgeren.getItemAt(
                     forsikringsvelgeren.getSelectedIndex());
             List<Kunde> liste = register.getAlleKunderMedForsikring(forsikringsvalg);
-            System.out.println(liste);
             JTable tabell = new JTable();
             tabell.setModel(new TabellModell(liste));
             tabell.setPreferredScrollableViewportSize(new Dimension(700, 200));
@@ -715,7 +714,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
                     + "i denne perioden: " + gjennomsnitt + "kr");
 
             statistikkVindu = new StatistikkVindu("Totalt utbetalt erstatningsbeløp på " + forsikringsvalg.toLowerCase() + "er i perioden "
-                    + sdf.format(startDato) + " - " + sdf.format(sluttDato), textArea, new Dimension(500, 300));
+                    + sdf.format(startDato.getTime()) + " - " + sdf.format(sluttDato.getTime()), textArea, new Dimension(500, 300));
             tømFelter();
         } 
         catch (NullPointerException | ArithmeticException e)
@@ -753,7 +752,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
                     + "i denne perioden: " + gjennomsnitt + "kr");
 
             statistikkVindu = new StatistikkVindu("Totale premieinntekter i perioden "
-                    + sdf.format(startDato) + " - " + sdf.format(sluttDato),
+                    + sdf.format(startDato.getTime()) + " - " + sdf.format(sluttDato.getTime()),
                     textArea, new Dimension(500, 300));
 
             tømFelter();
@@ -798,7 +797,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
 
             statistikkVindu = new StatistikkVindu("Totale premieinntekter på " + 
                     forsikringsvalg.toLowerCase() + "er i perioden "
-                    + sdf.format(startDato) + " - " + sdf.format(sluttDato), 
+                    + sdf.format(startDato.getTime()) + " - " + sdf.format(sluttDato.getTime()), 
                     textArea, new Dimension(500, 300));
 
             tømFelter();
@@ -857,10 +856,10 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             JTextArea textArea = new JTextArea();
             textArea.setText("Antall skademeldinger har " + s + " med " + 
                     df.format(endring) + " stk / " + (int) prosent
-                    + "% månedelig\ni perioden " + sdf.format(startDato) + " - " 
-                    + sdf.format(sluttDato));
+                    + "% månedelig\ni perioden " + sdf.format(startDato.getTime()) + " - " 
+                    + sdf.format(sluttDato.getTime()));
             statistikkVindu = new StatistikkVindu("Økning/Minking i perioden "
-                    + sdf.format(startDato) + " - " + sdf.format(sluttDato), 
+                    + sdf.format(startDato.getTime()) + " - " + sdf.format(sluttDato.getTime()), 
                     textArea, new Dimension(500, 300));
 
             tømFelter();
@@ -923,12 +922,12 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             JTextArea textArea = new JTextArea();
             textArea.setText("Antall skademeldinger på " + forsikringsvalg.toLowerCase()
                     + "er har " + s + " med " + df.format(endring) + " stk / " + 
-                    (int) prosent + "% månedelig\ni perioden " + sdf.format(startDato)
-                    + " - " + sdf.format(sluttDato));
+                    (int) prosent + "% månedelig\ni perioden " + sdf.format(startDato.getTime())
+                    + " - " + sdf.format(sluttDato.getTime()));
 
             statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger"
                     + " på " + forsikringsvalg.toLowerCase() + "er i perioden "
-                    + sdf.format(startDato) + " - " + sdf.format(sluttDato), 
+                    + sdf.format(startDato.getTime()) + " - " + sdf.format(sluttDato.getTime()), 
                     textArea, new Dimension(500, 300));
 
             tømFelter();
@@ -998,11 +997,11 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             textArea.setText("Antall skademeldinger for " + skadetypevalg.toLowerCase()
                     + "skader har " + s + " med " + df.format(endring) + " stk / "
                     + (int) prosent + "% månedelig\ni perioden " + 
-                    sdf.format(startDato) + " - " + sdf.format(sluttDato));
+                    sdf.format(startDato.getTime()) + " - " + sdf.format(sluttDato.getTime()));
 
             statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger"
                     + " på " + skadetypevalg.toLowerCase() + "skader i perioden "
-                    + sdf.format(startDato) + " - " + sdf.format(sluttDato), 
+                    + sdf.format(startDato.getTime()) + " - " + sdf.format(sluttDato.getTime()), 
                     textArea, new Dimension(500, 300));
 
             tømFelter();
@@ -1058,12 +1057,12 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             JTextArea textArea = new JTextArea();
             textArea.setText("Total erstatningsutgifter har " + s + " med " + 
                     df.format(endring) + " stk / " + (int) prosent
-                    + "% månedelig\ni perioden " + sdf.format(startDato) + " - " 
-                    + sdf.format(sluttDato));
+                    + "% månedelig\ni perioden " + sdf.format(startDato.getTime()) + " - " 
+                    + sdf.format(sluttDato.getTime()));
 
             statistikkVindu = new StatistikkVindu("Øking/Minking av erstatnings"
-                    + "utgifter i perioden " + sdf.format(startDato) + " - "
-                    + sdf.format(sluttDato), textArea, new Dimension(500, 300));
+                    + "utgifter i perioden " + sdf.format(startDato.getTime()) + " - "
+                    + sdf.format(sluttDato.getTime()), textArea, new Dimension(500, 300));
 
             tømFelter();
         }
@@ -1128,11 +1127,11 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             textArea.setText("Totale erstatningsutgifter for " + skadetypevalg.toLowerCase()
                     + "skader har " + s + " med " + df.format(endring) + " stk / "
                     + (int) prosent + "% månedelig i perioden " + 
-                    sdf.format(startDato) + " - " + sdf.format(sluttDato));
+                    sdf.format(startDato.getTime()) + " - " + sdf.format(sluttDato.getTime()));
 
             statistikkVindu = new StatistikkVindu("Øking/Minking av erstatnings"
                     + "utgifter for " + skadetypevalg.toLowerCase() + "skader\ni perioden "
-                    + sdf.format(startDato) + " - " + sdf.format(sluttDato),
+                    + sdf.format(startDato.getTime()) + " - " + sdf.format(sluttDato.getTime()),
                     textArea, new Dimension(500, 300));
 
             tømFelter();
