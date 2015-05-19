@@ -32,13 +32,13 @@ public class Skademelding implements Serializable
     private Image[] bilder;
     private List<Vitne> vitner;
     private int takseringsbelop;
-    private int erstatningsbelop;
+    private double erstatningsbelop;
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     private final Locale norge;
     private boolean aktiv = true;
     private static final long serialVersionUID = 512341233333L;
     
-    public Skademelding( Forsikring forsikring, GregorianCalendar dato, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )
+    public Skademelding( Forsikring forsikring, GregorianCalendar dato, String skadetype, String beskrivelse, int takseringsbelop, double erstatingsbelop )
     {
         this.norge = new Locale( "no" );
         this.forsikring = forsikring;
@@ -121,7 +121,7 @@ public class Skademelding implements Serializable
         return dato;
     }
     
-    public int getErstatningsbelop()
+    public double getErstatningsbelop()
     {
         return erstatningsbelop;
     }

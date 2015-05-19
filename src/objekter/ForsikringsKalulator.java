@@ -963,12 +963,11 @@ public class ForsikringsKalulator
     }
     public static double beregnErstatningsbelop( int egenandel, int skadetakst)
     {
-        double beløp = 0.0;
+        double beløp = 0;
         if(!(egenandel >= skadetakst))
         {
             beløp = Math.rint((skadetakst*0.7)-egenandel);
         }
-        
         return beløp;
     }
 }
