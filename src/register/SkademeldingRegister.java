@@ -92,9 +92,8 @@ public class SkademeldingRegister implements Serializable
         return funnetSkademeldinger;
     }
     
-    /**
-     * henter alle verdiene fra hashmapet, og returnerer i from av List<Skademeldig>.
-     * @return Skademelding
+    /*
+     * henter alle verdiene(skademeldinger) fra hashmapet, og returnerer i from av List<Skademeldig.
      */
     public List<Skademelding> alleSkademeldinger()
     {
@@ -108,11 +107,13 @@ public class SkademeldingRegister implements Serializable
                 .filter( x -> startdato.after(x.getSkadeDato()) && sluttdato.before(x.getSkadeDato()))
                 .collect( Collectors.toList() );
     }
-    /**
+    /*
      * Henter første skademelding fra registeret, brukes for å hente et tilfeldig
      * objekt og deretter hente løpenummeret ved skriving til fil. 
-     * @return Skademelding
+     * 
+     * returnerer en vilkårlig skademelding eller null hvis det ikke finnes noen forsikringer i registeret.
      */
+    
     public Skademelding getSkademelding()
     {
         Iterator<Skademelding> iterator = skademeldinger.values().iterator();
