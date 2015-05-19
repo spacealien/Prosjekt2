@@ -502,6 +502,7 @@ public class HovedRegister
             forsikring.setAktiver(false);
         
         vindu.visInformasjon("Beskjed", kunde.getFornavn() + " " + kunde.getEtternavn() + "er deaktivert.");
+        vindu.oppdaterTabell(getKundeliste().alleKunder());
     }
     
     

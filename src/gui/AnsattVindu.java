@@ -241,6 +241,7 @@ public class AnsattVindu extends JFrame
         }
     }
     
+    
     /**
      * Metoden avgjør hva som skal søkes etter i registerene utifra hvilke
      * søkeord som har blitt tastet inn av bruker i søkefeltet. F.eks en String bestående av tall 
