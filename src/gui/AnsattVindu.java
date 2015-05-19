@@ -81,7 +81,6 @@ public class AnsattVindu extends JFrame
         søkeknapp.addActionListener(knappeLytter);
         alleKunder.addActionListener(knappeLytter);
         mineKunder.addActionListener(knappeLytter);
-        this.getRootPane().setDefaultButton(søkeknapp);
         
         
         
@@ -233,7 +232,7 @@ public class AnsattVindu extends JFrame
      */
     public void oppdaterTabell( List<Kunde> liste )
     {
-        if( liste.size() > 0 )
+        if( !liste.isEmpty() )
         {
             tabellModell = new TabellModell(liste);
             tabell.setModel(tabellModell);

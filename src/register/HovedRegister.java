@@ -47,7 +47,7 @@ public class HovedRegister
         kalender = Calendar.getInstance();  
         
         
-        GregorianCalendar fdato = new GregorianCalendar(1991,6,6);
+        /*GregorianCalendar fdato = new GregorianCalendar(1991,6,6);
         Kunde test_1 = new Kunde("Rolf", "Hestman", "Kongleknaggen 18", "22260906", fdato, "hesterolf@yahoo.no", "08206049937");
         Kunde test_2 = new Kunde("Bjørn", "Dæhlie", "Trysil 23B", "22260906", fdato, "epost@epost.no", "12048449997");
         Kunde test_3 = new Kunde("Marit", "Bjørgen", "Trondheim 23B", "22260906", fdato, "marit@langrenn.no", "02029449964");
@@ -488,7 +488,7 @@ public class HovedRegister
         for(Forsikring f :forsikringsregister.alleForsikringer())
         {
             f.setArligPremie(100.0);
-        }
+        }*/
        
         //lesFraFil();
         //skrivTilFil();
@@ -745,8 +745,8 @@ public class HovedRegister
         {
             nyForsikring.getKunde().setTotalKunde(true);
             innbetalinger.add(new Inntekt(dato, (nyForsikring.getArligPremie() * 0.9), nyForsikring));
-            if(forsikringsregister.antallUnikeAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
-                vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
+            //if(forsikringsregister.antallUnikeAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
+                //vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
             
             skrivTilFil();
         }
