@@ -55,6 +55,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
     private final JButton visSkademeldinger = new JButton("Vis Alle Skademeldinger");
     private final JButton nyForsikring = new JButton("Ny forsikring");
     private final JButton rediger = new JButton("Rediger");
+    private final JButton siOppKundeKnapp;
     private Kunde kunde = null;
     private final String[] forsikringsvalg = {"", "Bilforsikring", "Båtforsikring", "Husforsikring", "Fritidsboligforsikring", "Reiseforsikring"};
     private final JComboBox<String> forsikringsDropDown;
@@ -84,6 +85,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         inntekter = new JTextField(20);
         inntekterTotal = new JTextField(20);
         
+        siOppKundeKnapp = new JButton("Si opp kunde");
         regKunde = new JButton("Registrer kunde" );
         kontaktKunde = new JButton("Kontakt");
         forsikringsDropDown = new JComboBox<>(forsikringsvalg);
@@ -115,6 +117,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         knappeWrapper.add(visSkademeldinger);
         knappeWrapper.add(kontaktKunde);
         knappeWrapper.add(rediger);
+        knappeWrapper.add(siOppKundeKnapp);
 
         JPanel infobox = new JPanel();
         infobox.setLayout( new BorderLayout() );
@@ -145,6 +148,7 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         visSkademeldinger.addActionListener(this);
         rediger.addActionListener(this);
         nyForsikring.addActionListener(this);
+        siOppKundeKnapp.addActionListener(this);
         
         oppdaterVindu();
         disableFelter(kundeInfo_1, null, null);
@@ -342,7 +346,8 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
         else if( e.getSource() == nyForsikring)
         {
             String valg = (String) forsikringsDropDown.getSelectedItem();
-            switch (valg) {
+            switch (valg) 
+            {
                 case "":
                     vindu.visFeilmelding("Melding", "Du må velge en type forsikring for å gå videre. ");
                     break;
@@ -372,6 +377,10 @@ public class KundePanel extends JPanel implements ActionListener, ForsikringsPan
                     vindu.leggTilNyFane( reiseforsikringspanel, "Ny Reiseforsikring");
                     break;
             }
+        }
+        else if( e.getSource() == siOppKundeKnapp )
+        {
+            vindu.getRegister().siOppKundeforhold(kunde);
         }
     }
 }

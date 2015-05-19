@@ -227,11 +227,8 @@ public class KundeTabell extends JTable implements ForsikringsPanel
             }
             else if( e.getSource() == siOppKunde )
             {
-                if( JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, "Er du sikker på at du ønsker å si opp kundeforholdet",
-                                                                            "Bekreftelse", JOptionPane.YES_NO_OPTION ))
-                {
-                    vindu.getRegister().siOppKundeforhold(vindu.getRegister().finnKundeMedPersonnummer((String)getValueAt(getSelectedRow(), 0)));
-                }
+                vindu.getRegister().siOppKundeforhold(vindu.getRegister().finnKundeMedPersonnummer((String)getValueAt(getSelectedRow(), 0)));
+             
             }
         }
     }

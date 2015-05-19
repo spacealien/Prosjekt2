@@ -23,6 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.swing.JOptionPane;
 import objekter.*;
 
 /**
@@ -495,14 +496,18 @@ public class HovedRegister
     // sier opp kundeforholdet.
     public void siOppKundeforhold( Kunde kunde )
     {
-        kunde.setAktiv(false);
-        List<Forsikring> kundeForsikringer = getAlleKundensForsikringer(kunde);
+        if( JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, "Er du sikker på at du ønsker å si opp kundeforholdet",
+                                                                            "Bekreftelse", JOptionPane.YES_NO_OPTION ))
+        {
+            kunde.setAktiv(false);
+            List<Forsikring> kundeForsikringer = getAlleKundensForsikringer(kunde);
         
-        for( Forsikring forsikring : kundeForsikringer)
+            for( Forsikring forsikring : kundeForsikringer)
             forsikring.setAktiver(false);
         
-        vindu.visInformasjon("Beskjed", kunde.getFornavn() + " " + kunde.getEtternavn() + "er deaktivert.");
-        vindu.oppdaterTabell(getKundeliste().alleKunder());
+            vindu.visInformasjon("Beskjed", kunde.getFornavn() + " " + kunde.getEtternavn() + "er deaktivert.");
+            vindu.oppdaterTabell(getKundeliste().alleKunder());
+        }
     }
     
     
