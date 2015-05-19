@@ -839,8 +839,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())),
                 (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
         List<Skademelding> skademeldingsliste = new ArrayList<>();
-        int antallIPerioden = 0;
-        int antallForAlltid = 0;
+        double antallIPerioden = 0;
+        double antallForAlltid = 0;
 
         try
         {
@@ -907,8 +907,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())),
                 (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
         List<Skademelding> skademeldingsliste = new ArrayList<>();
-        int antallIPerioden = 0;
-        int antallForAlltid = 0;
+        double antallIPerioden = 0;
+        double antallForAlltid = 0;
         try
         {
             for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger())
@@ -927,15 +927,20 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
 
             long periodeIMnd = (sluttDato.getTime().getTime() - 
                     startDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
-            double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
+            
+            System.out.println("PeriodeIMnd: " + periodeIMnd);
+            System.out.println("AntallIPeriode: " + antallIPerioden);
+            System.out.println("AntallFor alltid: " + antallForAlltid);
+            double gjennomsnittPerioden = (antallIPerioden / periodeIMnd);
             Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
-            GregorianCalendar programSluttDato = new GregorianCalendar();
-            long alltidIMnd = (programStartDato.getTime().getTime() - 
-                    programSluttDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
+            Calendar programSluttDato = new GregorianCalendar();
+            long alltidIMnd = (programSluttDato.getTime().getTime() - 
+                    programStartDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
             double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
             String s;
             double endring = gjennomsnittPerioden - gjennomsnittAlltid;
             double prosent = ((endring / gjennomsnittAlltid)*100);
+            System.out.println("AlltidIMnd:" + alltidIMnd);
             System.out.println(gjennomsnittPerioden);
             System.out.println(gjennomsnittAlltid);
             System.out.println(endring);
@@ -954,7 +959,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             JTextArea textArea = new JTextArea();
             textArea.setText("Antall skademeldinger på " + forsikringsvalg.toLowerCase()
                     + "er har " + s + " med " + df.format(endring) + " stk / " + 
-                    (int) prosent + "% månedelig\ni perioden " + sdf.format(startDato.getTime())
+                    (int) prosent + "% \nmånedelig i perioden " + sdf.format(startDato.getTime())
                     + " - " + sdf.format(sluttDato.getTime()));
 
             statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger"
@@ -986,8 +991,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())),
                 (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
         List<Skademelding> skademeldingsliste = new ArrayList<>();
-        int antallIPerioden = 0;
-        int antallForAlltid = 0;
+        double antallIPerioden = 0;
+        double antallForAlltid = 0;
 
         try
         {
@@ -1014,8 +1019,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
             Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
             GregorianCalendar programSluttDato = new GregorianCalendar();
-            long alltidIMnd = (programStartDato.getTime().getTime() -
-                    programSluttDato.getTime().getTime()) / 1000 / 60 / 60 / 24;
+            long alltidIMnd = (programSluttDato.getTime().getTime() -
+                    programStartDato.getTime().getTime()) / 1000 / 60 / 60 / 24;
             double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
             String s;
             double endring = gjennomsnittPerioden - gjennomsnittAlltid;
@@ -1080,8 +1085,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             double gjennomsnittPerioden = totalSumIPeriode / periodeIMnd;
             Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
             GregorianCalendar programSluttDato = new GregorianCalendar();
-            long alltidIMnd = (programStartDato.getTime().getTime() - 
-                    programSluttDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
+            long alltidIMnd = (programSluttDato.getTime().getTime() - 
+                    programStartDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
             double gjennomsnittAlltid = totalSum / alltidIMnd;
             String s;
             double endring = gjennomsnittPerioden - gjennomsnittAlltid;
@@ -1153,8 +1158,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             double gjennomsnittPerioden = totalSumIPeriode / periodeIMnd;
             Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
             GregorianCalendar programSluttDato = new GregorianCalendar();
-            long alltidIMnd = (programStartDato.getTime().getTime() - 
-                    programSluttDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
+            long alltidIMnd = (programSluttDato.getTime().getTime() - 
+                    programStartDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
             double gjennomsnittAlltid = totalSum / alltidIMnd;
             String s;
             double endring = gjennomsnittPerioden - gjennomsnittAlltid;
