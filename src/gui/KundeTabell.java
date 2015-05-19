@@ -19,7 +19,7 @@ import objekter.Kunde;
  *
  * @author Odd, Marthe
  */
-public class KundeTabell extends JTable implements ForsikringsPanel
+public class KundeTabell extends JTable
 {
     private final JPopupMenu popup;
     private final JMenuItem info;
