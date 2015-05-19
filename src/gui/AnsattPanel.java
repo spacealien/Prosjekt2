@@ -4,6 +4,9 @@
 package gui;
 
 //nødvendige import-setninger
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,6 +25,7 @@ public class AnsattPanel extends JPanel
 {   
     private final AnsattVindu vindu;
     private final Ansatt ansatt;
+    private final JLabel velkommen;
     private final JTextField antKunder;
     private final JTextField utgifter;
     private final JTextField inntekter;
@@ -36,6 +40,9 @@ public class AnsattPanel extends JPanel
     {
         vindu = v;
         ansatt = a;
+        velkommen = new JLabel("Velkommen " + ansatt.getFornavn() + " " + ansatt.getEtternavn());
+        velkommen.setFont(new Font("Helvetica", Font.BOLD, 30));
+        velkommen.setForeground(Color.pink);
         antKunder = new JTextField(4);
         antForsikringer = new JTextField(4);
         utgifter = new JTextField(4);
@@ -43,8 +50,8 @@ public class AnsattPanel extends JPanel
         panel = new JPanel();
         
         panel.setLayout(new GridLayout(6,2,1,5));
-        panel.add(new JLabel(ansatt.getFornavn()));
-        panel.add(new JLabel(ansatt.getEtternavn()));
+        panel.add(new JLabel());
+        panel.add(new JLabel());
         panel.add(new JLabel("Total antall kunder:"));
         panel.add(antKunder);
         panel.add(new JLabel("Total antall forsikringer:"));
@@ -53,7 +60,9 @@ public class AnsattPanel extends JPanel
         panel.add(utgifter);
         panel.add(new JLabel("<html>Total premieinntekt<br>fra mine kunder:</html>"));
         panel.add(inntekter);
-        add(panel);
+        setLayout(new BorderLayout());
+        add(velkommen, BorderLayout.PAGE_START);
+        add(panel, BorderLayout.CENTER);
         
     }
     
