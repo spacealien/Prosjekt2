@@ -57,7 +57,7 @@ public class AnsattVindu extends JFrame
     private final JTextField søkefelt;
     private final JTextField søkefeltFornavn;
     private final JTextField søkefeltEtternavn;
-    private final JButton søkekanpp;
+    private final JButton søkeknapp;
     private final JButton alleKunder;
     private final JButton mineKunder;
     private final JToggleButton lukkeknapp;
@@ -94,10 +94,11 @@ public class AnsattVindu extends JFrame
         søkefelt = new JTextField(15);
         søkefeltFornavn = new JTextField(25);
         søkefeltEtternavn = new JTextField(25);
-        søkekanpp = new JButton("Søk");
-        søkekanpp.addActionListener(knappeLytter);
+        søkeknapp = new JButton("Søk");
+        søkeknapp.addActionListener(knappeLytter);
         alleKunder.addActionListener(knappeLytter);
         mineKunder.addActionListener(knappeLytter);
+        this.getRootPane().setDefaultButton(søkeknapp);
         
         
         
@@ -128,7 +129,7 @@ public class AnsattVindu extends JFrame
         søkePanel.add( søkefeltFornavn );
         søkePanel.add(new JLabel("Etternavn: "));
         søkePanel.add( søkefeltEtternavn );
-        søkePanel.add( søkekanpp);
+        søkePanel.add( søkeknapp);
         bunnContainer.add(søkePanel,BorderLayout.NORTH);
         tabellContainer.setLayout( new BorderLayout());
         tabellContainer.add(tabell.getTableHeader(), BorderLayout.NORTH);
@@ -383,7 +384,7 @@ public class AnsattVindu extends JFrame
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            if( e.getSource() == søkekanpp )
+            if( e.getSource() == søkeknapp )
             {
                 visSøkeresltat();
             }
