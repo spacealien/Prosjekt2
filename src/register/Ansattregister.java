@@ -35,7 +35,7 @@ public class Ansattregister implements Serializable
     }
     
     
-    // metode for å registrer en ny ansatt.
+    // metode for å registrere en ny ansatt.
     public boolean leggTIl( Ansatt nyAnsatt )
     {
         return register.add(nyAnsatt);
@@ -52,7 +52,7 @@ public class Ansattregister implements Serializable
         return null;
     }
     
-    // søk på ansat ved fornavn
+    // søk på ansatt ved fornavn
     public Ansatt finnAnsattFornavn( String fornavn )
     {
         for( Ansatt ansatt :  register)

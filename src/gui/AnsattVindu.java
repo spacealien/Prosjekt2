@@ -13,25 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.JToggleButton;
-import objekter.Ansatt;
-import objekter.BatForsikring;
-import objekter.Bilforsikring;
-import objekter.Forsikring;
-import objekter.Fritidsboligforsikring;
-import objekter.Husforsikring;
-import objekter.Kunde;
-import objekter.Reiseforsikring;
-import objekter.Skademelding;
+import javax.swing.*;
+import objekter.*;
 import register.HovedRegister;
 
 /**
@@ -57,7 +40,7 @@ public class AnsattVindu extends JFrame
     private final JTextField søkefelt;
     private final JTextField søkefeltFornavn;
     private final JTextField søkefeltEtternavn;
-    private final JButton søkekanpp;
+    private final JButton søkeknapp;
     private final JButton alleKunder;
     private final JButton mineKunder;
     private final JToggleButton lukkeknapp;
@@ -78,7 +61,7 @@ public class AnsattVindu extends JFrame
         KnappeLytter knappeLytter = new KnappeLytter();
         mainContainer = getContentPane();
         fanekort =  new JTabbedPane();
-        fanekort.setPreferredSize( new Dimension(500,500));
+        fanekort.setPreferredSize( new Dimension(600,500));
         hovedPanelBunn =  new JPanel();
         hovedPanel = new JPanel();
         hovedPanelTop = new JPanel();
@@ -94,10 +77,11 @@ public class AnsattVindu extends JFrame
         søkefelt = new JTextField(15);
         søkefeltFornavn = new JTextField(25);
         søkefeltEtternavn = new JTextField(25);
-        søkekanpp = new JButton("Søk");
-        søkekanpp.addActionListener(knappeLytter);
+        søkeknapp = new JButton("Søk");
+        søkeknapp.addActionListener(knappeLytter);
         alleKunder.addActionListener(knappeLytter);
         mineKunder.addActionListener(knappeLytter);
+        this.getRootPane().setDefaultButton(søkeknapp);
         
         
         
@@ -128,7 +112,7 @@ public class AnsattVindu extends JFrame
         søkePanel.add( søkefeltFornavn );
         søkePanel.add(new JLabel("Etternavn: "));
         søkePanel.add( søkefeltEtternavn );
-        søkePanel.add( søkekanpp);
+        søkePanel.add( søkeknapp);
         bunnContainer.add(søkePanel,BorderLayout.NORTH);
         tabellContainer.setLayout( new BorderLayout());
         tabellContainer.add(tabell.getTableHeader(), BorderLayout.NORTH);
@@ -383,7 +367,7 @@ public class AnsattVindu extends JFrame
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-            if( e.getSource() == søkekanpp )
+            if( e.getSource() == søkeknapp )
             {
                 visSøkeresltat();
             }

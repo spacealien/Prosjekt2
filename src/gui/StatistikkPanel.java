@@ -205,7 +205,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         avansertSokPanel3.add(avansertSokPanel4);
         avansertSokPanel3.add(avansertSokPanel2);
         add(avansertSokPanel1);
-        add(Box.createRigidArea(new Dimension(50,1)));
+        add(Box.createRigidArea(new Dimension(5,1)));
         add(avansertSokPanel3);
      
         /*Legger til lyttere til comboboxene. Hvis et valg i en av comboboxene er
@@ -1153,6 +1153,11 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
 
         for (Forsikring forsikring : register.getForsikringrsliste().alleForsikringer())
         {
+            Set<String> set = new HashSet<>();
+            
+                if(forsikring.erAktiv())
+                    set.add(forsikring.getForsikringsType());
+            
             if (forsikring instanceof Bilforsikring)
             {
                 bilForsikring++;

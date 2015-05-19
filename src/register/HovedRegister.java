@@ -492,42 +492,49 @@ public class HovedRegister
         //sjekkTid2();
     }
     
-    // returnerer alle skademelding som hører til kunden som blir send med som parameter.
+    //Returnerer alle skademelding som hører til kunden som blir send med som parameter.
     public List<Skademelding> getAlleKundensSkademeldinger( Kunde kunde )
     {
         return skademeldingsregister.getKundensSkademeldinger(forsikringsregister.getKundensForsikringer(kunde));
     }
     
-    // returnerer alle forsikringer som hører til kunden som blir send med som parameter.
+    //returnerer alle forsikringer som hører til kunden som blir send med som parameter.
     public List<Forsikring> getAlleKundensForsikringer(Kunde kunde)
     {
         return forsikringsregister.getKundensForsikringer(kunde);
     }
     
+    /*Metodens hensikt er å registrere årlige forsikringspremieinntekter for 
+    aktive forsikringer, samt oppdatere bonusen til bilforsikringer*/
     public final void sjekkTid2()
     {
         Calendar ettÅrSiden = Calendar.getInstance();
-        ettÅrSiden.set(kalender.get(Calendar.YEAR) - 1, kalender.get(Calendar.MONTH), kalender.get(Calendar.DATE));
-        System.out.print(sdf.format(ettÅrSiden.getTime()));
+        ettÅrSiden.set(kalender.get(Calendar.YEAR) - 1, kalender.get(Calendar.MONTH),
+                kalender.get(Calendar.DATE));
         if(!getForsikringrsliste().alleForsikringer().isEmpty())
         {
             for (Forsikring forsikring : getForsikringrsliste().alleForsikringer())
             {
-                if(forsikring.getSistBetalt().before(ettÅrSiden.getTime()));
+                if(forsikring.erAktiv() && 
+                        forsikring.getSistBetalt().before(ettÅrSiden.getTime()));
                 {
                     if(forsikring.getForsikringsType().equals("Bilforsikring"))
                     {
                         Bilforsikring bilforsikring = (Bilforsikring)forsikring;
                         double bonusFør = bilforsikring.getBonus();
-                        double originalPris = bilforsikring.getArligPremie() / bonusFør * 100;
+                        double originalPris = bilforsikring.getArligPremie() /
+                                bonusFør * 100;
                         bilforsikring.korrigerArligBonus();
-                        bilforsikring.setArligPremie((originalPris * (100-bilforsikring.getBonus())));
-                        innbetalinger.add(new Inntekt(kalender.getTime(), forsikring.getArligPremie(), forsikring));
+                        bilforsikring.setArligPremie(originalPris * 
+                                (100-bilforsikring.getBonus()));
+                        innbetalinger.add(new Inntekt(kalender.getTime(),
+                                forsikring.getArligPremie(), forsikring));
                         forsikring.setSistBetalt(kalender.getTime());
                     }
                     else
                     {
-                        innbetalinger.add(new Inntekt(kalender.getTime(), forsikring.getArligPremie(), forsikring));
+                        innbetalinger.add(new Inntekt(kalender.getTime(), 
+                                forsikring.getArligPremie(), forsikring));
                         forsikring.setSistBetalt(kalender.getTime());
                     }
                 }
@@ -535,6 +542,7 @@ public class HovedRegister
         }
     }
     
+    //Returnerer en liste med alle inntektsobjektene
     public List<Inntekt> getAlleInntekter()
     {
         return innbetalinger;
@@ -546,7 +554,8 @@ public class HovedRegister
         return kunderegister.getAnsattesKunder(ansatt);
     }
     
-    // legger inn en ny kunde i kunderegisteret, oppdaterer samtig tabellen i hoved vinduet.
+    /*Tar i mot et kundeobjekt som parameter, legger til denne nye kunden i 
+    registeret og oppdaterer deretter kundetabellen med denne nye kunden*/
     public void nyKunde( Kunde nyKunde )
     {   
         kunderegister.leggTil(nyKunde);

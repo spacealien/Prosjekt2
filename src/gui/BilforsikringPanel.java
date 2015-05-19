@@ -98,9 +98,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
     private int belop;
     private String forer;
     private String dekningvalget;
-    private final JButton rediger = new JButton("Rediger forsikringinfo");
-    private final JButton lagreNyInfo = new JButton("Lagre forsikring");
-    private final JButton deaktiver = new JButton("Si opp forsikring");
+    private final JButton rediger;
+    private final JButton lagreNyInfo;
+    private final JButton deaktiver;
     private final JPanel knappePanel = new JPanel();
     private final JPanel eierPanel;
     
@@ -177,6 +177,11 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         bonusvelger = new JComboBox<>(bonus);
         vilkårKnapp = new JButton("Vis vilkår");
         vilkårKnapp.setVisible(false);
+        rediger = new JButton("Rediger forsikringinfo");
+        lagreNyInfo = new JButton("Lagre forsikring");
+        deaktiver = new JButton("Si opp forsikring");
+        rediger.setVisible(false);
+        deaktiver.setVisible(false);
         
     
         JPanel garasjePanel = new JPanel();
@@ -240,6 +245,9 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnBilPanel2.add(bilTilbud);
         tegnBilPanel2.add(Box.createGlue());
         tegnBilPanel2.add(bilGiTilbud);
+        knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
+        knappePanel.add(rediger);
+        knappePanel.add(deaktiver);
         hovedPanel.setLayout(new BoxLayout(hovedPanel, BoxLayout.LINE_AXIS));
         hovedPanel.add(tegnBilPanel1);
         hovedPanel.add(Box.createHorizontalStrut(5));
@@ -250,6 +258,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         setLayout(new BoxLayout(this,BoxLayout.LINE_AXIS));
         hovedPanel.add(new JSeparator(SwingConstants.VERTICAL));
         add(hovedPanel);
+        add(knappePanel);
         
         VilkårLytter vilkårLytter = new VilkårLytter();
         bilGiTilbud.addActionListener(this);
@@ -334,19 +343,13 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
         
         if(bilforsikring.erAktiv())
         {
-            knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
-            knappePanel.add(rediger);
-            knappePanel.add(deaktiver);
-            disableFelter( this, bilGiTilbud, beregnPris );
-            add(knappePanel);
+            rediger.setVisible(true);
+            deaktiver.setVisible(true);
         }
-        else
-        {
-            tilbudLabel.setText("Årlig premie: ");
+            tilbudLabel.setText("Årlig premie: (Kr/år)");
             tilbudLabel.setVisible(true);
             bilTilbud.setVisible(true);
             disableFelter( this, bilGiTilbud, beregnPris );
-        }
     }
     
     /*Hvis brukeren trykket seg videre til å denne forsikringen via et kundepanel,
@@ -607,6 +610,8 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
                                           + " på " + kunde.getFornavn() + " " 
                                           + kunde.getEtternavn() , "Bekreftelse", 
                                             JOptionPane.INFORMATION_MESSAGE);
+            visForsikring(forsikring);
+            
         }
     }
     

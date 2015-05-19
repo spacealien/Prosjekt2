@@ -65,9 +65,9 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
     private int belopInnbo;
     private boolean alarm_b;
     private JPanel knappePanel = new JPanel();
-    private JButton rediger = new JButton("Rediger forsikring");
-    private JButton lagreNyInfo = new JButton("Lagre forsikring");
-    private JButton deaktiver = new JButton("Si opp forsikring");
+    private JButton rediger;
+    private JButton lagreNyInfo;
+    private JButton deaktiver;
     
     public HusforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -99,6 +99,11 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         husGiTilbud = new JButton("Tegn forsikring");
         husGiTilbud.setVisible(false);
         vilkarKnapp = new JButton("Vis vilkår");
+        rediger = new JButton("Rediger forsikring");
+        lagreNyInfo = new JButton("Lagre forsikring");
+        deaktiver = new JButton("Si opp forsikring");
+        rediger.setVisible(false);
+        deaktiver.setVisible(false);
         
         JPanel tegnHusPanel1 = new JPanel();
         JPanel tegnHusPanel2 = new JPanel();
@@ -141,13 +146,16 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnHusPanel2.add(husTilbud);
         tegnHusPanel2.add(Box.createGlue());
         tegnHusPanel2.add(husGiTilbud);
-        
+        knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
+        knappePanel.add(rediger);
+        knappePanel.add(deaktiver);
         hovedPanel.add(tegnHusPanel1);
         hovedPanel.add(Box.createHorizontalStrut(5));
         hovedPanel.add(new JSeparator(SwingConstants.VERTICAL));
         hovedPanel.add(Box.createHorizontalStrut(5));
         hovedPanel.add(tegnHusPanel2);
         add(hovedPanel);
+        add(knappePanel);
         
         VilkårLytter vilkårLytter = new VilkårLytter();
         husGiTilbud.addActionListener(this);
@@ -205,18 +213,15 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         
         if (forsikring.erAktiv())
         {
-            knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
-            knappePanel.add(rediger);
-            knappePanel.add(deaktiver);
-            add(knappePanel);
+            rediger.setVisible(true);
+            deaktiver.setVisible(true);
         }
-        
-        tilbudLabel.setText("Årlig premie: (Kr/år)");
+        tilbudLabel.setText("Årlig premie: (Kr/År)");
         tilbudLabel.setVisible(true);
         husTilbud.setVisible(true);
+        disableFelter( this, husGiTilbud, beregnPris );
         revalidate();
         repaint();
-        disableFelter( this, husGiTilbud, beregnPris );
     }
     
     /*Hvis brukeren trykket seg videre til å denne forsikringen via et kundepanel,
@@ -351,13 +356,13 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
             nyForsikring.setArligPremie( Double.parseDouble(husTilbud.getText()) );
             vindu.getRegister().nyForsikring(nyForsikring);
             
-            if(kundePanel != null)
-                kundePanel.oppdaterVindu();
-            
             JOptionPane.showMessageDialog(null, "Du har nå tegnet husforsikring med nummer " 
                                           + nyForsikring.getForsikringsnummer() + " på " + kunde.getFornavn() 
                                           + " " + kunde.getEtternavn() , "Bekreftelse", 
                                             JOptionPane.INFORMATION_MESSAGE);
+            visForsikring(nyForsikring);
+            if(kundePanel != null)
+                kundePanel.oppdaterVindu();
             }
     }
     
