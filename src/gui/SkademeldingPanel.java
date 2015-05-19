@@ -13,8 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import objekter.*;
@@ -259,21 +257,23 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
             {
                 try
                 {
-                    File[] foto = filer.getSelectedFiles();
-                    int teller = 0;
-                    for( File fil : foto)
+                    File[] fotoFil = filer.getSelectedFiles();
+                    bilder = new Image[fotoFil.length];
+                    
+                    for( int i = 0; i < fotoFil.length; i++)
                     {
-                        this.bilder[teller++] = ImageIO.read(foto[teller++]);
+                        this.bilder[i] = ImageIO.read(fotoFil[i]);
                     }
-                } catch (IOException ex) 
+                } 
+                catch (IOException ex) 
                 {
-                    Logger.getLogger(SkademeldingPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    
                 }
             }
         }
         else if( e.getSource() == visBilde )
         {
-            //BildeVindu bildeVindu = new BildeVindu( bilder , "Skadenummer: " );
+            BildeVindu bildeVindu = new BildeVindu( bilder );
         }
         else if( e.getSource() == vitneKnapp )
         {
