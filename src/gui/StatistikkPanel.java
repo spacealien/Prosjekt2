@@ -552,8 +552,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
                 s = "Registrerte skademeldinger på " + forsikringsvalg.toLowerCase() + "er i perioden ";
                 for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger())
                 {
-                    if (skademld.getOpprettetDato().after(startDato) && 
-                            skademld.getOpprettetDato().before(sluttDato)
+                    if (skademld.getOpprettetDato().getTime().after(startDato.getTime()) && 
+                            skademld.getOpprettetDato().getTime().before(sluttDato.getTime())
                             && skademld.getForsikring().getForsikringsType()
                                     .equals(forsikringsvalg))
                     {
@@ -566,8 +566,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
                 s = "Registrerte skademeldinger i perioden: ";
                 for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger())
                 {
-                    if (skademld.getOpprettetDato().after(startDato) && 
-                            skademld.getOpprettetDato().before(sluttDato))
+                    if (skademld.getOpprettetDato().getTime().after(startDato.getTime()) && 
+                            skademld.getOpprettetDato().getTime().before(sluttDato.getTime()))
                     {
                         skademeldingsliste.add(skademld);
                     }
@@ -668,8 +668,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         {
             for (Skademelding skademelding : register.getSkademeldingsregister().alleSkademeldinger())
             {
-                if (skademelding.getOpprettetDato().after(startDato) && 
-                        skademelding.getOpprettetDato().before(sluttDato))
+                if (skademelding.getOpprettetDato().getTime().after(startDato.getTime()) && 
+                        skademelding.getOpprettetDato().getTime().before(sluttDato.getTime()))
                 {
                     totalSum += skademelding.getErstatningsbelop();
                     antall++;
@@ -711,8 +711,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             for (Skademelding skademelding : register.getSkademeldingsregister().alleSkademeldinger())
             {
                 if (skademelding.getForsikring().getForsikringsType().
-                        equals(forsikringsvalg) && skademelding.getOpprettetDato().after(startDato)
-                        && skademelding.getOpprettetDato().before(sluttDato))
+                        equals(forsikringsvalg) && skademelding.getOpprettetDato().getTime().after(startDato.getTime())
+                        && skademelding.getOpprettetDato().getTime().before(sluttDato.getTime()))
                 {
                     totalSum += skademelding.getErstatningsbelop();
                     antall++;
@@ -846,15 +846,13 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         {
             for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger())
             {
-                if (skademld.getOpprettetDato().after(startDato.getTime()) &&
-                        skademld.getOpprettetDato().before(sluttDato.getTime()))
+                if (skademld.getOpprettetDato().getTime().after(startDato.getTime()) && skademld.getOpprettetDato().getTime().before(sluttDato.getTime()))
                 {
                     skademeldingsliste.add(skademld);
                     antallIPerioden++;
                 }
                 antallForAlltid++;
             }
-
             long periodeIMnd = (sluttDato.getTime().getTime() - 
                     startDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
             double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
@@ -917,8 +915,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             {
                 if (skademld.getForsikring().getForsikringsType().equals(forsikringsvalg))
                 {
-                    if (skademld.getOpprettetDato().after(startDato) &&
-                            skademld.getOpprettetDato().before(sluttDato))
+                    if (skademld.getOpprettetDato().getTime().after(startDato.getTime()) &&
+                            skademld.getOpprettetDato().getTime().before(sluttDato.getTime()))
                     {
                         skademeldingsliste.add(skademld);
                         antallIPerioden++;
@@ -995,8 +993,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
                 {
                     if (skademld.getSkadetype().equals(skadetypevalg))
                     {
-                        if (skademld.getOpprettetDato().after(startDato) && 
-                                skademld.getOpprettetDato().before(sluttDato))
+                        if (skademld.getOpprettetDato().getTime().after(startDato.getTime()) && 
+                                skademld.getOpprettetDato().getTime().before(sluttDato.getTime()))
                         {
                             skademeldingsliste.add(skademld);
                             antallIPerioden++;
@@ -1066,8 +1064,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         {
             for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger())
             {
-                if (skademld.getOpprettetDato().after(startDato) && 
-                        skademld.getOpprettetDato().before(sluttDato))
+                if (skademld.getOpprettetDato().getTime().after(startDato.getTime()) && 
+                        skademld.getOpprettetDato().getTime().before(sluttDato.getTime()))
                 {
                     totalSumIPeriode += skademld.getErstatningsbelop();
                 }
@@ -1138,8 +1136,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
                 {
                     if (skademld.getSkadetype().equals(skadetypevalg))
                     {
-                        if (skademld.getOpprettetDato().after(startDato) && 
-                                skademld.getOpprettetDato().before(sluttDato))
+                        if (skademld.getOpprettetDato().after(startDato.getTime()) && 
+                                skademld.getOpprettetDato().before(sluttDato.getTime()))
                         {
                             totalSumIPeriode += skademld.getErstatningsbelop();
                         }

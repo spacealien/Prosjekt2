@@ -144,8 +144,8 @@ public class Skademelding implements Serializable
     @Override
     public String toString()
     {
-        String ut = "\nOpprettet dato: " + sdf.format(opprettetdato) + "\nSkadenummer: " + skadenummer
-                + "\nDato for skaden: " + dato + "\nSkadetype: " + skadetype +  
+        String ut = "\nOpprettet dato: " + sdf.format(opprettetdato.getTime()) + "\nSkadenummer: " + skadenummer
+                + "\nDato for skaden: " + sdf.format(dato.getTime()) + "\nSkadetype: " + skadetype +  
                 "\nBeskrivelse av skaden: " + beskrivelse + "\nTakseringsbeløp: "
                 + takseringsbelop + "\nErstatningsbeløp: " + erstatningsbelop;
         return ut;

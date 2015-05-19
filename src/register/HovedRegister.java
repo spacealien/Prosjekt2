@@ -297,6 +297,8 @@ public class HovedRegister
         Skademelding skademelding_82 = new Skademelding( forsikring_1, new GregorianCalendar(2013,GregorianCalendar.MAY ,17) , "Annet" , "Beskrivelse", 2000, 30000 );
         Skademelding skademelding_83 = new Skademelding( forsikring_20, new GregorianCalendar(2013,GregorianCalendar.MAY ,17) , "Annet" , "Beskrivelse", 2000, 30000 );
         Skademelding skademelding_84 = new Skademelding( forsikring_8, new GregorianCalendar(2013,GregorianCalendar.MAY ,17) , "Tap" , "Beskrivelse", 2000, 30000 );
+        Skademelding skademelding_85 = new Skademelding( forsikring_42, new GregorianCalendar(2015,GregorianCalendar.MARCH ,2) , "Ulykke" , "Beskrivelse", 2000, 30000 );
+        
         
         nyForsikring(forsikring_1);
         nyForsikring(forsikring_2);
@@ -481,6 +483,7 @@ public class HovedRegister
         nySkademelding(skademelding_82);
         nySkademelding(skademelding_83);
         nySkademelding(skademelding_84);
+        nySkademelding(skademelding_85);
         
         for(Forsikring f :forsikringsregister.alleForsikringer())
         {

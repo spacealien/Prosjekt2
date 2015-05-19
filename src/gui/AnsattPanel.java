@@ -36,9 +36,13 @@ public class AnsattPanel extends JPanel
         velkommen.setFont(new Font("Helvetica", Font.BOLD, 30));
         velkommen.setForeground(Color.blue);
         antKunder = new JTextField(4);
+        antKunder.setEditable(false);
         antForsikringer = new JTextField(4);
+        antForsikringer.setEditable(false);
         utgifter = new JTextField(4);
+        utgifter.setEditable(false);
         inntekter = new JTextField(4);
+        inntekter.setEditable(false);
         panel = new JPanel();
         
         panel.setLayout(new GridLayout(6,2,1,5));
@@ -55,7 +59,7 @@ public class AnsattPanel extends JPanel
         setLayout(new BorderLayout());
         add(velkommen, BorderLayout.PAGE_START);
         add(panel, BorderLayout.CENTER);
-        
+        fyllUt();
     }
     
     /*Metode for å fylle ut tekstfeltene med riktig info. Hvis den ansatte ikke
