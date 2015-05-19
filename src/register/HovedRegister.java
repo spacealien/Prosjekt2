@@ -546,7 +546,7 @@ public class HovedRegister
         return kunderegister.getAnsattesKunder(ansatt);
     }
     
-    
+    // legger inn en ny kunde i kunderegisteret, oppdaterer samtig tabellen i hoved vinduet.
     public void nyKunde( Kunde nyKunde )
     {   
         kunderegister.leggTil(nyKunde);
@@ -557,7 +557,6 @@ public class HovedRegister
     {
         return kunderegister.finnKunderEtterNavn(fornavn, etternavn);
     }
-    
     
     public List<Kunde> finnKundeMedEtternavn(String etternavn)
     {
@@ -581,7 +580,6 @@ public class HovedRegister
         return kunderegister;
     }
     
-    
     public List<Kunde> getAlleKunderMedForsikring(String forsikringstype)
     {
         List<Kunde> kunderMedForsikring = new ArrayList<>();
@@ -595,7 +593,6 @@ public class HovedRegister
         }
         return kunderMedForsikring;
     }
-    
     
     // Returnerer skademeldingsregisteret.
     public SkademeldingRegister getSkademeldingsregister()
@@ -616,9 +613,10 @@ public class HovedRegister
     }
     
     /**
-     * 
-     * 
-     */
+     * Metoden teller antall måneder en forsikring har vært aktiv,
+     * så ganges antall måneder med forsikringens månedlig pris.
+     * og returnerer prisen.
+    */
     
     public double getNåværendeInntjening( Kunde kunde )
     {
@@ -626,21 +624,21 @@ public class HovedRegister
         List<Forsikring> kundeForsikringer = forsikringsregister.getKundensForsikringer(kunde);
         double prisPrMåned;
         int differanseMnd = 0;
-        int diffYear;
+        int differanseÅr;
         
         for(Forsikring forsikring :  kundeForsikringer)
         {    
             if( forsikring.getSluttdato() == null)
             {
                 Calendar startdato = forsikring.getStartdato();
-                diffYear = Calendar.getInstance().get(Calendar.YEAR) - startdato.get(Calendar.YEAR);
-                differanseMnd = diffYear * 12 + Calendar.getInstance().get(Calendar.MONTH) - startdato.get(Calendar.MONTH);  
+                differanseÅr = Calendar.getInstance().get(Calendar.YEAR) - startdato.get(Calendar.YEAR);
+                differanseMnd = differanseÅr * 12 + Calendar.getInstance().get(Calendar.MONTH) - startdato.get(Calendar.MONTH);  
             }
             else
             {
                 Calendar startDato = forsikring.getStartdato();
-                diffYear = forsikring.getSluttdato().get(Calendar.YEAR) - startDato.get(Calendar.YEAR);
-                differanseMnd = diffYear * 12 + forsikring.getSluttdato().get(Calendar.MONTH) - startDato.get(Calendar.MONTH);
+                differanseÅr = forsikring.getSluttdato().get(Calendar.YEAR) - startDato.get(Calendar.YEAR);
+                differanseMnd = differanseÅr * 12 + forsikring.getSluttdato().get(Calendar.MONTH) - startDato.get(Calendar.MONTH);
                 
             }
             prisPrMåned = forsikring.getArligPremie() / 12;
@@ -681,18 +679,6 @@ public class HovedRegister
         return sum;
     }
     
-
-    //returner totale summen for alle årlie forsikringspremer for alle kunder totalt.
-    public double getInntekter()
-    {
-        double totalSum = 0.0;
-        
-        for( Kunde kunde : kunderegister.alleKunder() )
-        {
-            totalSum += kunde.getÅrligForsikringsPremie();
-        }
-        return totalSum;
-    }
     
     // returnerer total erstatningsbeløp for alle skademeldinger som er registrert.
     public double getUtgifter()
@@ -804,10 +790,8 @@ public class HovedRegister
         catch( IOException e )
         {
             
-            
         }
     }
-    
     
     // leser data fra fil.
     public void lesFraFil()
