@@ -43,7 +43,7 @@ public abstract class Forsikring implements Serializable
     {
         egenandel = e_andel;
         startdato = new GregorianCalendar(norge);
-        startdato.set(1996, 01, 01);
+        startdato.set(2013, 01, 01);
         stDato = new Date(1996-1900,01,01);
         vilkar = betingelser;
         forsikringsnummer =  løpenummer++;

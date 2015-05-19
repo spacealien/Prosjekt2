@@ -522,7 +522,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             tabell.setModel(new TabellModell(liste));
             tabell.setPreferredScrollableViewportSize(new Dimension(700, 200));
             statistikkVindu = new StatistikkVindu("Kunder med " + forsikringsvalg,
-                    new JScrollPane(tabell), new Dimension(800, 200));
+                    new JScrollPane(tabell), new Dimension(900, 200));
             tømFelter();
         } 
         catch (NullPointerException e)
@@ -853,7 +853,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
                 }
                 antallForAlltid++;
             }
-            long periodeIMnd = (sluttDato.getTime().getTime() - 
+            double periodeIMnd = (sluttDato.getTime().getTime() - 
                     startDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
             double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
             Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
@@ -877,7 +877,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
 
             JTextArea textArea = new JTextArea();
             textArea.setText("Antall skademeldinger har " + s + " med " + 
-                    df.format(endring) + " stk / " + (int) prosent
+                    df.format(endring) + " stk / " + df.format(prosent)
                     + "% månedelig\ni perioden " + sdf.format(startDato.getTime()) + " - " 
                     + sdf.format(sluttDato.getTime()));
             statistikkVindu = new StatistikkVindu("Økning/Minking i perioden "
@@ -925,7 +925,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
                 }
             }
 
-            long periodeIMnd = (sluttDato.getTime().getTime() - 
+           double periodeIMnd = (sluttDato.getTime().getTime() - 
                     startDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
             
             System.out.println("PeriodeIMnd: " + periodeIMnd);
@@ -934,7 +934,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             double gjennomsnittPerioden = (antallIPerioden / periodeIMnd);
             Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
             Calendar programSluttDato = new GregorianCalendar();
-            long alltidIMnd = (programSluttDato.getTime().getTime() - 
+            double alltidIMnd = (programSluttDato.getTime().getTime() - 
                     programStartDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
             double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
             String s;
@@ -959,7 +959,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             JTextArea textArea = new JTextArea();
             textArea.setText("Antall skademeldinger på " + forsikringsvalg.toLowerCase()
                     + "er har " + s + " med " + df.format(endring) + " stk / " + 
-                    (int) prosent + "% \nmånedelig i perioden " + sdf.format(startDato.getTime())
+                    df.format(prosent) + "% \nmånedelig i perioden " + sdf.format(startDato.getTime())
                     + " - " + sdf.format(sluttDato.getTime()));
 
             statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger"
@@ -1013,13 +1013,13 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
                 }
             }
 
-            long periodeIMnd = (sluttDato.getTime().getTime() - 
+            double periodeIMnd = (sluttDato.getTime().getTime() - 
                     startDato.getTime().getTime()) / 1000 / 60 / 60 / 24;
             System.out.println(periodeIMnd);
             double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
             Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
             GregorianCalendar programSluttDato = new GregorianCalendar();
-            long alltidIMnd = (programSluttDato.getTime().getTime() -
+            double alltidIMnd = (programSluttDato.getTime().getTime() -
                     programStartDato.getTime().getTime()) / 1000 / 60 / 60 / 24;
             double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
             String s;
@@ -1038,7 +1038,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             JTextArea textArea = new JTextArea();
             textArea.setText("Antall skademeldinger for " + skadetypevalg.toLowerCase()
                     + "skader har " + s + " med " + df.format(endring) + " stk / "
-                    + (int) prosent + "% månedelig\ni perioden " + 
+                    + df.format(prosent) + "%\nmånedelig i perioden " + 
                     sdf.format(startDato.getTime()) + " - " + sdf.format(sluttDato.getTime()));
 
             statistikkVindu = new StatistikkVindu("Øking/Minking av skademeldinger"
@@ -1080,12 +1080,12 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
                 totalSum += skademld.getErstatningsbelop();
             }
 
-            long periodeIMnd = (sluttDato.getTime().getTime() - 
+            double periodeIMnd = (sluttDato.getTime().getTime() - 
                     startDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
             double gjennomsnittPerioden = totalSumIPeriode / periodeIMnd;
             Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
             GregorianCalendar programSluttDato = new GregorianCalendar();
-            long alltidIMnd = (programSluttDato.getTime().getTime() - 
+            double alltidIMnd = (programSluttDato.getTime().getTime() - 
                     programStartDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
             double gjennomsnittAlltid = totalSum / alltidIMnd;
             String s;
@@ -1102,8 +1102,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
 
             JTextArea textArea = new JTextArea();
             textArea.setText("Total erstatningsutgifter har " + s + " med " + 
-                    df.format(endring) + " stk / " + (int) prosent
-                    + "% månedelig\ni perioden " + sdf.format(startDato.getTime()) + " - " 
+                    df.format(endring) + " stk / " + df.format(prosent)
+                    + "%\nmånedeligi perioden " + sdf.format(startDato.getTime()) + " - " 
                     + sdf.format(sluttDato.getTime()));
 
             statistikkVindu = new StatistikkVindu("Øking/Minking av erstatnings"
@@ -1153,12 +1153,12 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
                 }
             }
 
-            long periodeIMnd = (sluttDato.getTime().getTime() - 
+           double periodeIMnd = (sluttDato.getTime().getTime() - 
                     startDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
             double gjennomsnittPerioden = totalSumIPeriode / periodeIMnd;
             Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
             GregorianCalendar programSluttDato = new GregorianCalendar();
-            long alltidIMnd = (programSluttDato.getTime().getTime() - 
+            double alltidIMnd = (programSluttDato.getTime().getTime() - 
                     programStartDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
             double gjennomsnittAlltid = totalSum / alltidIMnd;
             String s;
@@ -1177,7 +1177,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             JTextArea textArea = new JTextArea();
             textArea.setText("Totale erstatningsutgifter for " + skadetypevalg.toLowerCase()
                     + "skader har " + s + " med " + df.format(endring) + " stk / "
-                    + (int) prosent + "% månedelig i perioden " + 
+                    + df.format(prosent) + "%\nmånedelig i perioden " + 
                     sdf.format(startDato.getTime()) + " - " + sdf.format(sluttDato.getTime()));
 
             statistikkVindu = new StatistikkVindu("Øking/Minking av erstatnings"
