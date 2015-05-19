@@ -1,7 +1,3 @@
-/**
- * Denne klassen representerer fanekortet som åpnes når bruker av programet
- * ønsker å vise/registrere en båtforsikring. 
- */
 
 package gui;
 
@@ -13,10 +9,11 @@ import javax.swing.*;
 import objekter.*;
 import register.*;
 
-/*Klassens hensikt er å designe brukergrensesnittet for båtforsikringer, 
-ta imot input fra brukeren og registrere videre en båtforsikring
-hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
-en allerede tegnet båtforsikring, og endre denne.*/
+/*Denne klassen representerer fanekortet som åpnes når bruker av programmet
+ønsker å vise/registrere en båtforsikring.
+Klassens hensikt er å ta imot input fra brukeren og registrere videre en 
+båtforsikring, hvis alle feltene er korrekt skrevet inn. Klassen kan også vise 
+informasjon om en allerede tegnet båtforsikring, og endre denne.*/
 
 public class BatforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel
 {

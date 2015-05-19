@@ -4,23 +4,15 @@
 package gui;
 
 //nødvendige import-setninger
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import objekter.Ansatt;
-import objekter.Forsikring;
-import objekter.Inntekt;
-import objekter.Kunde;
-import objekter.Skademelding;
+import java.awt.*;
+import javax.swing.*;
+import objekter.*;
 
 /**
  *
- * @author Odd
+ * @author Odd, Marthe
  */
+/*Klassens hensikt er å vise info knyttet til den ansattes kunder*/
 public class AnsattPanel extends JPanel 
 {   
     private final AnsattVindu vindu;
@@ -42,7 +34,7 @@ public class AnsattPanel extends JPanel
         ansatt = a;
         velkommen = new JLabel("Velkommen " + ansatt.getFornavn() + " " + ansatt.getEtternavn());
         velkommen.setFont(new Font("Helvetica", Font.BOLD, 30));
-        velkommen.setForeground(Color.pink);
+        velkommen.setForeground(Color.blue);
         antKunder = new JTextField(4);
         antForsikringer = new JTextField(4);
         utgifter = new JTextField(4);
@@ -52,9 +44,9 @@ public class AnsattPanel extends JPanel
         panel.setLayout(new GridLayout(6,2,1,5));
         panel.add(new JLabel());
         panel.add(new JLabel());
-        panel.add(new JLabel("Total antall kunder:"));
+        panel.add(new JLabel("<html>Totalt antall<br>registrerte kunder:</html>"));
         panel.add(antKunder);
-        panel.add(new JLabel("Total antall forsikringer:"));
+        panel.add(new JLabel("<html>Totalt antall<br>tegnede forsikringer:</html>"));
         panel.add(antForsikringer);
         panel.add(new JLabel("<html>Mine kunders totale<br>erstatningsutgifter:</html>"));
         panel.add(utgifter);
@@ -66,6 +58,8 @@ public class AnsattPanel extends JPanel
         
     }
     
+    /*Metode for å fylle ut tekstfeltene med riktig info. Hvis den ansatte ikke
+    har noen kunder på seg, så blir alle feltene 0*/
     public void fyllUt()
     {
         
