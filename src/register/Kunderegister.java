@@ -136,6 +136,12 @@ public class Kunderegister implements Serializable
             return null;
     }
     
+    // returnerer alle aktive kunder i en liste.
+    public List<Kunde> alleAktiveKunder()
+    {
+        return kunderegister.stream().filter( x -> x.erKunde() == true).collect(Collectors.toList());
+    }
+    
     
     // sorterer alfabetisk ved hjelp av fornavn og etternavn.
     public void sorter()
