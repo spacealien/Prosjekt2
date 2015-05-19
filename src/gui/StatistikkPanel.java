@@ -1228,12 +1228,12 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
 
     public boolean sjekkDato()
     {
-        if (!stDatoAr.getText().matches("0[1-9]|[12]\\d|3[01]") || 
+        if (!stDatoAr.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])") || 
                 !stDatoMnd.getText().matches("0[1-9]|1[0-2]")
                 || !stDatoDag.getText().matches("0[1-9]|[12]\\d|3[01]") || 
                 !slDatoAr.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])")
                 || !slDatoMnd.getText().matches("0[1-9]|1[0-2]") || 
-                !slDatoDag.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])"))
+                !slDatoDag.getText().matches("0[1-9]|[12]\\d|3[01]"))
         {
             feilMelding("Fyll ut alle feltene for dato i riktig format");
             return false;
@@ -1246,21 +1246,21 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
 
     public boolean sjekkDatoOgForsikringsvelger() 
     {
-        if (!stDatoAr.getText().matches("0[1-9]|[12]\\d|3[01]") || 
+        if (!stDatoAr.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])") || 
                 !stDatoMnd.getText().matches("0[1-9]|1[0-2]")
                 || !stDatoDag.getText().matches("0[1-9]|[12]\\d|3[01]") || 
                 !slDatoAr.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])")
                 || !slDatoMnd.getText().matches("0[1-9]|1[0-2]") || 
-                !slDatoDag.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])")
+                !slDatoDag.getText().matches("0[1-9]|[12]\\d|3[01]")
                 || forsikringsvelgeren.getSelectedIndex() == 0)
         {
 
-            if (!stDatoAr.getText().matches("0[1-9]|[12]\\d|3[01]") || 
-                    !stDatoMnd.getText().matches("0[1-9]|1[0-2]")
-                    || !stDatoDag.getText().matches("0[1-9]|[12]\\d|3[01]") || 
-                    !slDatoAr.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])")
-                    || !slDatoMnd.getText().matches("0[1-9]|1[0-2]") || 
-                    !slDatoDag.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])"))
+            if (!stDatoAr.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])") || 
+                !stDatoMnd.getText().matches("0[1-9]|1[0-2]")
+                || !stDatoDag.getText().matches("0[1-9]|[12]\\d|3[01]") || 
+                !slDatoAr.getText().matches("([1][9][0-9][0-9])|([2][0-9][0-9][0-9])")
+                || !slDatoMnd.getText().matches("0[1-9]|1[0-2]") || 
+                !slDatoDag.getText().matches("0[1-9]|[12]\\d|3[01]"))
             {
                 feilMelding("Fyll ut alle feltene for dato i riktig format");
             }
