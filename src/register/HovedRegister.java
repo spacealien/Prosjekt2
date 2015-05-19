@@ -492,6 +492,16 @@ public class HovedRegister
         //sjekkTid2();
     }
     
+    // sier opp kundeforholdet.
+    public void siOppKundeforhold( Kunde kunde )
+    {
+        kunde.setAktiv(false);
+        List<Forsikring> kundeForsikringer = getAlleKundensForsikringer(kunde);
+        for( Forsikring forsikring : kundeForsikringer)
+            forsikring.setAktiver(false);
+    }
+    
+    
     //Returnerer alle skademelding som hører til kunden som blir send med som parameter.
     public List<Skademelding> getAlleKundensSkademeldinger( Kunde kunde )
     {
