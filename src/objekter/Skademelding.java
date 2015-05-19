@@ -36,13 +36,6 @@ public class Skademelding implements Serializable
     private boolean aktiv = true;
     private static final long serialVersionUID = 512341233333L;
     
-    public Skademelding( Forsikring forsikring )
-    {
-        this.norge = new Locale( "no" );
-        this.forsikring = forsikring;
-        skadenummer = nestenr++;
-    }
-    
     public Skademelding( Forsikring forsikring, GregorianCalendar dato, String skadetype, String beskrivelse, int takseringsbelop, int erstatingsbelop )
     {
         this.norge = new Locale( "no" );
@@ -55,7 +48,6 @@ public class Skademelding implements Serializable
         skadenummer = nestenr++;
         opprettetdato = new GregorianCalendar(norge);
     }
-    
     
     // set metoder
     public void setAktiv(boolean b)
