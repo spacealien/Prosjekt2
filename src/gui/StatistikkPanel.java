@@ -861,10 +861,10 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             double alltidIMnd = (programSluttDato.getTime().getTime() -
                     programStartDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
             double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
+            System.out.println(gjennomsnittAlltid + " " + gjennomsnittPerioden);
             String s;
             double endring = gjennomsnittPerioden - gjennomsnittAlltid;
-            double prosent = ((endring - gjennomsnittAlltid) / gjennomsnittAlltid)
-                            * 100;
+            double prosent = ((endring / gjennomsnittAlltid)*100);
 
             if (endring >= 0)
             {
@@ -935,8 +935,12 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
             String s;
             double endring = gjennomsnittPerioden - gjennomsnittAlltid;
-            double prosent = ((endring - gjennomsnittAlltid) / gjennomsnittAlltid)
-                            * 100;
+            double prosent = ((endring / gjennomsnittAlltid)*100);
+            System.out.println(gjennomsnittPerioden);
+            System.out.println(gjennomsnittAlltid);
+            System.out.println(endring);
+            System.out.println(prosent);
+            
 
             if (endring >= 0)
             {
@@ -1015,8 +1019,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
             String s;
             double endring = gjennomsnittPerioden - gjennomsnittAlltid;
-            double prosent = ((endring - gjennomsnittAlltid) / gjennomsnittAlltid) 
-                            * 100;
+            double prosent = ((endring / gjennomsnittAlltid)*100);
 
             if (endring >= 0)
             {
@@ -1082,8 +1085,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             double gjennomsnittAlltid = totalSum / alltidIMnd;
             String s;
             double endring = gjennomsnittPerioden - gjennomsnittAlltid;
-            double prosent = ((endring - gjennomsnittAlltid) / gjennomsnittAlltid)
-                                * 100;
+            double prosent = ((endring / gjennomsnittAlltid)*100);
             if (endring >= 0)
             {
                 s = "økt";
@@ -1156,8 +1158,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             double gjennomsnittAlltid = totalSum / alltidIMnd;
             String s;
             double endring = gjennomsnittPerioden - gjennomsnittAlltid;
-            double prosent = ((endring - gjennomsnittAlltid) / gjennomsnittAlltid) 
-                            * 100;
+            double prosent = ((endring / gjennomsnittAlltid)*100);
 
             if (endring >= 0)
             {
@@ -1199,11 +1200,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
 
         for (Forsikring forsikring : register.getForsikringrsliste().alleForsikringer())
         {
-            Set<String> set = new HashSet<>();
-            
-                if(forsikring.erAktiv())
-                    set.add(forsikring.getForsikringsType());
-            
+           
             if (forsikring instanceof Bilforsikring)
             {
                 bilForsikring++;
