@@ -797,8 +797,13 @@ public class HovedRegister
     // skriver data til fil.
     public void skrivTilFil()
     {
+        String mappeSti = "Data\\";
+        
+        if(System.getProperty("os.name").toLowerCase().contains("mac") || System.getProperty("os.name").toLowerCase().contains("lin"))
+            mappeSti = "Data/";
+        
         try( ObjectOutputStream utfil = new ObjectOutputStream(
-                new FileOutputStream("Data\\ForsikringsData.dta")) )
+                new FileOutputStream(mappeSti + "ForsikringsData.dta")) )
         {
             utfil.writeObject(kunderegister);
             utfil.writeObject(forsikringsregister);
@@ -811,15 +816,20 @@ public class HovedRegister
         }
         catch( IOException e )
         {
-            
+            //vindu.visFeilmelding("Feilmelding", "Fant ikke fil");
         }
     }
     
     // leser data fra fil.
     public void lesFraFil()
     {
+        String mappeSti = "Data\\";
+        
+        if(System.getProperty("os.name").toLowerCase().contains("mac") || System.getProperty("os.name").toLowerCase().contains("lin"))
+            mappeSti = "Data/";
+        
         try( ObjectInputStream innfil = new ObjectInputStream(
-              new FileInputStream("Data\\ForsikringsData.dta")))
+              new FileInputStream(mappeSti +"ForsikringsData.dta")))
         {
             kunderegister = (Kunderegister)innfil.readObject();
             forsikringsregister = (Forsikringsliste) innfil.readObject();
@@ -832,7 +842,7 @@ public class HovedRegister
         }
         catch( IOException | ClassNotFoundException e )
         {
-           
+           //vindu.visFeilmelding("Feilmelding", "Fant ikke fil");
         }
     }
 }

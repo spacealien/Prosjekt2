@@ -23,6 +23,7 @@ public class MenyLinje extends MenuBar
     private final Menu vinduMeny = new Menu("Vindu");
     private final Menu adminMeny = new Menu("Admin");
     private final MenuItem loggUtKnapp = new MenuItem("Logg Ut");
+    private final MenuItem backupKnapp = new MenuItem("Ta backup");
     private final MenuItem avsluttKnapp = new MenuItem("Avslutt");
     private final AnsattVindu ansattVindu;
     
@@ -31,12 +32,14 @@ public class MenyLinje extends MenuBar
     {
         ansattVindu = vindu;
         filMeny.add(loggUtKnapp);
+        filMeny.add(backupKnapp);
         filMeny.add(avsluttKnapp);
         this.add(filMeny);
         this.add(vinduMeny);
         
         loggUtKnapp.addActionListener(lytter);
         avsluttKnapp.addActionListener(lytter);
+        backupKnapp.addActionListener(lytter);
     }
     
     // Gjemmer hovedvinduet, og ber programmet om å vise et nytt loginVIndu.
@@ -54,6 +57,11 @@ public class MenyLinje extends MenuBar
         ansattVindu.dispatchEvent(new WindowEvent( ansattVindu,WindowEvent.WINDOW_CLOSING));
     }
     
+    public void taBackup()
+    {
+        ansattVindu.getRegister().skrivTilFil();
+    }
+    
     private class MenyLytter implements ActionListener
     {
         @Override
@@ -64,6 +72,10 @@ public class MenyLinje extends MenuBar
                 ansattVindu.setAnsatt(null);
                 ansattVindu.setVisible(false);
                 ansattVindu.visLogin();
+            }
+            else if( e.getSource() == backupKnapp )
+            {
+                taBackup();
             }
             else if( e.getSource() == avsluttKnapp )
             {

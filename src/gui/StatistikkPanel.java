@@ -510,7 +510,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
     }
 
     /*Skriver ut alle kundene med en gitt forsikringstype i en tabell i
-    statistikkvinduet. Hvis  */
+    statistikkvinduet. Hvis det ikke er noen treff, så kommer det feilmelding */
     public void alleKunderMedForsikring()
     {
         try
@@ -522,7 +522,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             tabell.setModel(new TabellModell(liste));
             tabell.setPreferredScrollableViewportSize(new Dimension(700, 200));
             statistikkVindu = new StatistikkVindu("Kunder med " + forsikringsvalg,
-                    new JScrollPane(tabell), new Dimension(700, 200));
+                    new JScrollPane(tabell), new Dimension(800, 200));
             tømFelter();
         } 
         catch (NullPointerException e)
@@ -531,6 +531,10 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         }
     }
 
+    /*Skriver ut antall skademeldinger innenfor en gitt tidsperiode. Hvis bruker
+    har valgt forsikringstype blir antall skademeldinger på denne forsikringstypen
+    skrevet ut. Hvis ikke, blir det totale antallet skademeldinger skrevet ut.
+    Hvis det ikke er noen treff, så kommer det feilmelding om dette*/
     public void antSkademeldinger()
     {
         startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())),
@@ -588,6 +592,10 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         }
     }
 
+    /*Skriver ut antall forsikringer innenfor en gitt tidsperiode. Hvis bruker
+    har valgt forsikringstype blir antall forsikringer av denne typen skrevet ut.
+    Hvis ikke, blir det totale antallet forsikringer skrevet ut.
+    Hvis det ikke er noen treff, så kommer det feilmelding om dette*/
     public void antForsikringer()
     {
         startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())), (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
@@ -645,6 +653,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         }
     }
 
+    /*Skriver ut de totale erstatningsutgiftene innenfor en gitt tidsperiode.
+    Hvis det ikke er noen treff, så kommer det feilmelding om dette*/
     public void totalErstatning()
     {
         startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())),
@@ -684,7 +694,9 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             feilMelding("Søket ga ingen treff");
         }
     }
-
+    /*Skriver ut de totale ertsatningsutgiftene på en gitt forsikringstype
+    innenfor en gitt tidsperiode.
+    Hvis det ikke er noen treff, så kommer det feilmelding om dette*/
     public void totalErstatningPaForsikring()
     {
         forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
@@ -723,6 +735,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         }
     }
 
+    /*Skriver ut de totale premieinntektene innenfor en gitt tidsperiode.
+    Hvis det ikke er noen treff, så kommer det feilmelding om dette*/
     public void totalPremieinntekt()
     {
         //Total utbetaling av erstatninger i en gitt periode
@@ -763,12 +777,17 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         }
     }
 
+    /*Skriver ut de totale premieinntektene for en gitt forsikringstype innenfor
+    en gitt tidsperiode. Hvis det ikke er noen treff, så kommer det feilmelding 
+    om dette*/
     public void totalPremieinntektPaForsikringstype()
     {
         //Total utbetaling av inntekt på forsikringstype i en gitt periode
         forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
-        startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())), (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
-        sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())), (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
+        startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())),
+                (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
+        sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())),
+                (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
         double totalSum = 0.0;
         int antall = 0;
         double gjennomsnitt = 0;
@@ -808,6 +827,11 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         }
     }
 
+    /*Skriver ut økning/minking av skademeldinger innenfor en gitt tidsperiode.
+    Økingen/minkingen blir regnet som antall skademeldinger/antall måneder i perioden
+    minus skademeldinger/antall måneder siden programmets start. Programmets 
+    start er satt til når den første forsikringen ble tegnet.  Hvis det ikke er 
+    noen treff, kommer det feilmelding om dette*/
     public void statistikkSkademeldinger()
     {
         startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())),
@@ -822,8 +846,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         {
             for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger())
             {
-                if (skademld.getOpprettetDato().after(startDato) &&
-                        skademld.getOpprettetDato().before(sluttDato))
+                if (skademld.getOpprettetDato().after(startDato.getTime()) &&
+                        skademld.getOpprettetDato().before(sluttDato.getTime()))
                 {
                     skademeldingsliste.add(skademld);
                     antallIPerioden++;
@@ -835,7 +859,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
                     startDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
             double gjennomsnittPerioden = antallIPerioden / periodeIMnd;
             Calendar programStartDato = register.getForsikringrsliste().getForsikring(1000001).getStartdato();
-            GregorianCalendar programSluttDato = new GregorianCalendar();
+            Calendar programSluttDato = new GregorianCalendar();
             double alltidIMnd = (programSluttDato.getTime().getTime() -
                     programStartDato.getTime().getTime()) / 1000 / 60 / 60 / 24 / 30;
             double gjennomsnittAlltid = antallForAlltid / alltidIMnd;
@@ -871,6 +895,12 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
 
     }
 
+    /*Skriver ut økning/minking av skademeldinger på en gitt forsikringstype
+    innenfor en gitt tidsperiode. Økingen/minkingen blir regnet som antall 
+    skademeldinger/antall måneder i perioden minus skademeldinger/antall måneder
+    siden programmets start. Programmets start er satt til når den første 
+    forsikringen ble tegnet. Hvis det ikke er noen treff, kommer det feilmelding 
+    om dette*/
     public void statistikkSkademeldingPaForsikring()
     {
         forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
@@ -939,6 +969,12 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         }
     }
 
+    /*Skriver ut økning/minking av skademeldinger på en på
+    en gitt skadetype innenfor en gitt tidsperiode. Økingen/minkingen blir
+    regnet som antall skademeldinger/antall måneder i perioden minus
+    skademeldinger/antall måneder siden programmets start. Programmets start er
+    satt til når den første forsikringen ble tegnet. Hvis det ikke er noen treff,
+    kommer det feilmelding om dette*/
     public void statistikkSkademeldingPaSkadetype()
     {
         skadetypevalg = skadetypevelgeren.getItemAt(skadetypevelgeren.getSelectedIndex());
@@ -1012,6 +1048,11 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         }
     }
 
+    /*Skriver ut økning/minking av erstatningsutgifter innenfor en gitt 
+    tidsperiode. Økingen/minkingen blir regnet som antall skademeldinger/antall 
+    måneder i perioden minus skademeldinger/antall måneder siden programmets 
+    start. Programmets start er satt til når den første forsikringen ble tegnet.
+    Hvis det ikke er noen treff, kommer det feilmelding om dette*/
     public void statistikkErstatning()
     {
         startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())),
@@ -1073,6 +1114,12 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
 
     }
 
+    /*Skriver ut økning/minking av de totale erstatningsutgiftene på
+    en gitt skadetype innenfor en gitt tidsperiode. Økingen/minkingen blir
+    regnet som antall skademeldinger/antall måneder i perioden minus
+    skademeldinger/antall måneder siden programmets start. Programmets start er
+    satt til når den første forsikringen ble tegnet. Hvis det ikke er noen treff,
+    kommer det feilmelding om dette*/
     public void statistikkErstatningPaSkadetype()
     {
         skadetypevalg = skadetypevelgeren.getItemAt(skadetypevelgeren.getSelectedIndex());
@@ -1142,6 +1189,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         }
     }
 
+    /*Skriver ut alle forsikringstypene sortert etter antall. 
+    Hvis det ikke er noen treff, kommer det feilmelding om dette*/
     public void typeForsikringPaAntall()
     {
         int bilForsikring = 0;
