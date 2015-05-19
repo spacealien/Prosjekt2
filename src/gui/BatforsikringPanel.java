@@ -69,9 +69,9 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     private boolean vekter_b;
     private int belop;
     private JPanel knappePanel = new JPanel();
-    private JButton rediger = new JButton("Rediger forsikring");
-    private JButton lagreNy = new JButton("Lagre forsikring");
-    private JButton deaktiver = new JButton("Si opp forsikring");
+    private JButton rediger;
+    private JButton lagreNy;
+    private JButton deaktiver;
     
     
     public BatforsikringPanel(Kunde k, AnsattVindu v)
@@ -104,6 +104,11 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         beregnPris = new JButton("Beregn pris");
         vilkarKnapp = new JButton("Vis vilkår");
         vilkarKnapp.setVisible(false);
+        rediger = new JButton("Rediger forsikring");
+        lagreNy = new JButton("Lagre forsikring");
+        deaktiver = new JButton("Si opp forsikring");
+        rediger.setVisible(false);
+        deaktiver.setVisible(false);
         
         eierFornavn = new JTextField(20);
         eierEtternavn = new JTextField(20);
@@ -161,6 +166,9 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnBatPanel1.add(batVerdi);
         tegnBatPanel2.add(Box.createGlue());
         tegnBatPanel2.add(batGiTilbud);
+        knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
+        knappePanel.add(rediger);
+        knappePanel.add(deaktiver);
         hovedPanel.add(tegnBatPanel1);
         hovedPanel.add(Box.createHorizontalStrut(5));
         hovedPanel.add(new JSeparator(SwingConstants.VERTICAL));
@@ -168,6 +176,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnBatPanel2.setPreferredSize(tegnBatPanel1.getPreferredSize());
         hovedPanel.add(tegnBatPanel2);
         add(hovedPanel);
+        add(knappePanel);
         
         VilkårLytter vilkårLytter = new VilkårLytter();
         batGiTilbud.addActionListener(this);
@@ -205,10 +214,8 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         
         if(forsikring.erAktiv())
         {
-            knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
-            knappePanel.add(rediger);
-            knappePanel.add(deaktiver);
-            add(knappePanel);
+            rediger.setVisible(true);
+            deaktiver.setVisible(true);
         }
         
         tilbudLabel.setText("Årlig premie: (Kr/år)");
@@ -353,6 +360,9 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
             JOptionPane.showMessageDialog(null, "Du har nå tegnet båtforsikring med nummer "
                                           + nyForsikring.getForsikringsnummer() + " på " + kunde.getFornavn() 
                                           + " " + kunde.getEtternavn() , "Bekreftelse", JOptionPane.INFORMATION_MESSAGE);
+            visForsikring(nyForsikring);
+            
+            
             if(kundePanel != null)
                 kundePanel.oppdaterVindu();
         }

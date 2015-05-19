@@ -13,25 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.JToggleButton;
-import objekter.Ansatt;
-import objekter.BatForsikring;
-import objekter.Bilforsikring;
-import objekter.Forsikring;
-import objekter.Fritidsboligforsikring;
-import objekter.Husforsikring;
-import objekter.Kunde;
-import objekter.Reiseforsikring;
-import objekter.Skademelding;
+import javax.swing.*;
+import objekter.*;
 import register.HovedRegister;
 
 /**

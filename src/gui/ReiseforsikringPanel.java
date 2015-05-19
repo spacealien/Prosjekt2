@@ -54,9 +54,9 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     private String sonevalget;
     private int egenandelvalget;
     private String dekningvalget;
-    private JButton rediger = new JButton("Rediger forsikring");
-    private JButton lagreNyInfo = new JButton("Lagre forsikring");
-    private JButton deaktiver = new JButton("Si opp forsikring");
+    private JButton rediger;
+    private JButton lagreNyInfo;
+    private JButton deaktiver;
     private JPanel knappePanel = new JPanel();
     private JLabel tilbudLabel;
     
@@ -87,6 +87,11 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         ButtonGroup forsorger = new ButtonGroup();
         forsorger.add(forsorgerJa);
         forsorger.add(forsorgerNei);  
+        rediger = new JButton("Rediger forsikring");
+        lagreNyInfo = new JButton("Lagre forsikring");
+        deaktiver = new JButton("Si opp forsikring");
+        rediger.setVisible(false);
+        deaktiver.setVisible(false);
         
         JPanel tegnReisePanel1 = new JPanel();
         JPanel forsorgerP = new JPanel();
@@ -113,7 +118,11 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         tegnReisePanel1.add(reiseTilbud);
         tegnReisePanel1.add(new JLabel());
         tegnReisePanel1.add(reiseGiTilbud);
+        knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
+        knappePanel.add(rediger);
+        knappePanel.add(deaktiver);
         add(tegnReisePanel1);
+        add(knappePanel);
         
         VilkårLytter vilkårLytter = new VilkårLytter();
         reiseGiTilbud.addActionListener(this);
@@ -163,14 +172,15 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         
         if (forsikring.erAktiv())
         {
-            knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
-            knappePanel.add(rediger);
-            knappePanel.add(deaktiver);
-            add(knappePanel);
+            rediger.setVisible(true);
+            deaktiver.setVisible(true);
         }
-        
-        tilbudLabel.setText("Årlig premie: ");
+        tilbudLabel.setText("Årlig premie: (Kr/År)");
+        tilbudLabel.setVisible(true);
+        reiseTilbud.setVisible(true);
         disableFelter( this, reiseGiTilbud, beregnPris );
+        revalidate();
+        repaint();
     }
     
     /*Hvis brukeren trykket seg videre til å denne forsikringen via et kundepanel,
@@ -282,6 +292,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
                 kundePanel.oppdaterVindu();
             
             vindu.visInformasjon("Beskjed", "Du har nå tegnet en ny forsikring på " + nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn());
+            visForsikring(nyForsikring);
         }
     }
     

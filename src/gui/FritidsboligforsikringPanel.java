@@ -68,9 +68,9 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
     
     private final Kunde kunde;
     private final JPanel knappePanel = new JPanel();
-    private final JButton rediger = new JButton("Rediger forsikring");
-    private final JButton lagreNyInfo = new JButton("Lagre forsikring");
-    private final JButton deaktiver = new JButton("Si opp forsikring");
+    private final JButton rediger;
+    private final JButton lagreNyInfo;
+    private final JButton deaktiver;
     
     public FritidsboligforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -108,6 +108,11 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         beregnPris = new JButton("Beregn pris");
         vilkårKnapp = new JButton("Vis vilkår");
         vilkårKnapp.setVisible(false);
+        rediger = new JButton("Rediger forsikring");
+        lagreNyInfo = new JButton("Lagre forsikring");
+        deaktiver = new JButton("Si opp forsikring");
+        rediger.setVisible(false);
+        deaktiver.setVisible(false);
         
         JPanel tegnFritidPanel1 = new JPanel();
         JPanel tegnFritidPanel2 = new JPanel();
@@ -154,6 +159,9 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         tegnFritidPanel2.add(fritidTilbud);
         tegnFritidPanel2.add(Box.createGlue());
         tegnFritidPanel2.add(fritidGiTilbud);
+        knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
+        knappePanel.add(rediger);
+        knappePanel.add(deaktiver);
         hovedPanel.add(tegnFritidPanel1);
         hovedPanel.add(Box.createHorizontalStrut(5));
         hovedPanel.add(new JSeparator(SwingConstants.VERTICAL));
@@ -161,6 +169,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         tegnFritidPanel2.setPreferredSize(tegnFritidPanel1.getPreferredSize());
         hovedPanel.add(tegnFritidPanel2);
         add(hovedPanel);
+        add(knappePanel);
         
         VilkårLytter vilkårLytter = new VilkårLytter();
         fritidGiTilbud.addActionListener(this);
@@ -201,17 +210,12 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         
         if (forsikring.erAktiv())
         {
-            knappePanel.setLayout(new BoxLayout(knappePanel, BoxLayout.PAGE_AXIS));
-            knappePanel.add(rediger);
-            knappePanel.add(deaktiver);
-            add(knappePanel);
+            rediger.setVisible(true);
+            deaktiver.setVisible(true);
         }
-        else
-        {
-            tilbudLabel.setText("Årlig premie: (Kr/År)");
-            tilbudLabel.setVisible(true);
-            fritidTilbud.setVisible(true);
-        }
+        tilbudLabel.setText("Årlig premie: (Kr/År)");
+        tilbudLabel.setVisible(true);
+        fritidTilbud.setVisible(true);
         
         revalidate();
         repaint();
@@ -360,7 +364,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
                                           + forsikringen.getForsikringsnummer() + " på " + kunde.getFornavn() 
                                           + " " + kunde.getEtternavn() , "Bekreftelse", 
                                             JOptionPane.INFORMATION_MESSAGE);
-            
+            visForsikring(forsikringen);
             if(kundePanel != null)
                 kundePanel.oppdaterVindu();
         }
