@@ -646,6 +646,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
             bilforsikring.setBonus(bonusen);
             bilforsikring.setArsmodell(ar);
             bilforsikring.setVilkar(vilkår);
+            bilforsikring.setArligPremie(Double.parseDouble(bilTilbud.getText()));
             if( kundePanel != null )
                 kundePanel.oppdaterVindu();
         }

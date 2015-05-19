@@ -395,6 +395,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
             forsikring.setEgenandel(egenandelvalget);
             forsikring.setByggeAr(ar);
             forsikring.setVilkar(dekningvalget);
+            forsikring.setArligPremie(Double.parseDouble(fritidTilbud.getText()));
             
             if(kundePanel != null)
                 kundePanel.oppdaterVindu();

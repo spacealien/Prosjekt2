@@ -33,8 +33,6 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
     private final JTextField belopHus;
     private final JTextField belopHusInnbo;
     private final JTextField husTilbud;
-    private final JTextField prisenar;
-    private final JTextField prisenmnd;
     private final JLabel tilbudLabel;
     private final JComboBox<String> hustypevelger;
     private final String[] hustype = {"","Enebolig", "Tomannsbolig", "Tremannsbolig", "Firemannsbolig", "Rekkehus", "Leilighet"};
@@ -64,10 +62,10 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
     private int belop;
     private int belopInnbo;
     private boolean alarm_b;
-    private JPanel knappePanel = new JPanel();
-    private JButton rediger;
-    private JButton lagreNyInfo;
-    private JButton deaktiver;
+    private final JPanel knappePanel = new JPanel();
+    private final JButton rediger;
+    private final JButton lagreNyInfo;
+    private final JButton deaktiver;
     
     public HusforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -80,8 +78,6 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         husTilbud = new JTextField( 7 );
         husAr = new JTextField( 4 );
         husKvm = new JTextField( 4 );
-        prisenar = new JTextField( 6 );
-        prisenmnd = new JTextField( 6 );
         tilbudLabel = new JLabel("Foreslått tilbud: ");
         hustypevelger = new JComboBox<>(hustype);
         husmaterialevelger = new JComboBox<>(husmateriale);
@@ -390,6 +386,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
             forsikring.setEgenandel(egenandelvalget);
             forsikring.setByggeAr(ar);
             forsikring.setVilkar(vilkår);
+            forsikring.setArligPremie(Double.parseDouble(husTilbud.getText()));
             
             if(kundePanel != null)
                 kundePanel.oppdaterVindu();

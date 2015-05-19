@@ -5,6 +5,7 @@ package gui;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import java.util.Calendar;
+import java.util.Locale;
 import javax.swing.*;
 import objekter.*;
 import register.*;
@@ -292,7 +293,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
                 modell = batModell.getText();
                 hk = Integer.parseInt(batHk.getText());
                 ar = Integer.parseInt(batArsmodell.getText());
-                java.util.Locale norge = new java.util.Locale( "no" );
+                Locale norge = new Locale( "no" );
                 Calendar dato = Calendar.getInstance(norge);
                 if (ar > dato.get(Calendar.YEAR))
                 {
@@ -352,7 +353,6 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
             nyForsikring.setArligPremie(Double.parseDouble(batTilbud.getText()));
             
             vindu.getRegister().nyForsikring(nyForsikring);
-            Kjoretoyforsikring kjForsikring = (Kjoretoyforsikring)nyForsikring;
             
             if (eier != null)
                 nyForsikring.setEier(eier);
@@ -388,6 +388,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
             forsikring.setBelop(belop);
             forsikring.setEier(eier);
             forsikring.setVilkar(vilkår);
+            forsikring.setArligPremie(Double.parseDouble(batTilbud.getText()));
             
             if(kundePanel != null)
                 kundePanel.oppdaterVindu();

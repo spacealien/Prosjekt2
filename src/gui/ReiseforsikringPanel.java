@@ -54,11 +54,11 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     private String sonevalget;
     private int egenandelvalget;
     private String dekningvalget;
-    private JButton rediger;
-    private JButton lagreNyInfo;
-    private JButton deaktiver;
-    private JPanel knappePanel = new JPanel();
-    private JLabel tilbudLabel;
+    private final JButton rediger;
+    private final JButton lagreNyInfo;
+    private final JButton deaktiver;
+    private final JPanel knappePanel = new JPanel();
+    private final JLabel tilbudLabel;
     
     public ReiseforsikringPanel(Kunde k, AnsattVindu v)
     {
@@ -268,7 +268,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
     {
         if (hentInfo())
         {
-            double foreslåttPris = ForsikringsKalulator.beregnReiseforsikring(egenandelvalget, dekningvalget, forsorger_b , antBarn, sonevalget, belop );
+            foreslåttPris = ForsikringsKalulator.beregnReiseforsikring(egenandelvalget, dekningvalget, forsorger_b , antBarn, sonevalget, belop );
             reiseTilbud.setVisible(true);
             reiseTilbud.setText(String.valueOf(foreslåttPris));
             reiseTilbud.setToolTipText("Kan redigeres");
