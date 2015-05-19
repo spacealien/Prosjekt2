@@ -30,7 +30,7 @@ public class Kunderegister implements Serializable
         sorter();
     }
     
-    /**
+    /*
      * Metoden returnerer alle kunder som tilhører ansatt som bil tilsendt i parameter
      * i form av List<Kunde>
      */
@@ -50,7 +50,7 @@ public class Kunderegister implements Serializable
         return funnetKunder;
     }
     
-    /**
+    /*
      * Metoden skjekker om det allerede eksisterer tilsvarene kundeobjekt i registeret.
      * returnerer true hvis kunden er i registeret, returnerer false hvis det ikke finnes et tilsvarede objekt
      * i registeret.
@@ -84,7 +84,7 @@ public class Kunderegister implements Serializable
         return null;
     }
     
-    /**
+    /*
      * returnerer en List<Kunde> som inneholde kunden som har personnummer lik parameter,
      * Denne metoden brukes for å mate TabellModell klassen med data, siden TabellModell
      * kun motar List som parameter.
@@ -145,10 +145,11 @@ public class Kunderegister implements Serializable
     }
     
     
-    /**
+    /*
      * Returnerer første kundeobjekt i lista, brukes til å hente it 
      * hjelpevariablen for kundenummber ved skriving til fil.
-     * */
+     */
+    
     public Kunde getKunde()
     {
         Iterator<Kunde> iterator = kunderegister.iterator();

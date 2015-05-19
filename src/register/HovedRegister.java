@@ -578,16 +578,22 @@ public class HovedRegister
         return kunderegister.finnKundeEtterFornavn(fornavn);
     }
     
-    
     public Kunde finnKundeMedPersonnummer( String personnummer )
     {
         return  kunderegister.finnKundeEtterPersonnummer(personnummer);
     }
     
+    // returnerer kunderegisteret.
     public Kunderegister getKundeliste()
     {
         return kunderegister;
     }
+    
+    
+    
+    /*  Metoden returnerer kunder som har en gitt forsikringstype.
+     *  Parameteren forsikringstype motar en String som representerer forsikringstypen.
+     */
     
     public List<Kunde> getAlleKunderMedForsikring(String forsikringstype)
     {
@@ -621,7 +627,7 @@ public class HovedRegister
         return ansattregister;
     }
     
-    /**
+    /*
      * Metoden teller antall måneder en forsikring har vært aktiv,
      * så ganges antall måneder med forsikringens månedlig pris.
      * og returnerer prisen.
@@ -656,9 +662,9 @@ public class HovedRegister
         return sum;
     }
     
-    /**
+    /*
      * Henter total sum for utgifter forbundet med kunden som blir send med som parameter. 
-     * @return int utgifter forbundet med en kunde.
+     * returnerer en int, utgifter forbundet med en kunde.
      */
     public int getUtgifter( Kunde kunde )
     {
@@ -671,10 +677,9 @@ public class HovedRegister
         return sum;
     }
     
-    /**
-     * returnerer totale summen av av alle aktive forsikrings premier til en kunde.
-     * @param kunde
-     * @return 
+    /*
+     * Returnerer totale summen av av alle aktive forsikrings premier til en kunde.
+     * motar kunden som parameter. 
      */
     public double getInntekter( Kunde kunde )
     {
@@ -701,12 +706,10 @@ public class HovedRegister
         return totalSum;
     }
     
-    /**
+    /*
      * Legger inn ny forsikring i forsikringsregisteret. Kjøerer en test for å 
      * se hvor mange unike aktive forsikringer en kunde har, dersom kunden har mer
      * enn tre aktive forsikringer settes kunden som totalkunde.
-     * 
-     * @param nyForsikring 
      */
     
     public void nyForsikring( Forsikring nyForsikring  )
@@ -730,11 +733,10 @@ public class HovedRegister
     }
     
     
-    /**
+    /*
      * Metoden sier opp en forsikring og tester om kunden mister status som totalkunde dersom
      * forsikringen deaktiveres.
-     * 
-     * @param forsikringsnummer 
+     * Motar forsikringsnummer som parameter.
      */
     
     public void deaktiverForsikring( Integer forsikringsnummer )
@@ -750,12 +752,10 @@ public class HovedRegister
         skrivTilFil();
     }
     
-    /**
+    /*
      * Legger inn ny skademelding i skademeldingsregisteret, dersom 
      * skademeldingen tilhører en bilforsikring, korrigeres bonusen automatisk.
-     * 
-     * @param nySkademelding
-     * @return 
+     * Motar den nye skademeldingen i parameter.
      */
     
     public boolean nySkademelding( Skademelding nySkademelding )
