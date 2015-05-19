@@ -179,6 +179,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
         erstatningsLabel.setVisible(true);
         erstatningsBeløp.setVisible(true);
         disableFelter(this, lastOppBildeKnapp, beregnErstatning);
+        sendInnSkade.setVisible(false);
         
     }
     
@@ -207,7 +208,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
             GregorianCalendar dato = new GregorianCalendar(Integer.parseInt(sd.substring(4, 8)), Integer.parseInt(sd.substring(2,4)), Integer.parseInt(sd.substring(0, 2)));
             String beskrivelse = skadeBeskrivelse.getText();
             int takst = Integer.parseInt(skadeTakst.getText());
-            double belop = Integer.parseInt(erstatningsBeløp.getText());
+            double belop = Double.parseDouble(erstatningsBeløp.getText());
             skadetypevalget = skadetypevelger.getItemAt(skadetype_n);
             
             Skademelding nySkademelding = new Skademelding(forsikring, dato, skadetypevalget, beskrivelse, takst, belop );
@@ -224,7 +225,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
             if(kundePanel != null )
                 kundePanel.oppdaterVindu();
             
-            disableFelter(this, lastOppBildeKnapp, beregnErstatning);
+            visSkademelding(nySkademelding);
 
         }
         catch( NumberFormatException e)
@@ -287,28 +288,34 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
                                         JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, valg, valg [0]);
                     if (result == 1)
                     {
-                        if(vitneFornavn.getText().matches("\\D*") && vitneEtternavn.getText().matches("\\D*") && vitneTlf.getText().matches("\\d{8}"))
+                        if(vitneFornavn.getText().matches("\\D*") &&
+                                vitneEtternavn.getText().matches("\\D*") && vitneTlf.getText().matches("\\d{8}"))
                         {
                             Vitne vitnet = new Vitne(vitneFornavn.getText(), vitneEtternavn.getText(), 
                             vitneAdresse.getText(), vitneTlf.getText());
                             vitneliste.add(vitnet);
+                            vindu.visInformasjon("Vitne registrert", vitnet.getFornavn() 
+                              + " " + vitnet.getEtternavn() + " er nå registrert som vitne.");
                         }
                         else
                         {
-                            JOptionPane.showMessageDialog(null, "Ugyldig format i ett eller flere av feltene.\n\nPrøv igjen", "Feilmelding", JOptionPane.ERROR_MESSAGE);
+                            vindu.visFeilmelding("Feilmelding", 
+                                    "Ugyldig format i ett eller flere av feltene.\n\nPrøv igjen");
                             result = 0;
                         }
                     }
                     else if (result == 0)
                     {
-                        if(vitneFornavn.getText().matches("\\D*") && vitneEtternavn.getText().matches("\\D*") && vitneTlf.getText().matches("\\d{8}"))
+                        if(vitneFornavn.getText().matches("\\D*") && 
+                                vitneEtternavn.getText().matches("\\D*") && vitneTlf.getText().matches("\\d{8}"))
                         {
                             Vitne vitnet = new Vitne(vitneFornavn.getText(), vitneEtternavn.getText(), 
                             vitneAdresse.getText(), vitneTlf.getText());
                             vitneliste.add(vitnet);
                         }
                         else
-                            JOptionPane.showMessageDialog(null, "Ugyldig format i ett eller flere av feltene.\n\nPrøv igjen", "Feilmelding", JOptionPane.ERROR_MESSAGE);
+                            vindu.visFeilmelding("Feilmelding", "Ugyldig format "
+                                    + "i ett eller flere av feltene.\n\nPrøv igjen");
                     }
                 }while (result == 0);
             }
@@ -331,7 +338,8 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
                         teller++;
                     }
                     JTable tabell = new JTable(innhold, kolonnenavn);
-                    JOptionPane.showMessageDialog( null, tabell, 
+                    tabell.setPreferredScrollableViewportSize(new Dimension(300, 200));
+                    JOptionPane.showMessageDialog( null, new JScrollPane(tabell), 
                       "Vitner:", JOptionPane.PLAIN_MESSAGE);
                 }
                 else
