@@ -503,9 +503,9 @@ public class HovedRegister
             List<Forsikring> kundeForsikringer = getAlleKundensForsikringer(kunde);
         
             for( Forsikring forsikring : kundeForsikringer)
-            forsikring.setAktiver(false);
+                forsikring.setAktiver(false);
         
-            vindu.visInformasjon("Beskjed", kunde.getFornavn() + " " + kunde.getEtternavn() + "er deaktivert.");
+            vindu.visInformasjon("Beskjed", kunde.getFornavn() + " " + kunde.getEtternavn() + " er deaktivert.");
             vindu.oppdaterTabell(getKundeliste().alleKunder());
             return true;
         }

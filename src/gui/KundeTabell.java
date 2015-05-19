@@ -11,7 +11,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import objekter.Kunde;
@@ -71,7 +70,17 @@ public class KundeTabell extends JTable implements ForsikringsPanel
         popup.add(siOppKunde);
         
         addMouseListener(new MouseAdapter()
-        {    
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                if( e.getClickCount() == 2)
+                {
+                    Kunde kunde = getKunde();
+                    vindu.leggTilNyFane( new KundePanel(vindu,kunde), kunde.getEtternavn() );
+                }
+            }
+            
             @Override
             public void mousePressed(MouseEvent e)
             {
@@ -147,7 +156,17 @@ public class KundeTabell extends JTable implements ForsikringsPanel
         popup.add(siOppKunde);
         
         addMouseListener(new MouseAdapter()
-        {    
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                if( e.getClickCount() == 2)
+                {
+                    Kunde kunde = getKunde();
+                    vindu.leggTilNyFane( new KundePanel(vindu,kunde), kunde.getEtternavn() );
+                }
+            }
+            
             @Override
             public void mousePressed(MouseEvent e)
             {
