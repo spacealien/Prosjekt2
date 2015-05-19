@@ -523,7 +523,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
             tabell.setModel(new TabellModell(liste));
             tabell.setPreferredScrollableViewportSize(new Dimension(700, 200));
             statistikkVindu = new StatistikkVindu("Kunder med " + forsikringsvalg,
-                    new JScrollPane(tabell), new Dimension(700, 200));
+                    new JScrollPane(tabell), new Dimension(800, 200));
             tømFelter();
         } 
         catch (NullPointerException e)
@@ -768,8 +768,10 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
     {
         //Total utbetaling av inntekt på forsikringstype i en gitt periode
         forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
-        startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())), (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
-        sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())), (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
+        startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())),
+                (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
+        sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())),
+                (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
         double totalSum = 0.0;
         int antall = 0;
         double gjennomsnitt = 0;
@@ -823,8 +825,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, Forsikrin
         {
             for (Skademelding skademld : register.getSkademeldingsregister().alleSkademeldinger())
             {
-                if (skademld.getOpprettetDato().after(startDato) &&
-                        skademld.getOpprettetDato().before(sluttDato))
+                if (skademld.getOpprettetDato().after(startDato.getTime()) &&
+                        skademld.getOpprettetDato().before(sluttDato.getTime()))
                 {
                     skademeldingsliste.add(skademld);
                     antallIPerioden++;
