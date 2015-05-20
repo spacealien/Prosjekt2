@@ -13,7 +13,7 @@ import java.util.Calendar;
  */
 public class ForsikringsKalulator 
 {
-    private static int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
+    private static final int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
     
     public ForsikringsKalulator()
     {
