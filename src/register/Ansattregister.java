@@ -30,7 +30,7 @@ public class Ansattregister implements Serializable
         register.add(test_3);
         register.add(test_2);
         register.add(test_1);
-        * */
+        */
     }
     
     

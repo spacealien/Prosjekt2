@@ -9,13 +9,14 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 
 /*
  *  Den abstrakte klassen har som hensikt å ta vare på datafelter og metoder
  *  som er nødvendig for alle typer forsikringer.
  *
- * @author Odd, Marthe. Sist endret 15.05.2015.
+ *  @author Odd, Marthe. Sist endret 15.05.2015.
  */
 public abstract class Forsikring implements Serializable
 {
@@ -38,7 +39,7 @@ public abstract class Forsikring implements Serializable
     
     public Forsikring( Kunde k, int e_andel, String betingelser )
     {
-        egenandel = e_andel;
+        egenandel = e_andel;        
         startdato = new GregorianCalendar(norge);
         vilkar = betingelser;
         forsikringsnummer =  løpenummer++;
