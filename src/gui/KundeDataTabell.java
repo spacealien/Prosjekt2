@@ -73,7 +73,8 @@ public class KundeDataTabell extends JTable
          */
         
         addMouseListener(new MouseAdapter()
-        {    
+        {
+            
             @Override
             public void mousePressed(MouseEvent e)
             {

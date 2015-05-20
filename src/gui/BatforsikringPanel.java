@@ -236,6 +236,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     Denne er nødvendig for å få oppdatert kundepanelet til kunden som forsikringen
     hører til, når det blir gjort endring på en forsikring eller når det blir
     tegnet en ny forsikring.*/
+    @Override
     public void leggTilKundePanel( KundePanel panel )
     {
         kundePanel = panel;
@@ -244,6 +245,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     /*Metoden henter input fra brukeren. Den sjekker at alle feltene er korrekt
     fylt ut, hvis ikke kommer det opp en passende feilmelding. Metoden returnerer
     en boolean, som er avhengig av om alle feltene er korrekte fylt ut eller ikke*/
+    @Override
     public boolean hentInfo()
     {
         int type_n = battypevelger.getSelectedIndex();
@@ -329,7 +331,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
     {
         if (hentInfo())
         {
-            double foreslåttPris = ForsikringsKalulator.beregnBatforsikring(egenandelvalget, dekningvalget, belop, hk, ar, vekter_b, lengde  );
+            double foreslåttPris = ForsikringsKalkulator.beregnBatforsikring(egenandelvalget, dekningvalget, belop, hk, ar, vekter_b, lengde  );
             batTilbud.setVisible(true);
             batTilbud.setText(String.valueOf(foreslåttPris));
             batTilbud.setToolTipText("Kan redigeres");
