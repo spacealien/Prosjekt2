@@ -209,7 +209,6 @@ public class HovedRegister
         Fritidsboligforsikring forsikring_97 = new Fritidsboligforsikring( test_23, 4000, "Fritidsbolig", "Hardangervidda", 1899, "Hus/Hytte", "Tre", "Normal standard", 13,250000, 125000, true, false);
         Fritidsboligforsikring forsikring_98 = new Fritidsboligforsikring( test_21, 4000, "Fritidsbolig", "Hardangervidda", 1899, "Hus/Hytte", "Tre", "Normal standard", 13,250000, 125000, true, false);
         
-        
         Skademelding skademelding_1 = new Skademelding( forsikring_98, new GregorianCalendar(1996, GregorianCalendar.DECEMBER , 12) , "Ulykke" , "Beskrivelse", 2000, 1000 );
         Skademelding skademelding_2 = new Skademelding( forsikring_97, new GregorianCalendar(2000, GregorianCalendar.NOVEMBER ,13) , "Ulykke" , "Beskrivelse", 14000, 10000 );
         Skademelding skademelding_3 = new Skademelding( forsikring_96, new GregorianCalendar(2012, GregorianCalendar.OCTOBER ,14) , "Ulykke" , "Beskrivelse", 2000, 30000 );
@@ -484,6 +483,19 @@ public class HovedRegister
         for(Forsikring f :forsikringsregister.alleForsikringer())
         {
             f.setArligPremie(10000.0);
+            if(!(f instanceof Kjoretoyforsikring) && f.getForsikringsnummer() % 3 == 0)
+            {
+                Kjoretoyforsikring kf = (Kjoretoyforsikring)f;
+                kf.setEier(new Eier("Hans", "Hanssen", "Heiveien 1", "99887766"));
+            }
+        }
+        List<Vitne> vitneliste = new ArrayList<>();
+        vitneliste.add(new Vitne("Hans", "Hanssen", "Heiveien 1", "99887766"));
+        vitneliste.add(new Vitne("Ane", "Hanssen", "Heiveien 1", "9778866"));
+        vitneliste.add(new Vitne("Nils", "Moan", "Libakken 15", "91234567"));
+        for(Skademelding s : skademeldingsregister.alleSkademeldinger())
+        {
+            s.setVitner(vitneliste);
         }
         
         skrivTilFil();
