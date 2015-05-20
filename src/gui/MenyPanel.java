@@ -31,7 +31,7 @@ public class MenyPanel extends JPanel implements ActionListener
     {
         this.vindu = vindu;
         søkFelt = new JTextField(20);
-        søkKnapp = new JButton("Søk");
+        søkKnapp = new JButton("Søk etter kunde");
         nyKunde = new JButton("Ny kunde");
         finnKunde = new JButton("Finn kunde");
         nyForsikring = new JButton("Ny forsikring");

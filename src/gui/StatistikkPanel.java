@@ -149,7 +149,7 @@ public class StatistikkPanel extends JPanel implements ActionListener, VinduVerk
         slDatoDag.setVisible(false);
         slDatoMnd.setVisible(false);
         slDatoAr.setVisible(false);
-        sokKnapp = new JButton("Søk");
+        sokKnapp = new JButton("Søk statistikk");
         sokKnapp.setEnabled(false);
         sokKnapp.addActionListener(this);
         
