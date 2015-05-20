@@ -1,9 +1,4 @@
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 //Nødveidnige import-setninger
@@ -18,13 +13,13 @@ import javax.swing.*;
 import objekter.*;
 import register.*;
 
-/**
+/* 
+ *   Klassens hensikt er å vise brukergrensesnittet til statistikksøk, hente 
+ *   input fra brukeren og skrive ut statistikken brukeren har valgt
  *
- * @author Marthejansonskogen
+ *  @author Marthejansonskogen
  */
 
-/*Klassens hensikt er å vise brukergrensesnittet til statistikksøk, hente 
-input fra brukeren og skrive ut statistikken brukeren har valgt*/
 public class StatistikkPanel extends JPanel implements ActionListener, VinduVerktoy
 {
     private AnsattVindu vindu;

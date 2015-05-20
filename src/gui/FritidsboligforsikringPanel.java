@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package gui;
 
 import java.awt.*;
@@ -12,15 +8,15 @@ import javax.swing.*;
 import objekter.*;
 import register.*;
 
-/**
+/*
+ *  Klassens hensikt er å designe brukergrensesnittet for fritidsboligforsikringer, 
+    ta imot input fra brukeren og videre registrere en fritidsboligforsikring
+    hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
+    en allerede tegnet fritidsboligforsikring, og endre denne.
  *
- * @author Odd, Marthe //MARTHE! FIKS ALARM i hentInfo()
+ * @author Odd, Marthe, sist endret 19.05.2015
  */
 
-/*Klassens hensikt er å designe brukergrensesnittet for fritidsboligforsikringer, 
-ta imot input fra brukeren og videre registrere en fritidsboligforsikring
-hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
-en allerede tegnet fritidsboligforsikring, og endre denne.*/
 public class FritidsboligforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel, VinduVerktoy
 {
     private final AnsattVindu vindu;

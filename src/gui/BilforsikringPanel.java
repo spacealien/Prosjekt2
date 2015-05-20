@@ -1,9 +1,4 @@
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import java.awt.*;
@@ -13,16 +8,14 @@ import javax.swing.*;
 import objekter.*;
 import register.*;
 
-/**
+/*
+ *   Klassens hensikt er å designe brukergrensesnittet for bilforsikringer, 
+ *   ta imot input fra brukeren og videre registrere en bilforsikring
+ *   hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
+ *   en allerede tegnet bilforsikring, og endre denne.
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe, sistt endret 19.05.2015
  */
-
-/*Klassens hensikt er å designe brukergrensesnittet for bilforsikringer, 
-ta imot input fra brukeren og videre registrere en bilforsikring
-hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
-en allerede tegnet bilforsikring, og endre denne.
-*/
 
 public class BilforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel, VinduVerktoy
 {

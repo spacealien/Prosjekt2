@@ -14,7 +14,11 @@ import register.*;
 ønsker å vise/registrere en båtforsikring.
 Klassens hensikt er å ta imot input fra brukeren og registrere videre en 
 båtforsikring, hvis alle feltene er korrekt skrevet inn. Klassen kan også vise 
-informasjon om en allerede tegnet båtforsikring, og endre denne.*/
+informasjon om en allerede tegnet båtforsikring, og endre denne.
+
+Skrevet av Marthe og Odd, sist endret 19.05.2015.
+
+*/
 
 public class BatforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel, VinduVerktoy
 {

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package gui;
 
 import java.awt.event.ActionEvent;
@@ -15,9 +11,10 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import objekter.Kunde;
 
-/**
+/*
+ * Klassens hensikt er å definere tabellen nederst i hovedvinet og menyvalg for denne.
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe. sist endret 18.05.2015.
  */
 public class KundeTabell extends JTable
 {

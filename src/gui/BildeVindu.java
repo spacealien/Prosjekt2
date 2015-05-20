@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package gui;
 
 import java.awt.BorderLayout;
@@ -16,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- *
+ * Klassens hensikt er å vise bildet til skademeldingen i et eget vindu.
  * @author Odd
  */
 public class BildeVindu extends JFrame
@@ -56,12 +52,14 @@ public class BildeVindu extends JFrame
         c.add( meny, BorderLayout.PAGE_END );
     }
     
+    // oppdaterer vinduet etter at brukeren har trykket neste/forrige.
     public void oppdaterVindu()
     {
         revalidate();
         repaint();
     }
     
+    // Panelet som inneholder metoder for å tegne bildet.
     private class BildePanel extends JPanel
     {   
         public void visBilde(Graphics g)
@@ -77,6 +75,7 @@ public class BildeVindu extends JFrame
         }  
     }
     
+    // Knappelytter
     private class KnappeLytter implements ActionListener
     {
         @Override

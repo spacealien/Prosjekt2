@@ -24,7 +24,7 @@ public class Skademelding implements Serializable
     
     private final Forsikring forsikring;
     private Calendar dato;
-    private Calendar opprettetdato;
+    private final Calendar opprettetdato;
     private final int skadenummer;
     private static int nestenr = 200000000;
     private String skadetype;
@@ -97,6 +97,12 @@ public class Skademelding implements Serializable
     }
     
     // get metoder
+    
+    public Image[] getBilder()
+    {
+        return bilder;
+    }
+    
     public String getBeskrivelse()
     {
         return beskrivelse;

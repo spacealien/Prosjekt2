@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package gui;
 
 //Nødvendige import-setninger
@@ -12,15 +8,14 @@ import javax.swing.*;
 import objekter.*;
 import register.*;
 
-/**
+/*  Klassens hensikt er å designe brukergrensesnittet for reiseforsikringer, 
+    ta imot input fra brukeren og videre registrere en reiseforsikring
+    hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
+    en allerede tegnet reiseforsikring, og endre denne.
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe. Sist endret 19.05.2015.
  */
 
-/*Klassens hensikt er å designe brukergrensesnittet for reiseforsikringer, 
-ta imot input fra brukeren og videre registrere en reiseforsikring
-hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
-en allerede tegnet reiseforsikring, og endre denne.*/
 public class ReiseforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel, VinduVerktoy
 {
     private final AnsattVindu vindu;

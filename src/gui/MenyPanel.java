@@ -1,6 +1,3 @@
-/**
- * Klassen bygger menylinjen som er ankret venstre i vinduet.
- */
 
 package gui;
 
@@ -11,8 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
+/*
+ * Klassen bygger menylinjen som er ankret venstre i vinduet.
  * @author Odd, Marthe
  */
 public class MenyPanel extends JPanel implements ActionListener

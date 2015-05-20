@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package gui;
 
 import java.awt.*;
@@ -18,9 +14,11 @@ import javax.swing.*;
 import objekter.*;
 import register.*;
 
-/**
+/*
+ * Skademeldings panelet bygger vinuet som har til hensikt å ta mot informasjon for en 
+ *  skademelding eller vise eksisterende skademelding;
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe. Sist endret 19.05.2015
  */
 public class SkademeldingPanel extends JPanel implements ActionListener, VinduVerktoy
 {
@@ -46,7 +44,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
     private final JComboBox<String> skadetypevelger;
     private final Kunde kunde;
     private final Forsikring forsikring;
-    private Image[] bilder;
+    private Image[] bilder = null;
     private SimpleDateFormat sdf;
     private Skademelding skademelding;
     private String skadetypevalget;
@@ -57,10 +55,6 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
     private final JTextField vitneAdresse;
     private final JPanel vitnePanel;
     List<Vitne> vitneliste;
-    
-    private final Desktop desktop = Desktop.getDesktop();
-    private final Desktop.Action action = Desktop.Action.OPEN;
-
     
     public SkademeldingPanel( Forsikring f, AnsattVindu v)
     {
@@ -178,6 +172,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
         erstatningsBeløp.setVisible(true);
         disableFelter(this, lastOppBildeKnapp, beregnErstatning);
         sendInnSkade.setVisible(false);
+        bilder = skade.getBilder();
         
     }
     
@@ -273,7 +268,9 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
         }
         else if( e.getSource() == visBilde )
         {
-            BildeVindu bildeVindu = new BildeVindu( bilder );
+            BildeVindu bildeVindu;
+            if( bilder != null)
+                 bildeVindu = new BildeVindu( bilder );
         }
         else if( e.getSource() == vitneKnapp )
         {

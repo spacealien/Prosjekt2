@@ -1,7 +1,3 @@
-/**
- * Klassen bygger menylinjen som er øverst i programmet.  
- */
-
 
 package gui;
 
@@ -12,8 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
-/**
- * @author Odd
+/*
+ * Klassen bygger menylinjen som er øverst i programmet.  
+ * @author Odd sist endret 17.05.2015.
  */
 
 public class MenyLinje extends MenuBar
@@ -21,12 +18,10 @@ public class MenyLinje extends MenuBar
     private final MenyLytter lytter = new MenyLytter();
     private final Menu filMeny = new Menu("Fil");
     private final Menu vinduMeny = new Menu("Vindu");
-    private final Menu adminMeny = new Menu("Admin");
     private final MenuItem loggUtKnapp = new MenuItem("Logg Ut");
-    private final MenuItem backupKnapp = new MenuItem("Ta backup");
+    private final MenuItem backupKnapp = new MenuItem("Lagre");
     private final MenuItem avsluttKnapp = new MenuItem("Avslutt");
     private final AnsattVindu ansattVindu;
-    
     
     public MenyLinje(AnsattVindu vindu )
     {
@@ -50,14 +45,14 @@ public class MenyLinje extends MenuBar
         ansattVindu.visLogin();
     }
     
-    
     // seneder en beskjed til hovedvinduet om at programmet skal avsluttes.
     public void avslutt()
     {
         ansattVindu.dispatchEvent(new WindowEvent( ansattVindu,WindowEvent.WINDOW_CLOSING));
     }
     
-    public void taBackup()
+    // skriver data til fil.
+    public void lagre()
     {
         ansattVindu.getRegister().skrivTilFil();
     }
@@ -75,7 +70,7 @@ public class MenyLinje extends MenuBar
             }
             else if( e.getSource() == backupKnapp )
             {
-                taBackup();
+                lagre();
             }
             else if( e.getSource() == avsluttKnapp )
             {
