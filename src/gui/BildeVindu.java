@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -40,10 +41,17 @@ public class BildeVindu extends JFrame
         neste.addActionListener(knappeLytter);
         forrige.addActionListener(knappeLytter);
         
-        int teller = 0;
-        for(Image img : photo )
+        try
         {
-            bilder[teller++] = img.getScaledInstance(BILDE_HØYDE, -1, Image.SCALE_FAST);  
+            int teller = 0;
+            for(Image img : photo )
+            {
+                bilder[teller++] = img.getScaledInstance(BILDE_HØYDE, -1, Image.SCALE_FAST);  
+            }
+        }
+        catch( NullPointerException e )
+        {
+            JOptionPane.showMessageDialog(null, "Noe gikk galt under visning av fil", "Feilmelding", JOptionPane.ERROR_MESSAGE);
         }
 
         Container c = getContentPane();
