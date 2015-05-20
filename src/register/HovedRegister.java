@@ -3,6 +3,7 @@ package register;
 
 import gui.AnsattVindu;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -836,9 +837,13 @@ public class HovedRegister
             utfil.writeInt(Skademelding.getLøpenummer());
             utfil.close();
         }
+        catch( FileNotFoundException e )
+        {
+            vindu.visFeilmelding("Feilmelding", "Finner ikke fil. ");
+        }
         catch( IOException e )
         {
-            //vindu.visFeilmelding("Feilmelding", "Fant ikke fil");
+            
         }
     }
     
@@ -862,9 +867,13 @@ public class HovedRegister
             Skademelding.setLøpenummer(innfil.readInt());
             innfil.close();
         }
+        catch( FileNotFoundException e)
+        {
+            vindu.visFeilmelding("Feilmelding", "Finner ikke fil. ");
+        }
         catch( IOException | ClassNotFoundException e )
         {
-           //vindu.visFeilmelding("Feilmelding", "Fant ikke fil");
+           
         }
     }
 }
