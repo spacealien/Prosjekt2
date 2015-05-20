@@ -751,7 +751,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
             //Hvis man skal vise eier på allerede eksisterende forsikring
             else if(annenEier.getText().equals("Vis eier"))
                 {
-                    vindu.visInformasjon("Kjøretøyets registrete eier:", 
+                    vindu.visInformasjon("Kjøretøyets registrerte eier:", 
                             bilforsikring.getEier().toString());
                 }
         }

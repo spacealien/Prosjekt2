@@ -504,7 +504,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
             }
             else if(annenEier.getText().equals("Vis eier"))
                 {
-                    vindu.visInformasjon("Båtens registrete eier:", 
+                    vindu.visInformasjon("Båtens registrerte eier:", 
                             forsikring.getEier().toString());
                 }
         }

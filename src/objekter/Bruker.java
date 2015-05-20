@@ -68,7 +68,7 @@ public abstract class Bruker extends Person
     public String toString()
     {
         String utskrift = super.toString();  //kall på superklassens toString-metode
-        utskrift += "\nPersonnummer: " + personnummer + "\nFødesldato: " + sdf.format(fDato) 
+        utskrift += "\nPersonnummer: " + personnummer + "\nFødselsdato: " + sdf.format(fDato) 
                   + "\nEpostadresse: " + epost;
         
         return utskrift;

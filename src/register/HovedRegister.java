@@ -484,7 +484,7 @@ public class HovedRegister
         for(Forsikring f :forsikringsregister.alleForsikringer())
         {
             f.setArligPremie(10000.0);
-            if(!(f instanceof Kjoretoyforsikring) && f.getForsikringsnummer() % 3 == 0)
+            if((f instanceof Kjoretoyforsikring) && f.getForsikringsnummer() % 3 == 0)
             {
                 Kjoretoyforsikring kf = (Kjoretoyforsikring)f;
                 kf.setEier(new Eier("Hans", "Hanssen", "Heiveien 1", "99887766"));
