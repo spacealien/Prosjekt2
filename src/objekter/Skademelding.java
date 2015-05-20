@@ -43,12 +43,7 @@ public class Skademelding implements Serializable
         this.takseringsbelop = takseringsbelop;
         this.erstatningsbelop = erstatingsbelop;
         skadenummer = nestenr++;
-        Calendar testdato = new GregorianCalendar(norge);
-        Random util = new Random();
-        testdato.setTime(new Date(Math.abs(System.currentTimeMillis() - util.nextLong())));
-        testdato.set(Calendar.YEAR, 2014);
-        testdato.set(Calendar.MONTH, Calendar.JANUARY);
-        opprettetdato = testdato;
+        opprettetdato = new GregorianCalendar(norge);
     }
     
     // set metoder

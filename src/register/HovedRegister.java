@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 import objekter.*;
@@ -38,7 +37,6 @@ public class HovedRegister
     private List<Inntekt> innbetalinger = new ArrayList<>();
     private Calendar kalender;
     private AnsattVindu vindu;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
     public HovedRegister(AnsattVindu v) 
     {
@@ -297,8 +295,8 @@ public class HovedRegister
         {
             nyForsikring.getKunde().setTotalKunde(true);
             innbetalinger.add(new Inntekt(dato, (nyForsikring.getArligPremie() * 0.9), nyForsikring));
-           //if(forsikringsregister.antallUnikeAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
-               //vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
+            if(forsikringsregister.antallUnikeAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
+                vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
             
             skrivTilFil();
         }
@@ -325,6 +323,7 @@ public class HovedRegister
         forsikring.setAktiver(false);
         vindu.oppdaterTabell( kunderegister.alleKunder() );
         vindu.visInformasjon("Beskjed", "Forsikringen er deaktivert. ");
+        
         skrivTilFil();
     }
     

@@ -29,11 +29,7 @@ public abstract class Bruker extends Person
         epost = email;
         personnummer = persnummer;
         fodtdato = fd;
-        Calendar testdato = new GregorianCalendar(norge);
-        Random util = new Random();
-        testdato.setTime(new Date(Math.abs(System.currentTimeMillis() - util.nextLong())));
-        testdato.set(Calendar.YEAR, 2014);
-        startdato =  testdato.getTime();
+        startdato =  new GregorianCalendar(norge).getTime();
         fDato = fodtdato.getTime();
     }
     
