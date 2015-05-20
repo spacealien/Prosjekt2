@@ -329,7 +329,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
                         teller++;
                     }
                     JTable tabell = new JTable(innhold, kolonnenavn);
-                    tabell.setPreferredScrollableViewportSize(new Dimension(400, 200));
+                    tabell.setPreferredScrollableViewportSize(new Dimension(500, 200));
                     JOptionPane.showMessageDialog( null, new JScrollPane(tabell), 
                       "Vitner:", JOptionPane.PLAIN_MESSAGE);
                 }
