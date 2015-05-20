@@ -27,7 +27,7 @@ public class BildeVindu extends JFrame
     
     public BildeVindu( Image[] photo)
     {
-        super("Test");
+        super("Bilder");
         setVisible(true);
         setSize(800,800);
         bilder = photo;
