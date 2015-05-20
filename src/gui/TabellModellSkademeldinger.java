@@ -17,7 +17,7 @@ import objekter.Skademelding;
  * Klassen brukes til å definere hvordan utsende og hvilke data som skal vises
  * i skademeldingstabellen kundepanelet.
  *
- * @author Odd. Sist oppdatert 17.05.2015.
+ * @author Odd, Marthe. Sist oppdatert 17.05.2015.
  */
 
 public class TabellModellSkademeldinger extends AbstractTableModel

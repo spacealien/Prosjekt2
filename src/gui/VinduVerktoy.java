@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 /*
  * 
- * @author Odd. Sist endret 19.05.2015.
+ * @author Odd, Marthe. Sist endret 19.05.2015.
  */
 public interface VinduVerktoy 
 {

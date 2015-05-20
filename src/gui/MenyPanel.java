@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 
 /*
  * Klassen bygger menylinjen som er ankret venstre i vinduet.
- * @author Odd, Marthe
+ * @author Odd, Marthe, sist endret 19.20.2015
  */
 public class MenyPanel extends JPanel implements ActionListener
 {

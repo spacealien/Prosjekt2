@@ -9,7 +9,7 @@ import java.util.Comparator;
 
 /**
  *
- * @author Odd. 10.05.2015.
+ * @author Odd, Marthe, sist endret 10.05.2015.
  */
 public class Personsammenlikner implements Comparator<Kunde>, Serializable
 {

@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 /**
  * Klassens hensikt er å vise bildet til skademeldingen i et eget vindu.
- * @author Odd
+ * @author Odd, Marthe. Sist endret 19.20.2015
  */
 public class BildeVindu extends JFrame
 {

@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 
 /**
  *
- * @author Marthe
+ * @author Odd, Marthe, sist endret 10.20.2015
  */
 public class Inntekt
 {

@@ -7,7 +7,7 @@ package objekter;
 
 /**
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe, sist endret 15.04.2015
  */
 public class Vitne extends Person
 {

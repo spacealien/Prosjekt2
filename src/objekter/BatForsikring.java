@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 /**
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe, sist endret 19.20.2015
  */
 public class BatForsikring extends Kjoretoyforsikring 
 {

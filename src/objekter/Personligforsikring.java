@@ -3,7 +3,7 @@ package objekter;
 
 /**
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe, sist endret 19.20.2015
  */
 public abstract class Personligforsikring extends Forsikring
 {

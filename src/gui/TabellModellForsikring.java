@@ -14,7 +14,7 @@ import objekter.Forsikring;
  * Klassen brukes til å definere hvordan utsende og hvilke data som skal vises
  * i forsikrings tabelle i kundepanelet.
  *
- * @author Odd
+ * @author Odd, Marthe, sist endret 19.20.2015
  */
 
 public class TabellModellForsikring extends AbstractTableModel

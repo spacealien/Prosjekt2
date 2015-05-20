@@ -9,7 +9,7 @@ import java.util.Calendar;
 
 /**
  *
- * @author Odd, Marthe og Thomas.
+ * @author Odd, Marthe og Thomas, sist endret 15.20.2015
  */
 public class ForsikringsKalulator 
 {

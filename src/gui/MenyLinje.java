@@ -10,7 +10,7 @@ import java.awt.event.WindowEvent;
 
 /*
  * Klassen bygger menylinjen som er øverst i programmet.  
- * @author Odd sist endret 17.05.2015.
+ * @author Odd, Marthe. sist endret 17.05.2015.
  */
 
 public class MenyLinje extends MenuBar

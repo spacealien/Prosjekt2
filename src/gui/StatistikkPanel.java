@@ -17,7 +17,7 @@ import register.*;
  *   Klassens hensikt er å vise brukergrensesnittet til statistikksøk, hente 
  *   input fra brukeren og skrive ut statistikken brukeren har valgt
  *
- *  @author Marthejansonskogen
+ *  @author Odd, Marthe
  */
 
 public class StatistikkPanel extends JPanel implements ActionListener, VinduVerktoy

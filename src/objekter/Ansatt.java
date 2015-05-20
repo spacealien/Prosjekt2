@@ -7,7 +7,7 @@ import java.util.List;
 
 /*
  *  
- *  @author Odd, Marthe
+ *  @author Odd, Marthe, sist endret 19.20.2015
  */
 public class Ansatt extends Bruker 
 {

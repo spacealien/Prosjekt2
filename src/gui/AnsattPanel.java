@@ -8,7 +8,7 @@ import objekter.*;
 
 /**
  *Klassens hensikt er å vise info knyttet til den ansattes kunder
- * @author Odd, Marthe
+ * @author Odd, Marthe, , sist endret 19.20.2015.
  */
 
 public class AnsattPanel extends JPanel 

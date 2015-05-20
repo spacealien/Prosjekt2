@@ -17,7 +17,7 @@ import javax.swing.JTextArea;
  *   Klassen beskriver vinduet som åpnes hver gang bruker av programmet 
  *  ønsker å lese en forsikring.
  * 
- * @author Odd. Sist endret 16.05.2015.
+ * @author Odd, Marthe. Sist endret 16.05.2015.
  */
 
 public class VilkårVindu extends JFrame

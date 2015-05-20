@@ -7,7 +7,7 @@ package objekter;
 
 /**
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe, sist endret 11.20.2015
  */
 public class Husforsikring extends Eiendomsforsikring
 {
