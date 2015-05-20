@@ -48,7 +48,6 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
     private SimpleDateFormat sdf;
     private Skademelding skademelding;
     private String skadetypevalget;
-    
     private final JTextField vitneFornavn;
     private final JTextField vitneEtternavn;
     private final JTextField vitneTlf;

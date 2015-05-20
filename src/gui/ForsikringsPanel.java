@@ -10,7 +10,7 @@ import java.io.UnsupportedEncodingException;
 import javax.swing.JOptionPane;
 import objekter.Forsikring;
 
-/**
+/*
  * Dette interfacet inneholder kode som ellers ville blitt gjenntagene
  * i de forskjellige panelene som er relatert til forsikringene og abstrakte
  * metoder som klassene som implementerer interfacet må definere.
@@ -34,7 +34,7 @@ public interface ForsikringsPanel
     public void velgVilkår();
     
      
-    /**
+    /*
      * Metoden oppretter et nytt vindu for visning av vilkår.
      * 
      * Parameteren overskrift endrer teksten i feltet over utskriftsområdet, ikke selve
@@ -52,7 +52,7 @@ public interface ForsikringsPanel
             vilkårVindu.getUtskriftområdet().setCaretPosition(0);
     }
     
-    /**
+    /*
      * Henter vilkårene som er lagret i en textfil i programmets mappe.
      * Metoden kjører en test på hvilket operativsystem brukeren har 
      * og korrigerer filstien deretter.
