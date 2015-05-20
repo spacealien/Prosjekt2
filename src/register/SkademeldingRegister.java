@@ -19,7 +19,7 @@ import objekter.Skademelding;
  */
 public class SkademeldingRegister implements Serializable
 {
-    private Map<Integer,Skademelding> skademeldinger;
+    private final Map<Integer,Skademelding> skademeldinger;
     
     public SkademeldingRegister()
     {
