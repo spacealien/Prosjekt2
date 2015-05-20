@@ -1,6 +1,4 @@
-/* Klassen bygger ansatt panelenet. klassen er ikke ferdig men er ment for å vise
- * diverse informasjon om den ansatte. 
- */
+
 package gui;
 
 //nødvendige import-setninger
@@ -9,10 +7,10 @@ import javax.swing.*;
 import objekter.*;
 
 /**
- *
+ *Klassens hensikt er å vise info knyttet til den ansattes kunder
  * @author Odd, Marthe
  */
-/*Klassens hensikt er å vise info knyttet til den ansattes kunder*/
+
 public class AnsattPanel extends JPanel 
 {   
     private final AnsattVindu vindu;

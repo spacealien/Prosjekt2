@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package register;
 
 import java.io.Serializable;
@@ -14,10 +10,10 @@ import objekter.Ansatt;
 import objekter.Kunde;
 import objekter.Personsammenlikner;
 
-
-/**
+/*
+ * Klassens hensikt er å holde kunde objektene i en liste.
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe. Sist endret 15.05.2015.
  * 
  */
 public class Kunderegister implements Serializable
@@ -28,7 +24,7 @@ public class Kunderegister implements Serializable
     {
         kunderegister = new ArrayList<>();
         sorter();
-    }
+    } // slutt på konstuktør
     
     /*
      * Metoden returnerer alle kunder som tilhører ansatt som bil tilsendt i parameter
@@ -85,7 +81,7 @@ public class Kunderegister implements Serializable
     }
     
     /*
-     * returnerer en List<Kunde> som inneholde kunden som har personnummer lik parameter,
+     * Returnerer en List<Kunde> som inneholde kunden som har personnummer lik parameter,
      * Denne metoden brukes for å mate TabellModell klassen med data, siden TabellModell
      * kun motar List som parameter.
      */

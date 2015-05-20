@@ -1,6 +1,3 @@
-/*
- * Programmets login vindu.
- */
 
 package gui;
 
@@ -20,8 +17,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import objekter.Ansatt;
 
-/**
- * @author Odd, Marthe
+/*
+ *  Programmets login vindu.
+ * @author Odd, Marthe, sist endret 15.05.2015.
  */
 
 public class LoginVindu extends JFrame
@@ -68,6 +66,10 @@ public class LoginVindu extends JFrame
         this.getRootPane().setDefaultButton(loginKnapp);
     }
     
+    /*
+     * Metoden skjekker om det finnes en ansatt med matchende brukernavn og passord.
+     * Viser hovedvinduet dersom metoden finner en match.
+     */
     
     private void login()
     {

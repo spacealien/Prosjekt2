@@ -1,14 +1,4 @@
 
-/**
- * Klassen har som hensikt å samle alle registerene i en klasse for å gjøre
- * det enkelt å alle registerne i en fil. Alternativet ville vært å hatt metodene
- * i denne klassen i AnsattVindu klassen. Vi har valgt å gjøre det på denne måten
- * for å prøve å gjøre AnsattVindu klassen så kort og ryddig som mulig.
- * 
- * Vi ønsket å holde AnsattVinduet så fri for metoder som ikke er direkte relatert
- * til det grafiske grensesnittet.
- * 
- */
 package register;
 
 import gui.AnsattVindu;
@@ -26,10 +16,18 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import objekter.*;
 
-/**
+/*
+ * Klassen har som hensikt å samle alle registerene i en klasse for å gjøre
+ * det enkelt å alle registerne i en fil. Alternativet ville vært å hatt metodene
+ * i denne klassen i AnsattVindu klassen. Vi har valgt å gjøre det på denne måten
+ * for å prøve å gjøre AnsattVindu klassen så kort og ryddig som mulig.
+ * 
+ * Vi ønsket å holde AnsattVinduet så fri for metoder som ikke er direkte relatert
+ * til det grafiske grensesnittet.
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe. Sist endret 15.05.2015.
  */
+
 public class HovedRegister 
 {
     private Kunderegister kunderegister = new Kunderegister();
@@ -44,9 +42,7 @@ public class HovedRegister
     public HovedRegister(AnsattVindu v) 
     {
         vindu = v;  
-        kalender = Calendar.getInstance();  
-        
-        /**
+        kalender = Calendar.getInstance();
         GregorianCalendar fdato = new GregorianCalendar(1991,6,6);
         Kunde test_1 = new Kunde("Rolf", "Hestman", "Kongleknaggen 18", "22260906", fdato, "hesterolf@yahoo.no", "08206049937");
         Kunde test_2 = new Kunde("Bjørn", "Dæhlie", "Trysil 23B", "22260906", fdato, "epost@epost.no", "12048449997");
@@ -487,13 +483,10 @@ public class HovedRegister
         
         for(Forsikring f :forsikringsregister.alleForsikringer())
         {
-            f.setArligPremie(100.0);
-        } 
-        **/
+            f.setArligPremie(10000.0);
+        }
         
-        lesFraFil();
-        //skrivTilFil();
-        //sjekkTid2();
+        skrivTilFil();
     }
     
     // sier opp kundeforholdet.
@@ -746,8 +739,8 @@ public class HovedRegister
         {
             nyForsikring.getKunde().setTotalKunde(true);
             innbetalinger.add(new Inntekt(dato, (nyForsikring.getArligPremie() * 0.9), nyForsikring));
-            //if(forsikringsregister.antallUnikeAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
-                //vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
+           //if(forsikringsregister.antallUnikeAktiveForsikringer(nyForsikring.getKunde()).size() == 3)
+               //vindu.visInformasjon("Beskjed", nyForsikring.getKunde().getFornavn() + " " + nyForsikring.getKunde().getEtternavn() + " er nå totalkunde. ");
             
             skrivTilFil();
         }

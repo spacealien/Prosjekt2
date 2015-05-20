@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package gui;
 //Nødvendige importsetninger
 import java.awt.BorderLayout;
@@ -13,13 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-/**
+/*
+ *  Klassen har til hensikt å vise statistikk som brukeren vil se. Kalles fra
+    StatistikkPanel.
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe, sist endret 14.05.2015.
  */
 
-/*Klassen har til hensikt å vise statistikk som brukeren vil se. Kalles fra
-StatistikkPanel. */
 public class StatistikkVindu extends JFrame 
 {
 

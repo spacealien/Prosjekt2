@@ -1,6 +1,4 @@
-/* 
- * 
- */
+
 package register;
 
 import java.io.Serializable;
@@ -15,9 +13,10 @@ import java.util.stream.Collectors;
 import objekter.Forsikring;
 import objekter.Kunde;
 
-/**
- *
- * @author Odd, Marthe
+/*
+ * Klassens hensikt er å holde forsikringsobjektene i en liste.
+ * 
+ * @author Odd, Marthe. Sist endret 15.05.2015.
  */
 public class Forsikringsliste implements Serializable
 {

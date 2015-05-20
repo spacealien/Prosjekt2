@@ -1,9 +1,4 @@
-/**
- * Dette interfacet inneholder kode som ellers ville blitt gjenntagene
- * i de forskjellige panelene som er relatert til forsikringene.
- * Klassene som implementerer dette interfacet får tilgang til alle metodene.
- * 
- */
+
 package gui;
 
 import java.io.BufferedReader;
@@ -16,7 +11,13 @@ import javax.swing.JOptionPane;
 import objekter.Forsikring;
 
 /**
- * @author Odd, Marthe
+ * Dette interfacet inneholder kode som ellers ville blitt gjenntagene
+ * i de forskjellige panelene som er relatert til forsikringene og abstrakte
+ * metoder som klassene som implementerer interfacet må definere.
+ * Klassene som implementerer dette interfacet får tilgang til alle metodene.
+ * 
+ * 
+ * @author Odd, Marthe, sist endret 19.20.2015
  */
 
 public interface ForsikringsPanel

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package objekter;
 
 import java.awt.Image;
@@ -17,14 +13,14 @@ import java.util.Random;
 
 /**
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe, Sist endet 17.05.2015.
  */
 public class Skademelding implements Serializable
 {
     
     private final Forsikring forsikring;
     private Calendar dato;
-    private Calendar opprettetdato;
+    private final Calendar opprettetdato;
     private final int skadenummer;
     private static int nestenr = 200000000;
     private String skadetype;
@@ -97,6 +93,12 @@ public class Skademelding implements Serializable
     }
     
     // get metoder
+    
+    public Image[] getBilder()
+    {
+        return bilder;
+    }
+    
     public String getBeskrivelse()
     {
         return beskrivelse;

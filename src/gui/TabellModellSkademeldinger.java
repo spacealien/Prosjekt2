@@ -13,12 +13,14 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import objekter.Skademelding;
 
-/**
+/*
+ * Klassen brukes til å definere hvordan utsende og hvilke data som skal vises
+ * i skademeldingstabellen kundepanelet.
  *
- * @author Odd
+ * @author Odd. Sist oppdatert 17.05.2015.
  */
 
-public class TabellModellSkademeldinger extends AbstractTableModel implements ActionListener
+public class TabellModellSkademeldinger extends AbstractTableModel
 {
     private final String[] kolonnenavn = {"ID", "Forsikring", "Skadedato", "Opprettet Dato", "Takst", "Utbetalt"};
     private final Object[][] innhold;
@@ -66,11 +68,5 @@ public class TabellModellSkademeldinger extends AbstractTableModel implements Ac
     public int getColumnCount() 
     {
         return kolonnenavn.length;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) 
-    {
-        
     }
 }

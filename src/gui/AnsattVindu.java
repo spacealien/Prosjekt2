@@ -1,7 +1,4 @@
 
-/**
- * AnsattVindu er selve hovedvinduet i programmet.
- */
 package gui;
 
 import java.awt.BorderLayout;
@@ -17,9 +14,9 @@ import javax.swing.*;
 import objekter.*;
 import register.HovedRegister;
 
-/**
- *
- * @author Odd, Marthe
+/*
+ *AnsattVindu er selve hovedvinduet i programmet.
+ * @author Odd, Marthe, sist endret 19.05.2015.
  */
 public class AnsattVindu extends JFrame
 {

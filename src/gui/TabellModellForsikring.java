@@ -10,10 +10,13 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import objekter.Forsikring;
 
-/**
+/*
+ * Klassen brukes til å definere hvordan utsende og hvilke data som skal vises
+ * i forsikrings tabelle i kundepanelet.
  *
  * @author Odd
  */
+
 public class TabellModellForsikring extends AbstractTableModel
 {
     private String[] kolonnenavn = { "Forsikringsnummer", "Type", "Aktiv", "Dato", "Antall skademeldinger"};

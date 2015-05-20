@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package register;
 
 import java.io.Serializable;
@@ -16,27 +12,27 @@ import java.util.stream.Collectors;
 import objekter.Forsikring;
 import objekter.Skademelding;
 
-/**
+/* 
+ * Klassens hensikt er å holde skademeldingene i et register. 
  *
- * @author Odd, Marthe
+ *  @author Odd, Marthe. Sist endret 15.05.2015.
  */
 public class SkademeldingRegister implements Serializable
 {
-    private Map<Integer,Skademelding> skademeldinger;
+    private final Map<Integer,Skademelding> skademeldinger;
     
     public SkademeldingRegister()
     {
         skademeldinger = new HashMap<>();
-    }
+    }// slutt på konstruktør.
     
-    /**
+    /*
      * Tar i mot et forsirkings og skademeldings objekt.
      * metoden legger til skademeldingens skadenummer i en ArrayList
      * på forsikrings objektet, på denne måten kan man hente opp verdier fra hashmapet.
      * 
-     * @param forsikring - forsikringen skademeldingen skal registreres på.
-     * @param skademelding - skademelding.
      */
+    
     public void leggTil( Forsikring forsikring, Skademelding skademelding )
     {
         forsikring.leggTilNøkkel(skademelding.getSkadenummer());
@@ -49,7 +45,7 @@ public class SkademeldingRegister implements Serializable
         return skademeldinger.get(skademeldingnummer);
     }
     
-    /**
+    /*
      * Henter alle skademeldinger som hører til en kunde. Metoden tar i mot liste med forsikringer
      * som hører til kunden. Deretter henter nøkklene som fungerer som Key i hashmapet
      * fra hver forsikring i lista, for og så hente ut tilhørende skademelding ved hjelp av nøkkelen.
@@ -119,4 +115,4 @@ public class SkademeldingRegister implements Serializable
         else
             return null;
     }
-}
+} // slutt på klasse.

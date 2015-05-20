@@ -1,7 +1,4 @@
-/**
- * Klassen bygger panelet som brukes når en kunde registreres for første gang. 
- *  
- */
+
 package gui;
 
 import java.awt.BorderLayout;
@@ -17,9 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import objekter.Kunde;
 
-/**
- *
- * @author Odd, Marthe
+/*
+ * Klassen bygger panelet som brukes når en kunde registreres for første gang. 
+ * @author Odd, Marthe. Sist endret 16.05.2015
  */
 public class NyKundePanel extends JPanel implements ActionListener
 {

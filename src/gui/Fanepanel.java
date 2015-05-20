@@ -13,7 +13,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 /**
- * @author Odd, Marthe
+ * @author Odd, Marthe, sist endret 16.05.2015.
  */
 
 //Klassens hensikt er å legge til en lukkeknapp for fanene
@@ -32,18 +32,18 @@ public class Fanepanel extends JPanel
         teksten = tekst;
         lukkeknapp = new JCheckBox();
         lukkeknapp.addActionListener(new Lukkelytter());
-        lukkeknapp.addChangeListener(
-	new ChangeListener()
+        lukkeknapp.addChangeListener( new ChangeListener()
 	{
-        @Override
-	public void stateChanged(ChangeEvent e)
-	{
-            lukkeknapp.setSelected(false);
-	}
-	});
+            @Override
+            public void stateChanged(ChangeEvent e)
+            {
+                lukkeknapp.setSelected(false);
+            }
+	}); // slutt på anonym lytter
+        
         add(new JLabel(teksten));
         add(lukkeknapp);
-    }
+    } // slutt på konstuktør.
     
     //Klassens lytterklasse
     private class Lukkelytter implements ActionListener
@@ -55,4 +55,4 @@ public class Fanepanel extends JPanel
 	    fanekort.setSelectedIndex(fanekort.getTabCount()-1);
         }
     }
-}
+} // slutt på klasse.

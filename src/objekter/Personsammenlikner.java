@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package objekter;
 
 import java.io.Serializable;
@@ -13,7 +9,7 @@ import java.util.Comparator;
 
 /**
  *
- * @author Odd
+ * @author Odd. 10.05.2015.
  */
 public class Personsammenlikner implements Comparator<Kunde>, Serializable
 {
@@ -23,6 +19,7 @@ public class Personsammenlikner implements Comparator<Kunde>, Serializable
            "<U,u<V,v<W,w<X,x<Y,y<Z,z<Æ,æ<Ø,ø<Å=AA,å=aa;AA,aa";
     
     private Collator kollator;   
+    
     public Personsammenlikner()
     {
         try
@@ -36,18 +33,17 @@ public class Personsammenlikner implements Comparator<Kunde>, Serializable
     }
     
     @Override
-    public int compare(Kunde p1, Kunde p2) 
+    public int compare(Kunde kunde_1, Kunde kunde_2) 
     {
-        String n1 = p1.getEtternavn();
-        String n2 = p2.getEtternavn();
-        String f1 = p1.getFornavn();
-        String f2 = p2.getFornavn();
+        String etternavn_1 = kunde_1.getEtternavn();
+        String etternavn_2 = kunde_2.getEtternavn();
+        String fornavn_1 = kunde_1.getFornavn();
+        String fornavn_2 = kunde_2.getFornavn();
         
-        int d = kollator.compare(n1, n2);
+        int d = kollator.compare(etternavn_1, etternavn_2);
         if (d != 0)  
             return d;
         else  
-            return kollator.compare(f1, f2);
+            return kollator.compare(fornavn_1, fornavn_2);
     }
-    
 }

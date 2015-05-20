@@ -1,11 +1,3 @@
-/**
- * Klassen brukes til å definere hvordan utsende og hvilke data som skal vises
- * i KundeTabellen neders i hovedvinduet.
- * 
- * 
- */
-
-
 
 package gui;
 
@@ -14,10 +6,13 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import objekter.Kunde;
 
-/**
+/*
+ * Klassen brukes til å definere hvordan utsende og hvilke data som skal vises
+ * i KundeTabellen neders i hovedvinduet.
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe Sist endret 18.05.2015
  */
+
 public class TabellModell extends AbstractTableModel
 {
     private String[] kolonnenavn = { "Personnummer", "Fornavn", "Etternavn", "Adresse", "Telefonnummer", "Opprettet","Fødselsdato", "Totalkunde", "Aktiv"};

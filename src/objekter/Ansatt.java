@@ -1,17 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package objekter;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-/**
- *
- * @author Odd, Marthe
+/*
+ *  
+ *  @author Odd, Marthe
  */
 public class Ansatt extends Bruker 
 {
@@ -21,7 +17,6 @@ public class Ansatt extends Bruker
     private final String brukernavn;
     private String passord;
     private List<String> kundenøkler = new ArrayList<>();
-    
     private static final long serialVersionUID = 23412358910L;
 
     public Ansatt(String fnavn, String enavn, String adr, String tlf, GregorianCalendar fd, String email, String persnummer)

@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 
 package gui;
 
@@ -29,9 +25,9 @@ import objekter.Forsikring;
 import objekter.Kunde;
 import objekter.Skademelding;
 
-/**
- *
- * @author Odd, Marthe
+/*
+ *Klassens hensikt er å definere Kundepanelets utsende.
+ * @author Odd, Marthe sist endret 19.05.2015
  */
 public class KundePanel extends JPanel implements ActionListener, VinduVerktoy
 {

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package gui;
 
 import java.awt.*;
@@ -13,16 +9,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import objekter.*;
 import register.*;
 
-/**
+/*
+ * Skademeldings panelet bygger vinuet som har til hensikt å ta mot informasjon for en 
+ *  skademelding eller vise eksisterende skademelding;
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe. Sist endret 19.05.2015
  */
 public class SkademeldingPanel extends JPanel implements ActionListener, VinduVerktoy
 {
@@ -48,7 +44,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
     private final JComboBox<String> skadetypevelger;
     private final Kunde kunde;
     private final Forsikring forsikring;
-    private Image[] bilder;
+    private Image[] bilder = null;
     private SimpleDateFormat sdf;
     private Skademelding skademelding;
     private String skadetypevalget;
@@ -59,10 +55,6 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
     private final JTextField vitneAdresse;
     private final JPanel vitnePanel;
     List<Vitne> vitneliste;
-    
-    private final Desktop desktop = Desktop.getDesktop();
-    private final Desktop.Action action = Desktop.Action.OPEN;
-
     
     public SkademeldingPanel( Forsikring f, AnsattVindu v)
     {
@@ -180,6 +172,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
         erstatningsBeløp.setVisible(true);
         disableFelter(this, lastOppBildeKnapp, beregnErstatning);
         sendInnSkade.setVisible(false);
+        bilder = skade.getBilder();
         
     }
     
@@ -259,21 +252,25 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
             {
                 try
                 {
-                    File[] foto = filer.getSelectedFiles();
-                    int teller = 0;
-                    for( File fil : foto)
+                    File[] fotoFil = filer.getSelectedFiles();
+                    bilder = new Image[fotoFil.length];
+                    
+                    for( int i = 0; i < fotoFil.length; i++)
                     {
-                        this.bilder[teller++] = ImageIO.read(foto[teller++]);
+                        this.bilder[i] = ImageIO.read(fotoFil[i]);
                     }
-                } catch (IOException ex) 
+                } 
+                catch (IOException ex) 
                 {
-                    Logger.getLogger(SkademeldingPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    
                 }
             }
         }
         else if( e.getSource() == visBilde )
         {
-            //BildeVindu bildeVindu = new BildeVindu( bilder , "Skadenummer: " );
+            BildeVindu bildeVindu;
+            if( bilder != null)
+                 bildeVindu = new BildeVindu( bilder );
         }
         else if( e.getSource() == vitneKnapp )
         {

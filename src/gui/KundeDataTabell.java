@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 
 package gui;
 
@@ -13,9 +11,10 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-/**
+/*
+ * Klassen definerer hensikt er å legge til menyvalg til JTable.
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe sist endret 16.05.2015
  */
 public class KundeDataTabell extends JTable 
 {
@@ -113,7 +112,7 @@ public class KundeDataTabell extends JTable
         });
     } // slutt på konstuktør
     
-    /**
+    /*
      * Når tabellen endres fra å vise skademeldinger til forsikringer 
      * endres også menyvalgene for popupen i tabellen.
      * Denne metoden forteller tabellen at den skal bytte menyvalg.
@@ -125,7 +124,7 @@ public class KundeDataTabell extends JTable
          popup = popupForsikring;
     }
     
-    /**
+    /*
      * Når tabellen endres fra å vise forsikringer til skademeldinger 
      * endres også menyvalgene for popupen i tabellen.
      * Denne metoden forteller tabellen at den skal bytte menyvalg.
