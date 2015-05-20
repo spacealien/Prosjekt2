@@ -49,7 +49,7 @@ public class LoginVindu extends JFrame
         this.vindu = vindu;
         loginFelt = new JTextField(25);
         passordFelt = new JPasswordField(25);
-        loginKnapp = new JButton("Logg Inn");
+        loginKnapp = new JButton("Logg inn");
         avsluttKnapp = new JButton("Avslutt");
         JPanel loginWrapper = new JPanel();
         loginWrapper.setLayout( new GridLayout(3,2) );
@@ -64,6 +64,10 @@ public class LoginVindu extends JFrame
         loginKnapp.addActionListener(knappeLytter);
         avsluttKnapp.addActionListener(knappeLytter);
         this.getRootPane().setDefaultButton(loginKnapp);
+        
+        //Kun for sensor:
+        loginFelt.setText("Bjarne1");
+        passordFelt.setText("passord");
     }
     
     /*

@@ -225,9 +225,14 @@ public class KundePanel extends JPanel implements ActionListener, VinduVerktoy
     {
         Integer forsikringsnummer = (Integer) tabellModell.getValueAt(tabell.getSelectedRow(), 0);
         Forsikring forsirking = vindu.getRegister().getForsikringrsliste().getForsikring(forsikringsnummer);
-        SkademeldingPanel skademeldingsPanel = new SkademeldingPanel(forsirking, vindu);
-        skademeldingsPanel.setKundePanel(this);
-        vindu.leggTilNyFane( skademeldingsPanel, "Skade " + forsirking.getKunde().getEtternavn() );
+        if(forsirking.erAktiv())
+        {
+            SkademeldingPanel skademeldingsPanel = new SkademeldingPanel(forsirking, vindu);
+            skademeldingsPanel.setKundePanel(this);
+            vindu.leggTilNyFane( skademeldingsPanel, "Skade " + forsirking.getKunde().getEtternavn() );
+        }
+        else
+            vindu.visFeilmelding("Feilmelding", "Kan ikke registrere skademelding på oppsagte forsikringer");
     }
     
     /**
@@ -341,38 +346,43 @@ public class KundePanel extends JPanel implements ActionListener, VinduVerktoy
         }
         else if( e.getSource() == nyForsikring)
         {
-            String valg = (String) forsikringsDropDown.getSelectedItem();
-            switch (valg) 
+            if(kunde.erKunde())
             {
-                case "":
-                    vindu.visFeilmelding("Melding", "Du må velge en type forsikring for å gå videre. ");
-                    break;
-                case "Bilforsikring":
-                    BilforsikringPanel bilforsikringspanel = new BilforsikringPanel(kunde,vindu);
-                    bilforsikringspanel.leggTilKundePanel(this);
-                    vindu.leggTilNyFane( bilforsikringspanel, "Ny Bilforsikring");
-                    break;
-                case "Båtforsikring":
-                    BatforsikringPanel båtforsikringspanel = new BatforsikringPanel(kunde, vindu);
-                    båtforsikringspanel.leggTilKundePanel(this);
-                    vindu.leggTilNyFane( båtforsikringspanel, "Ny Båtforsikring");
-                    break;
-                case "Husforsikring":
-                    HusforsikringPanel husforsikringspanel = new HusforsikringPanel(kunde, vindu);
-                    husforsikringspanel.leggTilKundePanel(this);
-                    vindu.leggTilNyFane( husforsikringspanel, "Ny Husforsikring");   
-                    break;
-                case "Fritidsboligforsikring":
-                    FritidsboligforsikringPanel fritidsboligpanel = new FritidsboligforsikringPanel(kunde,vindu);
-                    fritidsboligpanel.leggTilKundePanel(this);
-                    vindu.leggTilNyFane( new FritidsboligforsikringPanel(kunde, vindu), "Ny Fritidsboligforsikring");
-                    break;
-                case "Reiseforsikring":
-                    ReiseforsikringPanel reiseforsikringspanel =  new ReiseforsikringPanel(kunde, vindu);
-                    reiseforsikringspanel.leggTilKundePanel(this);
-                    vindu.leggTilNyFane( reiseforsikringspanel, "Ny Reiseforsikring");
-                    break;
+                String valg = (String) forsikringsDropDown.getSelectedItem();
+                switch (valg) 
+                {
+                    case "":
+                        vindu.visFeilmelding("Melding", "Du må velge en type forsikring for å gå videre. ");
+                        break;
+                    case "Bilforsikring":
+                        BilforsikringPanel bilforsikringspanel = new BilforsikringPanel(kunde,vindu);
+                        bilforsikringspanel.leggTilKundePanel(this);
+                        vindu.leggTilNyFane( bilforsikringspanel, "Ny Bilforsikring");
+                        break;
+                    case "Båtforsikring":
+                        BatforsikringPanel båtforsikringspanel = new BatforsikringPanel(kunde, vindu);
+                        båtforsikringspanel.leggTilKundePanel(this);
+                        vindu.leggTilNyFane( båtforsikringspanel, "Ny Båtforsikring");
+                        break;
+                    case "Husforsikring":
+                        HusforsikringPanel husforsikringspanel = new HusforsikringPanel(kunde, vindu);
+                        husforsikringspanel.leggTilKundePanel(this);
+                        vindu.leggTilNyFane( husforsikringspanel, "Ny Husforsikring");   
+                        break;
+                    case "Fritidsboligforsikring":
+                        FritidsboligforsikringPanel fritidsboligpanel = new FritidsboligforsikringPanel(kunde,vindu);
+                        fritidsboligpanel.leggTilKundePanel(this);
+                        vindu.leggTilNyFane( new FritidsboligforsikringPanel(kunde, vindu), "Ny Fritidsboligforsikring");
+                        break;
+                    case "Reiseforsikring":
+                        ReiseforsikringPanel reiseforsikringspanel =  new ReiseforsikringPanel(kunde, vindu);
+                        reiseforsikringspanel.leggTilKundePanel(this);
+                        vindu.leggTilNyFane( reiseforsikringspanel, "Ny Reiseforsikring");
+                        break;
+                }
             }
+            else
+                vindu.visFeilmelding("Feilmelding", "Kan ikke registrere ny forsikring på oppsagt kunde");
         }
         else if( e.getSource() == siOppKundeKnapp )
         {

@@ -778,14 +778,19 @@ public class HovedRegister
     
     public boolean nySkademelding( Skademelding nySkademelding )
     {
-        skademeldingsregister.leggTil( nySkademelding.getForsikring(), nySkademelding );
-        if ( nySkademelding.getForsikring() instanceof Bilforsikring )
+        if(nySkademelding.getForsikring().erAktiv())
         {
-            Bilforsikring bilforsikring = (Bilforsikring) nySkademelding.getForsikring();
-            bilforsikring.korrigerBonusVedSkade();
+            skademeldingsregister.leggTil( nySkademelding.getForsikring(), nySkademelding );
+            if ( nySkademelding.getForsikring() instanceof Bilforsikring )
+            {
+                Bilforsikring bilforsikring = (Bilforsikring) nySkademelding.getForsikring();
+                bilforsikring.korrigerBonusVedSkade();
+            }
+            skrivTilFil();
+            return true;
         }
-        skrivTilFil();
-        return true;
+        else
+            return false;
     }
     
     // returnerer ansatt som har matchede brukernavn og passord. Brukes i LoginVindu.
