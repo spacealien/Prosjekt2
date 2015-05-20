@@ -23,9 +23,7 @@ import register.*;
 public class SkademeldingPanel extends JPanel implements ActionListener, VinduVerktoy
 {
     private final AnsattVindu vindu;
-    private final HovedRegister register;
     private KundePanel kundePanel;
-    private Vitne vitne;
     private final JTextField skadeDato;
     private final JTextArea skadeBeskrivelse;
     private final JTextField skadeTakst;
@@ -37,12 +35,10 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
     private final JButton vitneKnapp;
     private final JButton visBilde;
     private final JButton beregnErstatning;
-    private final String[] skadetype = {"", "Brann", "Tyveri/Hærverk", "Ulykke", "Tap", "Annet"};
     private final String[] skadetypeKjoretoy = {"", "Ansvar", "Glasskade", "Vei-/slepehjelp", "Tyveri/Hærverk", "Ulykke", "Annet"};
     private final String[] skadetypeEiendom = {"", "Brann", "Innbrudd/tyveri", "Hærverk", "Naturskade", "Vann", "Fryser/matvarer", "Annet"};
     private final String[] skadetypeReise = {"", "Tapt/forsinket bagasje", "Tyveri/tap", "Forsinket transport", "Sykdom/ulykke", "Avbestilling", "Annet"};
     private final JComboBox<String> skadetypevelger;
-    private final Kunde kunde;
     private final Forsikring forsikring;
     private Image[] bilder = null;
     private SimpleDateFormat sdf;
@@ -58,10 +54,8 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
     public SkademeldingPanel( Forsikring f, AnsattVindu v)
     {
         sdf = new SimpleDateFormat("ddMMyyyy");
-        kunde = f.getKunde();
         forsikring = f;
         vindu = v;
-        register = vindu.getRegister();
         vitneliste = new ArrayList<>();
         skadeDato = new JTextField( 7 );
         skadeBeskrivelse = new JTextArea( 20, 30);

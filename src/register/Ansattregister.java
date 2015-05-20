@@ -18,6 +18,7 @@ public class Ansattregister implements Serializable
     
     public Ansattregister()
     {
+        /**
         GregorianCalendar fodedat = new GregorianCalendar();
         Ansatt test_1 = new Ansatt( "Hans", "Bjarne", "adresse", "22260906", fodedat , "email", "22031548526");
         Ansatt test_2 = new Ansatt( "Henrik", "Henriksen", "adresse", "22260906", fodedat, "email", "22031548526");
@@ -29,6 +30,7 @@ public class Ansattregister implements Serializable
         register.add(test_3);
         register.add(test_2);
         register.add(test_1);
+        * */
     }
     
     
