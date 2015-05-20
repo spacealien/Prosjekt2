@@ -533,9 +533,9 @@ public class StatistikkPanel extends JPanel implements ActionListener, VinduVerk
     public void antSkademeldinger()
     {
         startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())),
-                (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
+                (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
         sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())),
-                (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
+                (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
         List<Skademelding> skademeldingsliste = new ArrayList<>();
         String s;
 
@@ -593,8 +593,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, VinduVerk
     Hvis det ikke er noen treff, så kommer det feilmelding om dette*/
     public void antForsikringer()
     {
-        startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())), (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
-        sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())), (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
+        startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
+        sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
         List<Forsikring> forsikringsliste = new ArrayList<>();
         String s = "";
 
@@ -653,9 +653,9 @@ public class StatistikkPanel extends JPanel implements ActionListener, VinduVerk
     public void totalErstatning()
     {
         startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())),
-                (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
+                (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
         sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())),
-                (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
+                (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
         double totalSum = 0.0;
         int antall = 0;
         double gjennomsnitt = 0;
@@ -695,8 +695,8 @@ public class StatistikkPanel extends JPanel implements ActionListener, VinduVerk
     public void totalErstatningPaForsikring()
     {
         forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
-        startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())), (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
-        sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())), (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
+        startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())), (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
+        sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())), (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
         double totalSum = 0.0;
         int antall = 0;
         double gjennomsnitt = 0;
@@ -736,9 +736,9 @@ public class StatistikkPanel extends JPanel implements ActionListener, VinduVerk
     {
         //Total utbetaling av erstatninger i en gitt periode
         startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())),
-                (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
+                (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
         sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())),
-                (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
+                (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
         double totalSum = 0.0;
         int antall = 0;
         double gjennomsnitt = 0;
@@ -780,9 +780,9 @@ public class StatistikkPanel extends JPanel implements ActionListener, VinduVerk
         //Total utbetaling av inntekt på forsikringstype i en gitt periode
         forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
         startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())),
-                (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
+                (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
         sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())),
-                (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
+                (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
         double totalSum = 0.0;
         int antall = 0;
         double gjennomsnitt = 0;
@@ -830,9 +830,9 @@ public class StatistikkPanel extends JPanel implements ActionListener, VinduVerk
     public void statistikkSkademeldinger()
     {
         startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())),
-                (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
+                (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
         sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())),
-                (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
+                (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
         List<Skademelding> skademeldingsliste = new ArrayList<>();
         double antallIPerioden = 0;
         double antallForAlltid = 0;
@@ -898,9 +898,9 @@ public class StatistikkPanel extends JPanel implements ActionListener, VinduVerk
     {
         forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
         startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())),
-                (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
+                (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
         sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())),
-                (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
+                (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
         List<Skademelding> skademeldingsliste = new ArrayList<>();
         double antallIPerioden = 0;
         double antallForAlltid = 0;
@@ -982,9 +982,9 @@ public class StatistikkPanel extends JPanel implements ActionListener, VinduVerk
         skadetypevalg = skadetypevelgeren.getItemAt(skadetypevelgeren.getSelectedIndex());
         forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
         startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())),
-                (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
+                (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
         sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())),
-                (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
+                (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
         List<Skademelding> skademeldingsliste = new ArrayList<>();
         double antallIPerioden = 0;
         double antallForAlltid = 0;
@@ -1057,9 +1057,9 @@ public class StatistikkPanel extends JPanel implements ActionListener, VinduVerk
     public void statistikkErstatning()
     {
         startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())),
-                (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
+                (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
         sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())),
-                (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
+                (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
         double totalSumIPeriode = 0.0;
         double totalSum = 0.0;
 
@@ -1125,9 +1125,9 @@ public class StatistikkPanel extends JPanel implements ActionListener, VinduVerk
         skadetypevalg = skadetypevelgeren.getItemAt(skadetypevelgeren.getSelectedIndex());
         forsikringsvalg = forsikringsvelgeren.getItemAt(forsikringsvelgeren.getSelectedIndex());
         startDato = new GregorianCalendar((Integer.parseInt(stDatoAr.getText())),
-                (Integer.parseInt(stDatoMnd.getText())), Integer.parseInt(stDatoDag.getText()));
+                (Integer.parseInt(stDatoMnd.getText()) - 1), Integer.parseInt(stDatoDag.getText()));
         sluttDato = new GregorianCalendar((Integer.parseInt(slDatoAr.getText())),
-                (Integer.parseInt(slDatoMnd.getText())), Integer.parseInt(slDatoDag.getText()));
+                (Integer.parseInt(slDatoMnd.getText()) - 1), Integer.parseInt(slDatoDag.getText()));
         double totalSumIPeriode = 0.0;
         double totalSum = 0.0;
         try

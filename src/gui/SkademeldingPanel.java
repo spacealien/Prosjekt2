@@ -192,13 +192,14 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
         try
         {
             String sd = skadeDato.getText();
-            GregorianCalendar dato = new GregorianCalendar(Integer.parseInt(sd.substring(4, 8)), Integer.parseInt(sd.substring(2,4)), Integer.parseInt(sd.substring(0, 2)));
+            GregorianCalendar dato = new GregorianCalendar(Integer.parseInt(sd.substring(4, 8)), Integer.parseInt(sd.substring(2,4)) - 1, Integer.parseInt(sd.substring(0, 2)));
             String beskrivelse = skadeBeskrivelse.getText();
             int takst = Integer.parseInt(skadeTakst.getText());
             double belop = Double.parseDouble(erstatningsBeløp.getText());
             skadetypevalget = skadetypevelger.getItemAt(skadetype_n);
             
             Skademelding nySkademelding = new Skademelding(forsikring, dato, skadetypevalget, beskrivelse, takst, belop );
+            System.out.println(nySkademelding.toString());
             if (!vitneliste.isEmpty())
             {
                 nySkademelding.setVitner(vitneliste);
