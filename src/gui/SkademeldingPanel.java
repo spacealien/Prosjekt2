@@ -48,7 +48,6 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
     private SimpleDateFormat sdf;
     private Skademelding skademelding;
     private String skadetypevalget;
-    
     private final JTextField vitneFornavn;
     private final JTextField vitneEtternavn;
     private final JTextField vitneTlf;
@@ -181,7 +180,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
     {
         try
         {
-            erstatningsBeløp.setText(String.valueOf(ForsikringsKalulator.beregnErstatningsbelop(forsikring.getEgenandel(), Integer.parseInt(skadeTakst.getText()))));
+            erstatningsBeløp.setText(String.valueOf(ForsikringsKalkulator.beregnErstatningsbelop(forsikring.getEgenandel(), Integer.parseInt(skadeTakst.getText()))));
             erstatningsLabel.setVisible(true);
             erstatningsBeløp.setVisible(true);
             erstatningsBeløp.setToolTipText("Kan redigeres");

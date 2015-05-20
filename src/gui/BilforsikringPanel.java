@@ -1,4 +1,5 @@
 
+
 package gui;
 
 import java.awt.*;
@@ -566,7 +567,7 @@ public class BilforsikringPanel extends JPanel implements ActionListener, Forsik
     {
         if (hentInfo())
         {            
-            double foreslåttPris = ForsikringsKalulator.beregnBilforsikring(belop, dekningvalget, ar, lengdevalget, 
+            double foreslåttPris = ForsikringsKalkulator.beregnBilforsikring(belop, dekningvalget, ar, lengdevalget, 
             hk, garasje, egenandelvalget, forer, esp_b, alarm_b, gjenkjenning_b, bonusen);
              
             bilTilbud.setVisible(true);

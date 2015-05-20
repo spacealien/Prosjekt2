@@ -33,6 +33,7 @@ public class KundeDataTabell extends JTable
     {
         super(model);
         this.panel = panel;
+        setAutoCreateRowSorter(true);
         
         // popup for Forsikringer
         popupForsikring = new JPopupMenu();
@@ -73,7 +74,8 @@ public class KundeDataTabell extends JTable
          */
         
         addMouseListener(new MouseAdapter()
-        {    
+        {
+            
             @Override
             public void mousePressed(MouseEvent e)
             {

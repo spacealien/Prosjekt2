@@ -11,11 +11,11 @@ import java.util.Calendar;
  *
  * @author Odd, Marthe og Thomas, sist endret 15.20.2015
  */
-public class ForsikringsKalulator 
+public class ForsikringsKalkulator 
 {
     private static final int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
     
-    public ForsikringsKalulator()
+    public ForsikringsKalkulator()
     {
         
     }

@@ -1,4 +1,5 @@
 
+
 package gui;
 
 import java.awt.GridLayout;
@@ -326,7 +327,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
     {
        if (hentInfo())
         {
-            double foreslåttPris = ForsikringsKalulator.beregnHusforsikring(egenandelvalget, dekningvalget, ar, husmaterialevalget, kvm, belop, belopInnbo, alarm_b, hustypevalget, husstandardvalget );
+            double foreslåttPris = ForsikringsKalkulator.beregnHusforsikring(egenandelvalget, dekningvalget, ar, husmaterialevalget, kvm, belop, belopInnbo, alarm_b, hustypevalget, husstandardvalget );
                     
             husTilbud.setVisible(true);
             husTilbud.setText(String.valueOf(foreslåttPris));

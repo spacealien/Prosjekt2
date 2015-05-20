@@ -31,7 +31,6 @@ public class Skademelding implements Serializable
     private double erstatningsbelop;
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     private final Locale norge;
-    private boolean aktiv = true;
     private static final long serialVersionUID = 512341233333L;
     
     public Skademelding( Forsikring forsikring, GregorianCalendar dato, String skadetype, String beskrivelse, int takseringsbelop, double erstatingsbelop )
@@ -53,11 +52,6 @@ public class Skademelding implements Serializable
     }
     
     // set metoder
-    public void setAktiv(boolean b)
-    {
-        aktiv = b;
-    }
-    
     public List<Vitne> getVitner()
     {
         return vitner;
@@ -109,10 +103,6 @@ public class Skademelding implements Serializable
         return skadetype;
     }
     
-    public boolean getAktiv()
-    {
-        return aktiv;
-    }
     
     public Calendar getOpprettetDato()
     {
