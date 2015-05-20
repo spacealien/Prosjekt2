@@ -33,7 +33,6 @@ public abstract class Forsikring implements Serializable
     private boolean aktiv = true;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     private Locale norge = new Locale( "no" );
-    private Date stDato;
     private String dekning;
     private static final long serialVersionUID = 12345678910L;
     
@@ -41,13 +40,11 @@ public abstract class Forsikring implements Serializable
     {
         egenandel = e_andel;
         startdato = new GregorianCalendar(norge);
-        startdato.set(2013, 01, 01);
-        stDato = new Date(1996-1900,01,01);
         vilkar = betingelser;
         forsikringsnummer =  løpenummer++;
         kunde = k;
         skademeldingsnøkkler = new ArrayList<>();
-        sistBetalt = stDato;
+        sistBetalt = startdato.getTime();
     }
     
     /*
