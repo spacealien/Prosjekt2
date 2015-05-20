@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package objekter;
 
 import java.io.Serializable;
@@ -15,9 +11,11 @@ import java.util.List;
 import java.util.Locale;
 
 
-/**
+/*
+ *  Den abstrakte klassen har som hensikt å ta vare på datafelter og metoder
+ *  som er nødvendig for alle typer forsikringer.
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe. Sist endret 15.05.2015.
  */
 public abstract class Forsikring implements Serializable
 {
@@ -51,6 +49,11 @@ public abstract class Forsikring implements Serializable
         skademeldingsnøkkler = new ArrayList<>();
         sistBetalt = stDato;
     }
+    
+    /*
+        Metoden returnerer en Sting som representerer hvilket type forsikrings
+        objekt sub klasse objektet er.
+    */
     
     public String getForsikringsType()
     {

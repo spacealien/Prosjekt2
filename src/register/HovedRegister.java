@@ -1,14 +1,4 @@
 
-/**
- * Klassen har som hensikt å samle alle registerene i en klasse for å gjøre
- * det enkelt å alle registerne i en fil. Alternativet ville vært å hatt metodene
- * i denne klassen i AnsattVindu klassen. Vi har valgt å gjøre det på denne måten
- * for å prøve å gjøre AnsattVindu klassen så kort og ryddig som mulig.
- * 
- * Vi ønsket å holde AnsattVinduet så fri for metoder som ikke er direkte relatert
- * til det grafiske grensesnittet.
- * 
- */
 package register;
 
 import gui.AnsattVindu;
@@ -26,10 +16,18 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import objekter.*;
 
-/**
+/*
+ * Klassen har som hensikt å samle alle registerene i en klasse for å gjøre
+ * det enkelt å alle registerne i en fil. Alternativet ville vært å hatt metodene
+ * i denne klassen i AnsattVindu klassen. Vi har valgt å gjøre det på denne måten
+ * for å prøve å gjøre AnsattVindu klassen så kort og ryddig som mulig.
+ * 
+ * Vi ønsket å holde AnsattVinduet så fri for metoder som ikke er direkte relatert
+ * til det grafiske grensesnittet.
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe. Sist endret 15.05.2015.
  */
+
 public class HovedRegister 
 {
     private Kunderegister kunderegister = new Kunderegister();

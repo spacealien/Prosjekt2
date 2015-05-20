@@ -1,6 +1,3 @@
-/*
- * Klassen holder ansatt objektene i et register.
- */
 
 package register;
 
@@ -11,9 +8,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import objekter.Ansatt;
 
-/**
- *
- * @author Odd, Marthe
+/*
+ *  Klassen holder ansatt objektene i et register.
+ *  @author Odd, Marthe. sist endret 18.05.2015.
  */
 public class Ansattregister implements Serializable
 {

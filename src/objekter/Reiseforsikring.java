@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package objekter;
 
 /**
- * @author Odd, Marthe
+ * @author Odd, Marthe. 15.05.2015.
 */
 
 public class Reiseforsikring extends Personligforsikring
@@ -16,7 +12,6 @@ public class Reiseforsikring extends Personligforsikring
     private double soneBeregn;
     private double forsorgerpris = 1;
     private double premie;
-    private double sum;
         
     public Reiseforsikring(Kunde k, int e_andel, String vilkar, boolean fs, int antallBarn, String son, int belop )
     {

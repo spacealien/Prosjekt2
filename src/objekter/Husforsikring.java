@@ -5,16 +5,12 @@
  */
 package objekter;
 
-import java.util.Calendar;
-
 /**
  *
  * @author Odd, Marthe
  */
 public class Husforsikring extends Eiendomsforsikring
 {
-    
-    private int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
     private static final long serialVersionUID = 812341213213L;
     
     public Husforsikring( Kunde k, int e_andel, String vilkar, String hadresse, int byggar, String bt, String mat, String stand, int kvm, int belopByg,
@@ -24,14 +20,9 @@ public class Husforsikring extends Eiendomsforsikring
     }
     
     // set metoder
-    
-    
-    
-    
-    
-    // get metoder
 
     
+    // get metoder
 
     
     @Override

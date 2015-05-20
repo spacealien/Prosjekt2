@@ -9,12 +9,12 @@ import objekter.*;
 import register.*;
 
 /*
-    Klassens hensikt er å designe brukergrensesnittet for hus- og innboforsikringer, 
-    ta imot input fra brukeren og videre registrere en hus- og innboforsikring
-    hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
-    en allerede tegnet hus- og innboforsikring, og endre denne.
-
- * @author Odd, Marthe
+ *   Klassens hensikt er å designe brukergrensesnittet for hus- og innboforsikringer, 
+ *   ta imot input fra brukeren og videre registrere en hus- og innboforsikring
+ *   hvis alle feltene er korrekt skrevet inn. Klassen kan også vise informasjon om
+ *   en allerede tegnet hus- og innboforsikring, og endre denne.
+ *
+ *  @author Odd, Marthe, Sist endret 19.05.2015.
  */
 
 public class HusforsikringPanel extends JPanel implements ActionListener, ForsikringsPanel, VinduVerktoy

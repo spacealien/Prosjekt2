@@ -1,9 +1,4 @@
-/**
- * Dette interfacet inneholder kode som ellers ville blitt gjenntagene
- * i de forskjellige panelene som er relatert til forsikringene.
- * Klassene som implementerer dette interfacet får tilgang til alle metodene.
- * 
- */
+
 package gui;
 
 import java.io.BufferedReader;

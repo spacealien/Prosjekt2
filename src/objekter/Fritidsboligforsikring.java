@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package objekter;
 
-import java.util.Calendar;
+package objekter;
 
 /**
  *
@@ -15,7 +9,6 @@ public class Fritidsboligforsikring extends Eiendomsforsikring
 {
     private boolean utleie;
     private String utleid;
-    private int innevarendeAr = Calendar.getInstance().get(Calendar.YEAR);
     private static final long serialVersionUID = 91123455123L;
     
     

@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package objekter;
 
 import java.io.Serializable;
 
 /**
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe. Sist endret 15.05.2015.
  */
 public abstract class Person implements Serializable
 {
@@ -25,7 +21,7 @@ public abstract class Person implements Serializable
         etternavn = enavn;
         telefonnummer = tlf;
         adresse = adr;
-    }
+    } // slutt på konstruktør
 
     // set metoder
     public void setFornavn(String fnavn)
@@ -76,4 +72,4 @@ public abstract class Person implements Serializable
                 "\nAdresse: " + adresse + "\nTelefonnummer: " + telefonnummer;
       return utskrift;
    }
-}
+} // slutt på klasse.

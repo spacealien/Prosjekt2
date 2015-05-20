@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package objekter;
 
 import java.util.ArrayList;
@@ -26,7 +22,7 @@ public class Kunde extends Bruker
                  String email, String persnummer)
     {
         super( fnavn,  enavn,  adr,  tlf,  fd, email, persnummer);
-    }
+    } // slutt på konstuktør.
     
     public void leggTilNøkkel( int i)
     {

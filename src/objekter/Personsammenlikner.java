@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package objekter;
 
 import java.io.Serializable;
@@ -13,7 +9,7 @@ import java.util.Comparator;
 
 /**
  *
- * @author Odd
+ * @author Odd. 10.05.2015.
  */
 public class Personsammenlikner implements Comparator<Kunde>, Serializable
 {

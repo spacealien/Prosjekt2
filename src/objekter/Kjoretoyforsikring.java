@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package objekter;
 
 /**
  *
- * @author Odd, Marthe
+ * @author Odd, Marthe. Sist endret 14.05.2015.
  */
 public abstract class Kjoretoyforsikring extends Forsikring
 {
