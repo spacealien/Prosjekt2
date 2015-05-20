@@ -88,7 +88,7 @@ public class BatforsikringPanel extends JPanel implements ActionListener, Forsik
         batMerke = new JTextField( 7 );
         batLengde = new JTextField( 7 );
         batArsmodell = new JTextField( 7 );
-        tilbudLabel = new JLabel("Foreslått tilbud: ");
+        tilbudLabel = new JLabel("Foreslått tilbud: (Kr/år)");
         batHk = new JTextField(4);
         vekterJa = new JRadioButton("Ja");
         vekterNei = new JRadioButton("Nei");

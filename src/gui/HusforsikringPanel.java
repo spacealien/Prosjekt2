@@ -75,7 +75,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         husTilbud = new JTextField( 7 );
         husAr = new JTextField( 4 );
         husKvm = new JTextField( 4 );
-        tilbudLabel = new JLabel("Foreslått tilbud: ");
+        tilbudLabel = new JLabel("Foreslått tilbud: (Kr/år) ");
         hustypevelger = new JComboBox<>(hustype);
         husmaterialevelger = new JComboBox<>(husmateriale);
         husstandardvelger = new JComboBox<>(husstandard);
@@ -92,6 +92,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         husGiTilbud = new JButton("Tegn forsikring");
         husGiTilbud.setVisible(false);
         vilkarKnapp = new JButton("Vis vilkår");
+        vilkarKnapp.setVisible(false);
         rediger = new JButton("Rediger forsikring");
         lagreNyInfo = new JButton("Lagre forsikring");
         deaktiver = new JButton("Si opp forsikring");
@@ -127,10 +128,10 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         tegnHusPanel2.add(belopHus);
         tegnHusPanel2.add(new JLabel("Forskringsbeløp innbo: "));
         tegnHusPanel2.add(belopHusInnbo);
-        tegnHusPanel2.add(new JLabel());
-        tegnHusPanel2.add(vilkarKnapp);
         tegnHusPanel2.add(new JLabel("Velg dekning: "));
         tegnHusPanel2.add(dekningvelger);
+        tegnHusPanel2.add(new JLabel());
+        tegnHusPanel2.add(vilkarKnapp);
         tegnHusPanel2.add(new JLabel("Egenandel: "));
         tegnHusPanel2.add(egenandelsvelger);
         tegnHusPanel2.add(Box.createGlue());
@@ -330,6 +331,7 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
             husTilbud.setVisible(true);
             husTilbud.setText(String.valueOf(foreslåttPris));
             husTilbud.setToolTipText("Kan redigeres");
+            husGiTilbud.setVisible(true);
         }
     }
     
@@ -483,7 +485,9 @@ public class HusforsikringPanel extends JPanel implements ActionListener, Forsik
         public void itemStateChanged(ItemEvent e) 
         {
             if( dekningvelger.getSelectedIndex() != 0)
+            {
                 velgVilkår();
+            } 
         }
     }
 }

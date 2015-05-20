@@ -170,6 +170,7 @@ public class SkademeldingPanel extends JPanel implements ActionListener, VinduVe
         erstatningsBeløp.setText(String.valueOf(skademelding.getErstatningsbelop()));
         erstatningsLabel.setVisible(true);
         erstatningsBeløp.setVisible(true);
+        skadeBeskrivelse.setEditable(false);
         disableFelter(this, lastOppBildeKnapp, beregnErstatning);
         sendInnSkade.setVisible(false);
         bilder = skade.getBilder();

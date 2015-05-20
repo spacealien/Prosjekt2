@@ -79,7 +79,7 @@ public class FritidsboligforsikringPanel extends JPanel implements ActionListene
         belopFritid = new JTextField( 7 );
         belopFritidInnbo = new JTextField( 7 );
         fritidTilbud = new JTextField( 7 );
-        tilbudLabel = new JLabel("Foreslått tilbud: ");
+        tilbudLabel = new JLabel("Foreslått tilbud: (Kr/år) ");
         fritidtypevelger = new JComboBox<>(fritidtype);
         fritidmaterialevelger = new JComboBox<>(fritidmateriale);
         fritidstandardvelger = new JComboBox<>(fritidstandard);

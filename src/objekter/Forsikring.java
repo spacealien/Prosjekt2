@@ -154,6 +154,7 @@ public abstract class Forsikring implements Serializable
         {
             kunde.trekkFraÅrligForsikringsPremie(totalbelop);
             sluttdato = new GregorianCalendar(norge);
+            sluttdato = new GregorianCalendar();
         }
     }
     

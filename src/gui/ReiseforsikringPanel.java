@@ -64,14 +64,15 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         reiseBelop = new JTextField( 7 );
         reiseTilbud = new JTextField( 7 );
         antbarn = new JTextField(2);
-        tilbudLabel = new JLabel("Foreslått tilbud: ");
+        tilbudLabel = new JLabel("Foreslått tilbud: (Kr/år) ");
         antbarnLabel = new JLabel("Forsørger antall barn: ");
         antbarn.setEnabled(false);
         antbarnLabel.setEnabled(false);
         reiseGiTilbud = new JButton("Tegn forsikring");
-        reiseGiTilbud.setVisible(true);
+        reiseGiTilbud.setVisible(false);
         beregnPris = new JButton("Beregn pris");
         vilkarKnapp = new JButton("Se vilkår");
+        vilkarKnapp.setVisible(false);
         sonevelger = new JComboBox<>(sone);
         egenandelsvelger = new JComboBox<>(egenandel);
         dekningvelger = new JComboBox<>(dekning);
@@ -99,12 +100,12 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         tegnReisePanel1.add(antbarn);
         tegnReisePanel1.add(new JLabel("Forsikringssone: "));
         tegnReisePanel1.add(sonevelger);
-        tegnReisePanel1.add(new JLabel());
-        tegnReisePanel1.add(vilkarKnapp);
-        tegnReisePanel1.add(new JLabel("Egenandel: "));
-        tegnReisePanel1.add(egenandelsvelger);
         tegnReisePanel1.add(new JLabel("Velg dekning: "));
         tegnReisePanel1.add(dekningvelger);
+        tegnReisePanel1.add(new JLabel("Egenandel: "));
+        tegnReisePanel1.add(egenandelsvelger);
+        tegnReisePanel1.add(new JLabel());
+        tegnReisePanel1.add(vilkarKnapp);
         tegnReisePanel1.add(new JLabel("Forsikringsbeløp: "));
         tegnReisePanel1.add(reiseBelop);
         tegnReisePanel1.add(new JLabel());
@@ -265,6 +266,7 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         {
             foreslåttPris = ForsikringsKalulator.beregnReiseforsikring(egenandelvalget, dekningvalget, forsorger_b , antBarn, sonevalget, belop );
             reiseTilbud.setVisible(true);
+            reiseGiTilbud.setVisible(true);
             reiseTilbud.setText(String.valueOf(foreslåttPris));
             reiseTilbud.setToolTipText("Kan redigeres");
         }
@@ -411,7 +413,9 @@ public class ReiseforsikringPanel extends JPanel implements ActionListener, Fors
         public void itemStateChanged(ItemEvent e) 
         {
             if( dekningvelger.getSelectedIndex() != 0)
+            {
                 velgVilkår();
+            }
         }
     }
     

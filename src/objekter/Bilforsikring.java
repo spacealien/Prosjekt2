@@ -118,11 +118,7 @@ public class Bilforsikring extends Kjoretoyforsikring
         bonusen = b;
     }
     
-    public double getBonus()
-    {
-        return bonusen;
-    }
-    
+   
     public void setAntallAr(int a)
     {
         antallAr = a;
@@ -146,10 +142,7 @@ public class Bilforsikring extends Kjoretoyforsikring
     {
         gjenkjenningen = g;
     }
-    public boolean getGarasje() 
-    {
-        return garasje;
-    }
+    
    
     public void setForerAlder(String f)
     {
@@ -160,6 +153,16 @@ public class Bilforsikring extends Kjoretoyforsikring
     public int getKmstand()
     {
         return kmst;
+    }
+    
+    public double getBonus()
+    {
+        return bonusen;
+    }
+    
+    public boolean getGarasje() 
+    {
+        return garasje;
     }
     
     public int getMaxKjorelengde()
